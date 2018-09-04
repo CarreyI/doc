@@ -815,6 +815,18 @@ border-bottom:0px;
     display:inline-block;
     cursor:pointer;
 }
+.i-tagmgr {
+    background-image:url("../images/tagmgr.png");
+    width: 150px;
+    height: 34px;
+        margin-bottom: 16px;
+}
+.i-usermgr {
+    background-image:url("../images/usermgr.png");
+    width: 150px;
+    height: 34px;
+        margin-bottom: 16px;
+}
 .i-stock {
 
     background-image:url("../images/stock-t.png");
