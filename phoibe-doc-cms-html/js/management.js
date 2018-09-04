@@ -2,7 +2,7 @@
 $(function () {
 	
 	var baseUrl = "http://47.93.62.169:8090";//var baseUrl = "http://127.0.0.1:8090";;
-    authLogin();
+    //authLogin();
 
    $(function(){
        //左侧页面导航切换
@@ -72,9 +72,9 @@ function delCookie(name) {
 }
 
 function authExit() {
-    //delCookie("username");
+    delCookie("username");
     //alert(getCookie("username"));
-    //window.location.href = 'login.html';
+    window.location.href = 'login.html';
 }
 function cutString(str, len) {
 
