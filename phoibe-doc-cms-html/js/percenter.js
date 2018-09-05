@@ -81,7 +81,7 @@ function bindDym() {
                     if (format == "doc" || format == "docx") {
                         icon = "<i class='doc'></i>";
                     }
-                    row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + title + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class=’f-blue‘>" + docstatus + "</b></li>";
+                    row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 12) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class=’f-blue‘>" + docstatus + "</b></li>";
 
                     if (step == total_rows) {
                         var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
