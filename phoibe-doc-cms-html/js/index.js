@@ -5,7 +5,7 @@ function bindZhanfa() {
     $("#zgzhanfa").children().remove();
     $.ajax({
         type: 'GET',
-        url: baseUrl + '/phoibe/document/list/user/1/2',
+        url: baseUrl + '/phoibe/document/list/user/0/3',
         dataType: 'json',
         success: function (result) {//<div class='font22 title'>中国战法</div>
             var total_rows = result.data.totalCount;

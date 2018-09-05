@@ -28,11 +28,15 @@ function bindNearRead() {
                 if (format == "pdf") {
                     icon = "<i class='pdf'></i>";
                 }
-                if (format == "doc" || format == "docx") {
+                else if (format == "doc" || format == "docx") {
                     icon = "<i class='doc'></i>";
                 }
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 12) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue' ><a title='" + createtime + "'>" + cutString(createtime, 12) + "</a></b></li>";
-                //alert(row);
+				else{
+						icon = "<i class='exls'></i>";//
+					}
+
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 12) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a title='" + createtime + "'>" + cutString(createtime, 12) + "</a></b></li>";
+               // alert(row);
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
                     $("#nearread").append(trow)
@@ -69,19 +73,23 @@ function bindDym() {
                     if (status == 0) {
                         docstatus = "上传中";
                     }
-                    else if (status == 1) {
+                    else if (status > 1) {
                         docstatus = "上传完成";
                     }
-
+					
+					//alert(docstatus);
 
                     var icon = "";
                     if (format == "pdf") {
                         icon = "<i class='pdf'></i>";
                     }
-                    if (format == "doc" || format == "docx") {
+                    else if (format == "doc" || format == "docx") {
                         icon = "<i class='doc'></i>";
                     }
-                    row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 12) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class=’f-blue‘>" + docstatus + "</b></li>";
+					else{
+						icon = "<i class='exls'></i>";//
+					}
+                    row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;'>" + docstatus + "</b></li>";
 
                     if (step == total_rows) {
                         var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";

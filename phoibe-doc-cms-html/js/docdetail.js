@@ -21,9 +21,10 @@ function getInfo() {
                 if (result.data.format == "pdf") {
                     $("#icontitle").attr("class", "pdf");
                 }
-                let hrefurl = $(".perview").attr("href");
+                var hrefurl = "openword.html";//$("#preview").attr("href");
                 hrefurl = hrefurl + "?filePath="+result.data.filePath;
-                $(".perview").attr("href",hrefurl);
+				//alert(hrefurl);
+                $("#preview").attr("href",hrefurl);
                 $("#date").html(result.data.createTime);
                 $("#format").html(result.data.format);
                 $("#size").html(result.data.fileSize);

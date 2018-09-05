@@ -496,8 +496,9 @@ line-height:30px;
 .list1 {
 float:left;
 padding-left:6px;
-line-height:24px;
-height:24px;
+margin-top:8px;
+line-height:28px;
+height:28px;
 }
 .col3 {
 width:30%;
@@ -754,7 +755,7 @@ border-bottom:0px;
 
 	#new:checked ~ .widget-title .new,#hot:checked ~ .widget-title .hot,#random:checked ~ .widget-title .random{background:#f5f5f5;border: 1px solid #cccccc;border-bottom:1px solid #ffffff;color:#21a9c4;font-weight:bold;}
 
-	#new:checked ~ .widget-box .new-list,#hot:checked ~ .widget-box .hot-list,#random:checked ~ .widget-box .random-list{display:block;height:70px;}
+	#new:checked ~ .widget-box .new-list,#hot:checked ~ .widget-box .hot-list,#random:checked ~ .widget-box .random-list{display:block;height:90px;}
 
 	.widget-box ul li a{padding-left: 20px;}
 .aduit {
@@ -909,6 +910,7 @@ display:none;
             overflow: hidden;
             background-color: rgba(0,0,0,0.6);
             text-align: center;
+			font-size:12px;
         }
 
         .mask .popup{
@@ -1059,7 +1061,7 @@ margin-left: 4px
 color:#226c97;
 }
 	#resou-doc .col3{
-	height:130px;
+	height:146px;
 	}
 .tag-li{
 	float: left;
@@ -1073,7 +1075,7 @@ color:#226c97;
 	cursor:pointer;
 }
 .tag-li-in{
-	background-color: #b3e882;
+	/*background-color: #b3e882;*/
 	color: #f8f6fb;
 	background-color: #6eb7fc;
 }
@@ -1084,4 +1086,16 @@ color:#226c97;
 	height: 34px;
 	float: left;
 	margin-top: 30px;
+}
+.btn-default
+{
+background:#00a2d4;
+line-height:24px;
+padding:2px;
+padding-left:6px;
+padding-right:6px;
+color:#ffffff;
+border:1px solid #cccccc;
+border-radius:4px;
+cursor:pointer;
 }
