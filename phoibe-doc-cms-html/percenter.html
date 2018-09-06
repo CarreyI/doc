@@ -234,7 +234,7 @@
                     alert("请上传文档");
                     return 
                 }
-                let filestatus = $('#ctlBtn').attr("filestatus");
+                var filestatus = $('#ctlBtn').attr("filestatus");
                 if(filestatus==0){
                     alert("您的文件未上传");
                     return 
@@ -245,8 +245,8 @@
                 }
                 var formdata ={};
                 for (var i = 0; i < form.serializeArray().length; i++) {
-                    let key = form.serializeArray()[i].name;
-                    let value = form.serializeArray()[i].value;
+                    var key = form.serializeArray()[i].name;
+                    var value = form.serializeArray()[i].value;
                     formdata[key] = value;
                 }
                 $("#thelist").find(".item").each(function(){
