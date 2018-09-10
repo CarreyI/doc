@@ -6,20 +6,22 @@
     <link rel="stylesheet" href="css/management.css"/>
 	<script src="js/jquery-2.1.0.min.js"></script>
 <script src="js/management.js"></script>
+
 </head>
 <body onload=" ">
 <div class="main box_border w1920">
     <div class="header">
         <div class="fl headerTitle">文档管理系统</div>
-        <div class="headerExit iconLeft fr">退出</div>
+        <div class="headerExit iconLeft fr" id="btnExit">退出</div>
         <div class="headerUsers fr">
             <span class="userName iconLeft iconUser ">李明</span>
             <span class="userIdentity">参谋</span>
         </div>
     </div>
-    <div class="navLeft box_border" id="navleft"  >
-        <div>
-            <ul>
+	<div class="navLeft box_border" id="nav_left">
+		 <div id="nav_title_btn">收缩</div>
+		 
+		    <ul>
                 <li class="navList box_border active" data-toggle="index-m.html">
                     <div class="box_border">
                     <span class="iconLeft iconIndex">首页
@@ -68,16 +70,18 @@
                     </span>
                     </div>
                 </li>
-               
             </ul>
             <div class="dateBox">
                 <div id="curtime"></div>
                 <div>今天是<span id="curweek">周三</span></div>
             </div>
-        </div>
 
     </div>
-    <div class="container box_border">
+	<div id="nav_title_dsp">
+				显示
+	</div>
+
+    <div class="container box_border" id="main-content">
       <iframe id="frm-main" name="frm-main" src="index-m.html" style="width:100%;min-height:600px;overflow: scroll" scrolling="no"  frameborder="0" onload="iframeLoad()"></iframe>
     </div>
 
@@ -85,6 +89,20 @@
 
     <script>
         $(function () {
+			    
+				$a = $(window).height();
+				$("nav_title").height($a);
+				$("#nav_title_btn").click(function(){
+					$("#nav_left").animate({left:'-200px'});
+					$("#main-content").css("padding-left","50px");
+					$("#nav_title_dsp").delay(500).animate({left:'0'});
+				});
+				$("#nav_title_dsp").click(function(){
+					$("#nav_title_dsp").animate({left:'-50px'});
+					$("#main-content").css("padding-left","260px");
+					$("#nav_left").delay(5).animate({left:'0'});
+				});
+
             var show = document.getElementById("curtime");
             setInterval(function () {
                 var time = new Date();   // 程序计时的月从0开始取值后+1   
@@ -116,6 +134,9 @@
 		window.onload = function () {
 			iframeLoad()
 		}
+
+
+		
     </script>
 </body>
 </html>

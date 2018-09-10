@@ -76,7 +76,7 @@ body,html{
 .main{
     /*height: 100%;*/
     position: relative;
-    padding-left: 260px;
+    /*padding-left: 260px;*/
     padding-top: 88px;
 }
 
@@ -504,7 +504,7 @@ height:28px;
 width:30%;
 float:left;
 min-height:80px;
-margin-top:12px;
+margin-top:6px;
 }
 .row {
 width:100%;
@@ -1098,4 +1098,41 @@ color:#ffffff;
 border:1px solid #cccccc;
 border-radius:4px;
 cursor:pointer;
+}
+#btnadd {
+      background:url("../images/btnadd.png") no-repeat;
+    width: 107px;
+     line-height:24px;
+    border:0;
+       padding-left:24px;
+    margin-top:30px;
+    display:inline-block;
+    cursor:pointer;
+}
+#btnmodify {
+          background:url("../images/btnedit.png") no-repeat;
+    width: 107px;
+     line-height:24px;
+    border:0;
+    margin-top:30px;
+    padding-left:24px;
+    display:inline-block;
+    cursor:pointer;
+}
+#btndel {
+          background:url("../images/btndel.png") no-repeat;
+    line-height:24px;
+    border:0;
+    margin-top:30px;
+       padding-left:24px;
+    display:inline-block;
+    cursor:pointer;
+}
+
+
+#nav_title{width: 200px;float: left;background-color: royalblue;position: relative;}
+#nav_title_btn{width: 100%;height: 50px;background-color: darkgoldenrod;line-height: 50px;text-align: center;color: white;cursor: pointer;}
+#nav_title_dsp{color:#ffffff;width: 40px;height: 50px;background-color: darkgoldenrod;position: absolute;cursor: pointer;left: -50px;line-height: 50px;text-align: center;}
+#main-content{
+padding-left:260px;
 }
