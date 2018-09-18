@@ -1,17 +1,26 @@
 package me.phoibe.doc.cms.controller;
 
-import me.phoibe.doc.cms.dao.PhoibeUserMapper;
+import me.phoibe.doc.cms.domain.dto.UserInfo;
+import me.phoibe.doc.cms.domain.po.PhoibeRole;
+import me.phoibe.doc.cms.domain.po.PhoibeUser;
 import me.phoibe.doc.cms.entity.Code;
 import me.phoibe.doc.cms.entity.Constant;
 import me.phoibe.doc.cms.entity.Result;
+import me.phoibe.doc.cms.security.JwtUtil;
+import me.phoibe.doc.cms.service.PhoibeUserService;
 import me.phoibe.doc.cms.utils.JsonUtils;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -28,8 +37,8 @@ import java.util.Map;
 @RequestMapping("/phoibe/")
 public class LoginContorller {
 
-    @Resource
-    private PhoibeUserMapper phoibeUserMapper;
+    @Autowired
+    private PhoibeUserService phoibeUserService;
 
 
     private static final String SESSION_KEY = "user";
@@ -38,9 +47,8 @@ public class LoginContorller {
     private String address;
 
     @GetMapping("/")
-    public String index(@SessionAttribute(SESSION_KEY) String account, Model model) {
-        model.addAttribute("name", account);
-        return "index";
+    public Object index(@RequestParam String token, Model model) throws Exception {
+        return "";
     }
 
     @GetMapping("/login")
@@ -84,15 +92,39 @@ public class LoginContorller {
      * 登录
      */
     @RequestMapping(value = "userlogin", method = { RequestMethod.POST})
-    public String userlogin(@RequestParam String username,
-                        @RequestParam String password,
-                        HttpSession session,
-                        HttpServletResponse response) {
-        if("admin".equals(username)&&"Yhc5880908!".equals(password)){
-            return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+    public Object userlogin(@RequestParam String username,
+                            @RequestParam String password,
+                            HttpSession session,
+                            HttpServletResponse response, HttpServletRequest request) {
+
+        PhoibeUser phoibeUser = new PhoibeUser();
+        phoibeUser.setUserName(username);
+        phoibeUser.setPassword(password);
+
+        try {
+            phoibeUser = phoibeUserService.login(phoibeUser);
+            if(phoibeUser != null){
+                String jwt = JwtUtil.generateToken(phoibeUser.getId().toString());
+                UserInfo userInfo = new UserInfo();
+                BeanUtils.copyProperties(phoibeUser,userInfo);
+                PhoibeRole phoibeRole = phoibeUserService.fetchUserRoleByUserId(userInfo.getId());
+                userInfo.setRoleType(phoibeRole.getRoleType());
+                userInfo.setRoleName(phoibeRole.getRoleName());
+
+                Cookie cookie = new Cookie(JwtUtil.HEADER_STRING,jwt);
+                cookie.setPath("/");
+                cookie.setDomain(request.getServerName());
+                cookie.setMaxAge((int)JwtUtil.EXPIRATION_TIME);
+                response.addCookie(cookie);
+
+                return JsonUtils.toJson(new Result<UserInfo>(Code.SUCCESS, userInfo));
+            }
+        } catch (Exception e) {
+            return JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
         }
 
-        return JsonUtils.toJson(new Result<>(Code.FAILED, ""));
+
+        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 
 
