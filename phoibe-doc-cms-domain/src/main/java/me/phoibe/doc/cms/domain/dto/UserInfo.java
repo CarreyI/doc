@@ -14,11 +14,21 @@ public class UserInfo {
 
     private String realname;
 
+    private Short status;
+
     private String nickname;
 
     private Short roleType;
 
     private String roleName;
+
+    public Short getStatus() {
+        return status;
+    }
+
+    public void setStatus(Short status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;

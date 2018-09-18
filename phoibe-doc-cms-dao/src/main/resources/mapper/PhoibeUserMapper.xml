@@ -75,12 +75,6 @@
       <if test="param.createTime != null">
         and u.CREATE_TIME = #{param.createTime,jdbcType=TIMESTAMP}
       </if>
-      <if test="param.updateTime != null">
-        and u.UPDATE_TIME = #{param.updateTime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="param.password != null">
-        and u.PASSWORD = #{param.password,jdbcType=VARCHAR}
-      </if>
       <if test="param.realname != null">
         and u.REALNAME LIKE '%'||#{param.realname,jdbcType=VARCHAR}||'%'
       </if>
