@@ -4,30 +4,27 @@ var currPage = 1;
 function loadData(pageindex) {
 
     $("#tblist-body").children().remove();
-    /*
-        var name = $("#docname").val();
-        var owner = $("#owner").val();
-        var data = 'phoibe/document/list/'+pageindex+'/10?1=1';
 
-        if (name!=null);
-        data = data + "&name=" + name;
-        if (owner != "") {
-            data = data + "&userRealName=" + owner;
-        }
-        var wartypevalue = $("#wartype option:selected").val();
-        if (wartypevalue != 0) {
-            data = data + "&combatType=" + wartypevalue;
-        }
-        var armtypevalue = $("#armtype option:selected").val();
-        if (armtypevalue != 0) {
-            data = data + "&arms=" + armtypevalue;
-        }
-        var chkValue = $("#con-value li[checked='checked']");
-        var doctypevalue = chkValue.html();
+    var username_value = $("#username").val();
+    var nickname_value = $("#nickname").val();
+    var realname_value = $("#realname").val();
+    var typevalue = $("#type").val();
 
-        if (doctypevalue != "undefined" && doctypevalue != null) {
-            data = data + "&format=" + doctypevalue.toLowerCase();
-        }*/
+    var data = 'phoibe/document/list/' + pageindex + '/10?1=1';
+
+    if (username_value != "undefined" && username_value != null) {
+        data = data + "&username=" + username_value.toLowerCase();
+    }
+    if (nickname_value != "undefined" && nickname_value != null) {
+        data = data + "&nickname=" + nickname_value.toLowerCase();
+    }
+    if (realname_value != "undefined" && realname_value != null) {
+        data = data + "&realname=" + realname_value.toLowerCase();
+    }
+        var typevalue = $("#type option:selected").val();
+    if (type != 0) {
+        data = data + "&type=" + type;
+    }
 
         $.ajax({
         type: 'GET',
