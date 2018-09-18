@@ -12,6 +12,7 @@ function loadData(pageindex) {
     var loser = $("#loser").val();
     var warnum = $("#warnum").val();
     var owner = $("#owner").val();
+    
     var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?1=1';
     
     if (name!=null);
@@ -68,6 +69,7 @@ function loadData(pageindex) {
                      var status = val["status"];
                      var auditstatus = val["auditStatus"];
                      var createtime = val["createTime"];
+					 var des = val["description"];
                      var owner = "admin";
                      var auditdate = "2018-08-26";
                      var auditor = "admin";
@@ -92,7 +94,8 @@ function loadData(pageindex) {
                          auditstatus = "审核不通过";
                          auditstatustyle = "f-red";
                      }
-                     var row = "<div class='row'><a class='title' href='docdetail.html?tid="+id+"'>" + title + "</a><ul><li>上传时间:&nbsp;&nbsp;" + createtime + "</li><li>格式:&nbsp;&nbsp;" + format + "</li><li>46条评论</li><li>评分44</li><li>大小:&nbsp;&nbsp;" + filesize + "</li><li>文档拥有者:&nbsp;&nbsp;" + owner + "</li></ul></div>";
+                     var row = "<div class='row'><a class='title' href='docdetail.html?tid="+id+"'>" + title + "</a><div class='desc'>摘要："+des+"</div><ul><li>上传时间:&nbsp;&nbsp;" + createtime + "</li><li>格式:&nbsp;&nbsp;" + format + "</li><li>46条评论</li><li>评分44</li><li>大小:&nbsp;&nbsp;" + filesize + "</li><li>文档拥有者:&nbsp;&nbsp;" + owner + "</li></ul></div>";
+                     //alert(row);
                      $("#docmgr-content").append(row);
                  });
              }

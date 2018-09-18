@@ -282,6 +282,13 @@ body, html {
 	background-image: url("../images/iconUser.png");
 }
 
+.main .header .headerUsers span.iconcomm {
+	padding-left: 22px;
+	background-image: url("../images/iconcomm.png");
+}
+
+
+
 .main .navLeft {
 	width: 240px;
 	height: 100%;
@@ -362,6 +369,11 @@ body, html {
 .main .navLeft li span.iconJoin {
 	background-image: url("../images/iconJoin.png");
 }
+
+.main .navLeft li span.iconcomm {
+	background-image: url("../images/iconcomm.png");
+}
+
 
 .main .navLeft li span.iconLabel {
 	background-image: url("../images/iconLabel.png");
@@ -874,7 +886,11 @@ color:#ffffff;
 	line-height: 40px;
 	height: 40px;
 }
-
+.desc {
+color:#fcfdff;
+line-height:30px;
+font-size:12px;
+}
 .d-content .right {
 	width: 800px;
 }
@@ -1222,8 +1238,9 @@ color:#ffffff;
 
 
 .tblist input[type="radio"] {
-	width: 30px !important;
-	height: 16px !important;
+	width: 14px !important;
+	height: 14px !important;
+    margin-top:2px;
 }
 
 #docmgr .top {
@@ -1251,15 +1268,18 @@ ol.list1 {
 	width: 100%;
 	display: none;
 }
-
+#index .mask {
+    	height: auto;
+	
+}
 .mask {
 	z-index: 1000;
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
-	/* height: 100%;
-	overflow: hidden; */
+	height: 100%;
+	overflow: hidden;
 	background-color: rgba(0, 0, 0, 0.6);
 	text-align: center;
 	font-size: 12px;
