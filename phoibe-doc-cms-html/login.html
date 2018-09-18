@@ -47,8 +47,14 @@
                     dataType: 'json',
                     success: function (result) {
                         if (result.code == "SUCCESS") {
-                        	window.location.href = './index.html';
                             setCookie("username", username);
+                            if (self != top) {
+                                top.location.reload();
+                                //top.frames["frm-main"].location.href = './index-m.html';
+                            }
+                            else {
+                                window.location.href = './index.html';
+                            }
                         }
                         else {
                             alert("用户名或密码错误，请重新输入。");
