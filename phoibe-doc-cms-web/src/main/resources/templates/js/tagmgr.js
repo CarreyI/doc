@@ -26,16 +26,14 @@ function loadData(pageindex) {
             var total_rows = result.data.totalCount;
             totalRows = total_rows;
             $.each(result.data.dataList, function (i, val) {
-
                 var id = val["id"];;
                 var name =  val["name"];//"标签名称";
-                var createtime =  val["createtime"];//"创建时间";
-                var hitnum =  val["hitnum"];//"点击量";
+                var createtime =  val["createTime"];//"创建时间";
+                var status =  val["status"];//"排序";--新增排序字段后修改
 
 
                 var row = "<tr><td class='chksel'><input type='radio' name='chksel' data-value='" + id + "'/></td><td>"
-                    + name + "</td><td>" + createtime + "</td><td>"
-                    + hitnum + "</td></tr>";
+                    + name + "</td><td>" + createtime + "</td><td>"+status+"</td><td class='f-blue'>启用</td></tr>";
                 $("#tblist-body").append(row);
             });
         }
@@ -92,17 +90,23 @@ $(function () {
             var value = form.serializeArray()[i].value;
             formdata[key] = value;
         }
-        alert(GAL_URL + form.attr("action"));
+        formdata.status=formdata.sequence;
+
         $.ajax({
             url: GAL_URL + form.attr("action"),
             type: form.attr("method"),
             data: JSON.stringify(formdata),
             dataType: "json",
             async: false,
+           // contentType: "contentType: application/x-www-form-urlencoded",
             contentType: "application/json;charset=UTF-8",
             success: function (data) {
-                if (data.success) {
+                if (data.code="success") {
                     alert("提交成功");
+                    $(".bodyMask").hide();
+                     loadData(0);
+                }else{
+                    alert("提交失败");
                 }
             }
         });

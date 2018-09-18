@@ -17,11 +17,26 @@
             <div class="container box_border">
                     <div class="bg_whiteSD box_border search inputblock">
                     <div class="plateHeader i-usermgr"></div>
-                        用户名称:<input type="text" id="tagname"/>
+                        用户名称:<input type="text" id="tag_username"/>
+                        真实姓名:<input type="text" id="tag_nickname"/>
+                        昵称:<input type="text" id="tag_realname"/>
+                        <select	id="tag_type">
+                            <option value="0">全部</option>
+                            <option value="1">军</option>
+                            <option value="2 ">师</option>
+                            <option value="3">旅</option>
+                            <option value="4 ">团</option>
+                            <option value="5">营</option>
+                            <option value="6 ">连</option>
+                            <option value="7">排</option>
+                            <option value="8 ">班</option>
+                            <option value="9">兵</option>
+                            <option value="10">参谋</option>
+                        </select>
                         <span class="btnSearch" id="#btnSearch"></span>
                     </div>
-                   
-        
+
+
                 <br />
                <div class="content box_border top bg_whiteSD">
                        <div class="box_border">
@@ -47,20 +62,31 @@
         <div class="model-title fl">添加标签</div><i class="closed fr"></i>
         <div class="clearfix"></div> 
         <hr />
-       　 <form method="post" id="ajaxform">
-					
-					<div class="tbl-row">
-						<div class="lable">*名称:</div>
-						<div class="ctrl">
-							<input type="text" id="name" name="name" class="inputBox" />
-						</div>
-					</div>
-					
+       　 <form  action="phoibe/user/save" method="post" id="ajaxform">
+
+                    <div class="tbl-row">
+                        <div class="lable">*用户名:</div>
+                        <div class="ctrl">
+                            <input type="text" id="userName" name="userName" class="inputBox"/>
+                        </div>
+                    </div>
+                    <div class="tbl-row">
+                        <div class="lable">*姓名:</div>
+                        <div class="ctrl">
+                            <input type="text" id="realname" name="realname" class="inputBox"/>
+                        </div>
+                    </div>
+                    <div class="tbl-row">
+                        <div class="lable">*昵称:</div>
+                        <div class="ctrl">
+                            <input type="text" id="nickname" name="nickname" class="inputBox"/>
+                        </div>
+                    </div>
+
 					<div class="tbl-row">
 						<div class="lable">类型:</div>
 						<div class="ctrl">
-                            <select	id="type">
-                                <option value="0">全部</option>
+                            <select	id="type" name="type">
                                 <option value="1">军</option>
                                 <option value="2 ">师</option>
                                 <option value="3">旅</option>
@@ -74,6 +100,16 @@
                             </select>
 						</div>
 					</div>
+                    <div class="tbl-row">
+                        <div class="lable">角色:</div>
+                        <div class="ctrl">
+                            <select	id="roleId" name="roleId">
+                                <option value="3">普通用户</option>
+                                <option value="1 ">审核员</option>
+                                <option value="2">入库员</option>
+                            </select>
+                        </div>
+                    </div>
 					<div class="tbl-row">
 						<div class="lable"></div>
 						<div class="ctrl">

@@ -112,8 +112,12 @@ $(function () {
             async: false,
             contentType: "application/json;charset=UTF-8",
             success: function (data) {
-                if (data.success) {
+                if (data.code="success") {
                     alert("提交成功");
+                    $(".bodyMask").hide();
+                    loadData(0);
+                }else{
+                    alert("提交失败");
                 }
             }
         });
