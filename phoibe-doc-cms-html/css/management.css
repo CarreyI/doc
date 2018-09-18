@@ -303,6 +303,7 @@ body, html {
     margin-left:10px;
     padding-left:8px;
    padding-bottom:38px;
+   min-height:640px;
 }
 
 .main .navLeft .navList {
