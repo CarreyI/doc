@@ -1,5 +1,6 @@
 package me.phoibe.doc.cms.controller;
 
+import me.phoibe.doc.cms.domain.dto.DPhoibeComment;
 import me.phoibe.doc.cms.domain.po.PageList;
 import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeComment;
@@ -39,7 +40,7 @@ public class CommentController {
         PhoibeComment phoibeComment = new PhoibeComment();
         phoibeComment.setDocumentId(docId);
         pageParam.setParam(phoibeComment);
-        PageList<PhoibeComment> pageList = phoibeCommentService.fetchCommentByPageList(pageParam);
-        return JsonUtils.toJson(new Result<PageList<PhoibeComment>>(Code.SUCCESS, pageList));
+        PageList<DPhoibeComment> pageList = phoibeCommentService.fetchCommentByPageList(pageParam);
+        return JsonUtils.toJson(new Result<PageList<DPhoibeComment>>(Code.SUCCESS, pageList));
     }
 }

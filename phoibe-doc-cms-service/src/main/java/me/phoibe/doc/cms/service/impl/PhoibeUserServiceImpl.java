@@ -2,15 +2,20 @@ package me.phoibe.doc.cms.service.impl;
 
 import me.phoibe.doc.cms.dao.PhoibeRoleMapper;
 import me.phoibe.doc.cms.dao.PhoibeUserMapper;
+import me.phoibe.doc.cms.dao.PhoibeUserRoleMapper;
+import me.phoibe.doc.cms.domain.dto.DPhoibeUser;
 import me.phoibe.doc.cms.domain.dto.UserInfo;
-import me.phoibe.doc.cms.domain.po.PhoibeRole;
-import me.phoibe.doc.cms.domain.po.PhoibeUser;
+import me.phoibe.doc.cms.domain.po.*;
 import me.phoibe.doc.cms.exception.BusinessException;
 import me.phoibe.doc.cms.service.PhoibeUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class PhoibeUserServiceImpl implements PhoibeUserService {
@@ -20,6 +25,9 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
 
     @Autowired
     private PhoibeRoleMapper phoibeRoleMapper;
+
+    @Autowired
+    private PhoibeUserRoleMapper phoibeUserRoleMapper;
 
     @Override
     public PhoibeUser login(PhoibeUser phoibeUser) {
@@ -57,5 +65,29 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
         userInfo.setRoleName(phoibeRole.getRoleName());
 
         return null;
+    }
+
+    @Override
+    public List<PhoibeRole> fetchUserRoleList() {
+        return phoibeRoleMapper.selectByList();
+    }
+
+    @Override
+    public PageList<UserInfo> fetchUserPageList(PageParam<UserInfo> pageParam) {
+        List<UserInfo> list = phoibeUserMapper.selectByPageList(pageParam);
+        return PageList.createPage(pageParam,phoibeUserMapper.selectByPageListCount(pageParam),list);
+    }
+
+    @Override
+    @Transactional
+    public void addUser(DPhoibeUser dPhoibeUser) {
+        PhoibeUser user = new PhoibeUser();
+        BeanUtils.copyProperties(dPhoibeUser,user);
+        phoibeUserMapper.insertSelective(user);
+        PhoibeUserRole phoibeUserRole = new PhoibeUserRole();
+        phoibeUserRole.setCreateTime(new Date());
+        phoibeUserRole.setRoleId(dPhoibeUser.getRoleId());
+        phoibeUserRole.setUserId(user.getId());
+        phoibeUserRoleMapper.insertSelective(phoibeUserRole);
     }
 }

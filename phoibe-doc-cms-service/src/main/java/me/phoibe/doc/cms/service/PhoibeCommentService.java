@@ -1,5 +1,6 @@
 package me.phoibe.doc.cms.service;
 
+import me.phoibe.doc.cms.domain.dto.DPhoibeComment;
 import me.phoibe.doc.cms.domain.po.PageList;
 import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeComment;
@@ -11,5 +12,5 @@ public interface PhoibeCommentService {
 
     void addComment(PhoibeComment phoibeComment);
 
-    PageList<PhoibeComment> fetchCommentByPageList(PageParam<PhoibeComment> pageParam);
+    PageList<DPhoibeComment> fetchCommentByPageList(PageParam<PhoibeComment> pageParam);
 }

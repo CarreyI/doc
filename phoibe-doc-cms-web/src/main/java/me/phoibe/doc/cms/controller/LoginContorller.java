@@ -113,7 +113,7 @@ public class LoginContorller {
 
                 Cookie cookie = new Cookie(JwtUtil.HEADER_STRING,jwt);
                 cookie.setPath("/");
-                cookie.setDomain(request.getServerName());
+//                cookie.setDomain(request.getServerName());
                 cookie.setMaxAge((int)JwtUtil.EXPIRATION_TIME);
                 response.addCookie(cookie);
 

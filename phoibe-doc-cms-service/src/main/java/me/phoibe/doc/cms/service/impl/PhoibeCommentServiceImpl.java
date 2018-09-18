@@ -1,6 +1,7 @@
 package me.phoibe.doc.cms.service.impl;
 
 import me.phoibe.doc.cms.dao.PhoibeCommentMapper;
+import me.phoibe.doc.cms.domain.dto.DPhoibeComment;
 import me.phoibe.doc.cms.domain.po.PageList;
 import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeComment;
@@ -28,7 +29,7 @@ public class PhoibeCommentServiceImpl implements PhoibeCommentService {
     }
 
     @Override
-    public PageList<PhoibeComment> fetchCommentByPageList(PageParam<PhoibeComment> pageParam) {
+    public PageList<DPhoibeComment> fetchCommentByPageList(PageParam<PhoibeComment> pageParam) {
         List<PhoibeComment> list = phoibeCommentMapper.selectByPage(pageParam);
 
         return PageList.createPage(pageParam,phoibeCommentMapper.selectCountByPage(pageParam),list);

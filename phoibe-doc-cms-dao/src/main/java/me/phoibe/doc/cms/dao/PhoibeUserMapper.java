@@ -1,7 +1,11 @@
 package me.phoibe.doc.cms.dao;
 
+import me.phoibe.doc.cms.domain.dto.UserInfo;
+import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeUser;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface PhoibeUserMapper {
@@ -18,4 +22,8 @@ public interface PhoibeUserMapper {
     int updateByPrimaryKey(PhoibeUser record);
 
     PhoibeUser selectByParam(PhoibeUser phoibeUser);
+
+    List<UserInfo> selectByPageList(PageParam<UserInfo> pageParam);
+
+    Long selectByPageListCount(PageParam<UserInfo> pageParam);
 }

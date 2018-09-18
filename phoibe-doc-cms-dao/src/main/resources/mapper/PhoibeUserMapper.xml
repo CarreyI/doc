@@ -44,10 +44,10 @@
         and PASSWORD = #{password,jdbcType=VARCHAR}
       </if>
       <if test="realname != null">
-        and REALNAME = #{realname,jdbcType=VARCHAR}
+        and REALNAME LIKE '%'||#{realname,jdbcType=VARCHAR}||'%'
       </if>
       <if test="nickname != null">
-        and NICKNAME = #{nickname,jdbcType=VARCHAR}
+        and NICKNAME LIKE '%'||#{nickname,jdbcType=VARCHAR}||'%'
       </if>
     </where>
 
@@ -58,6 +58,52 @@
     <include refid="Base_Column_List" />
     from PHOIBE_USER
     <include refid="selectByParam_Condition_Sql"/>
+  </select>
+
+  <sql id="selectByPageList_Condition_Sql">
+    <where>
+      1=1
+      <if test="param.userName != null">
+        and u.USER_NAME = #{param.userName,jdbcType=VARCHAR}
+      </if>
+      <if test="param.type != null">
+        and u.TYPE = #{param.type,jdbcType=DECIMAL}
+      </if>
+      <if test="param.status != null">
+        and u.STATUS = #{param.status,jdbcType=DECIMAL}
+      </if>
+      <if test="param.createTime != null">
+        and u.CREATE_TIME = #{param.createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.updateTime != null">
+        and u.UPDATE_TIME = #{param.updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.password != null">
+        and u.PASSWORD = #{param.password,jdbcType=VARCHAR}
+      </if>
+      <if test="param.realname != null">
+        and u.REALNAME LIKE '%'||#{param.realname,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="param.nickname != null">
+        and u.NICKNAME LIKE '%'||#{param.nickname,jdbcType=VARCHAR}||'%'
+      </if>
+    </where>
+
+  </sql>
+
+  <select id="selectByPageList" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="me.phoibe.doc.cms.domain.dto.UserInfo">
+    select * from (SELECT a.*,rownum rno FROM (select
+      u.*,r.ROLE_TYPE,r.ROLE_NAME
+    from PHOIBE_USER u join PHOIBE_USER_ROLE ur on u.ID = ur.USER_ID join PHOIBE_ROLE r on ur.ROLE_ID = r.ROLE_ID
+    <include refid="selectByPageList_Condition_Sql"/>
+    ORDER BY ${orderBy} ${sort}) a
+    ) t WHERE t.rno BETWEEN #{start} and (#{start}+#{limit})
+  </select>
+  <select id="selectByPageListCount" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
+    select
+    count(*)
+    from PHOIBE_USER u join PHOIBE_USER_ROLE ur on u.ID = ur.USER_ID join PHOIBE_ROLE r on ur.ROLE_ID = r.ROLE_ID
+    <include refid="selectByPageList_Condition_Sql"/>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from PHOIBE_USER
@@ -73,7 +119,7 @@
       #{password,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUser">
+  <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUser" useGeneratedKeys="true" keyProperty="id">
     insert into PHOIBE_USER
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

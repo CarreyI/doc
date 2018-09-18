@@ -3,6 +3,8 @@ package me.phoibe.doc.cms.dao;
 import me.phoibe.doc.cms.domain.po.PhoibeRole;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface PhoibeRoleMapper {
     int deleteByPrimaryKey(Long roleId);
@@ -18,4 +20,6 @@ public interface PhoibeRoleMapper {
     int updateByPrimaryKey(PhoibeRole record);
 
     PhoibeRole selectByUserId(Long userId);
+
+    List<PhoibeRole> selectByList();
 }

@@ -130,16 +130,16 @@
     <where>
       1=1
       <if test="param.userId != null">
-        and USER_ID = #{param.userId,jdbcType=DECIMAL}
+        and c.USER_ID = #{param.userId,jdbcType=DECIMAL}
       </if>
       <if test="param.documentId != null">
-        and DOCUMENT_ID = #{param.documentId,jdbcType=DECIMAL}
+        and c.DOCUMENT_ID = #{param.documentId,jdbcType=DECIMAL}
       </if>
       <if test="param.score != null">
-        and SCORE = #{param.score,jdbcType=DECIMAL}
+        and c.SCORE = #{param.score,jdbcType=DECIMAL}
       </if>
       <if test="param.status != null">
-        and STATUS = #{param.status,jdbcType=DECIMAL}
+        and c.STATUS = #{param.status,jdbcType=DECIMAL}
       </if>
     </where>
   </sql>
@@ -147,8 +147,8 @@
   <select id="selectByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">
     select * from (SELECT a.*,rownum rno FROM (
     select
-    <include refid="Base_Column_List"/>
-    from PHOIBE_COMMENT
+    c.*,u.NICKNAME,u.REALNAME
+    from PHOIBE_COMMENT c join PHOIBE_USER u on c.USER_ID = u.ID
     <include refid="selectByPage_Condition_Sql" />
     order by ${orderBy} ${sort}) a
     ) t WHERE t.rno BETWEEN #{start} AND (#{start}+#{limit})
@@ -157,7 +157,7 @@
   <select id="selectCountByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
     select
     COUNT(*)
-    from PHOIBE_COMMENT
+    from PHOIBE_COMMENT c join PHOIBE_USER u on c.USER_ID = u.ID
     <include refid="selectByPage_Condition_Sql" />
   </select>
 </mapper>
