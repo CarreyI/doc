@@ -132,6 +132,10 @@ function loadData(pageindex) {
                     var auditstatus = val["auditStatus"];
                     var owner = "admin";
                     var auditdate = val["auditTime"];
+                    if (val["auditTime"] == 'undefined' || val["auditTime"] == null) {
+                        auditdate = '';
+                    }
+
                     var auditor = "admin";
                     var tid = val["id"];
                     var tag = "";
