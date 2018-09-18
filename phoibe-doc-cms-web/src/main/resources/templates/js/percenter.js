@@ -109,7 +109,7 @@ function loadData(pageindex) {
 
     $("#tblist-body").children().remove();
 
-    var data = GAL_URL+'phoibe/document/list/' + pageindex + '/10?f=audit';
+    var data = GAL_URL+'phoibe/document/list/' + pageindex + '/10?1=1';
     data = data + wartype;
     $.ajax({
             type: 'GET',

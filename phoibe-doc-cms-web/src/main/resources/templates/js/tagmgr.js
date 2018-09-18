@@ -8,7 +8,7 @@ function loadData(pageindex) {
     var name_value = $("#name").val();
     var createtime_value = $("#createtime").val();
 
-    var data = GAL_URL+"phoibe/document/list/" + pageindex +"/10?1=1";
+    var data = GAL_URL+"phoibe/tag/list/" + pageindex +"/10?1=1";
 
     if (name_value != "undefined" && name_value != null) {
         data = data + "&nickname=" + name_value.toLowerCase();
