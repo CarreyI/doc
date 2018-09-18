@@ -291,7 +291,7 @@ body, html {
 
 .main .navLeft {
 	width: 240px;
-	height: 100%;
+	/*height: 100%;*/
 	background-color: #062336;/*#333*/
 	position: absolute;
 	left: 0;
@@ -303,6 +303,7 @@ body, html {
     margin-left:10px;
     padding-left:8px;
    padding-bottom:38px;
+   min-height:640px;
 }
 
 .main .navLeft .navList {
@@ -461,7 +462,8 @@ body, html {
 	cursor: pointer;
 	display: inline-block;
 	border: 1px solid #5e90ca;
-	margin-left: 10px;
+	margin-left: 4px;
+    margin-right:4px;
 	background:#142f47;/*#efefef;*/
 }
 
@@ -579,7 +581,7 @@ background-image: url("../images/i-sign.png");
 	margin: 12px 0;
 	text-align: center;
 	padding-top: 12px;
-    padding-bottom:20px;
+    padding-bottom:16px;
 	
 }
 
@@ -1212,6 +1214,12 @@ background-image: url("../images/commgr.png");
     border:1px solid #1c4b73;
     color:#ffffff;
 }
+.tblist-header {
+border:1px solid #3d7194;
+}
+#tblist-body tr td {
+
+}
 #tblist-body tr td a {
 color:#ffffff;
 }
@@ -1632,7 +1640,7 @@ padding-left: 30px;
     margin-right:20px;
 }
 .uploadTaskListBox {
-	height: 100%;
+	/*height: 100%;*/
 	width: 100%;
 	display: none;
 }

@@ -311,6 +311,7 @@
 
 		    if (iframeWin.document.body) {
 		        iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+		        $("#nav_left").css("height",iframe.height);
 		    }
 		}
 
