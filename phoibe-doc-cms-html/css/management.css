@@ -698,10 +698,14 @@ margin-left: 10px;
 }
 
 .doc-title {
-	font-size: 20px;
+	font-size: 18px;
 	line-height: 30px;
+    color:#ffc92d;
 }
 
+#doc-property li {
+color:#ffffff;
+}
 .pdf {
 	background: url("../images/pdf.png") no-repeat;
 	display: inline-block;
@@ -746,7 +750,7 @@ margin-left: 10px;
 
 .row .title {
 	font-size: 16px;
-	font-weight: bold;
+	/*font-weight: bold;*/
     color:#ffffff !important;
 }
 
@@ -1133,7 +1137,18 @@ color:#ffffff;
 	display: inline-block;
 	cursor: pointer;
 }
-
+#docmgr-content .row .title {
+    color:#ffc92d !important;
+}
+#docmgr-content .row ul li {
+    color:#ffffff;
+}
+.i-commgr {
+background-image: url("../images/commgr.png");
+	width: 150px;
+	height: 34px;
+	margin-bottom: 16px;
+}
 .i-tagmgr {
 	background-image: url("../images/tagmgr.png");
 	width: 150px;

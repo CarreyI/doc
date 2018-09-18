@@ -3,9 +3,7 @@ var totalRows = 0;
 var currPage = 0;
 var tid = getUrlString("tid");
 function getInfo() {
-
     var url = GAL_URL+"phoibe/document/fetch/" + tid;
-    //alert(url);
     $.ajax({
         type: 'GET',
         url: url,
