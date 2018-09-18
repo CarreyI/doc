@@ -23,7 +23,7 @@ public class UserController {
     @GetMapping("/list/{index}/{limit}")
     public String list(@PathVariable Integer index, @PathVariable Integer limit,
                        @RequestParam(required = false) String f, @ModelAttribute UserInfo param){
-        String orderBy = "CREATE_TIME";
+        String orderBy = "u.CREATE_TIME";
         String sort = "DESC";
         PageParam<UserInfo> pageParam = new PageParam<>();
         pageParam.setStart(index * limit + 1);

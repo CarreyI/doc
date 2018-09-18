@@ -35,7 +35,7 @@ public class CommentController {
         PageParam<PhoibeComment> pageParam = new PageParam<>();
         pageParam.setStart(index * limit + 1);
         pageParam.setLimit(limit);
-        pageParam.setOrderBy("UPDATE_TIME");
+        pageParam.setOrderBy("c.UPDATE_TIME");
         pageParam.setSort("DESC");
         PhoibeComment phoibeComment = new PhoibeComment();
         phoibeComment.setDocumentId(docId);
@@ -43,4 +43,17 @@ public class CommentController {
         PageList<DPhoibeComment> pageList = phoibeCommentService.fetchCommentByPageList(pageParam);
         return JsonUtils.toJson(new Result<PageList<DPhoibeComment>>(Code.SUCCESS, pageList));
     }
+    @RequestMapping("list/{index}/{limit}")
+    public String list(@PathVariable Integer index,@PathVariable Integer limit){
+        PageParam<PhoibeComment> pageParam = new PageParam<>();
+        pageParam.setStart(index * limit + 1);
+        pageParam.setLimit(limit);
+        pageParam.setOrderBy("c.UPDATE_TIME");
+        pageParam.setSort("DESC");
+        PhoibeComment phoibeComment = new PhoibeComment();
+        pageParam.setParam(phoibeComment);
+        PageList<DPhoibeComment> pageList = phoibeCommentService.fetchCommentByPageList(pageParam);
+        return JsonUtils.toJson(new Result<PageList<DPhoibeComment>>(Code.SUCCESS, pageList));
+    }
+
 }
