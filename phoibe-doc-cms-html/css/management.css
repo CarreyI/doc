@@ -462,7 +462,8 @@ body, html {
 	cursor: pointer;
 	display: inline-block;
 	border: 1px solid #5e90ca;
-	margin-left: 10px;
+	margin-left: 4px;
+    margin-right:4px;
 	background:#142f47;/*#efefef;*/
 }
 
