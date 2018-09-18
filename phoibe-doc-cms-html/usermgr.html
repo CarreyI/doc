@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="css/layui.css">
 	<script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/layui.js"></script>
-
+    <script src="js/data.js"></script>
 	<script src="js/usermgr.js"></script>
 
 </head>
@@ -28,7 +28,7 @@
 					    <div class="btn-cmd-list">
 					    <a id="btnadd">添加</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmodify">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btndel">删除</a> </div>                                             <br/><br />
                              <table class="tblist" border="0">
-                                 <tr><th ></th><th>用户名</th><th>姓名</th><th>昵称</th><th>状态</th></tr>
+                                 <tr><th ></th><th>用户名</th><th>姓名</th><th>昵称</th><th>类型</th></tr>
                                   <tbody id="tblist-body"></tbody>
                              </table>
 							   <div id="notice_pages"></div>
@@ -57,9 +57,21 @@
 					</div>
 					
 					<div class="tbl-row">
-						<div class="lable">排序:</div>
+						<div class="lable">类型:</div>
 						<div class="ctrl">
-							<input type="text" id="sequence" name="sequence" class="inputBox" />
+                            <select	id="type">
+                                <option value="0">全部</option>
+                                <option value="1">军</option>
+                                <option value="2 ">师</option>
+                                <option value="3">旅</option>
+                                <option value="4 ">团</option>
+                                <option value="5">营</option>
+                                <option value="6 ">连</option>
+                                <option value="7">排</option>
+                                <option value="8 ">班</option>
+                                <option value="9">兵</option>
+                                <option value="10">参谋</option>
+                            </select>
 						</div>
 					</div>
 					<div class="tbl-row">

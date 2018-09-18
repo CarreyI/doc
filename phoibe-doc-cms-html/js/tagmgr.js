@@ -4,32 +4,20 @@ var currPage = 1;
 function loadData(pageindex) {
 
     $("#tblist-body").children().remove();
-    /*
-        var name = $("#docname").val();
-        var owner = $("#owner").val();
-        var data = 'phoibe/document/list/'+pageindex+'/10?1=1';
 
-        if (name!=null);
-        data = data + "&name=" + name;
-        if (owner != "") {
-            data = data + "&userRealName=" + owner;
-        }
-        var wartypevalue = $("#wartype option:selected").val();
-        if (wartypevalue != 0) {
-            data = data + "&combatType=" + wartypevalue;
-        }
-        var armtypevalue = $("#armtype option:selected").val();
-        if (armtypevalue != 0) {
-            data = data + "&arms=" + armtypevalue;
-        }
-        var chkValue = $("#con-value li[checked='checked']");
-        var doctypevalue = chkValue.html();
+    var name_value = $("#name").val();
+    var createtime_value = $("#createtime").val();
 
-        if (doctypevalue != "undefined" && doctypevalue != null) {
-            data = data + "&format=" + doctypevalue.toLowerCase();
-        }*/
+    var data = GAL_URL+"phoibe/document/list/" + pageindex +"/10?1=1";
 
-    /*$.ajax({
+    if (name_value != "undefined" && name_value != null) {
+        data = data + "&nickname=" + name_value.toLowerCase();
+    }
+    if (createtime_value != "undefined" && createtime_value != null) {
+        data = data + "&createtime=" + createtime_value.toLowerCase();
+    }
+
+    $.ajax({
         type: 'GET',
         url: data,
         async:false,
@@ -37,57 +25,21 @@ function loadData(pageindex) {
         success: function (result) {//<div class='font22 title'>中国战法</div>
             var total_rows = result.data.totalCount;
             totalRows = total_rows;
-            var step = 0;
-            var row = "";
             $.each(result.data.dataList, function (i, val) {
-                var title = val["name"];
-                var format = val["format"];
-                var id = val["id"];
-                var pagecount = val["pagecount"];
-                var filesize = val["fileSize"];
-                var status = val["status"];
-                var auditstatus = val["auditStatus"];
-                var createtime = val["createTime"];
-                var owner = "admin";
-                var auditdate = "2018-08-26";
-                var auditor = "admin";
-                var tag = "";
-                var docstatus = "";
-                var auditstatustyle = "f-blue";
-                if (status == 1) {
-                    docstatus = "上传中";
-                }
 
-                else if (status == 2) {
-                    docstatus = "上传完成";
-                }
-                if (auditstatus == 1) {
-                    auditstatustyle = "f-red";
-                    auditstatus = "待审核";
-                }
-                else if (auditstatus == 2) {
-                    auditstatus = "审核通过";
-                }
-                else if (auditstatus == 3) {
-                    auditstatus = "审核不通过";
-                    auditstatustyle = "f-red";
-                }
-                var row = "<div class='row'><a class='title' href='docdetail.html?tid="+id+"'>" + title + "</a><ul><li>上传时间:&nbsp;&nbsp;" + createtime + "</li><li>格式:&nbsp;&nbsp;" + format + "</li><li>46条评论</li><li>评分44</li><li>大小:&nbsp;&nbsp;" + filesize + "</li><li>文档拥有者:&nbsp;&nbsp;" + owner + "</li></ul></div>";
-                 $("#doc-content").append(row);
+                var id = val["id"];;
+                var name =  val["name"];//"标签名称";
+                var createtime =  val["createtime"];//"创建时间";
+                var hitnum =  val["hitnum"];//"点击量";
+
+
+                var row = "<tr><td class='chksel'><input type='radio' name='chksel' data-value='" + id + "'/></td><td>"
+                    + name + "</td><td>" + createtime + "</td><td>"
+                    + hitnum + "</td></tr>";
+                $("#tblist-body").append(row);
             });
         }
-    });*/
-    for (var i = 0; i < totalRows; i++) {
-        //var row = "<div class='row'><a class='title' href='docdetail.html?tid="+id+"'>" + title + "</a><ul><li>上传时间:&nbsp;&nbsp;" + createtime + "</li><li>格式:&nbsp;&nbsp;" + format + "</li><li>46条评论</li><li>评分44</li><li>大小:&nbsp;&nbsp;" + filesize + "</li><li>文档拥有者:&nbsp;&nbsp;" + owner + "</li></ul></div>";
-        //var row = "<tr><td style='width:50px'><input type='radio' data-value='" + id + "' name='chksel'/></td><td><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>" + filesize + "</td><td>" + format + "</td><td>" + tag + "</td><td>上传</td><td>" + createtime + "</td><td>" + auditdate + "</td><td class='"+auditstatustyle+"'>"+auditstatus+"</td><td></td></tr>";
-        var id = i;
-        var name = "标签名称";
-        var createtime = "创建时间";
-        var hitnum = "点击量";
-        var status = "状态";
-        var row = "<tr><td class='chksel'><input type='radio' name='chksel' data-value='" + id + "'/></td><td>" + name + "</td><td>" + createtime + "</td><td>" + hitnum + "</td><td>" + status + "</td></tr>";
-        $("#tblist-body").append(row);
-    }
+    });
 
 
     layui.use(['laypage', 'layer'], function () {
