@@ -8,6 +8,7 @@ function loadData(pageindex) {
     var username_value = $("#username").val();
     var nickname_value = $("#nickname").val();
     var realname_value = $("#realname").val();
+    var create_time_value = $("#create_time").val();
 
     var data = GAL_URL+"phoibe/comment/list/"+pageindex+"/10?1=1";
 
@@ -38,8 +39,8 @@ function loadData(pageindex) {
                 var username = val["username"];//"用户名";
                 var nickname = val["nickname"];//"姓名";
                 var title = val["title"];//"标题";
-                var comment_content = val["comment_content"];//"评论内容";
-                var create_time = val["create_time"];//"创建时间";
+                var comment_content = val["commentContent"];//"评论内容";
+                var create_time = val["createTime"];//"创建时间";
 
                 var row = "<tr><td class='chksel'><input type='radio' name='chksel' data-value='" + id + "'/></td><td>"
                     + username + "</td><td>" + nickname + "</td><td>"
