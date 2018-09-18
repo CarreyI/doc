@@ -41,7 +41,6 @@
                 var username = $("#username").val();
                 var password = $("#password").val();
                 var url = GAL_URL + 'phoibe/userlogin?username=' + username + "&password=" + password;
-                alert(url);
                 $.ajax({
                     type: 'POST',
                     url: url,

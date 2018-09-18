@@ -8,9 +8,8 @@ function loadData(pageindex) {
     var username_value = $("#username").val();
     var nickname_value = $("#nickname").val();
     var realname_value = $("#realname").val();
-    var typevalue = $("#type").val();
 
-    var data = 'phoibe/document/list/' + pageindex + '/10?1=1';
+    var data = GAL_URL+"phoibe/comment/list/"+pageindex+"/10?1=1";
 
     if (username_value != "undefined" && username_value != null) {
         data = data + "&username=" + username_value.toLowerCase();
@@ -21,12 +20,12 @@ function loadData(pageindex) {
     if (realname_value != "undefined" && realname_value != null) {
         data = data + "&realname=" + realname_value.toLowerCase();
     }
-        var typevalue = $("#type option:selected").val();
-    if (type != 0) {
-        data = data + "&type=" + type;
+
+    if (create_time_value != "undefined" && create_time_value != null) {
+        data = data + "&create_time=" + create_time_value.toLowerCase();
     }
 
-        $.ajax({
+    $.ajax({
         type: 'GET',
         url: data,
         async:false,
@@ -88,6 +87,7 @@ $(function () {
     });
 
     loadData(0);
+
     $("#btnSearch").click(function () {
         loadData(0);
         parent.iframeLoad();

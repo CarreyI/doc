@@ -4,30 +4,18 @@ var currPage = 1;
 function loadData(pageindex) {
 
     $("#tblist-body").children().remove();
-    /*
-        var name = $("#docname").val();
-        var owner = $("#owner").val();
-        var data = 'phoibe/document/list/'+pageindex+'/10?1=1';
 
-        if (name!=null);
-        data = data + "&name=" + name;
-        if (owner != "") {
-            data = data + "&userRealName=" + owner;
-        }
-        var wartypevalue = $("#wartype option:selected").val();
-        if (wartypevalue != 0) {
-            data = data + "&combatType=" + wartypevalue;
-        }
-        var armtypevalue = $("#armtype option:selected").val();
-        if (armtypevalue != 0) {
-            data = data + "&arms=" + armtypevalue;
-        }
-        var chkValue = $("#con-value li[checked='checked']");
-        var doctypevalue = chkValue.html();
+    var name_value = $("#name").val();
+    var createtime_value = $("#createtime").val();
 
-        if (doctypevalue != "undefined" && doctypevalue != null) {
-            data = data + "&format=" + doctypevalue.toLowerCase();
-        }*/
+    var data = GAL_URL+"phoibe/document/list/" + pageindex +"/10?1=1";
+
+    if (name_value != "undefined" && name_value != null) {
+        data = data + "&nickname=" + name_value.toLowerCase();
+    }
+    if (createtime_value != "undefined" && createtime_value != null) {
+        data = data + "&createtime=" + createtime_value.toLowerCase();
+    }
 
     $.ajax({
         type: 'GET',
@@ -37,8 +25,6 @@ function loadData(pageindex) {
         success: function (result) {//<div class='font22 title'>中国战法</div>
             var total_rows = result.data.totalCount;
             totalRows = total_rows;
-            var step = 0;
-            var row = "";
             $.each(result.data.dataList, function (i, val) {
 
                 var id = val["id"];;
