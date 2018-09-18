@@ -14,7 +14,8 @@
 	src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <script src="js/uploadForm.js"></script>
 </head>
-<body onload=" ">
+<body>
+<div id="index">
 <div class="main box_border w1920">
     <div class="header">
         <div class="logo"></div>
@@ -65,7 +66,7 @@
                 </li>
                  <li class="navList box_border" data-toggle="commgr.html">
                     <div class="box_border">
-                    <span class="iconLeft iconJoin">评论管理
+                    <span class="iconLeft iconcomm">评论管理
                     </span>
                     </div>
                 </li>
@@ -100,31 +101,7 @@
     </div>
      
 </div>
-<div class="uploadTaskListBox">
-	<div class="mask">
-		<div class="popup">
-			<div class="model-title fl">上传任务列表</div>
-				<i class="closed fr"></i>
-				<div class="clearfix"></div>
-				<hr />
-	<br/>	
-		<div class="tbl-row">
-			<div class="lable">上传:</div>
-			<div class="ctrl">
-			<div id="uploader" class="wu-example">
-				<div class="wu-example">
-					<div id="thelist" class="uploader-list"></div>
-					<div id="filebtn">
-						<span class="stopBtn" style="cursor: pointer;" >暂停</span>
-						<span class="continueBtn"style="cursor: pointer;" >继续</span>
-					</div>
-				</div>
-			</div>
-			</div>
-		</div>
-		</div>
- 	</div>
-</div>
+
 <div class="bodyMask">
 		<div class="mask">
 			<span class="fullScreen"></span>
@@ -249,6 +226,34 @@
 			</div>
 		</div>
 	</div>
+    
+</div>
+
+    <div class="uploadTaskListBox">
+	<div class="mask">
+		<div class="popup">
+			<div class="model-title fl">上传任务列表</div>
+				<i class="closed fr"></i>
+				<div class="clearfix"></div>
+				<hr />
+	<br/>	
+		<div class="tbl-row">
+			<div class="lable">上传:</div>
+			<div class="ctrl">
+			<div id="Div1" class="wu-example">
+				<div class="wu-example">
+					<div id="thelist" class="uploader-list"></div>
+					<div id="Div2">
+						<span class="stopBtn" style="cursor: pointer;" >暂停</span>
+						<span class="continueBtn"style="cursor: pointer;" >继续</span>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>
+ 	</div>
+</div>
     <script>
         $(function () {
             $("#btnExit").click(function () {
@@ -307,10 +312,6 @@
 		    if (iframeWin.document.body) {
 		        iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
 		    }
-
-		    /*var win_height = document.getElementById("frm-main").contentWindow.document.body.scrollHeight;
-		    alert(win_height);
-		    document.getElementById("frm-main").height = win_height + 150;*/
 		}
 
 		window.onload = function () {
