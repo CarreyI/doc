@@ -1214,6 +1214,12 @@ background-image: url("../images/commgr.png");
     border:1px solid #1c4b73;
     color:#ffffff;
 }
+.tblist-header {
+border:1px solid #3d7194;
+}
+#tblist-body tr td {
+
+}
 #tblist-body tr td a {
 color:#ffffff;
 }
