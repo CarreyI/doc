@@ -1,10 +1,9 @@
 
 var totalRows = 0;
-var currPage = 1;
-var baseUrl = "http://47.93.62.169:8090";//var baseUrl = "http://127.0.0.1:8090";;//"http://192.168.199.139:8090";
-
+var currPage = 0;
+var wartype = "";
 function bindNearRead() {
-    var data = baseUrl+'/phoibe/document/list/1/10'
+    var data = GAL_URL+'phoibe/document/list/1/10'
     $.ajax({
         type: 'GET',
         url: data,
@@ -55,7 +54,7 @@ function bindNearRead() {
 function bindDym() {
         $.ajax({
             type: 'GET',
-            url: baseUrl+'/phoibe/document/list/1/10',
+            url: GAL_URL+'phoibe/document/list/1/10',
             dataType: 'json',
             success: function (result) {
                 var total_rows = result.data.totalCount;
@@ -110,8 +109,8 @@ function loadData(pageindex) {
 
     $("#tblist-body").children().remove();
 
-    var data = baseUrl+'/phoibe/document/list/' + pageindex + '/10?f=audit';
-
+    var data = GAL_URL+'phoibe/document/list/' + pageindex + '/10?f=audit';
+    data = data + wartype;
     $.ajax({
             type: 'GET',
             url: data,
@@ -138,11 +137,11 @@ function loadData(pageindex) {
                     var tag = "";
                     var docstatus = "";
                     var auditstatustyle = "f-blue";
-                    if (status == 1) {
+                    if (status == 101) {
                         docstatus = "上传中";
                     }
 
-                    else if (status == 2) {
+                    else if (status == 100) {
                         docstatus = "上传完成";
                     }
                     if (auditstatus == 1) {
@@ -160,6 +159,7 @@ function loadData(pageindex) {
                    
                     var row = "<tr><td style='width:50px'><input type='radio' data-value='" + id + "' name='chksel'/></td><td><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>" + filesize + "</td><td>" + format + "</td><td>" + tag + "</td><td>上传</td><td>" + createtime + "</td><td>" + auditdate + "</td><td class='"+auditstatustyle+"'>"+auditstatus+"</td><td></td></tr>";
                     $("#tblist-body").append(row);
+                    parent.iframeLoad();
                 });
             }
         });
@@ -180,7 +180,8 @@ function loadData(pageindex) {
                , jump: function (obj, first) { //触发分页后的回调
                    if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
                        currPage = obj.curr;
-                       loadData(currPage);
+                       loadData(obj.curr - 1);
+                     
                    }
                }
             });
@@ -191,36 +192,6 @@ function loadData(pageindex) {
         loadData(0);
         bindDym();
         bindNearRead();
-
-        $("#submit").click(function () {
-            var form = $("#ajaxform");
-            var path = baseUrl + "/phoibe/document/upload";
-            form.attr("action", path)
-            var files = $("#file").get(0).files[0]; //获取file控件中的内容
-            var fd = new FormData();
-            if ("" == $("#title").val()) {
-                alert("请输入标题");
-                return
-            }
-            fd.append("title", $("#title").val());
-            fd.append("combat_type", $("#combat_type").val());
-            fd.append("arms", $("#arms").val());
-            fd.append("description", $("#description").val());
-            fd.append("file", files);
-            $.ajax({
-                url: path,
-                type: form.attr("method"),
-                data: fd,
-                dataType: "json",
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    if (data.success) {
-                        alert("提交成功");
-                    }
-                }
-            });
-        });
 
         $("#move").click(function () {
             var sel = $("#tblist-body tr td input[type='radio']:checked");
@@ -234,9 +205,11 @@ function loadData(pageindex) {
             alert(rowid);
         });
         $("#uploadfile").click(function () {
-            $(".bodyMask").fadeIn();
+            $(window.parent.document).find(".bodyMask").fadeIn();
         });
-        $(".closed").click(function () {
-            $(".bodyMask").hide();
+        $("#wartype").change(function(){
+        	var wartypevalue = $("#wartype option:selected").val();
+        	wartype = "&combatType=" + wartypevalue;
+        	loadData(0);
         });
     });
