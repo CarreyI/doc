@@ -5,7 +5,7 @@ function bindZhanfa() {
     //alert(url);
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/user/0/5',
+        url: GAL_URL + 'phoibe/document/list/user/0/4',
         dataType: 'json',
         success: function (result) {//<div class='font22 title'>中国战法</div>
             var total_rows = result.data.totalCount;
