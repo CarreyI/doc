@@ -14,6 +14,8 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 	private String linux;
 	@Value("${breakpoint.upload.status}")
 	private String status;
+	@Value("${spring.thymeleaf.prefix}")
+	private String prefix;
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		String finalDirPath="";
@@ -23,7 +25,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 			finalDirPath = linux;
 		}
         registry.addResourceHandler("/docword/**").addResourceLocations("file:"+finalDirPath);
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/templates/");
+        registry.addResourceHandler("/**").addResourceLocations(prefix);
         super.addResourceHandlers(registry);
     }
 }
