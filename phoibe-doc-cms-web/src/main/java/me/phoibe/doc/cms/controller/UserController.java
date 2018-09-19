@@ -37,8 +37,8 @@ public class UserController {
 
     }
 
-    @PostMapping("/save")
-    public String save(@ModelAttribute DPhoibeUser dPhoibeUser){
+    @RequestMapping(value = {"save"})
+    public String save(@RequestBody DPhoibeUser dPhoibeUser){
         phoibeUserService.addUser(dPhoibeUser);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }

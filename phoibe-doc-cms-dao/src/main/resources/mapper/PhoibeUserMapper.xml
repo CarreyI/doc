@@ -12,6 +12,19 @@
     <result column="REALNAME" jdbcType="VARCHAR" property="realname" />
     <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
   </resultMap>
+
+
+  <resultMap id="PageResultMap" type="me.phoibe.doc.cms.domain.dto.UserInfo">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="TYPE" jdbcType="DECIMAL" property="type" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="REALNAME" jdbcType="VARCHAR" property="realname" />
+    <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
+    <result column="ROLE_TYPE" jdbcType="DECIMAL" property="roleType" />
+    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+  </resultMap>
   <sql id="Base_Column_List">
     ID, USER_NAME, TYPE, STATUS, CREATE_TIME, UPDATE_TIME, PASSWORD, REALNAME, NICKNAME
   </sql>
@@ -85,10 +98,10 @@
 
   </sql>
 
-  <select id="selectByPageList" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="me.phoibe.doc.cms.domain.dto.UserInfo">
+  <select id="selectByPageList" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="PageResultMap">
     select * from (SELECT a.*,rownum rno FROM (select
-      u.*,r.ROLE_TYPE,r.ROLE_NAME
-    from PHOIBE_USER u join PHOIBE_USER_ROLE ur on u.ID = ur.USER_ID join PHOIBE_ROLE r on ur.ROLE_ID = r.ROLE_ID
+      u.*,r.ROLE_TYPE ,r.ROLE_NAME
+    from PHOIBE_USER u left join PHOIBE_USER_ROLE ur on u.ID = ur.USER_ID left join PHOIBE_ROLE r on ur.ROLE_ID = r.ROLE_ID
     <include refid="selectByPageList_Condition_Sql"/>
     ORDER BY ${orderBy} ${sort}) a
     ) t WHERE t.rno BETWEEN #{start} and (#{start}+#{limit})
@@ -96,7 +109,7 @@
   <select id="selectByPageListCount" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
     select
     count(*)
-    from PHOIBE_USER u join PHOIBE_USER_ROLE ur on u.ID = ur.USER_ID join PHOIBE_ROLE r on ur.ROLE_ID = r.ROLE_ID
+    from PHOIBE_USER u left join PHOIBE_USER_ROLE ur on u.ID = ur.USER_ID left join PHOIBE_ROLE r on ur.ROLE_ID = r.ROLE_ID
     <include refid="selectByPageList_Condition_Sql"/>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -113,7 +126,7 @@
       #{password,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUser" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUser" useGeneratedKeys="false" keyProperty="id">
     insert into PHOIBE_USER
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

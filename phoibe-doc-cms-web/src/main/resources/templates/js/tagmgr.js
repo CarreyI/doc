@@ -1,5 +1,5 @@
 var totalRows = 10;
-var currPage = 1;
+var currPage = 0;
 
 function loadData(pageindex) {
 
@@ -54,7 +54,7 @@ function loadData(pageindex) {
             , jump: function (obj, first) { //触发分页后的回调
                 if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
                     currPage = obj.curr;
-                    loadData(obj.curr);
+                    loadData(obj.curr-1);
                 }
             }
         });

@@ -1,5 +1,5 @@
 var totalRows = 10;
-var currPage = 1;
+var currPage = 0;
 
 function loadData(pageindex) {
 
@@ -35,17 +35,24 @@ function loadData(pageindex) {
             var total_rows = result.data.totalCount;
             totalRows = total_rows;
             $.each(result.data.dataList, function (i, val) {
+                //alert(JSON.stringify(val));
                 var id = val["id"];//
-                var username = val["username"];//"用户名";
+                var username = val["userName"];//"用户名";
+                var realname = val["realname"];//"姓名";
                 var nickname = val["nickname"];//"姓名";
                 var title = val["title"];//"标题";
                 var comment_content = val["commentContent"];//"评论内容";
                 var create_time = val["createTime"];//"创建时间";
 
-                var row = "<tr><td class='chksel'><input type='radio' name='chksel' data-value='" + id + "'/></td><td>"
-                    + username + "</td><td>" + nickname + "</td><td>"
-                    + title + "</td><td>" + comment_content + "</td><td>"
-                    + create_time + "</td></tr>";
+
+                var row="<tr><td class='chksel'><input type='radio' name='chksel' data-value='" + id + "'</td>" +
+                    "<td>"+username+"</td>"
+                    +"<td>"+realname+"</td>"
+                    +"<td>"+nickname+"</td>"
+                    +"<td>"+title+"</td>"
+                    +"<td>"+comment_content+"</td>"
+                    +"<td>"+create_time+"</td>"
+                    +"</tr>";
                 $("#tblist-body").append(row);
             });
         }
@@ -66,7 +73,7 @@ function loadData(pageindex) {
             , jump: function (obj, first) { //触发分页后的回调
                 if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
                     currPage = obj.curr;
-                    loadData(obj.curr);
+                    loadData(obj.curr-1);
                 }
             }
         });

@@ -11,6 +11,21 @@
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+
+  <resultMap id="PageResultMap" type="me.phoibe.doc.cms.domain.dto.DPhoibeComment">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="COMMENT_CONTENT" jdbcType="VARCHAR" property="commentContent" />
+    <result column="DOCUMENT_ID" jdbcType="DECIMAL" property="documentId" />
+    <result column="SCORE" jdbcType="DECIMAL" property="score" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="REALNAME" jdbcType="VARCHAR" property="realname" />
+    <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
+    <result column="NAME" jdbcType="VARCHAR" property="title" />
+  </resultMap>
   <sql id="Base_Column_List">
     ID, USER_ID, COMMENT_CONTENT, DOCUMENT_ID, SCORE, STATUS, CREATE_TIME, UPDATE_TIME
   </sql>
@@ -144,11 +159,11 @@
     </where>
   </sql>
 
-  <select id="selectByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">
+  <select id="selectByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="PageResultMap">
     select * from (SELECT a.*,rownum rno FROM (
     select
-    c.*,u.NICKNAME,u.REALNAME
-    from PHOIBE_COMMENT c join PHOIBE_USER u on c.USER_ID = u.ID
+    c.*,u.NICKNAME,u.REALNAME,u.USER_NAME,d.NAME
+    from PHOIBE_COMMENT c join PHOIBE_USER u on c.USER_ID = u.ID join PHOIBE_DOCUMENT d on c.DOCUMENT_ID = d.ID
     <include refid="selectByPage_Condition_Sql" />
     order by ${orderBy} ${sort}) a
     ) t WHERE t.rno BETWEEN #{start} AND (#{start}+#{limit})
@@ -157,7 +172,7 @@
   <select id="selectCountByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
     select
     COUNT(*)
-    from PHOIBE_COMMENT c join PHOIBE_USER u on c.USER_ID = u.ID
+    from PHOIBE_COMMENT c join PHOIBE_USER u on c.USER_ID = u.ID join PHOIBE_DOCUMENT d on c.DOCUMENT_ID = d.ID
     <include refid="selectByPage_Condition_Sql" />
   </select>
 </mapper>

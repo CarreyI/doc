@@ -10,10 +10,7 @@ import me.phoibe.doc.cms.service.PhoibeCommentService;
 import me.phoibe.doc.cms.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by carrey on 18-8-26.
@@ -24,8 +21,8 @@ public class CommentController {
     @Autowired
     private PhoibeCommentService phoibeCommentService;
 
-    @RequestMapping("save")
-    public String save(@ModelAttribute PhoibeComment phoibeComment){
+    @RequestMapping(value = {"save"})
+    public String save(@RequestBody PhoibeComment phoibeComment){
         phoibeCommentService.addComment(phoibeComment);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }

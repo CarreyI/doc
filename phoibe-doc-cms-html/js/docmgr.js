@@ -3,7 +3,7 @@ var totalRows = 0;
 var currPage = 0;
 //
 function loadData(pageindex) {
-    $("#doc-content").children().remove()
+    $("#docmgr-content").children().remove()
     var name = $("#docname").val();
     var winner = $("#winner").val();
     var warstate = $("#warstate").val();
@@ -14,22 +14,30 @@ function loadData(pageindex) {
     var owner = $("#owner").val();
     
     var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?1=1';
-    
-    if (name!=null);
-    data = data + "&name=" + name;
-    if (warstate!=null);
-    data = data + "&warstate=" + warstate;
-    if (waraddr!=null);
-    data = data + "&waraddr=" + waraddr;
-    if (wartime!=null);
-    data = data + "&wartime=" + wartime;
-    if (winner!=null);
-    data = data + "&winner=" + winner;
-    if (loser!=null);
-    data = data + "&loser=" + loser;
-    if (warnum!=null);
-    data = data + "&warnum=" + warnum;
-    if (owner != "") {
+
+    if (name != null && name != "") {
+        data = data + "&name=" + name;
+    }
+    if (warstate != null && warstate != "") {
+        data = data + "&warstate=" + warstate;
+    }
+    if (waraddr != null && waraddr != "") {
+        data = data + "&waraddr=" + waraddr;
+    }
+    if (wartime != null && wartime != "") {
+        data = data + "&wartime=" + wartime;
+    }
+    if (winner != null && winner != "") {
+        data = data + "&winner=" + winner;
+    }
+    if (loser != null && loser != "")
+    {
+        data = data + "&loser=" + loser;
+    }
+    if (warnum != null && warnum != "") {
+        data = data + "&warnum=" + warnum;
+    }
+    if (owner != "" && warnum != "") {
         data = data + "&userRealName=" + owner;
     }
     var wartypevalue = $("#wartype option:selected").val();
@@ -40,7 +48,7 @@ function loadData(pageindex) {
     if (armtypevalue != 0) {
         data = data + "&arms=" + armtypevalue;
     }
-    var chkValue = $("#con-value li[checked='checked']");
+    var chkValue = $("#con-value .check");
     var doctypevalue = chkValue.html();
    
     if (doctypevalue != "undefined" && doctypevalue != null) {

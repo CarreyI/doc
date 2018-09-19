@@ -5,7 +5,7 @@ function bindZhanfa() {
     //alert(url);
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/user/0/5',
+        url: GAL_URL + 'phoibe/document/list/user/0/4',
         dataType: 'json',
         success: function (result) {//<div class='font22 title'>中国战法</div>
             var total_rows = result.data.totalCount;
@@ -202,7 +202,7 @@ $(function () {
     });
     $("#btnSearch").click(function () {
         var searchKey = $("#search-key").val();
-        var chkValue = $("#con-value li[checked='checked']");
+        var chkValue = $("#con-value .check");
 
         var url = 'search.html?s=1';
         var doctypevalue = chkValue.html();

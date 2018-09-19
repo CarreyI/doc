@@ -31,8 +31,8 @@ public class TagController {
         return JsonUtils.toJson(new Result<PageList<PhoibeTag>>(Code.SUCCESS, pageList));
     }
 
-    @PostMapping("/save")
-    public String save(@ModelAttribute PhoibeTag phoibeTag){
+    @RequestMapping(value = {"save"})
+    public String save(@RequestBody PhoibeTag phoibeTag){
         phoibeTagService.addTag(phoibeTag);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
