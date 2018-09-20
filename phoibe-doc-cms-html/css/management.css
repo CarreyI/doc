@@ -513,6 +513,8 @@ body, html {
 	border:1px solid #cccccc;
     background:#ffffff;
     width:100%;
+    margin:0;
+    padding:0;
 }
 
 .main .container .search .checkList li {
@@ -1715,4 +1717,8 @@ font-size:18px;
 }
 #docmgr,#tagmgr {
     min-height:640px;
+}
+
+#condwhere .mask .popup {
+    margin-top:50px;
 }
