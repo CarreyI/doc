@@ -1,5 +1,5 @@
 var totalRows = 0;
-var currPage = 1;
+var currPage = 0;
 
     function loadData(pageindex) {
         $("#tblist-body").children().remove();    

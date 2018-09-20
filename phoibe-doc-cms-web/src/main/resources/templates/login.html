@@ -49,7 +49,10 @@
                     data:{"username":username,"password":password},
                     dataType: 'json',
                     success: function (result) {
+
                         if (result.code == "SUCCESS") {
+                            setCookie("username", username);
+                            setCookie("userObject", JSON.stringify(result.data));
                             if (self != top) {
                                 top.location.reload();
                                 //top.frames["frm-main"].location.href = './index-m.html';
@@ -63,6 +66,13 @@
                         }
                     }
                 });
+            });
+            // 回车按下响应事件
+            $(document).keypress(function(e) {
+                // 回车键事件
+                if(e.which == 13) {
+                    $("#btnlogin").click();
+                }
             });
         });
     </script>

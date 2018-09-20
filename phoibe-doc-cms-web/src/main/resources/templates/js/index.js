@@ -1,9 +1,15 @@
 
 function bindZhanfa() {
     $("#zgzhanfa").children().remove();
+    var userStr = getCookie("userObject");
+    var userId =1;
+    if (null!=userStr&&""!=userStr) {
+        userObject = JSON.parse(userStr);
+        userId = userObject.id;
+    }
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/user/0/4',
+        url: GAL_URL + 'phoibe/document/list/user/0/4?userId='+userId,
         dataType: 'json',
         success: function (result) {//<div class='font22 title'>中国战法</div>
             var total_rows = result.data.totalCount;
@@ -175,9 +181,15 @@ function bindDym() {
 function getDocNum() {
     //var url = GAL_URL + 'phoibe/document/count';
     //alert(url);
+    var userStr = getCookie("userObject");
+    var userId =1;
+    if (null!=userStr&&""!=userStr) {
+        userObject = JSON.parse(userStr);
+        userId = userObject.id;
+    }
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/count',
+        url: GAL_URL + 'phoibe/document/count?userId='+userId,
         dataType: 'json',
         success: function (result) {
             if (result.code == "SUCCESS");

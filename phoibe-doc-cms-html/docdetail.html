@@ -7,6 +7,7 @@
     <script src="js/jquery-2.1.0.min.js"></script>
     <script src="js/management.js"></script>
     <script src="js/docdetail.js"></script>
+    <script src="js/data.js"></script>
          <script src="js/layui.js"></script>
     <link rel="stylesheet" href="css/management.css"/>
      <link rel="stylesheet" href="css/layui.css">
@@ -20,7 +21,7 @@
 <body>
     <div id="docdetail">
         <div class="main box_border">
-            <div class="container box_border r-content">
+            <div class="container box_border">
 
                  <div class="bg_whiteSD box_border top inputblock">
                     <div class="plateHeader i-docmgr"></div>
@@ -58,15 +59,15 @@
                            <div id="notice_pages"></div>
                          <textarea  rows="5" placeholder="输入您的评论" id="comment-content" name="comment-content"></textarea>
                          <br />
-                         <input type="hidden" id="comentscore"/>
+                         <input type="hidden" id="comentscore" value="5"/>
                          <div id="com-score">评分：
                                 <div class="scoreremark">
                                     <ul>
                                       <li class="light"><a href="javascript:;">1</a></li>
-                                      <li><a href="javascript:;">2</a></li>
-                                      <li><a href="javascript:;">3</a></li>
-                                      <li><a href="javascript:;">4</a></li>
-                                      <li><a href="javascript:;">5</a></li>
+                                      <li class="light"><a href="javascript:;">2</a></li>
+                                      <li class="light"><a href="javascript:;">3</a></li>
+                                      <li class="light"><a href="javascript:;">4</a></li>
+                                      <li class="light"><a href="javascript:;">5</a></li>
                                      </ul>
                                 </div>
 

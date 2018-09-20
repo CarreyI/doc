@@ -133,20 +133,22 @@ $(function () {
         $("#submit").click(function () {
             var url = "phoibe/comment/save";
             var formdata = {
-                content: $("#comment-content").val(),
-                score: $("#comentscore").val(),
-                documentId: tid,
+                commentContent: $("#comment-content").val(),
+                score: parseInt($("#comentscore").val()),
+                documentId: parseInt(tid),
                 userId: 1
             };
+            alert(JSON.stringify(formdata));
             $.ajax({
                 type: 'POST',
                 url: GAL_URL + url,
-                date:JSON.stringify(formdata),
+                data:JSON.stringify(formdata),
                 async: false,
                 dataType: 'json',
-                contentType: "application/json;charset=UTF-8",
+                contentType: "application/json",
                 success: function (result) {
                     if (result.code == "SUCCESS") {
+                        $("#comment-content").val("");
                         alert("评论成功");
                         loadData(0);
                     }

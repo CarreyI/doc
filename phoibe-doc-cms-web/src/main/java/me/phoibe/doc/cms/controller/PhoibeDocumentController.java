@@ -110,11 +110,12 @@ public class PhoibeDocumentController {
 	}
 
 	@GetMapping("list/user/{index}/{limit}")
-	public String listDoucumentUser(@PathVariable Integer index, @PathVariable Integer limit) {
+	public String listDoucumentUser(@PathVariable Integer index, @PathVariable Integer limit,@ModelAttribute DPhoebeDocument param) {
 
 		PageParam<DPhoebeDocument> pageParam = new PageParam<>();
 		pageParam.setStart(index);
 		pageParam.setLimit(limit);
+		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
 
 		List<DPhoebeDocument> list = phoibeDocumentService.fetchDocumentUserList(pageParam);
 
@@ -131,9 +132,9 @@ public class PhoibeDocumentController {
 	}
 
 	@GetMapping("count")
-	public String countDoucument() {
+	public String countDoucument(@ModelAttribute DPhoebeDocument param) {
 		PageParam<DPhoebeDocument> pageParam = new PageParam<>();
-		pageParam.setParam(new DPhoebeDocument());
+		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
 		Long count = phoibeDocumentMapper.selectCountByPage(pageParam);
 
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, count));
