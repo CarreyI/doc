@@ -5,6 +5,7 @@ function loadData(type,pageindex) {
     var docname = $("#docname").val();
     var owner = $("#owner").val();
     var data = 'phoibe/document/list/' + pageindex + '/10?1=1';
+    var name = "";
     if (getUrlString("s") == "1" && type!=1) {
         name = getUrlString("name");
     }
@@ -42,7 +43,8 @@ function loadData(type,pageindex) {
                  totalRows = total_rows;
                  var step = 0;
                  var row = "";
-                 $.each(result.data.dataList, function (i, val) {
+                 for(var i in result.data.dataList){
+                     var val = result.data.dataList[i];
                      var title = val["name"];
                      var format = val["format"];
                      var id = val["id"];
@@ -77,7 +79,7 @@ function loadData(type,pageindex) {
                      }
                      var row = "<div class='row'><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><ul><li>上传时间:"+createtime+"</li><li>格式:"+format+"</li><li>46条评论</li><li>评分44</li><li>大小:"+filesize+"</li><li>文档拥有者:" + owner + "</li></ul></div>";
                      $("#doc-content").append(row);
-                 });
+                 }
              }
          });
 
@@ -96,14 +98,14 @@ function loadData(type,pageindex) {
                 , jump: function (obj, first) { //触发分页后的回调
                     if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
                          currPage = obj.curr;
-                        loadData(1, obj.curr);
+                        loadData(1, obj.curr-1);
                     }
                 }
              });
          });
      }
      $(function () {
-         loadData(0,1);
+         loadData(0,0);
 
          $("#condif").click(function () {
              $("#condwhere").fadeIn();
@@ -113,9 +115,9 @@ function loadData(type,pageindex) {
          });
 
          $("#btnSearch").click(function () {
-             currPage = 1;
+             currPage = 0;
              totalRows = 0;
-             loadData(1,1);
+             loadData(1,0);
 			 parent.iframeLoad();
          });
      });

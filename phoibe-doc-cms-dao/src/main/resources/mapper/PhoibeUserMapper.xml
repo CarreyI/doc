@@ -104,7 +104,7 @@
     from PHOIBE_USER u left join PHOIBE_USER_ROLE ur on u.ID = ur.USER_ID left join PHOIBE_ROLE r on ur.ROLE_ID = r.ROLE_ID
     <include refid="selectByPageList_Condition_Sql"/>
     ORDER BY ${orderBy} ${sort}) a
-    ) t WHERE t.rno BETWEEN #{start} and (#{start}+#{limit})
+    ) t WHERE t.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
   </select>
   <select id="selectByPageListCount" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
     select

@@ -3,7 +3,7 @@ var totalRows = 0;
 var currPage = 0;
 var wartype = "";
 function bindNearRead() {
-    var data = GAL_URL+'phoibe/document/list/1/10'
+    var data = GAL_URL+'phoibe/document/list/0/10'
     $.ajax({
         type: 'GET',
         url: data,
@@ -54,7 +54,7 @@ function bindNearRead() {
 function bindDym() {
         $.ajax({
             type: 'GET',
-            url: GAL_URL+'phoibe/document/list/1/10',
+            url: GAL_URL+'phoibe/document/list/0/10',
             dataType: 'json',
             success: function (result) {
                 var total_rows = result.data.totalCount;

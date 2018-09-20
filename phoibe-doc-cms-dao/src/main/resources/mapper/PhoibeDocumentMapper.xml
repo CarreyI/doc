@@ -506,7 +506,7 @@
     from PHOIBE_DOCUMENT
     <include refid="selectByPage_Condition_Sql"/>
     ORDER BY ${orderBy} ${sort}) a
-    ) t WHERE t.rno BETWEEN #{start} and (#{start}+#{limit})
+    ) t WHERE t.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
   </select>
 
   <select id="selectCountByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
@@ -525,6 +525,6 @@
     from PHOIBE_DOCUMENT d JOIN PHOIBE_USER u ON d.USER_ID = u.ID
 
     ORDER BY d.CREATE_TIME DESC nulls last) a
-    ) t WHERE t.rno BETWEEN #{start} and (#{start}+#{limit})
+    ) t WHERE t.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
   </select>
 </mapper>

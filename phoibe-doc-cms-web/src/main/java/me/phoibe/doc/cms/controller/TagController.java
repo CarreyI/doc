@@ -22,7 +22,7 @@ public class TagController {
         String orderBy = "CREATE_TIME";
         String sort = "DESC";
         PageParam<PhoibeTag> pageParam = new PageParam<>();
-        pageParam.setStart(index * limit + 1);
+        pageParam.setStart(index);
         pageParam.setLimit(limit);
         pageParam.setParam(new PhoibeTag());
         pageParam.setOrderBy(orderBy);
