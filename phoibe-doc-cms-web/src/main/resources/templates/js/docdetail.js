@@ -25,7 +25,7 @@ function getInfo() {
                     hrefurl= encodeURI(hrefurl)
                     var pdfval = result.data.filePath.indexOf(".pdf");//验证文件后缀是否为pdf
                     if(pdfval > 0){
-                    	hrefurl = "http://"+ window.location.host +"/docword/"+result.data.filePath;
+                    	hrefurl = GAL_URL+"/docword/"+result.data.filePath;
                     }
                     $(".perview").attr("href",hrefurl);
                 }else{

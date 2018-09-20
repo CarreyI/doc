@@ -17,7 +17,7 @@
 					<div class="bg_whiteSD box_border search">
 						<div class="inputBox">
 							<input type="text" class="box_border" id="search-key" /> <span
-								class="btnSearch" id="btnSearch"></span>
+								class="btnSearch" id="btnSearch"></span><span id="condif">查询条件</span>
 						</div>
 						<ul class="checkList clearfix " id="con-value">
 							<li class="checkBox check">PDF</li>
@@ -74,8 +74,8 @@
                             <div class="bg_whiteSD idx_box_list">
                                 <div class="font16 title i-sign">最新动态</div>
                                    <marquee id="affiche" align="left" behavior="scroll" direction="up" height="176px" width="100%" loop="-1" scrollamount="10" scrolldelay="300" onMouseOut="this.start()" onMouseOver="this.stop()">
-                                    <ul class="list3" id="lst-dym">
-                                    </ul>
+                                    <div id="lst-dym">
+                                    </div>
                                    </marquee>
                             </div>
 						</div>
@@ -86,6 +86,51 @@
 
         <div class="cleafix"></div>
     </div>
+
+    <div class="bodyMask" id="condwhere">
+     <div class="mask" >
+		  <div class="popup">
+			   <div class="model-title fl">查询条件</div>
+				    <i class="closed fr"></i>
+				    <div class="clearfix"></div>
+				    <hr />
+	                <br/>	
+					<div class="bg_whiteSD box_border">
+						<div class="clearfix">
+						    <ul class="u-con-list">
+						<li class="label">战例类型：</li><li><select	id="wartype">
+							<option value="0">全部</option>
+							<option value="1">西方战例</option>
+							<option value="2 ">苏军战例</option>
+							<option value="3">俄军战例</option>
+							<option value="4 ">兵种战例</option>
+							<option value="5">其他</option>
+						</select></li>
+						<li class="label">作战兵种：</li><li><select id="armtype">
+							<option value="0">全部</option>
+							<option value="1">步兵</option>
+							<option value="2">装甲兵</option>
+							<option value="3">通信兵</option>
+							<option value="4">炮兵</option>
+						</select></li>
+						<li class="label">文档名称：</li><li><input type="text" id="docname" /></li>
+						<li class="label">文档作者：</li><li><input type="text" id="owner" /></li>
+						<li class="label">参战国家：</li><li><input type="text" id="warstate" /> </li>
+						<li class="label">参战地点：</li><li><input type="text" id="waraddr" /> </li>
+						<li class="label">参战时间：</li><li><input type="text" id="wartime" />  </li>
+						<li class="label">参战国家：</li><li><input type="text" id="Text1" /> </li>
+						<li class="label">胜利方：</li><li><input	type="text" id="winner" /></li>
+						<li class="label">失败方：</li><li><input type="text" id="loser" /></li>
+						<li class="label">伤亡人数:</li><li><input type="text" id="warnum" /></li>
+						</ul>
+						</div>
+					
+					</div>
+
+               </div>
+          </div>
+</div>
+
 	<script src="js/management.js"></script>
    
 </body>

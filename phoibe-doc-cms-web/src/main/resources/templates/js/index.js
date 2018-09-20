@@ -170,7 +170,7 @@ function bindDym() {
                 if (hours > 0) minutesTip = hours + "小时" + minutesTip;
                 if (days > 0) minutesTip = days + "天" + minutesTip;
 
-                var row = "<li><a href='docdetail.html?tid=" + tid + "' title='" + docname + "'>" + cutString(docname, 28) + "</a></li><li><span>" + username + "</span></li><li>" + minutesTip + "</li>";
+                var row = "<ul class='list3'><li><a href='docdetail.html?tid=" + tid + "' title='" + docname + "'>" + cutString(docname, 28) + "</a></li><li><span>" + username + "</span></li><li>" + minutesTip + "</li></ul>";
                 $("#lst-dym").append(row);
             });
         }
@@ -200,6 +200,14 @@ $(function () {
     $("#upload").click(function () {
         $(window.parent.document).find(".bodyMask").fadeIn();
     });
+
+    $("#condif").click(function () {
+        $("#condwhere").fadeIn();
+    });
+    $(".closed").click(function () {
+        $("#condwhere").fadeOut();
+    });
+
     $("#btnSearch").click(function () {
         var searchKey = $("#search-key").val();
         var chkValue = $("#con-value .check");
