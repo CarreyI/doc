@@ -702,12 +702,13 @@ ul.list3 li {
 }
 
 .title {
-	margin-top: 6px;
-	
+	/*margin-top: 6px;*/
 }
 .idx_box_list .title {
-margin-left: 10px;
-    padding-left:12px;
+    /*margin-left: 10px;
+    padding-left:12px;*/
+    background:#eeeeee;
+    padding-left:8px;
 }
 
 .star {
@@ -1492,12 +1493,12 @@ ol.list1 {
 #docnum {
     font-size: 34px;
     color: #fc6433;
-    margin-top: 20px;
+    margin-top: 14px;
     line-height: 80px;
     margin-bottom: 20px;
 }
 .dw-bk {
-background:url("../images/dw_bak.png");
+/*background:url("../images/dw_bak.png");*/
 height:80px;
 width:100%;
 }
