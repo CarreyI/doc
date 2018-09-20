@@ -6,6 +6,7 @@ import me.phoibe.doc.cms.domain.po.PhoibeUser;
 import me.phoibe.doc.cms.entity.Code;
 import me.phoibe.doc.cms.entity.Constant;
 import me.phoibe.doc.cms.entity.Result;
+import me.phoibe.doc.cms.exception.BusinessException;
 import me.phoibe.doc.cms.security.JwtUtil;
 import me.phoibe.doc.cms.service.PhoibeUserService;
 import me.phoibe.doc.cms.utils.JsonUtils;
@@ -85,12 +86,11 @@ public class LoginContorller {
 
                 return JsonUtils.toJson(new Result<UserInfo>(Code.SUCCESS, userInfo));
             }
+            throw new BusinessException("用户名或密码不正确");
         } catch (Exception e) {
             return JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
         }
 
-
-        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 
 }
