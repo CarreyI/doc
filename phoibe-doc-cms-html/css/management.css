@@ -509,8 +509,10 @@ body, html {
 }
 
 .u-con-list li input,select{
-	line-height: 30px;
+	line-height: 28px;
 	border:1px solid #cccccc;
+    background:#ffffff;
+    width:100%;
 }
 
 .main .container .search .checkList li {
