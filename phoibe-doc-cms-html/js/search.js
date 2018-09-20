@@ -105,6 +105,13 @@ function loadData(type,pageindex) {
      $(function () {
          loadData(0,1);
 
+         $("#condif").click(function () {
+             $("#condwhere").fadeIn();
+         });
+         $(".closed").click(function () {
+             $("#condwhere").fadeOut();
+         });
+
          $("#btnSearch").click(function () {
              currPage = 1;
              totalRows = 0;

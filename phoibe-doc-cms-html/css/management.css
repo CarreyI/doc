@@ -432,7 +432,7 @@ body, html {
 }
 
 .main .container .search .inputBox {
-	width: 670px;
+	width: 710px;
 	margin: 0 auto;
 	height: 34px;
 	line-height: 34px;
@@ -489,22 +489,28 @@ body, html {
 }
 
 .u-con-list {
-	min-width: 860px;
-	/*max-width:960px;*/
+	/*min-width: 860px;*/
+	max-width:960px;
+    font-size:14px;
 }
 
 .u-con-list li.label {
 	float: left;
-	width: 15%;
+	width: 18%;
 	line-height: 30px;
-	color:#c9c9c9;
+	color:#999999;/*#c9c9c9;*/
 }
 
 .u-con-list li {
 	float: left;
-	width: 15%;
+	width: 24%;
 	line-height: 30px;
 	padding: 4px;
+}
+
+.u-con-list li input,select{
+	line-height: 30px;
+	border:1px solid #cccccc;
 }
 
 .main .container .search .checkList li {
@@ -844,7 +850,7 @@ color:#ffffff;
 }
 
 #owner {
-	width: 120px;
+	/*width: 120px;*/
 }
 
 #size {
@@ -1698,4 +1704,13 @@ font-size:18px;
 
 .r-content {
     /*background:#ffffff;*/
+}
+#condif {
+    width:100px;
+    color:#ffffff;
+    font-size:12px;
+    cursor:pointer;
+}
+#docmgr,#tagmgr {
+    min-height:640px;
 }
