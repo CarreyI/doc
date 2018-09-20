@@ -21,7 +21,8 @@
         <div class="logo"></div>
         <div class="fl headerTitle"></div>
         <div class="headerExit iconLeft fr" id="btnExit"></div>
-        <div class="icon-p iconLeft fr" id="icon-p"></div> 
+        <div class="headerPer iconLeft fr" id="btnper"></div> 
+         <div class="headerIndex iconLeft fr" id="btnindex"></div> 
         <div class="dateBox fr">
                 <span id="curdate"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="curtime"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="curweek"></span>
             </div>
@@ -255,14 +256,19 @@
 </div>
     <script>
         $(function () {
+
+            $("#btnper").click(function () {
+                document.getElementById("frm-main").src = 'percenter.html';
+            });
+            $("#btnindex").click(function () {
+                document.getElementById("frm-main").src = 'index-m.html';
+            });
+
             $("#btnExit").click(function () {
                 authExit();
             });
 
             initNav();
-
-            //var curtime = $("#curtime");
-            //var curdate = $("#curdate");
             setInterval(function () {
                 var time = new Date();   // 程序计时的月从0开始取值后+1   
                 var m = time.getMonth() + 1;
