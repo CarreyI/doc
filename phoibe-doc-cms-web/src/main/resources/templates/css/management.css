@@ -1,5 +1,8 @@
 ﻿@charset "utf-8";
 /*reset*/
+body {
+font-size:14px;
+}
 body, p, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, hr, blockquote,
 	object, iframe, fieldset, input, legend, form, th, td {
 	margin: 0;
@@ -26,6 +29,7 @@ img {
 a {
 	text-decoration: none;
 	color:#ffffff; /*#000;*/
+    font-size:14px;
 }
 
 a:hover {
@@ -194,7 +198,7 @@ body, html {
 	/*height: 100%;*/
 	position: relative;
 	/*padding-left: 260px;*/
-	padding-top: 44px;
+	padding-top: 52px;
 }
 
 .main .header {
@@ -202,10 +206,9 @@ body, html {
 	position: absolute;
 	top: 0;
 	left: 0;
-	height: 46px;
+	height: 60px;
 	z-index: 2;
-
-        background:url("../images/topbj.png");
+    background:url("../images/topbj.png");
     /*background:url("../images/header_bk.png");*/
     border-bottom:1px solid #4cd7ff;
 	/*background-color: #1D6B99;*/
@@ -220,13 +223,14 @@ body, html {
 	color: #fff;*/
     width:248px;
     margin-left:8px;
-    height:40px;
+    margin-top: 8px;
+    height:50px;
     background-image: url("../images/logo_text.png");
 }
 .main .header .logo {
 	/*height: 88px;*/
-	width:126px;
-    height:45px;
+	width:146px;
+    height:60px;
     float:left;
 	background-image: url("../images/logo.png");
 }
@@ -235,7 +239,7 @@ body, html {
     line-height: 48px;
 	font-size: 16px;
 	color: #fff;
-	height: 48px;
+	height: 60px;
 	padding-left: 28px;
 	padding-right: 5px;
 	margin-right: 35px;
@@ -249,7 +253,7 @@ body, html {
     line-height: 48px;
 	font-size: 16px;
 	color: #fff;
-	height: 48px;
+	height: 60px;
 	padding-left: 28px;
 	padding-right: 5px;
 	margin-right: 8px;
@@ -264,7 +268,7 @@ body, html {
 
 .main .header .headerUsers {
 	height: 48px;
-	line-height: 48px;
+	line-height: 60px;
 	/*margin-top: 29px;*/
 }
 
@@ -297,9 +301,9 @@ body, html {
 	left: 0;
 	top: 0;
 	padding-top: 4px;
-  border:1px solid #4cd7ff;
+    border:1px solid #4cd7ff;
     border-radius:3px;
-    margin-top:60px;
+    margin-top:70px;
     margin-left:10px;
     padding-left:8px;
    padding-bottom:38px;
@@ -384,7 +388,7 @@ body, html {
 	background-image: url("../images/iconSystem.png");
 }
 
-.main .navLeft .dateBox {
+/*.main .navLeft .dateBox {
 	border-top: 1px solid rgba(255, 255, 255, 0.3);
 	margin-top: 70px;
 	padding-top: 16px;
@@ -396,7 +400,7 @@ body, html {
 	height: 30px;
 	line-height: 30px;
 	font-size: 14px;
-}
+}*/
 
 .main .container .page {
 	display: none;
@@ -643,6 +647,7 @@ ul.list3 {
 	margin-top: 8px;
     margin-left:4px;
     color:#ffc92d;
+    overflow:hidden;
 }
 
 ul.list3 li {
@@ -1544,7 +1549,7 @@ width:100%;
 }
 
 #btnmove {
-	background: url("../images/btnedit_sel.png") no-repeat left center;
+	background: url("../images/btnmove.png") no-repeat left center;
 	line-height: 24px;
        background-position:8px 8px;
 	border: 0;
@@ -1557,7 +1562,7 @@ padding-left: 30px;
 }
 
 #btnmodify {
-	background: url("../images/btnedit_sel.png") no-repeat left center;
+	background: url("../images/btnedit.png") no-repeat left center;
 	line-height: 24px;
        background-position:8px 8px;
 	border: 0;
@@ -1658,14 +1663,14 @@ margin-top:40%;
 cursor:pointer;
 }
 .dateBox {
-color:#6c96ab;
+color:#a7dbf1;
 border:1px solid #28779c;
 border-radius:3px;
 line-height:32px;
     padding-left: 10px;
     padding-right: 10px;
     margin-right:10px;
-    margin-top:8px;
+    margin-top:14px;
 }
 .per-10 {
 width:10% !important;
@@ -1687,4 +1692,11 @@ width:15% !important;
 }
 #zgzhanfa li a {
 padding-left:4px;
+}
+#curtime {
+font-size:18px;
+}
+
+.r-content {
+    /*background:#ffffff;*/
 }

@@ -23,8 +23,7 @@
         <div class="headerExit iconLeft fr" id="btnExit"></div>
         <div class="icon-p iconLeft fr" id="icon-p"></div> 
         <div class="dateBox fr">
-                <span id="curtime"></span>
-                <span id="curweek"></span>
+                <span id="curdate"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="curtime"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="curweek"></span>
             </div>
         <div class="headerUsers fr">
             <span class="userName iconLeft iconUser ">李明</span>
@@ -32,7 +31,7 @@
         </div>
     </div>
 	<div class="navLeft box_border" id="nav_left">
-		 <div id="nav_title_btn">文档系统管理</div>
+		 <!--<div id="nav_title_btn">文档系统管理</div>-->
 		    <ul class="fl">
                 <li class="navList box_border active" data-toggle="index-m.html">
                     <div class="box_border">
@@ -259,21 +258,29 @@
             $("#btnExit").click(function () {
                 authExit();
             });
-			
+
             initNav();
 
-            var show = document.getElementById("curtime");
+            //var curtime = $("#curtime");
+            //var curdate = $("#curdate");
             setInterval(function () {
                 var time = new Date();   // 程序计时的月从0开始取值后+1   
                 var m = time.getMonth() + 1;
-                var t = time.getFullYear() + "-" + m + "-"
-                + time.getDate() + " " + time.getHours() + ":"
-                + time.getMinutes() + ":" + time.getSeconds();
-                show.innerHTML = t;
+                $("#curdate").html(time.getFullYear() + "-" + m + "-"
+                + time.getDate());
+                var hours = time.getHours();
+                var minutes = time.getMinutes();
+                var seconds = time.getSeconds();
+                var hour = hours < 10 ? "0" + hours : hours;
+                var minute = minutes < 10 ? "0" + minutes : minutes;
+                var second = seconds < 10 ? "0" + seconds : seconds;
+                $("#curtime").html(hour + ":"
+                + minute + ":" + second);
+
             }, 1000);
 
             var week;
-            var iweek= new Date().getDay();
+            var iweek = new Date().getDay();
             if (iweek == 0) week = "星期日"
             if (iweek == 1) week = "星期一"
             if (iweek == 2) week = "星期二"
@@ -292,32 +299,31 @@
                 if (v == 1) {
                     $("#nav_left").animate({ left: '-232px' });
                     $("#main-content").css("padding-left", "30px");
-                    $("#nav_arrow").attr("data-value",2);
+                    $("#nav_arrow").attr("data-value", 2);
                 }
                 else {
                     $("#main-content").css("padding-left", "260px");
                     $("#nav_left").delay(5).animate({ left: '0' });
                     $("#nav_arrow").attr("data-value", 1);
                 }
-              
+
             });
         }
-		function iframeLoad()
-        {
-		    var iframe = document.getElementById("frm-main");
-		    var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+        function iframeLoad() {
+            var iframe = document.getElementById("frm-main");
+            var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
 
-		    iframe.height = 0;
+            iframe.height = 0;
 
-		    if (iframeWin.document.body) {
-		        iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
-		        $("#nav_left").css("height",iframe.height);
-		    }
-		}
+            if (iframeWin.document.body) {
+                iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+                $("#nav_left").css("height", iframe.height - 30);
+            }
+        }
 
-		window.onload = function () {
-			iframeLoad()
-		}
+        window.onload = function () {
+            iframeLoad()
+        }
     </script>
 </body>
 </html>
