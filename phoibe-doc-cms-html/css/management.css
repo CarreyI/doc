@@ -235,6 +235,17 @@ body, html {
 	background-image: url("../images/logo.png");
 }
 
+.main .header  .headerIndex {
+     line-height: 48px;
+	font-size: 16px;
+	color: #fff;
+	height: 60px;
+	padding-left: 28px;
+	padding-right: 5px;
+	margin-right: 8px;
+	background-image: url("../images/index.png");
+	cursor: pointer;
+}
 .main .header  .headerExit {
     line-height: 48px;
 	font-size: 16px;
@@ -249,7 +260,7 @@ body, html {
 	transition: opacity 0.3s;*/
 }
 
-.main .header  .icon-p {
+.main .header  .headerPer {
     line-height: 48px;
 	font-size: 16px;
 	color: #fff;

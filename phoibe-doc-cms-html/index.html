@@ -21,7 +21,8 @@
         <div class="logo"></div>
         <div class="fl headerTitle"></div>
         <div class="headerExit iconLeft fr" id="btnExit"></div>
-        <div class="icon-p iconLeft fr" id="icon-p"></div> 
+        <div class="headerPer iconLeft fr" id="btnper"></div> 
+         <div class="headerIndex iconLeft fr" id="btnindex"></div> 
         <div class="dateBox fr">
                 <span id="curdate"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="curtime"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="curweek"></span>
             </div>
@@ -256,8 +257,11 @@
     <script>
         $(function () {
 
-            $("#icon-p").click(function () {
+            $("#btnper").click(function () {
                 document.getElementById("frm-main").src = 'percenter.html';
+            });
+            $("#btnindex").click(function () {
+                document.getElementById("frm-main").src = 'index-m.html';
             });
 
             $("#btnExit").click(function () {
