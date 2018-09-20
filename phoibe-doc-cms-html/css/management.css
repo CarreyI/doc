@@ -428,6 +428,7 @@ body, html {
 }
 
 .main .container .bg_whiteSD {
+    
 	/*background-color: #fff;
 	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15);
 
@@ -623,7 +624,7 @@ background-image: url("../images/i-sign.png");
 }
 .font16 {
 	font-size: 16px;
-	color: #1D6B99;/*#00f0ff;*/
+	/*color: #1D6B99;/*#00f0ff;*/
 	height: 38px;
 	line-height: 38px;
 }
@@ -760,11 +761,11 @@ ul.list3 li {
 .doc-title {
 	font-size: 18px;
 	line-height: 30px;
-    color:#ffc92d;
+    color:#226c97;
 }
 
 #doc-property li {
-color:#ffffff;
+color:#000;
 }
 .pdf {
 	background: url("../images/pdf.png") no-repeat;
@@ -920,7 +921,7 @@ color:#ffffff;
 	height: 40px;
 }
 .desc {
-color:#fcfdff;
+color:#000;
 line-height:30px;
 font-size:12px;
 }
@@ -958,7 +959,7 @@ border:1px solid #5e90ca;
 	width: 100%;
 	min-height: 100px;
 	border: 1px solid #5e90ca;
-	background: #142f47;
+	/*background: #142f47;*/
 }
 
 #comm-title {
@@ -1201,11 +1202,15 @@ border:1px solid #5e90ca;
 	display: inline-block;
 	cursor: pointer;
 }
+#docmgr-content {
+background:#fff;
+padding-left:4px;
+}
 #docmgr-content .row .title {
-    color:#ffc92d !important;
+    color:#226c97 !important;
 }
 #docmgr-content .row ul li {
-    color:#ffffff;
+    color:#000;
 }
 .i-commgr {
 background-image: url("../images/commgr.png");
