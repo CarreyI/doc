@@ -7,6 +7,7 @@ import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeRole;
 import me.phoibe.doc.cms.domain.po.PhoibeUser;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface PhoibeUserService {
@@ -21,7 +22,7 @@ public interface PhoibeUserService {
 
     PageList<UserInfo> fetchUserPageList(PageParam<UserInfo> pageParam);
 
-    void addUser(DPhoibeUser dPhoibeUser);
+    void addUser(DPhoibeUser dPhoibeUser) throws UnsupportedEncodingException;
 
     void modifyUser(DPhoibeUser dPhoibeUser);
 }

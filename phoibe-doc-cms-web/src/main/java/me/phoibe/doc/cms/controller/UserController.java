@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RestController
@@ -40,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public String save(@RequestBody DPhoibeUser dPhoibeUser){
+    public String save(@RequestBody DPhoibeUser dPhoibeUser) throws UnsupportedEncodingException {
         phoibeUserService.addUser(dPhoibeUser);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -81,10 +82,10 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
 
     @Override
     @Transactional
-    public void addUser(DPhoibeUser dPhoibeUser) {
+    public void addUser(DPhoibeUser dPhoibeUser) throws UnsupportedEncodingException {
         PhoibeUser user = new PhoibeUser();
         BeanUtils.copyProperties(dPhoibeUser,user);
-        user.setPassword(new String(DigestUtils.md5("123456")));
+        user.setPassword(DigestUtils.md5Hex("123456"));
         phoibeUserMapper.insertSelective(user);
         PhoibeUserRole phoibeUserRole = new PhoibeUserRole();
         phoibeUserRole.setCreateTime(new Date());
@@ -94,6 +95,7 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
     }
 
     @Override
+    @Transactional
     public void modifyUser(DPhoibeUser dPhoibeUser) {
         PhoibeUser user = new PhoibeUser();
         BeanUtils.copyProperties(dPhoibeUser,user);
