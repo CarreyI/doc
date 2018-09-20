@@ -26,6 +26,7 @@ spring:
       maxFileSize: 1048580000Mb
       maxRequestSize: 10485800000MB
 logging:
+  config: classpath:logback-spring.xml
   level:
     root: info
 server:

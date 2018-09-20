@@ -84,7 +84,7 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
     public void addUser(DPhoibeUser dPhoibeUser) {
         PhoibeUser user = new PhoibeUser();
         BeanUtils.copyProperties(dPhoibeUser,user);
-        user.setPassword(DigestUtils.md5("Q1w2e3r4").toString());
+        user.setPassword(new String(DigestUtils.md5("123456")));
         phoibeUserMapper.insertSelective(user);
         PhoibeUserRole phoibeUserRole = new PhoibeUserRole();
         phoibeUserRole.setCreateTime(new Date());

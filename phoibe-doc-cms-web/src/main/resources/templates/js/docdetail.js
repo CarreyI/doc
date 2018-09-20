@@ -12,10 +12,10 @@ function getInfo() {
         success: function (result) {
             if (result.code = "SUCCESS") {
             	var perviewStatus =0;
-                if (result.data.format == "doc" || result.data.format == "docx") {
+                /*if (result.data.format == "doc" || result.data.format == "docx") {
                     $("#icontitle").attr("class", "doc");
                     perviewStatus=1;
-                }
+                }*/
                 if (result.data.format == "pdf") {
                     $("#icontitle").attr("class", "pdf");
                     perviewStatus=1;
@@ -127,19 +127,24 @@ $(function () {
         getInfo();
         loadData(0);
         $(".download").click(function () {
-            url = "phoibe/document/download?Id="+tid;
+            url = GAL_URL + "phoibe/document/download?Id="+tid;
             window.location.href = url;
         });
         $("#submit").click(function () {
             var url = "phoibe/comment/save";
-            var content = $("#comment-content").val();
-            var score = $("#comentscore").val();
-            var url = url + "?documentId="+tid+"&commentContent="+content+"&score="+score+"&userId=1";
+            var formdata = {
+                content: $("#comment-content").val(),
+                score: $("#comentscore").val(),
+                documentId: tid,
+                userId: 1
+            };
             $.ajax({
                 type: 'POST',
-                url: url,
+                url: GAL_URL + url,
+                date:JSON.stringify(formdata),
                 async: false,
                 dataType: 'json',
+                contentType: "application/json;charset=UTF-8",
                 success: function (result) {
                     if (result.code == "SUCCESS") {
                         alert("评论成功");

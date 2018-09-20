@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.phoibe.doc.cms.dao.LoggingEventMapper">
+  <resultMap id="BaseResultMap" type="me.phoibe.doc.cms.domain.po.LoggingEvent">
+    <result column="TIMESTMP" jdbcType="DECIMAL" property="timestmp" />
+    <result column="CALLER_LINE" jdbcType="VARCHAR" property="callerLine" />
+    <result column="CALLER_METHOD" jdbcType="VARCHAR" property="callerMethod" />
+    <result column="CALLER_CLASS" jdbcType="VARCHAR" property="callerClass" />
+    <result column="CALLER_FILENAME" jdbcType="VARCHAR" property="callerFilename" />
+    <result column="ARG0" jdbcType="VARCHAR" property="arg0" />
+    <result column="ARG1" jdbcType="VARCHAR" property="arg1" />
+    <result column="ARG2" jdbcType="VARCHAR" property="arg2" />
+    <result column="ARG3" jdbcType="VARCHAR" property="arg3" />
+    <result column="REFERENCE_FLAG" jdbcType="VARCHAR" property="referenceFlag" />
+    <result column="THREAD_NAME" jdbcType="VARCHAR" property="threadName" />
+    <result column="LEVEL_STRING" jdbcType="VARCHAR" property="levelString" />
+    <result column="LOGGER_NAME" jdbcType="VARCHAR" property="loggerName" />
+    <result column="FORMATTED_MESSAGE" jdbcType="VARCHAR" property="formattedMessage" />
+  </resultMap>
+  <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.LoggingEvent">
+    insert into LOGGING_EVENT (TIMESTMP, CALLER_LINE, CALLER_METHOD, 
+      CALLER_CLASS, CALLER_FILENAME, ARG0, 
+      ARG1, ARG2, ARG3, REFERENCE_FLAG, 
+      THREAD_NAME, LEVEL_STRING, LOGGER_NAME, 
+      FORMATTED_MESSAGE)
+    values (#{timestmp,jdbcType=DECIMAL}, #{callerLine,jdbcType=VARCHAR}, #{callerMethod,jdbcType=VARCHAR}, 
+      #{callerClass,jdbcType=VARCHAR}, #{callerFilename,jdbcType=VARCHAR}, #{arg0,jdbcType=VARCHAR}, 
+      #{arg1,jdbcType=VARCHAR}, #{arg2,jdbcType=VARCHAR}, #{arg3,jdbcType=VARCHAR}, #{referenceFlag,jdbcType=VARCHAR}, 
+      #{threadName,jdbcType=VARCHAR}, #{levelString,jdbcType=VARCHAR}, #{loggerName,jdbcType=VARCHAR}, 
+      #{formattedMessage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.LoggingEvent">
+    insert into LOGGING_EVENT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="timestmp != null">
+        TIMESTMP,
+      </if>
+      <if test="callerLine != null">
+        CALLER_LINE,
+      </if>
+      <if test="callerMethod != null">
+        CALLER_METHOD,
+      </if>
+      <if test="callerClass != null">
+        CALLER_CLASS,
+      </if>
+      <if test="callerFilename != null">
+        CALLER_FILENAME,
+      </if>
+      <if test="arg0 != null">
+        ARG0,
+      </if>
+      <if test="arg1 != null">
+        ARG1,
+      </if>
+      <if test="arg2 != null">
+        ARG2,
+      </if>
+      <if test="arg3 != null">
+        ARG3,
+      </if>
+      <if test="referenceFlag != null">
+        REFERENCE_FLAG,
+      </if>
+      <if test="threadName != null">
+        THREAD_NAME,
+      </if>
+      <if test="levelString != null">
+        LEVEL_STRING,
+      </if>
+      <if test="loggerName != null">
+        LOGGER_NAME,
+      </if>
+      <if test="formattedMessage != null">
+        FORMATTED_MESSAGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="timestmp != null">
+        #{timestmp,jdbcType=DECIMAL},
+      </if>
+      <if test="callerLine != null">
+        #{callerLine,jdbcType=VARCHAR},
+      </if>
+      <if test="callerMethod != null">
+        #{callerMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="callerClass != null">
+        #{callerClass,jdbcType=VARCHAR},
+      </if>
+      <if test="callerFilename != null">
+        #{callerFilename,jdbcType=VARCHAR},
+      </if>
+      <if test="arg0 != null">
+        #{arg0,jdbcType=VARCHAR},
+      </if>
+      <if test="arg1 != null">
+        #{arg1,jdbcType=VARCHAR},
+      </if>
+      <if test="arg2 != null">
+        #{arg2,jdbcType=VARCHAR},
+      </if>
+      <if test="arg3 != null">
+        #{arg3,jdbcType=VARCHAR},
+      </if>
+      <if test="referenceFlag != null">
+        #{referenceFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="threadName != null">
+        #{threadName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelString != null">
+        #{levelString,jdbcType=VARCHAR},
+      </if>
+      <if test="loggerName != null">
+        #{loggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="formattedMessage != null">
+        #{formattedMessage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

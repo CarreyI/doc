@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <appender name="MY_FILE" class="me.phoibe.doc.cms.utils.OracleDBAppender">
+    </appender>
+    <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
+    <springProfile name="test,dev">
+        <logger name="org.springframework.web" level="INFO">
+            <appender-ref ref="MY_FILE"/>
+        </logger>
+        <logger name="me.phoibe.doc.cms" level="INFO" />
+    </springProfile>
+
+
+</configuration>

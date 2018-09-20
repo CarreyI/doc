@@ -21,7 +21,7 @@ public class CommentController {
     @Autowired
     private PhoibeCommentService phoibeCommentService;
 
-    @RequestMapping(value = {"save"})
+    @PostMapping("/save")
     public String save(@RequestBody PhoibeComment phoibeComment){
         phoibeCommentService.addComment(phoibeComment);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));

@@ -7,6 +7,7 @@
       <script src="js/data.js"></script>
    <script src="js/jquery-2.1.0.min.js"></script>
 <script src="js/common.js"></script>
+      <script src="js/md5.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/login.css"/>
   </head>
   <body>
@@ -40,10 +41,12 @@
             $("#btnlogin").click(function () {
                 var username = $("#username").val();
                 var password = $("#password").val();
-                var url = GAL_URL + 'phoibe/userlogin?username=' + username + "&password=" + password;
+                password = hex_md5(password);
+                var url = GAL_URL + 'phoibe/userlogin';
                 $.ajax({
                     type: 'POST',
                     url: url,
+                    data:{"username":username,"password":password},
                     dataType: 'json',
                     success: function (result) {
                         if (result.code == "SUCCESS") {
