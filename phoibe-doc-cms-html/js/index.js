@@ -170,7 +170,7 @@ function bindDym() {
                 if (hours > 0) minutesTip = hours + "小时" + minutesTip;
                 if (days > 0) minutesTip = days + "天" + minutesTip;
 
-                var row = "<li><a href='docdetail.html?tid=" + tid + "' title='" + docname + "'>" + cutString(docname, 28) + "</a></li><li><span>" + username + "</span></li><li>" + minutesTip + "</li>";
+                var row = "<ul class='list3'><li><a href='docdetail.html?tid=" + tid + "' title='" + docname + "'>" + cutString(docname, 28) + "</a></li><li><span>" + username + "</span></li><li>" + minutesTip + "</li></ul>";
                 $("#lst-dym").append(row);
             });
         }
