@@ -8,6 +8,7 @@ import me.phoibe.doc.cms.domain.dto.UserInfo;
 import me.phoibe.doc.cms.domain.po.*;
 import me.phoibe.doc.cms.exception.BusinessException;
 import me.phoibe.doc.cms.service.PhoibeUserService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,11 +84,24 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
     public void addUser(DPhoibeUser dPhoibeUser) {
         PhoibeUser user = new PhoibeUser();
         BeanUtils.copyProperties(dPhoibeUser,user);
+        user.setPassword(DigestUtils.md5("Q1w2e3r4").toString());
         phoibeUserMapper.insertSelective(user);
         PhoibeUserRole phoibeUserRole = new PhoibeUserRole();
         phoibeUserRole.setCreateTime(new Date());
         phoibeUserRole.setRoleId(dPhoibeUser.getRoleId());
         phoibeUserRole.setUserId(user.getId());
         phoibeUserRoleMapper.insertSelective(phoibeUserRole);
+    }
+
+    @Override
+    public void modifyUser(DPhoibeUser dPhoibeUser) {
+        PhoibeUser user = new PhoibeUser();
+        BeanUtils.copyProperties(dPhoibeUser,user);
+        phoibeUserMapper.updateByPrimaryKeySelective(user);
+        PhoibeUserRole phoibeUserRole = new PhoibeUserRole();
+        phoibeUserRole.setUpdateTime(new Date());
+        phoibeUserRole.setRoleId(dPhoibeUser.getRoleId());
+        phoibeUserRole.setUserId(user.getId());
+        phoibeUserRoleMapper.updateByUserId(phoibeUserRole);
     }
 }

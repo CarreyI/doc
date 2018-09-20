@@ -1,9 +1,15 @@
-
-$(function () {
-	
-    authLogin();
+$.ajaxSetup({
+    complete: function(xhr) {
+        //token过期，则跳转到登录页面
+        if(xhr.responseJSON.status == 401){
+            parent.location.href = 'login.html';
+        }
+    }
+});
 
    $(function(){
+
+
        //左侧页面导航切换
        $('.main .navLeft li').on('click',function(){
            $(this).addClass('active').siblings('.navList').removeClass('active')
@@ -25,8 +31,9 @@ $(function () {
            $("li.checkBox").removeAttr('checked');
            $(this).attr('checked', 'true');
        })
+
    })
-})
+
 
 
 function getUrlString(name) {
@@ -36,12 +43,6 @@ function getUrlString(name) {
     if (r != null) return (r[2]); return null;
 };
 
-
-function authLogin() {
-    if (getCookie("username") == null || getCookie("username") == "") {
-        window.location.href = 'login.html';
-    }
-}
 
 function setCookie(name, value) {
     var Days = 30;
@@ -71,9 +72,14 @@ function delCookie(name) {
 }
 
 function authExit() {
-    delCookie("username");
-    //alert(getCookie("username"));
-    window.location.href = 'login.html';
+    $.ajax({
+        type: 'GET',
+        url: GAL_URL + 'phoibe/logout',
+        dataType: 'json',
+        success: function (result) {
+        }
+    });
+
 }
 function cutString(str, len) {
 

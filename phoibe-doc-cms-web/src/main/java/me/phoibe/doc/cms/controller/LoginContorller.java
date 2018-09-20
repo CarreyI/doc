@@ -41,52 +41,18 @@ public class LoginContorller {
     private PhoibeUserService phoibeUserService;
 
 
-    private static final String SESSION_KEY = "user";
-
-    @Value("${phoibe.address}")
-    private String address;
-
-    @GetMapping("/")
-    public Object index(@RequestParam String token, Model model) throws Exception {
-        return "";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
     @GetMapping("/logout")
-    public String logout(HttpSession session,HttpServletResponse response) {
-        // 移除session
-//        session.removeAttribute(SESSION_KEY);
-
-        try {
-            response.sendRedirect(address+"login.html");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "login";
+    public String logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        String jwt = JwtUtil.generateToken("0",-1);
+        Cookie cookie = new Cookie(JwtUtil.HEADER_STRING,jwt);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"");
+        return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
 
 
-    @PostMapping("/loginPost")
-    public @ResponseBody
-    Map<String, Object> loginPost(String account, String password, HttpSession session) {
-        Map<String, Object> map = new HashMap<>();
-        if (!"123456".equals(password)) {
-            map.put("success", false);
-            map.put("message", "密码错误");
-            return map;
-        }
-
-        // 设置session
-        session.setAttribute(SESSION_KEY, account);
-
-        map.put("success", true);
-        map.put("message", "登录成功");
-        return map;
-    }
 
     /**
      * 登录
@@ -104,7 +70,7 @@ public class LoginContorller {
         try {
             phoibeUser = phoibeUserService.login(phoibeUser);
             if(phoibeUser != null){
-                String jwt = JwtUtil.generateToken(phoibeUser.getId().toString());
+                String jwt = JwtUtil.generateToken(phoibeUser.getId().toString(),JwtUtil.EXPIRATION_TIME);
                 UserInfo userInfo = new UserInfo();
                 BeanUtils.copyProperties(phoibeUser,userInfo);
                 PhoibeRole phoibeRole = phoibeUserService.fetchUserRoleByUserId(userInfo.getId());
@@ -125,17 +91,6 @@ public class LoginContorller {
 
 
         return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-    }
-
-
-    public static String getPassword(String password, String username) {
-
-        if (StringUtils.isEmpty(password)) {
-            return null;
-        }
-
-        return String.valueOf(
-                DigestUtils.md5Hex(username + password + Constant.SAULT));
     }
 
 }

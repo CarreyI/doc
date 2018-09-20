@@ -22,4 +22,6 @@ public interface PhoibeUserService {
     PageList<UserInfo> fetchUserPageList(PageParam<UserInfo> pageParam);
 
     void addUser(DPhoibeUser dPhoibeUser);
+
+    void modifyUser(DPhoibeUser dPhoibeUser);
 }

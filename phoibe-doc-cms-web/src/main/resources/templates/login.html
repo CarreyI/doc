@@ -47,7 +47,6 @@
                     dataType: 'json',
                     success: function (result) {
                         if (result.code == "SUCCESS") {
-                            setCookie("username", username);
                             if (self != top) {
                                 top.location.reload();
                                 //top.frames["frm-main"].location.href = './index-m.html';

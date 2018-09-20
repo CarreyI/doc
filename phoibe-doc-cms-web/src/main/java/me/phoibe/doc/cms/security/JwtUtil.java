@@ -19,13 +19,13 @@ public class JwtUtil {
     public static final String HEADER_STRING = "Authorization";
     public static final String USER_NAME = "userName";
 
-    public static String generateToken(String userId) {
+    public static String generateToken(String userId,long time) {
         HashMap<String, Object> map = new HashMap<>();
         //you can put any data in the map
         map.put(USER_NAME, userId);
         String jwt = Jwts.builder()
                 .setClaims(map)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .setExpiration(new Date(System.currentTimeMillis() + time))
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
         return TOKEN_PREFIX+jwt; //jwt前面一般都会加Bearer
@@ -93,7 +93,7 @@ public class JwtUtil {
      * @return
      * @throws Exception
      */
-    public static Optional<Claims> getClaimsFromToken(String token,String secret) throws Exception {
+    public static Optional<Claims> getClaimsFromToken(String token,String secret)  {
         Claims claims;
         try {
             claims = Jwts.parser()
@@ -112,7 +112,7 @@ public class JwtUtil {
      * @return
      * @throws Exception
      */
-    public static boolean isExpired(String tooken) throws Exception{
+    public static boolean isExpired(String tooken){
         Optional<Claims> claims= getClaimsFromToken(tooken,SECRET);
         if(claims.isPresent()){
             Date expiration = claims.get().getExpiration();
@@ -127,7 +127,7 @@ public class JwtUtil {
      * @return
      * @throws Exception
      */
-    public static Map<String,Object> extractInfo(String token) throws Exception{
+    public static Map<String,Object> extractInfo(String token) {
         Optional<Claims> claims = getClaimsFromToken(token,SECRET);
         if(claims.isPresent()){
             Map<String,Object> info = new HashMap<String,Object>();

@@ -7,11 +7,13 @@ import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeRole;
 import me.phoibe.doc.cms.entity.Code;
 import me.phoibe.doc.cms.entity.Result;
+import me.phoibe.doc.cms.security.JwtUtil;
 import me.phoibe.doc.cms.service.PhoibeUserService;
 import me.phoibe.doc.cms.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -37,7 +39,7 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = {"save"})
+    @PostMapping("/save")
     public String save(@RequestBody DPhoibeUser dPhoibeUser){
         phoibeUserService.addUser(dPhoibeUser);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
@@ -47,5 +49,19 @@ public class UserController {
     public String list(){
         List<PhoibeRole> list = phoibeUserService.fetchUserRoleList();
         return JsonUtils.toJson(new Result<List<PhoibeRole>>(Code.SUCCESS, list));
+    }
+
+    @GetMapping("/get")
+    public String get(HttpServletRequest request){
+        String token = JwtUtil.getCookieValueByName(request,JwtUtil.HEADER_STRING);
+        Long userId = Long.parseLong(JwtUtil.extractInfo(token).get(JwtUtil.USER_NAME).toString());
+        UserInfo userInfo = phoibeUserService.fetchUserInfoByUserId(userId);
+        return JsonUtils.toJson(new Result<UserInfo>(Code.SUCCESS, userInfo));
+    }
+
+    @PostMapping("/update")
+    public String update(@RequestBody DPhoibeUser dPhoibeUser){
+        phoibeUserService.modifyUser(dPhoibeUser);
+        return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
 }

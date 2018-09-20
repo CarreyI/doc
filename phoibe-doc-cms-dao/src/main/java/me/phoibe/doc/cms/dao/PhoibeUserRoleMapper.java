@@ -16,4 +16,6 @@ public interface PhoibeUserRoleMapper {
     int updateByPrimaryKeySelective(PhoibeUserRole record);
 
     int updateByPrimaryKey(PhoibeUserRole record);
+
+    int updateByUserId(PhoibeUserRole record);
 }

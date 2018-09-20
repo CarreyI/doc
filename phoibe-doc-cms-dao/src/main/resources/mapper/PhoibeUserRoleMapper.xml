@@ -90,4 +90,11 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where USER_ROLE_ID = #{userRoleId,jdbcType=DECIMAL}
   </update>
+  <update id="updateByUserId" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUserRole">
+    update PHOIBE_USER_ROLE
+    set
+      ROLE_ID = #{roleId,jdbcType=DECIMAL},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
 </mapper>
