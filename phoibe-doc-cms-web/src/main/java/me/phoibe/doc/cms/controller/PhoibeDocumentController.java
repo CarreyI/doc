@@ -98,7 +98,7 @@ public class PhoibeDocumentController {
 			}
 		}
 		PageParam<DPhoebeDocument> pageParam = new PageParam<>();
-		pageParam.setStart(index * limit + 1);
+		pageParam.setStart(index);
 		pageParam.setLimit(limit);
 		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
 		pageParam.setOrderBy(orderBy);
@@ -113,7 +113,7 @@ public class PhoibeDocumentController {
 	public String listDoucumentUser(@PathVariable Integer index, @PathVariable Integer limit) {
 
 		PageParam<DPhoebeDocument> pageParam = new PageParam<>();
-		pageParam.setStart(index * limit + 1);
+		pageParam.setStart(index);
 		pageParam.setLimit(limit);
 
 		List<DPhoebeDocument> list = phoibeDocumentService.fetchDocumentUserList(pageParam);

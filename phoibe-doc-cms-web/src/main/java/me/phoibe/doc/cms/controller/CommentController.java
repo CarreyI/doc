@@ -30,7 +30,7 @@ public class CommentController {
     @RequestMapping("list/{docId}/{index}/{limit}")
     public String listComment(@PathVariable Integer index,@PathVariable Integer limit,@PathVariable Long docId){
         PageParam<PhoibeComment> pageParam = new PageParam<>();
-        pageParam.setStart(index * limit + 1);
+        pageParam.setStart(index);
         pageParam.setLimit(limit);
         pageParam.setOrderBy("c.UPDATE_TIME");
         pageParam.setSort("DESC");
@@ -43,7 +43,7 @@ public class CommentController {
     @RequestMapping("list/{index}/{limit}")
     public String list(@PathVariable Integer index,@PathVariable Integer limit){
         PageParam<PhoibeComment> pageParam = new PageParam<>();
-        pageParam.setStart(index * limit + 1);
+        pageParam.setStart(index);
         pageParam.setLimit(limit);
         pageParam.setOrderBy("c.UPDATE_TIME");
         pageParam.setSort("DESC");

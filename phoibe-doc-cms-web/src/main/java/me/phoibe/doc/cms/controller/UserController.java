@@ -26,7 +26,7 @@ public class UserController {
         String orderBy = "u.CREATE_TIME";
         String sort = "DESC";
         PageParam<UserInfo> pageParam = new PageParam<>();
-        pageParam.setStart(index * limit + 1);
+        pageParam.setStart(index);
         pageParam.setLimit(limit);
         pageParam.setParam(param == null ? new UserInfo() : param);
         pageParam.setOrderBy(orderBy);

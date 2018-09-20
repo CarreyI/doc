@@ -1,8 +1,6 @@
 
 function bindZhanfa() {
     $("#zgzhanfa").children().remove();
-    //var url = GAL_URL + 'phoibe/document/list/user/1/2';
-    //alert(url);
     $.ajax({
         type: 'GET',
         url: GAL_URL + 'phoibe/document/list/user/0/4',
@@ -33,11 +31,9 @@ function bindZhanfa() {
 }
 function bindResouDoc() {//<div class='font22 title'>中国战法</div>
     $("#zgzhanfa").children().remove();
-    //var url = GAL_URL + 'phoibe/document/list/1/19?f=hot';
-    //alert(url);
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/1/19?f=hot',
+        url: GAL_URL + 'phoibe/document/list/0/19?f=hot',
 
         dataType: 'json',
         success: function (result) {//<div class='font22 title'>中国战法</div>
@@ -90,11 +86,11 @@ function bindResouDoc() {//<div class='font22 title'>中国战法</div>
 
 function bindRecommDoc() {
     $("#zgzhanfa").children().remove();
-    var url = GAL_URL + 'phoibe/document/list/1/19?f=handpick';
+    var url = GAL_URL + 'phoibe/document/list/0/19?f=handpick';
     //alert(url);
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/1/19?f=handpick',
+        url: GAL_URL + 'phoibe/document/list/0/19?f=handpick',
 
         dataType: 'json',
         success: function (result) {//<div class='font22 title'>中国战法</div>

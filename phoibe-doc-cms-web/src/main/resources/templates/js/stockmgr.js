@@ -172,6 +172,6 @@ var currPage = 0;
             $("#btnSearch").click(function () {
                 currPage = 1;
                 totalRows = 0;
-                loadData(1);
+                loadData(0);
             });
         });

@@ -125,7 +125,7 @@ function initstar() {
 $(function () {
     initstar();
         getInfo();
-        loadData(1);
+        loadData(0);
         $(".download").click(function () {
             url = "phoibe/document/download?Id="+tid;
             window.location.href = url;
@@ -143,7 +143,7 @@ $(function () {
                 success: function (result) {
                     if (result.code == "SUCCESS") {
                         alert("评论成功");
-                        loadData(1);
+                        loadData(0);
                     }
                 }
             });
