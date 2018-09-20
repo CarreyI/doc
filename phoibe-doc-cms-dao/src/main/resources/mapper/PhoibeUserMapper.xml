@@ -126,7 +126,10 @@
       #{password,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUser" useGeneratedKeys="false" keyProperty="id">
+  <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUser" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="id">
+      SELECT PHOIBE_USER_ID_SEQ.NEXTVAL as ID from DUAL
+    </selectKey>
     insert into PHOIBE_USER
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
