@@ -1549,7 +1549,7 @@ width:100%;
 }
 
 #btnmove {
-	background: url("../images/btnedit_sel.png") no-repeat left center;
+	background: url("../images/btnmove.png") no-repeat left center;
 	line-height: 24px;
        background-position:8px 8px;
 	border: 0;
@@ -1562,7 +1562,7 @@ padding-left: 30px;
 }
 
 #btnmodify {
-	background: url("../images/btnedit_sel.png") no-repeat left center;
+	background: url("../images/btnedit.png") no-repeat left center;
 	line-height: 24px;
        background-position:8px 8px;
 	border: 0;
