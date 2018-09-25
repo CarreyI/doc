@@ -75,11 +75,11 @@ public class LoginContorller {
 //                cookie.setDomain(request.getServerName());
                 cookie.setMaxAge((int)JwtUtil.EXPIRATION_TIME);
                 response.addCookie(cookie);
+                request.setAttribute("userInfo",userInfo);
+                LogUtil.writeLog(username+"登录系统成功", LogUtil.OPER_TYPE_LOGIN,"系统登录",LoginContorller.class,request);
 
-                LogUtil.writeLog(username+"登录了系统", LogUtil.OPER_TYPE_LOGIN,"系统登录",LoginContorller.class,request);
                 return JsonUtils.toJson(new Result<UserInfo>(Code.SUCCESS, userInfo));
             }
-            //logUtil.writeLog(username+"登录系统失败，用户名或密码不正确，请重试！",logUtil.OPER_TYPE_LOGIN,"系统登录",LoginContorller.class,request);
             throw new BusinessException("用户名或密码不正确");
         } catch (Exception e) {
             return JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));

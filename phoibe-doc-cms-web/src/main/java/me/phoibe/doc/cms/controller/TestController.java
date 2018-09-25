@@ -34,6 +34,7 @@ public class TestController {
                 userInfo = phoibeUserService.fetchUserInfoByUserId(userId);
             }
         }
+        System.out.println("取当前用户结束--------------");
         return userInfo.toString();
     }
 

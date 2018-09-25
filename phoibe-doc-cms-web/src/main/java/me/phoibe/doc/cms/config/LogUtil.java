@@ -36,9 +36,9 @@ public class LogUtil {
      */
     public static final int OPER_TYPE_DEL = 5;
     /**
-     *查看操作
+     * 查看操作
      */
-    public static final int OPER_TYPE_LOOK =6;
+    public static final int OPER_TYPE_LOOK = 6;
     /**
      * 上传操作
      */
@@ -61,35 +61,45 @@ public class LogUtil {
     public static final int OPER_TYPE_CHECKPASS = 11;
 
     @Autowired
-    private static PhoibeUserService phoibeUserService;
+    private PhoibeUserService phoibeUserService;
+    private static LogUtil logUtil;
 
+    @PostConstruct
+    public void init() {
+        logUtil = this;
+        logUtil.phoibeUserService = this.phoibeUserService;
+    }
 
     /**
-     * @param msg 日志信息 例：浏览了{moduleName}下id为{id}的文档
+     * @param msg      日志信息 例：浏览了{moduleName}下id为{id}的文档
      * @param operType 操作类型
-     * @param element {name}Controller.class
+     * @param element  {name}Controller.class
      * @param request
      */
-    public static void writeLog(String msg, int operType, String moduleName, Class<?> element,HttpServletRequest request){
+    public static void writeLog(String msg, int operType, String moduleName, Class<?> element, HttpServletRequest request) {
         Logger logger = LoggerFactory.getLogger(element);
-        UserInfo userInfo =new UserInfo();
-        userInfo.setUserName("admin");
-        userInfo.setNickname("管理员");
-        userInfo.setRealname("系统管理员");
-        String userName ="";
-        String nicknam ="";
-        String realname ="";
-        String logUserName="";
-        String ipAddr = getIpAddr(request);
-        if(userInfo!=null){
-             userName =userInfo.getUserName();
-             nicknam =userInfo.getNickname();
-             realname =userInfo.getRealname();
-            logUserName = userName+"-"+realname+"-"+nicknam;
+        String token = JwtUtil.getCookieValueByName(request, JwtUtil.HEADER_STRING);
+        UserInfo userInfo = new UserInfo();
+        if (token != null) {
+            Long userId = Long.parseLong(JwtUtil.extractInfo(token).get(JwtUtil.USER_NAME).toString());
+            userInfo = logUtil.phoibeUserService.fetchUserInfoByUserId(userId);
+        }else{
+            userInfo = (UserInfo) request.getAttribute("userInfo");
         }
-        Object[] objects = {ipAddr,operType,logUserName,moduleName};
-        logger.info(msg,objects);
+
+
+        String logUserName = "";
+        String ipAddr = getIpAddr(request);
+        if (userInfo != null) {
+            String userName = userInfo.getUserName();
+            String nicknam = userInfo.getNickname();
+            String realname = userInfo.getRealname();
+            logUserName = userName + "-" + realname + "-" + nicknam;
+        }
+        Object[] objects = {ipAddr, operType, logUserName, moduleName};
+        logger.info(msg, objects);
     }
+
     /**
      * 获取登录用户IP地址
      *
