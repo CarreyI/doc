@@ -223,9 +223,62 @@ $(function () {
 
         var url = 'search.html?s=1';
         var doctypevalue = chkValue.html();
-        url = url + "&name=" + searchKey;
-        if (doctypevalue != null)
-            url = url + "&format=" + doctypevalue.toLowerCase();
-        window.location.href = url;
+       var data = url + "&name=" + searchKey;
+
+        var name = "";
+        if (getUrlString("s") == "1" && type!=1) {
+            name = getUrlString("name");
+        }
+        if (name!=null);
+        var docname = $("#docname").val();
+        data = data + "&docname=" + docname;
+        var owner = $("#owner").val();
+        if (owner != "") {
+            data = data + "&owner=" + owner;
+        }
+        var warstate = $("#warstate").val();
+        if (warstate != "") {
+            data = data + "&warstate=" + warstate;
+        }
+        var waraddr = $("#waraddr").val();
+        if (waraddr != "") {
+            data = data + "&waraddr=" + waraddr;
+        }
+        var wartime = $("#wartime").val();
+        if (null!=wartime&&wartime != "") {
+            data = data + "&wartime=" + wartime;
+        }
+        var winner = $("#winner").val();
+        if (winner != "") {
+            data = data + "&winner=" + winner;
+        }
+        var loser = $("#loser").val();
+        if (loser != "") {
+            data = data + "&loser=" + loser;
+        }
+        var warnum = $("#warnum").val();
+        if (warnum != "") {
+            data = data + "&warnum=" + warnum;
+        }
+        var wartypevalue = $("#wartype option:selected").val();
+        if (wartypevalue != 0) {
+            data = data + "&wartype=" + wartypevalue;
+        }
+        var armtypevalue = $("#armtype option:selected").val();
+        if (armtypevalue != 0) {
+            data = data + "&armtype=" + armtypevalue;
+        }
+        var chkValue = $("#con-value li[checked='checked']");
+        var doctypevalue = chkValue.html();
+
+        if (getUrlString("s") == "1" && type!=1) {
+            doctypevalue = getUrlString("format");
+        }
+
+        if (doctypevalue != "undefined" && doctypevalue != null) {
+            data = data + "&format=" + doctypevalue.toLowerCase();
+        }
+        if (doctypevalue != null);
+        window.location.href = data;
     });
 });

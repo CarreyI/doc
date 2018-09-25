@@ -9,18 +9,41 @@ function loadData(type,pageindex) {
     if (getUrlString("s") == "1" && type!=1) {
         name = getUrlString("name");
     }
-
     if (name!=null);
     data = data + "&name=" + docname;
-    if (owner != "") {
+    if (null!=owner&&owner != "") {
         data = data + "&userRealName=" + owner;
     }
+    var warstate = $("#warstate").val();
+    if (null!=warstate&&warstate != "") {
+        data = data + "&warstate=" + warstate;
+    }
+    var waraddr = $("#waraddr").val();
+    if (null!=waraddr&&waraddr != "") {
+        data = data + "&waraddr=" + waraddr;
+    }
+    var wartime = $("#wartime").val();
+    if (null!=wartime&&wartime != "") {
+        data = data + "&wartime=" + wartime;
+    }
+    var winner = $("#winner").val();
+    if (null!=winner&&winner != "") {
+        data = data + "&winner=" + winner;
+    }
+    var loser = $("#loser").val();
+    if (null!=loser&&loser != "") {
+        data = data + "&loser=" + loser;
+    }
+    var warnum = $("#warnum").val();
+    if (null!=warnum&&warnum != "") {
+        data = data + "&warnum=" + warnum;
+    }
     var wartypevalue = $("#wartype option:selected").val();
-    if (wartypevalue != 0) {
+    if (null!=wartypevalue&&wartypevalue != 0) {
         data = data + "&combatType=" + wartypevalue;
     }
     var armtypevalue = $("#armtype option:selected").val();
-    if (armtypevalue != 0) {
+    if (null!=armtypevalue&&armtypevalue != 0) {
         data = data + "&arms=" + armtypevalue;
     }
     var chkValue = $("#con-value li[checked='checked']");
@@ -105,6 +128,21 @@ function loadData(type,pageindex) {
          });
      }
      $(function () {
+         //当首页跳转到查询页时，遍历取首页查询参数
+         $(".clearfix").find("input").each(function () {
+             var input_id = $(this).attr("id");
+             var input_val = getUrlString(input_id);
+             $(this).val(input_val);
+         })
+         var armtype = getUrlString("armtype");
+         var wartype = getUrlString("wartype");
+         if(null!=armtype&&armtype!=""){
+            $("#armtype").val(armtype);
+         }
+         if(null!=wartype&&wartype!=""){
+             $("#wartype").val(wartype);
+         }
+
          loadData(0,0);
 
          $("#condif").click(function () {

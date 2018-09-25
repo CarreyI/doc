@@ -871,7 +871,13 @@ color:#000;
 	margin-top: 30px;
 	cursor: pointer
 }
-
+.role_submit {
+	 background: url("../images/submit.png") no-repeat;
+	 width: 88px;
+	 height: 34px;
+	 margin-top: 30px;
+	 cursor: pointer
+ }
 #owner {
 	/*width: 120px;*/
 }
@@ -1313,6 +1319,17 @@ ol.list1 {
 	width: 100%;
 	display: none;
 }
+
+.role_bodyMask {
+	/* height: 100%; */
+	width: 100%;
+	display: none;
+}
+.roleCheckbox li{
+	/* height: 100%; */
+	float: left;
+	margin-left: 20px;
+}
 #index .mask {
     	height: auto;
 	
@@ -1337,6 +1354,15 @@ ol.list1 {
 	vertical-align: middle;
 	width: 600px;
 }
+
+.role_bodyMask .popup{
+	width: 500px;
+	padding-bottom: 20px;
+}
+#editBtn{
+	display: none;
+}
+#tblist-body tr:hover{ background: #265362;} /*鼠标悬停后表格背景颜色*/
 
 .mask span.fullScreen {
 	height: 100%;

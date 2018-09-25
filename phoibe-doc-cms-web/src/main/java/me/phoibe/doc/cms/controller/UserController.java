@@ -24,6 +24,16 @@ public class UserController {
     @Autowired
     private PhoibeUserService phoibeUserService;
 
+    @GetMapping("fetch/{id}")
+    public String getUser(@PathVariable Integer id,HttpServletRequest request) {
+
+        UserInfo userInfo = phoibeUserService.fetchUserInfoByUserId(id.longValue());
+
+        LogUtil.writeLog("浏览了Id为{"+id+"}的用户信息", LogUtil.OPER_TYPE_LOOK,"用户管理",UserController.class,request);
+        return JsonUtils.toJson(new Result<UserInfo>(Code.SUCCESS, userInfo));
+
+    }
+
     @GetMapping("/list/{index}/{limit}")
     public String list(@PathVariable Integer index, @PathVariable Integer limit,
                        @RequestParam(required = false) String f, @ModelAttribute UserInfo param, HttpServletRequest request){

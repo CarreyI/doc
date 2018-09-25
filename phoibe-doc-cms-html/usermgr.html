@@ -41,7 +41,7 @@
                <div class="content box_border top bg_whiteSD">
                        <div class="box_border">
 					    <div class="btn-cmd-list">
-					    <a id="btnadd">添加</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmodify">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btndel">删除</a> </div>                                             <br/><br />
+					    <a id="btnadd">添加</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmodify">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btndel">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnRole">角色分配</a> </div>                                             <br/><br />
                              <table class="tblist" border="0">
                                  <tr><th ></th><th>用户名</th><th>姓名</th><th>昵称</th><th>类型</th></tr>
                                   <tbody id="tblist-body"></tbody>
@@ -59,10 +59,10 @@
 	<div class="mask">
     <span class="fullScreen"></span>
     <div class="popup">
-        <div class="model-title fl">添加标签</div><i class="closed fr"></i>
+        <div class="model-title fl">新增用户</div><i class="closed fr"></i>
         <div class="clearfix"></div> 
         <hr />
-       　 <form  action="phoibe/user/save" method="post" id="ajaxform">
+       　 <form action="phoibe/user/save" method="POST" id="ajaxform">
 
                     <div class="tbl-row">
                         <div class="lable">*用户名:</div>
@@ -86,7 +86,7 @@
 					<div class="tbl-row">
 						<div class="lable">类型:</div>
 						<div class="ctrl">
-                            <select	id="type" name="type">
+                            <select	id="type" name="type" id="usertype">
                                 <option value="1">军</option>
                                 <option value="2 ">师</option>
                                 <option value="3">旅</option>
@@ -103,17 +103,20 @@
                     <div class="tbl-row">
                         <div class="lable">角色:</div>
                         <div class="ctrl">
-                            <select	id="roleId" name="roleId">
+                            <select	id="roleId" name="roleId" id="roleId">
                                 <option value="3">普通用户</option>
-                                <option value="1 ">审核员</option>
-                                <option value="2">入库员</option>
+                                <option value="4">系统审核员</option>
+                                <option value="5">系统入库员</option>
+                                <option value="2">系统管理员</option>
                             </select>
                         </div>
                     </div>
+                    <input type="hidden" class="userId" name="userId">
 					<div class="tbl-row">
 						<div class="lable"></div>
 						<div class="ctrl">
-							<div id="submit" class="submit"></div>
+                            <div id="submit" class="submit"></div>
+                            <div id="editBtn" class="submit"></div>
 						</div>
 					</div>
 				</form>
@@ -121,5 +124,33 @@
         </div>
 </div>
 
+    <!--角色分配-->
+    <div class="role_bodyMask">
+        <div class="mask">
+            <span class="fullScreen"></span>
+            <div class="popup">
+                <div class="model-title fl">角色分配</div>
+                <i class="role_closed closed fr"></i>
+                <div class="clearfix"></div>
+                <hr/>
+                　
+                <form action="phoibe/user/save" method="post" id="role_ajaxform">
+                    <ul class="roleCheckbox" id="con-value">
+                        <li><input type="checkBox" role_id=4 role_type=104>系统审核员</li>
+                        <li><input type="checkBox" role_id=5 role_type=105>系统入库员</li>
+                        <li><input type="checkBox" role_id=1 role_type=101>超级管理员</li>
+                        <li><input type="checkBox" role_id=2 role_type=102>系统管理员</li>
+                        <li><input type="checkBox" role_id=3 role_type=103>普通用户</li>
+                    </ul>
+                    <input type="hidden" class="userId" name="userId">
+                    <div class="tbl-row">
+                        <div class="ctrl">
+                            <div id="role_submit" class="role_submit"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

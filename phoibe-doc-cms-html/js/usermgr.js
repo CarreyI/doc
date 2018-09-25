@@ -105,10 +105,28 @@ function loadData(pageindex) {
 $(function () {
     $("#btnadd").click(function () {
         $(".bodyMask").fadeIn();
+        $("#editBtn").hide();
+        $("#submit").show();
     });
     $("#btnmodify").click(function () {
-        $(".model-title").html("修改标签");
-        $(".bodyMask").fadeIn();
+        var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
+        if (Id!=null){
+            $(".model-title").html("修改标签");
+            $("#submit").hide();
+            $("#editBtn").show();
+            modifyUser(Id);
+        }
+    });
+    $("#btnRole").click(function () {
+        var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
+        if (Id!=null){
+            $(".role_bodyMask").fadeIn();
+            allocationRole(Id);
+        }
+    });
+    $(".role_closed").click(function () {
+        $(".role_bodyMask").hide();
+        $(".userId").val("");
     });
     $(".closed").click(function () {
         $(".bodyMask").hide();
@@ -147,4 +165,97 @@ $(function () {
             }
         });
     })
+
+    $('#editBtn').click(function () {
+        var action = "phoibe/user/update";
+        var form = $("#ajaxform");
+        var formdata ={};
+        for (var i = 0; i < form.serializeArray().length; i++) {
+            var key = form.serializeArray()[i].name;
+            var value = form.serializeArray()[i].value;
+            formdata[key] = value;
+        }
+        formdata.id = formdata.userId;
+        $.ajax({
+            url: GAL_URL + action,
+            type: form.attr("method"),
+            data: JSON.stringify(formdata),
+            dataType: "json",
+            async: false,
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+                if (data.code="success") {
+                    alert("提交成功");
+                    $(".bodyMask").hide();
+                    loadData(0);
+                }else{
+                    alert("提交失败");
+                }
+            }
+        });
+    })
+
 });
+function modifyUser(Id){
+
+    $.ajax({
+        url: GAL_URL + "phoibe/user/fetch/"+Id,
+        type: "GET",
+        dataType: "json",
+        async: false,
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            if (data.code="success") {
+                var userInfo = data.data;
+                $("#userName").val(userInfo.userName);
+                $("#realname").val(userInfo.realname);
+                $("#nickname").val(userInfo.nickname);
+                $("#usertype").val(userInfo.type);
+                var roletype = userInfo.roleType;
+                if (userInfo.roleType == 104) {
+                    roletype = 4;
+                } else if (userInfo.roleType == 105) {
+                    roletype = 5;
+                } else if (userInfo.roleType == 102) {
+                    roletype = 2;
+                } else if (userInfo.roleType == 103) {
+                    roletype = 3;
+                }
+                $("#roleId").val(roletype);
+                $(".userId").val(userInfo.id);
+                $(".bodyMask").fadeIn();
+            }
+        }
+    });
+}
+function allocationRole(Id){
+    $(".userId").val(Id);
+    alert("无法分配失败");
+
+    /*
+    var form = $("#role_ajaxform");
+
+    var formdata ={};
+    for (var i = 0; i < form.serializeArray().length; i++) {
+        var key = form.serializeArray()[i].name;
+        var value = form.serializeArray()[i].value;
+        formdata[key] = value;
+    }
+    $.ajax({
+        url: GAL_URL + form.attr("action"),
+        type: form.attr("method"),
+        data: JSON.stringify(formdata),
+        dataType: "json",
+        async: false,
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            if (data.code="success") {
+                alert("提交成功");
+                $(".bodyMask").hide();
+                loadData(0);
+            }else{
+                alert("提交失败");
+            }
+        }
+    });*/
+}

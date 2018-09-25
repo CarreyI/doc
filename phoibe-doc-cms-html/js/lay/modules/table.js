@@ -634,7 +634,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
             that.page = obj.curr; //更新页码
             options.limit = obj.limit; //更新每页条数
             
-            that.pullData(obj.curr, that.loading());
+            that.pullData(obj.curr-1, that.loading());
           }
         }
       }, options.page);
