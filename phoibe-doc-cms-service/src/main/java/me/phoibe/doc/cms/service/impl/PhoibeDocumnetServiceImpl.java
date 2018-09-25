@@ -1,13 +1,19 @@
 package me.phoibe.doc.cms.service.impl;
 
+import me.phoibe.doc.cms.dao.PhoibeAttachContentMapper;
 import me.phoibe.doc.cms.dao.PhoibeDocumentMapper;
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
 import me.phoibe.doc.cms.domain.po.PageList;
 import me.phoibe.doc.cms.domain.po.PageParam;
+import me.phoibe.doc.cms.domain.po.PhoibeAttachContent;
 import me.phoibe.doc.cms.service.PhoibeDocumentService;
 import me.phoibe.doc.cms.domain.po.PhoibeDocument;
+import me.phoibe.doc.cms.utils.FileUtil;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -25,14 +31,54 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
     @Resource
     private PhoibeDocumentMapper phoibeDocumentMapper;
 
+    @Autowired
+    private PhoibeAttachContentMapper phoibeAttachContentMapper;
+
+    @Value("${breakpoint.upload.window}")
+    private String window;
+    @Value("${breakpoint.upload.linux}")
+    private String linux;
+    @Value("${breakpoint.upload.status}")
+    private String status;
+
     @Override
     public Integer save(PhoibeDocument phoibeDocument) {
         return phoibeDocumentMapper.insert(phoibeDocument);
     }
+    @Override
+    @Transactional
+    public Integer save_v2(PhoibeDocument phoibeDocument) {
+        int i = phoibeDocumentMapper.insert(phoibeDocument);
+        PhoibeAttachContent phoibeAttachContent = new PhoibeAttachContent();
+        phoibeAttachContent.setDocumentId(phoibeDocument.getId());
+        phoibeAttachContent.setAttachContent("");
+        phoibeAttachContentMapper.insertSelective(phoibeAttachContent);
+        return i;
+    }
+
 
     @Override
     public Integer update(PhoibeDocument phoibeDocument) {
         return phoibeDocumentMapper.updateByPrimaryKeySelective(phoibeDocument);
+    }
+
+    @Override
+    @Transactional
+    public Integer update_v2(PhoibeDocument phoibeDocument) {
+        int i = phoibeDocumentMapper.updateByPrimaryKeySelective(phoibeDocument);
+        PhoibeDocument model = phoibeDocumentMapper.selectByPrimaryKey(phoibeDocument.getId());
+        String finalDirPath="";
+        if(status.equals("1")) {
+            finalDirPath = window;
+        }else {
+            finalDirPath = linux;
+        }
+        String fileAbosultePath = finalDirPath + model.getFilePath();
+        PhoibeAttachContent phoibeAttachContent = new PhoibeAttachContent();
+        phoibeAttachContent.setAttachContent(FileUtil.readAttachText(fileAbosultePath));
+        phoibeAttachContent.setDocumentId(phoibeDocument.getId());
+        phoibeAttachContentMapper.updateByDocumentId(phoibeAttachContent);
+        return i;
     }
     
     @Override

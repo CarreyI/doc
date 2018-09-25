@@ -28,6 +28,7 @@
         <okhttp3.version>3.8.1</okhttp3.version>
         <com.google.guava.version>19.0</com.google.guava.version>
         <project.version>1.0-SNAPSHOT</project.version>
+        <poi.version>3.17</poi.version>
     </properties>  
 
     <parent>
@@ -189,6 +190,26 @@
                 <groupId>com.hynnet</groupId>
                 <artifactId>json-lib</artifactId>
                 <version>2.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-scratchpad</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.xmlbeans</groupId>
+                <artifactId>xmlbeans</artifactId>
+                <version>2.6.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

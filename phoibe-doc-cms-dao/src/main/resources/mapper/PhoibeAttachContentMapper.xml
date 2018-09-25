@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.phoibe.doc.cms.dao.PhoibeAttachContentMapper">
+  <resultMap id="BaseResultMap" type="me.phoibe.doc.cms.domain.po.PhoibeAttachContent">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="DOCUMENT_ID" jdbcType="DECIMAL" property="documentId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="me.phoibe.doc.cms.domain.po.PhoibeAttachContent">
+    <result column="ATTACH_CONTENT" jdbcType="CLOB" property="attachContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, DOCUMENT_ID
+  </sql>
+  <sql id="Blob_Column_List">
+    ATTACH_CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from PHOIBE_ATTACH_CONTENT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from PHOIBE_ATTACH_CONTENT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.PhoibeAttachContent">
+    insert into PHOIBE_ATTACH_CONTENT (ID, DOCUMENT_ID, ATTACH_CONTENT
+      )
+    values (#{id,jdbcType=DECIMAL}, #{documentId,jdbcType=DECIMAL}, #{attachContent,jdbcType=CLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeAttachContent">
+    insert into PHOIBE_ATTACH_CONTENT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="documentId != null">
+        DOCUMENT_ID,
+      </if>
+      <if test="attachContent != null">
+        ATTACH_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="documentId != null">
+        #{documentId,jdbcType=DECIMAL},
+      </if>
+      <if test="attachContent != null">
+        #{attachContent,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeAttachContent">
+    update PHOIBE_ATTACH_CONTENT
+    <set>
+      <if test="documentId != null">
+        DOCUMENT_ID = #{documentId,jdbcType=DECIMAL},
+      </if>
+      <if test="attachContent != null">
+        ATTACH_CONTENT = #{attachContent,jdbcType=CLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="me.phoibe.doc.cms.domain.po.PhoibeAttachContent">
+    update PHOIBE_ATTACH_CONTENT
+    set DOCUMENT_ID = #{documentId,jdbcType=DECIMAL},
+      ATTACH_CONTENT = #{attachContent,jdbcType=CLOB}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.phoibe.doc.cms.domain.po.PhoibeAttachContent">
+    update PHOIBE_ATTACH_CONTENT
+    set DOCUMENT_ID = #{documentId,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+
+  <update id="updateByDocumentId" parameterType="me.phoibe.doc.cms.domain.po.PhoibeAttachContent">
+    update PHOIBE_ATTACH_CONTENT
+    set
+      ATTACH_CONTENT = #{attachContent,jdbcType=CLOB}
+    where DOCUMENT_ID = #{documentId,jdbcType=DECIMAL}
+  </update>
+</mapper>
