@@ -37,7 +37,7 @@ public class UserController {
         pageParam.setSort(sort);
 
         PageList<UserInfo> pageList = phoibeUserService.fetchUserPageList(pageParam);
-        LogUtil.writeLog("查看了用户管理信息", LogUtil.OPER_TYPE_LOOK,"用户管理",UserController.class,request);
+        LogUtil.writeLog("浏览了用户管理信息", LogUtil.OPER_TYPE_LOOK,"用户管理",UserController.class,request);
         return JsonUtils.toJson(new Result<PageList<UserInfo>>(Code.SUCCESS, pageList));
 
     }
@@ -52,7 +52,7 @@ public class UserController {
     @GetMapping("/role/list")
     public String list( HttpServletRequest request){
         List<PhoibeRole> list = phoibeUserService.fetchUserRoleList();
-        LogUtil.writeLog("查看了角色关系", LogUtil.OPER_TYPE_LOOK,"角色关系",UserController.class,request);
+        LogUtil.writeLog("浏览了角色关系", LogUtil.OPER_TYPE_LOOK,"角色关系",UserController.class,request);
         return JsonUtils.toJson(new Result<List<PhoibeRole>>(Code.SUCCESS, list));
     }
 
