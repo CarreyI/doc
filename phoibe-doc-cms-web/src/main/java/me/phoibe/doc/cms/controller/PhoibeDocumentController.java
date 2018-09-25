@@ -100,7 +100,7 @@ public class PhoibeDocumentController {
 
 		PageList<DPhoebeDocument> pageList = phoibeDocumentService.fetchDocumentByPageList(pageParam);
 
-		LogUtil.writeLog("查看了文档查询", LogUtil.OPER_TYPE_LOOK,"文档查询",PhoibeDocumentController.class,request);
+		LogUtil.writeLog("浏览了文档查询", LogUtil.OPER_TYPE_LOOK,"文档查询",PhoibeDocumentController.class,request);
 		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, pageList));
 	}
 
@@ -113,7 +113,7 @@ public class PhoibeDocumentController {
 		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
 
 		List<DPhoebeDocument> list = phoibeDocumentService.fetchDocumentUserList(pageParam);
-		LogUtil.writeLog("查看了个人文档", LogUtil.OPER_TYPE_LOOK,"个人文档",PhoibeDocumentController.class,request);
+		LogUtil.writeLog("浏览了个人文档", LogUtil.OPER_TYPE_LOOK,"个人文档",PhoibeDocumentController.class,request);
 		return JsonUtils.toJson(new Result<List<DPhoebeDocument>>(Code.SUCCESS, list));
 	}
 
@@ -122,7 +122,7 @@ public class PhoibeDocumentController {
 
 		DPhoebeDocument dPhoibeDocument = phoibeDocumentService.fetchDocumentById(id);
 
-		LogUtil.writeLog("查看了Id为{"+id+"}的文档", LogUtil.OPER_TYPE_LOOK,"个人文档",PhoibeDocumentController.class,request);
+		LogUtil.writeLog("浏览了Id为{"+id+"}的文档", LogUtil.OPER_TYPE_LOOK,"个人文档",PhoibeDocumentController.class,request);
 		return JsonUtils.toJson(new Result<DPhoebeDocument>(Code.SUCCESS, dPhoibeDocument));
 
 	}

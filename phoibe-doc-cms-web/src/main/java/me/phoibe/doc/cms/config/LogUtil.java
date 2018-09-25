@@ -65,7 +65,7 @@ public class LogUtil {
 
 
     /**
-     * @param msg 日志信息 例：查看了{moduleName}下id为{id}的文档
+     * @param msg 日志信息 例：浏览了{moduleName}下id为{id}的文档
      * @param operType 操作类型
      * @param element {name}Controller.class
      * @param request

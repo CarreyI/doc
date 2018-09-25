@@ -31,7 +31,7 @@ public class TagController {
         pageParam.setOrderBy(orderBy);
         pageParam.setSort(sort);
         PageList<PhoibeTag> pageList = phoibeTagService.fetchTagByPageList(pageParam);
-        LogUtil.writeLog("查看了标签", LogUtil.OPER_TYPE_LOOK,"标签管理",TagController.class,request);
+        LogUtil.writeLog("浏览了标签", LogUtil.OPER_TYPE_LOOK,"标签管理",TagController.class,request);
         return JsonUtils.toJson(new Result<PageList<PhoibeTag>>(Code.SUCCESS, pageList));
     }
 

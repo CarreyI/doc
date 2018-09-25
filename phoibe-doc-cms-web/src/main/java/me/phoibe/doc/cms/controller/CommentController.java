@@ -42,7 +42,7 @@ public class CommentController {
         phoibeComment.setDocumentId(docId);
         pageParam.setParam(phoibeComment);
         PageList<DPhoibeComment> pageList = phoibeCommentService.fetchCommentByPageList(pageParam);
-        LogUtil.writeLog("查看了文档Id为{"+docId+"}的评论信息", LogUtil.OPER_TYPE_LOOK,"文档评论",CommentController.class,request);
+        LogUtil.writeLog("浏览了文档Id为{"+docId+"}的评论信息", LogUtil.OPER_TYPE_LOOK,"文档评论",CommentController.class,request);
         return JsonUtils.toJson(new Result<PageList<DPhoibeComment>>(Code.SUCCESS, pageList));
     }
     @RequestMapping("list/{index}/{limit}")
@@ -56,7 +56,7 @@ public class CommentController {
         pageParam.setParam(phoibeComment);
         PageList<DPhoibeComment> pageList = phoibeCommentService.fetchCommentByPageList(pageParam);
 
-        LogUtil.writeLog("查看了评论管理下评论信息", LogUtil.OPER_TYPE_LOOK,"评论管理",CommentController.class,request);
+        LogUtil.writeLog("浏览了评论信息", LogUtil.OPER_TYPE_LOOK,"评论管理",CommentController.class,request);
         return JsonUtils.toJson(new Result<PageList<DPhoibeComment>>(Code.SUCCESS, pageList));
     }
 
