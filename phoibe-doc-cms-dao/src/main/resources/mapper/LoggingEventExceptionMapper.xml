@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.phoibe.doc.cms.dao.LoggingEventExceptionMapper">
+  <resultMap id="BaseResultMap" type="me.phoibe.doc.cms.domain.po.LoggingEventException">
+    <id column="EVENT_ID" jdbcType="DECIMAL" property="eventId" />
+    <id column="I" jdbcType="DECIMAL" property="i" />
+    <result column="TRACE_LINE" jdbcType="VARCHAR" property="traceLine" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    EVENT_ID, I, TRACE_LINE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="me.phoibe.doc.cms.domain.po.LoggingEventExceptionKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LOGGING_EVENT_EXCEPTION
+    where EVENT_ID = #{eventId,jdbcType=DECIMAL}
+      and I = #{i,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="me.phoibe.doc.cms.domain.po.LoggingEventExceptionKey">
+    delete from LOGGING_EVENT_EXCEPTION
+    where EVENT_ID = #{eventId,jdbcType=DECIMAL}
+      and I = #{i,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.LoggingEventException">
+    insert into LOGGING_EVENT_EXCEPTION (EVENT_ID, I, TRACE_LINE
+      )
+    values (#{eventId,jdbcType=DECIMAL}, #{i,jdbcType=DECIMAL}, #{traceLine,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.LoggingEventException">
+    insert into LOGGING_EVENT_EXCEPTION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eventId != null">
+        EVENT_ID,
+      </if>
+      <if test="i != null">
+        I,
+      </if>
+      <if test="traceLine != null">
+        TRACE_LINE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eventId != null">
+        #{eventId,jdbcType=DECIMAL},
+      </if>
+      <if test="i != null">
+        #{i,jdbcType=DECIMAL},
+      </if>
+      <if test="traceLine != null">
+        #{traceLine,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.phoibe.doc.cms.domain.po.LoggingEventException">
+    update LOGGING_EVENT_EXCEPTION
+    <set>
+      <if test="traceLine != null">
+        TRACE_LINE = #{traceLine,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EVENT_ID = #{eventId,jdbcType=DECIMAL}
+      and I = #{i,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.phoibe.doc.cms.domain.po.LoggingEventException">
+    update LOGGING_EVENT_EXCEPTION
+    set TRACE_LINE = #{traceLine,jdbcType=VARCHAR}
+    where EVENT_ID = #{eventId,jdbcType=DECIMAL}
+      and I = #{i,jdbcType=DECIMAL}
+  </update>
+</mapper>

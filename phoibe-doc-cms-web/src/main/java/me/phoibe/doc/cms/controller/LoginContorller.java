@@ -1,23 +1,17 @@
 package me.phoibe.doc.cms.controller;
 
+import me.phoibe.doc.cms.config.LogUtil;
 import me.phoibe.doc.cms.domain.dto.UserInfo;
 import me.phoibe.doc.cms.domain.po.PhoibeRole;
 import me.phoibe.doc.cms.domain.po.PhoibeUser;
 import me.phoibe.doc.cms.entity.Code;
-import me.phoibe.doc.cms.entity.Constant;
 import me.phoibe.doc.cms.entity.Result;
 import me.phoibe.doc.cms.exception.BusinessException;
 import me.phoibe.doc.cms.security.JwtUtil;
 import me.phoibe.doc.cms.service.PhoibeUserService;
 import me.phoibe.doc.cms.utils.JsonUtils;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -25,8 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author tengzhaolei
@@ -84,8 +76,10 @@ public class LoginContorller {
                 cookie.setMaxAge((int)JwtUtil.EXPIRATION_TIME);
                 response.addCookie(cookie);
 
+                LogUtil.writeLog(username+"登录了系统", LogUtil.OPER_TYPE_LOGIN,"系统登录",LoginContorller.class,request);
                 return JsonUtils.toJson(new Result<UserInfo>(Code.SUCCESS, userInfo));
             }
+            //logUtil.writeLog(username+"登录系统失败，用户名或密码不正确，请重试！",logUtil.OPER_TYPE_LOGIN,"系统登录",LoginContorller.class,request);
             throw new BusinessException("用户名或密码不正确");
         } catch (Exception e) {
             return JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));

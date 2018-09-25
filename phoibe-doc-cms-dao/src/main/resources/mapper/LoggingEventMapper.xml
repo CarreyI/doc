@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.phoibe.doc.cms.dao.LoggingEventMapper">
+  <resultMap id="BaseResultMap" type="me.phoibe.doc.cms.domain.po.LoggingEvent">
+    <id column="EVENT_ID" jdbcType="DECIMAL" property="eventId" />
+    <result column="TIMESTMP" jdbcType="DECIMAL" property="timestmp" />
+    <result column="FORMATTED_MESSAGE" jdbcType="VARCHAR" property="formattedMessage" />
+    <result column="LOGGER_NAME" jdbcType="VARCHAR" property="loggerName" />
+    <result column="LEVEL_STRING" jdbcType="VARCHAR" property="levelString" />
+    <result column="THREAD_NAME" jdbcType="VARCHAR" property="threadName" />
+    <result column="REFERENCE_FLAG" jdbcType="DECIMAL" property="referenceFlag" />
+    <result column="ARG0" jdbcType="VARCHAR" property="arg0" />
+    <result column="ARG1" jdbcType="VARCHAR" property="arg1" />
+    <result column="ARG2" jdbcType="VARCHAR" property="arg2" />
+    <result column="ARG3" jdbcType="VARCHAR" property="arg3" />
+    <result column="ARG4" jdbcType="VARCHAR" property="arg4" />
+    <result column="ARG5" jdbcType="VARCHAR" property="arg5" />
+    <result column="ARG6" jdbcType="VARCHAR" property="arg6" />
+    <result column="ARG7" jdbcType="VARCHAR" property="arg7" />
+    <result column="ARG8" jdbcType="VARCHAR" property="arg8" />
+    <result column="ARG9" jdbcType="VARCHAR" property="arg9" />
+    <result column="CALLER_FILENAME" jdbcType="VARCHAR" property="callerFilename" />
+    <result column="CALLER_CLASS" jdbcType="VARCHAR" property="callerClass" />
+    <result column="CALLER_METHOD" jdbcType="VARCHAR" property="callerMethod" />
+    <result column="CALLER_LINE" jdbcType="CHAR" property="callerLine" />
+</resultMap>
+
+    <resultMap id="PageResultMap" type="me.phoibe.doc.cms.domain.dto.DLoggingEvent">
+        <id column="EVENT_ID" jdbcType="DECIMAL" property="eventId" />
+        <result column="TIMESTMP" jdbcType="DECIMAL" property="timestmp" />
+        <result column="FORMATTED_MESSAGE" jdbcType="VARCHAR" property="formattedMessage" />
+        <result column="LOGGER_NAME" jdbcType="VARCHAR" property="loggerName" />
+        <result column="LEVEL_STRING" jdbcType="VARCHAR" property="levelString" />
+        <result column="THREAD_NAME" jdbcType="VARCHAR" property="threadName" />
+        <result column="REFERENCE_FLAG" jdbcType="DECIMAL" property="referenceFlag" />
+        <result column="ARG0" jdbcType="VARCHAR" property="arg0" />
+        <result column="ARG1" jdbcType="VARCHAR" property="arg1" />
+        <result column="ARG2" jdbcType="VARCHAR" property="arg2" />
+        <result column="ARG3" jdbcType="VARCHAR" property="arg3" />
+        <result column="ARG4" jdbcType="VARCHAR" property="arg4" />
+        <result column="ARG5" jdbcType="VARCHAR" property="arg5" />
+        <result column="ARG6" jdbcType="VARCHAR" property="arg6" />
+        <result column="ARG7" jdbcType="VARCHAR" property="arg7" />
+        <result column="ARG8" jdbcType="VARCHAR" property="arg8" />
+        <result column="ARG9" jdbcType="VARCHAR" property="arg9" />
+        <result column="CALLER_FILENAME" jdbcType="VARCHAR" property="callerFilename" />
+        <result column="CALLER_CLASS" jdbcType="VARCHAR" property="callerClass" />
+        <result column="CALLER_METHOD" jdbcType="VARCHAR" property="callerMethod" />
+        <result column="CALLER_LINE" jdbcType="CHAR" property="callerLine" />
+    </resultMap>
+  <sql id="Base_Column_List">
+    EVENT_ID, TIMESTMP, FORMATTED_MESSAGE, LOGGER_NAME, LEVEL_STRING, THREAD_NAME, REFERENCE_FLAG, 
+    ARG0, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6, ARG7, ARG8, ARG9, CALLER_FILENAME, CALLER_CLASS, 
+    CALLER_METHOD, CALLER_LINE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LOGGING_EVENT
+    where EVENT_ID = #{eventId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LOGGING_EVENT
+    where EVENT_ID = #{eventId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.LoggingEvent">
+    insert into LOGGING_EVENT (EVENT_ID, TIMESTMP, FORMATTED_MESSAGE, 
+      LOGGER_NAME, LEVEL_STRING, THREAD_NAME, 
+      REFERENCE_FLAG, ARG0, ARG1, 
+      ARG2, ARG3, ARG4, ARG5, 
+      ARG6, ARG7, ARG8, ARG9, 
+      CALLER_FILENAME, CALLER_CLASS, CALLER_METHOD, 
+      CALLER_LINE)
+    values (#{eventId,jdbcType=DECIMAL}, #{timestmp,jdbcType=DECIMAL}, #{formattedMessage,jdbcType=VARCHAR}, 
+      #{loggerName,jdbcType=VARCHAR}, #{levelString,jdbcType=VARCHAR}, #{threadName,jdbcType=VARCHAR}, 
+      #{referenceFlag,jdbcType=DECIMAL}, #{arg0,jdbcType=VARCHAR}, #{arg1,jdbcType=VARCHAR}, 
+      #{arg2,jdbcType=VARCHAR}, #{arg3,jdbcType=VARCHAR}, #{arg4,jdbcType=VARCHAR}, #{arg5,jdbcType=VARCHAR}, 
+      #{arg6,jdbcType=VARCHAR}, #{arg7,jdbcType=VARCHAR}, #{arg8,jdbcType=VARCHAR}, #{arg9,jdbcType=VARCHAR}, 
+      #{callerFilename,jdbcType=VARCHAR}, #{callerClass,jdbcType=VARCHAR}, #{callerMethod,jdbcType=VARCHAR}, 
+      #{callerLine,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.LoggingEvent">
+    insert into LOGGING_EVENT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eventId != null">
+        EVENT_ID,
+      </if>
+      <if test="timestmp != null">
+        TIMESTMP,
+      </if>
+      <if test="formattedMessage != null">
+        FORMATTED_MESSAGE,
+      </if>
+      <if test="loggerName != null">
+        LOGGER_NAME,
+      </if>
+      <if test="levelString != null">
+        LEVEL_STRING,
+      </if>
+      <if test="threadName != null">
+        THREAD_NAME,
+      </if>
+      <if test="referenceFlag != null">
+        REFERENCE_FLAG,
+      </if>
+      <if test="arg0 != null">
+        ARG0,
+      </if>
+      <if test="arg1 != null">
+        ARG1,
+      </if>
+      <if test="arg2 != null">
+        ARG2,
+      </if>
+      <if test="arg3 != null">
+        ARG3,
+      </if>
+      <if test="arg4 != null">
+        ARG4,
+      </if>
+      <if test="arg5 != null">
+        ARG5,
+      </if>
+      <if test="arg6 != null">
+        ARG6,
+      </if>
+      <if test="arg7 != null">
+        ARG7,
+      </if>
+      <if test="arg8 != null">
+        ARG8,
+      </if>
+      <if test="arg9 != null">
+        ARG9,
+      </if>
+      <if test="callerFilename != null">
+        CALLER_FILENAME,
+      </if>
+      <if test="callerClass != null">
+        CALLER_CLASS,
+      </if>
+      <if test="callerMethod != null">
+        CALLER_METHOD,
+      </if>
+      <if test="callerLine != null">
+        CALLER_LINE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eventId != null">
+        #{eventId,jdbcType=DECIMAL},
+      </if>
+      <if test="timestmp != null">
+        #{timestmp,jdbcType=DECIMAL},
+      </if>
+      <if test="formattedMessage != null">
+        #{formattedMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="loggerName != null">
+        #{loggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelString != null">
+        #{levelString,jdbcType=VARCHAR},
+      </if>
+      <if test="threadName != null">
+        #{threadName,jdbcType=VARCHAR},
+      </if>
+      <if test="referenceFlag != null">
+        #{referenceFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="arg0 != null">
+        #{arg0,jdbcType=VARCHAR},
+      </if>
+      <if test="arg1 != null">
+        #{arg1,jdbcType=VARCHAR},
+      </if>
+      <if test="arg2 != null">
+        #{arg2,jdbcType=VARCHAR},
+      </if>
+      <if test="arg3 != null">
+        #{arg3,jdbcType=VARCHAR},
+      </if>
+      <if test="arg4 != null">
+        #{arg4,jdbcType=VARCHAR},
+      </if>
+      <if test="arg5 != null">
+        #{arg5,jdbcType=VARCHAR},
+      </if>
+      <if test="arg6 != null">
+        #{arg6,jdbcType=VARCHAR},
+      </if>
+      <if test="arg7 != null">
+        #{arg7,jdbcType=VARCHAR},
+      </if>
+      <if test="arg8 != null">
+        #{arg8,jdbcType=VARCHAR},
+      </if>
+      <if test="arg9 != null">
+        #{arg9,jdbcType=VARCHAR},
+      </if>
+      <if test="callerFilename != null">
+        #{callerFilename,jdbcType=VARCHAR},
+      </if>
+      <if test="callerClass != null">
+        #{callerClass,jdbcType=VARCHAR},
+      </if>
+      <if test="callerMethod != null">
+        #{callerMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="callerLine != null">
+        #{callerLine,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.phoibe.doc.cms.domain.po.LoggingEvent">
+    update LOGGING_EVENT
+    <set>
+      <if test="timestmp != null">
+        TIMESTMP = #{timestmp,jdbcType=DECIMAL},
+      </if>
+      <if test="formattedMessage != null">
+        FORMATTED_MESSAGE = #{formattedMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="loggerName != null">
+        LOGGER_NAME = #{loggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelString != null">
+        LEVEL_STRING = #{levelString,jdbcType=VARCHAR},
+      </if>
+      <if test="threadName != null">
+        THREAD_NAME = #{threadName,jdbcType=VARCHAR},
+      </if>
+      <if test="referenceFlag != null">
+        REFERENCE_FLAG = #{referenceFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="arg0 != null">
+        ARG0 = #{arg0,jdbcType=VARCHAR},
+      </if>
+      <if test="arg1 != null">
+        ARG1 = #{arg1,jdbcType=VARCHAR},
+      </if>
+      <if test="arg2 != null">
+        ARG2 = #{arg2,jdbcType=VARCHAR},
+      </if>
+      <if test="arg3 != null">
+        ARG3 = #{arg3,jdbcType=VARCHAR},
+      </if>
+      <if test="arg4 != null">
+        ARG4 = #{arg4,jdbcType=VARCHAR},
+      </if>
+      <if test="arg5 != null">
+        ARG5 = #{arg5,jdbcType=VARCHAR},
+      </if>
+      <if test="arg6 != null">
+        ARG6 = #{arg6,jdbcType=VARCHAR},
+      </if>
+      <if test="arg7 != null">
+        ARG7 = #{arg7,jdbcType=VARCHAR},
+      </if>
+      <if test="arg8 != null">
+        ARG8 = #{arg8,jdbcType=VARCHAR},
+      </if>
+      <if test="arg9 != null">
+        ARG9 = #{arg9,jdbcType=VARCHAR},
+      </if>
+      <if test="callerFilename != null">
+        CALLER_FILENAME = #{callerFilename,jdbcType=VARCHAR},
+      </if>
+      <if test="callerClass != null">
+        CALLER_CLASS = #{callerClass,jdbcType=VARCHAR},
+      </if>
+      <if test="callerMethod != null">
+        CALLER_METHOD = #{callerMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="callerLine != null">
+        CALLER_LINE = #{callerLine,jdbcType=CHAR},
+      </if>
+    </set>
+    where EVENT_ID = #{eventId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.phoibe.doc.cms.domain.po.LoggingEvent">
+    update LOGGING_EVENT
+    set TIMESTMP = #{timestmp,jdbcType=DECIMAL},
+      FORMATTED_MESSAGE = #{formattedMessage,jdbcType=VARCHAR},
+      LOGGER_NAME = #{loggerName,jdbcType=VARCHAR},
+      LEVEL_STRING = #{levelString,jdbcType=VARCHAR},
+      THREAD_NAME = #{threadName,jdbcType=VARCHAR},
+      REFERENCE_FLAG = #{referenceFlag,jdbcType=DECIMAL},
+      ARG0 = #{arg0,jdbcType=VARCHAR},
+      ARG1 = #{arg1,jdbcType=VARCHAR},
+      ARG2 = #{arg2,jdbcType=VARCHAR},
+      ARG3 = #{arg3,jdbcType=VARCHAR},
+      ARG4 = #{arg4,jdbcType=VARCHAR},
+      ARG5 = #{arg5,jdbcType=VARCHAR},
+      ARG6 = #{arg6,jdbcType=VARCHAR},
+      ARG7 = #{arg7,jdbcType=VARCHAR},
+      ARG8 = #{arg8,jdbcType=VARCHAR},
+      ARG9 = #{arg9,jdbcType=VARCHAR},
+      CALLER_FILENAME = #{callerFilename,jdbcType=VARCHAR},
+      CALLER_CLASS = #{callerClass,jdbcType=VARCHAR},
+      CALLER_METHOD = #{callerMethod,jdbcType=VARCHAR},
+      CALLER_LINE = #{callerLine,jdbcType=CHAR}
+    where EVENT_ID = #{eventId,jdbcType=DECIMAL}
+  </update>
+
+  <select id="selectByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="PageResultMap">
+    select * from (SELECT a.*,rownum rno FROM (
+    select
+    l.*
+    from LOGGING_EVENT l WHERE L.ARG1  > 0
+    order by ${orderBy} ${sort}) a
+    ) t WHERE t.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
+  </select>
+
+  <select id="selectCountByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
+    select
+    COUNT(*)
+    from LOGGING_EVENT l WHERE l.ARG1  > 0
+  </select>
+</mapper>

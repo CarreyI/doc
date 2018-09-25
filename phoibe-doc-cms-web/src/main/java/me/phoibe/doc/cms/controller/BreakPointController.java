@@ -1,5 +1,6 @@
 package me.phoibe.doc.cms.controller;
 
+import me.phoibe.doc.cms.config.LogUtil;
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
 import me.phoibe.doc.cms.domain.po.PhoibeDocument;
 import me.phoibe.doc.cms.entity.MultipartFileParam;
@@ -12,32 +13,19 @@ import me.phoibe.doc.cms.utils.JsonUtils;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.io.FileUtils;
-import org.apache.ibatis.executor.ReuseExecutor;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -202,35 +190,30 @@ public class BreakPointController {
 			        }
 				fos.close();
 				
-				/*PhoibeDocument phoibeDocument = new PhoibeDocument();
+				PhoibeDocument phoibeDocument = new PhoibeDocument();
 
 				phoibeDocument.setId(Long.parseLong(docId));
 				phoibeDocument.setFilePath(getFilePath + filaname);
 				
 				int resultNum = phoibeDocumentService.update(phoibeDocument);
-				*/
+
+				LogUtil.writeLog("id为{"+docId+"}的文档上传成功", LogUtil.OPER_TYPE_UPLOAD,"文档上传",BreakPointController.class,request);
 				System.out.println("文件上传成功！路径 : " + realFileName ); 
 				result.put("success", "true");  
 			} 
 			else
 			{
 				System.out.println("文件上传失败! input stream 长度是 0");
+				LogUtil.writeLog("id为{"+docId+"}的文档上传失败", LogUtil.OPER_TYPE_UPLOAD,"文档上传",BreakPointController.class,request);
 				result.put("success", "false");
 			}
 		} 
 		catch (IOException e){
 			System.out.println("文件上传失败! 发生了异常");
+			LogUtil.writeLog("id为{"+docId+"}的文档上传失败", LogUtil.OPER_TYPE_UPLOAD,"文档上传",BreakPointController.class,request);
 			result.put("success", "false");
 			e.printStackTrace();
 		}
-		
-		/*byte[] buffer = new byte[in.available()];
-		in.read(buffer);
-		
-		File targetFile = new File(finalDirPath);
-		OutputStream outStream = new FileOutputStream(targetFile);
-		outStream.write(buffer); */
-
 		return JsonUtils.toJson(result);
 	}
 }

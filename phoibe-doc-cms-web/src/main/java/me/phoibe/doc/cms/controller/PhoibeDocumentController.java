@@ -1,5 +1,6 @@
 package me.phoibe.doc.cms.controller;
 
+import me.phoibe.doc.cms.config.LogUtil;
 import me.phoibe.doc.cms.dao.PhoibeDocumentMapper;
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
 import me.phoibe.doc.cms.domain.po.PageList;
@@ -11,33 +12,26 @@ import me.phoibe.doc.cms.service.PhoibeDocumentService;
 import me.phoibe.doc.cms.utils.JsonUtils;
 import me.phoibe.doc.cms.utils.PlatDateTimeUtil;
 
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.annotation.Resource;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -69,7 +63,7 @@ public class PhoibeDocumentController {
 	
 	@GetMapping("list/{index}/{limit}")
 	public String listDoucument(@PathVariable Integer index, @PathVariable Integer limit,
-			@RequestParam(required = false) String f, @ModelAttribute DPhoebeDocument param) {
+			@RequestParam(required = false) String f, @ModelAttribute DPhoebeDocument param,HttpServletRequest request) {
 		String orderBy = "CREATE_TIME";
 		String sort = "DESC";
 
@@ -106,11 +100,12 @@ public class PhoibeDocumentController {
 
 		PageList<DPhoebeDocument> pageList = phoibeDocumentService.fetchDocumentByPageList(pageParam);
 
+		LogUtil.writeLog("查看了文档查询", LogUtil.OPER_TYPE_LOOK,"文档查询",PhoibeDocumentController.class,request);
 		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, pageList));
 	}
 
 	@GetMapping("list/user/{index}/{limit}")
-	public String listDoucumentUser(@PathVariable Integer index, @PathVariable Integer limit,@ModelAttribute DPhoebeDocument param) {
+	public String listDoucumentUser(@PathVariable Integer index, @PathVariable Integer limit,@ModelAttribute DPhoebeDocument param,HttpServletRequest request) {
 
 		PageParam<DPhoebeDocument> pageParam = new PageParam<>();
 		pageParam.setStart(index);
@@ -118,21 +113,22 @@ public class PhoibeDocumentController {
 		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
 
 		List<DPhoebeDocument> list = phoibeDocumentService.fetchDocumentUserList(pageParam);
-
+		LogUtil.writeLog("查看了个人文档", LogUtil.OPER_TYPE_LOOK,"个人文档",PhoibeDocumentController.class,request);
 		return JsonUtils.toJson(new Result<List<DPhoebeDocument>>(Code.SUCCESS, list));
 	}
 
 	@GetMapping("fetch/{id}")
-	public String getDoucument(@PathVariable Integer id) {
+	public String getDoucument(@PathVariable Integer id,HttpServletRequest request) {
 
 		DPhoebeDocument dPhoibeDocument = phoibeDocumentService.fetchDocumentById(id);
 
+		LogUtil.writeLog("查看了Id为{"+id+"}的文档", LogUtil.OPER_TYPE_LOOK,"个人文档",PhoibeDocumentController.class,request);
 		return JsonUtils.toJson(new Result<DPhoebeDocument>(Code.SUCCESS, dPhoibeDocument));
 
 	}
 
 	@GetMapping("count")
-	public String countDoucument(@ModelAttribute DPhoebeDocument param) {
+	public String countDoucument(@ModelAttribute DPhoebeDocument param,HttpServletRequest request) {
 		PageParam<DPhoebeDocument> pageParam = new PageParam<>();
 		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
 		Long count = phoibeDocumentMapper.selectCountByPage(pageParam);
@@ -210,7 +206,9 @@ public class PhoibeDocumentController {
 				resultMap.put("success", true);
 				resultMap.put("dId", phoibeDocument.getId());
 				resultMap.put("div_file_id", div_file_id);
+				LogUtil.writeLog("Id为{"+phoibeDocument.getId()+"}的文档正在上传", LogUtil.OPER_TYPE_ADD,"个人文档",PhoibeDocumentController.class,request);
 			} else {
+				LogUtil.writeLog("Id为{"+phoibeDocument.getId()+"}的文档上传失败，请重新上传", LogUtil.OPER_TYPE_ADD,"文档管理",PhoibeDocumentController.class,request);
 				resultMap.put("success", false);
 			}
 		} catch (Exception e) {
@@ -223,7 +221,7 @@ public class PhoibeDocumentController {
 	}
 	@RequestMapping("completeSave/{id}")
 	@ResponseBody
-	public String completeSave(@PathVariable Integer id) {
+	public String completeSave(@PathVariable Integer id,HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			
@@ -239,12 +237,14 @@ public class PhoibeDocumentController {
 			if (result > 0) {
 				resultMap.put("success", true);
 				resultMap.put("dId", result);
+				LogUtil.writeLog("Id为{"+phoibeDocument.getId()+"}的文档上传完成", LogUtil.OPER_TYPE_ADD,"个人文档",PhoibeDocumentController.class,request);
 			} else {
 				resultMap.put("success", false);
 			}
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			LogUtil.writeLog("Id为{"+id+"}的文档上传失败，请重新上传", LogUtil.OPER_TYPE_OTHER,"文档管理",PhoibeDocumentController.class,request);
 			e.printStackTrace();
 			resultMap.put("success", false);
 		}
@@ -253,7 +253,7 @@ public class PhoibeDocumentController {
 	}
 	
 	@RequestMapping("update/{f}/{id}")
-	public String modifyDocument(@PathVariable String f, @PathVariable Integer id) {
+	public String modifyDocument(@PathVariable String f, @PathVariable Integer id,HttpServletRequest request) {
 		try {
 			PhoibeDocument phoibeDocument = new PhoibeDocument();
 			phoibeDocument.setId(1l);
@@ -261,17 +261,22 @@ public class PhoibeDocumentController {
 				phoibeDocument.setIsstock(Short.valueOf("1"));
 				phoibeDocument.setStockTime(new Date());
 				phoibeDocument.setStocker("admin");
+				LogUtil.writeLog("将Id为{"+id+"}的文档添加入库", LogUtil.OPER_TYPE_INSTORAGE,"文档管理",PhoibeDocumentController.class,request);
 			} else if ("outstorage".equals(f)) {
 				phoibeDocument.setIsstock(Short.valueOf("0"));
+				LogUtil.writeLog("删除了Id为{"+id+"}的文档", LogUtil.OPER_TYPE_DEL,"文档管理",PhoibeDocumentController.class,request);
 			} else if ("checkpass".equals(f)) {
 				phoibeDocument.setAuditStatus(Short.valueOf("2"));
 				phoibeDocument.setAuditTime(new Date());
 				phoibeDocument.setAuditUserId(1l);
+				LogUtil.writeLog("Id为{"+id+"}的文档审批通过", LogUtil.OPER_TYPE_CHECKPASS,"文档管理",PhoibeDocumentController.class,request);
 			} else if ("checkrefuse".equals(f)) {
 				phoibeDocument.setAuditStatus(Short.valueOf("3"));
 				phoibeDocument.setAuditTime(new Date());
 				phoibeDocument.setAuditUserId(1l);
+				LogUtil.writeLog("Id为{"+id+"}的文档被驳回", LogUtil.OPER_TYPE_CHECKPASS,"文档管理",PhoibeDocumentController.class,request);
 			} else {
+				LogUtil.writeLog("Id为{"+id+"}的文档业务参数错误", LogUtil.OPER_TYPE_CHECKPASS,"文档管理",PhoibeDocumentController.class,request);
 				throw new Exception("业务参数错误");
 			}
 
@@ -301,6 +306,7 @@ public class PhoibeDocumentController {
 				String filename = file.getName();
 				
 				byte[]bytes=getContent(fileAbosultePath);
+				LogUtil.writeLog("下载了Id为{"+pdId+"}的文档", LogUtil.OPER_TYPE_DOWN,"文档管理",PhoibeDocumentController.class,request);
 				 response.setContentType("multipart/form-data"); 
                  //2.设置文件头：最后一个参数是设置下载文件名(假如我们叫a.pdf)  
 				response.addHeader("Content-Disposition", "attachment;fileName="+new String(filename.getBytes("gbk"),"ISO8859-1"));  

@@ -34,6 +34,10 @@
 			<artifactId>ojdbc6</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.hynnet</groupId>
 			<artifactId>json-lib</artifactId>
 		</dependency>
