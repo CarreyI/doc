@@ -55,18 +55,16 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
             throw new BusinessException("用户id不能为空");
         }
         UserInfo userInfo = new UserInfo();
-        PhoibeUser phoibeUser = new PhoibeUser();
-        phoibeUser.setId(userId);
-        PhoibeUser phoibeUser1 = phoibeUserMapper.selectByParam(phoibeUser);
-        if(phoibeUser1 == null){
+        PhoibeUser phoibeUser = phoibeUserMapper.selectByPrimaryKey(userId);
+        if(phoibeUser == null){
             throw new BusinessException("未找到该用户");
         }
         PhoibeRole phoibeRole = phoibeRoleMapper.selectByUserId(userId);
-        BeanUtils.copyProperties(phoibeUser1,userInfo);
+        BeanUtils.copyProperties(phoibeUser,userInfo);
         userInfo.setRoleType(phoibeRole.getRoleType());
         userInfo.setRoleName(phoibeRole.getRoleName());
 
-        return null;
+        return userInfo;
     }
 
     @Override

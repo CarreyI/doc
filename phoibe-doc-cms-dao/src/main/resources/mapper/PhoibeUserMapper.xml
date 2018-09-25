@@ -38,6 +38,9 @@
   <sql id="selectByParam_Condition_Sql">
     <where>
       1=1
+      <if test="id != null">
+        and ID = #{id,jdbcType=DECIMAL}
+      </if>
       <if test="userName != null">
         and USER_NAME = #{userName,jdbcType=VARCHAR}
       </if>
