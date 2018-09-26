@@ -22,8 +22,10 @@
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="REALNAME" jdbcType="VARCHAR" property="realname" />
     <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
-    <result column="ROLE_TYPE" jdbcType="DECIMAL" property="roleType" />
-    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+    <collection property="roles" ofType="me.phoibe.doc.cms.domain.po.PhoibeRole">
+      <result column="ROLE_TYPE" jdbcType="DECIMAL" property="roleType" />
+      <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+    </collection>
   </resultMap>
   <sql id="Base_Column_List">
     ID, USER_NAME, TYPE, STATUS, CREATE_TIME, UPDATE_TIME, PASSWORD, REALNAME, NICKNAME
