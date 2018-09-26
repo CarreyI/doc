@@ -16,6 +16,13 @@
     from PHOIBE_DIRECTORY
     where ID = #{id,jdbcType=DECIMAL}
   </select>
+
+  <select id="selectByList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from PHOIBE_DIRECTORY
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from PHOIBE_DIRECTORY
     where ID = #{id,jdbcType=DECIMAL}
@@ -79,4 +86,5 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
+
 </mapper>

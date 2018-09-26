@@ -3,6 +3,8 @@ package me.phoibe.doc.cms.dao;
 import me.phoibe.doc.cms.domain.po.PhoibeDirectory;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface PhoibeDirectoryMapper {
     int deleteByPrimaryKey(Long id);
@@ -16,4 +18,6 @@ public interface PhoibeDirectoryMapper {
     int updateByPrimaryKeySelective(PhoibeDirectory record);
 
     int updateByPrimaryKey(PhoibeDirectory record);
+
+    List<PhoibeDirectory> selectByList();
 }

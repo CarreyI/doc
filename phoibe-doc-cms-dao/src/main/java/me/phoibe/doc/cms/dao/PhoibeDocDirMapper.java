@@ -16,4 +16,8 @@ public interface PhoibeDocDirMapper {
     int updateByPrimaryKeySelective(PhoibeDocDir record);
 
     int updateByPrimaryKey(PhoibeDocDir record);
+
+    int deleteByDirId(Long dirId);
+
+    int deleteByDocId(Long docId);
 }

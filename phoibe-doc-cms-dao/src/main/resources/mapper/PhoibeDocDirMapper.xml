@@ -21,6 +21,17 @@
     delete from PHOIBE_DOC_DIR
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
+
+  <delete id="deleteByDirId" parameterType="java.lang.Long">
+    delete from PHOIBE_DOC_DIR
+    where DIRECTORY_ID = #{id,jdbcType=DECIMAL}
+  </delete>
+
+  <delete id="deleteByDocId" parameterType="java.lang.Long">
+    delete from PHOIBE_DOC_DIR
+    where DOCUMENT_ID = #{id,jdbcType=DECIMAL}
+  </delete>
+
   <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.PhoibeDocDir">
     insert into PHOIBE_DOC_DIR (ID, DOCUMENT_ID, DIRECTORY_ID, 
       CREATE_TIME, UPDATE_TIME)
