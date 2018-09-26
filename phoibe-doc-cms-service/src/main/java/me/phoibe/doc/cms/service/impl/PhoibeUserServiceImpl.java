@@ -45,7 +45,7 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
     }
 
     @Override
-    public PhoibeRole fetchUserRoleByUserId(Long userId) {
+    public List<PhoibeRole> fetchUserRoleByUserId(Long userId) {
         return phoibeRoleMapper.selectByUserId(userId);
     }
 
@@ -59,10 +59,9 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
         if(phoibeUser == null){
             throw new BusinessException("未找到该用户");
         }
-        PhoibeRole phoibeRole = phoibeRoleMapper.selectByUserId(userId);
+        List<PhoibeRole> phoibeRole = phoibeRoleMapper.selectByUserId(userId);
         BeanUtils.copyProperties(phoibeUser,userInfo);
-        userInfo.setRoleType(phoibeRole.getRoleType());
-        userInfo.setRoleName(phoibeRole.getRoleName());
+        userInfo.setRoles(phoibeRole);
 
         return userInfo;
     }
@@ -85,11 +84,13 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
         BeanUtils.copyProperties(dPhoibeUser,user);
         user.setPassword(DigestUtils.md5Hex("123456"));
         phoibeUserMapper.insertSelective(user);
-        PhoibeUserRole phoibeUserRole = new PhoibeUserRole();
-        phoibeUserRole.setCreateTime(new Date());
-        phoibeUserRole.setRoleId(dPhoibeUser.getRoleId());
-        phoibeUserRole.setUserId(user.getId());
-        phoibeUserRoleMapper.insertSelective(phoibeUserRole);
+        for(Long roleId : dPhoibeUser.getRoleId()){
+            PhoibeUserRole phoibeUserRole = new PhoibeUserRole();
+            phoibeUserRole.setCreateTime(new Date());
+            phoibeUserRole.setRoleId(roleId);
+            phoibeUserRole.setUserId(user.getId());
+            phoibeUserRoleMapper.insertSelective(phoibeUserRole);
+        }
     }
 
     @Override
@@ -98,10 +99,12 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
         PhoibeUser user = new PhoibeUser();
         BeanUtils.copyProperties(dPhoibeUser,user);
         phoibeUserMapper.updateByPrimaryKeySelective(user);
-        PhoibeUserRole phoibeUserRole = new PhoibeUserRole();
-        phoibeUserRole.setUpdateTime(new Date());
-        phoibeUserRole.setRoleId(dPhoibeUser.getRoleId());
-        phoibeUserRole.setUserId(user.getId());
-        phoibeUserRoleMapper.updateByUserId(phoibeUserRole);
+        for(Long roleId : dPhoibeUser.getRoleId()) {
+            PhoibeUserRole phoibeUserRole = new PhoibeUserRole();
+            phoibeUserRole.setUpdateTime(new Date());
+            phoibeUserRole.setRoleId(roleId);
+            phoibeUserRole.setUserId(user.getId());
+            phoibeUserRoleMapper.updateByUserId(phoibeUserRole);
+        }
     }
 }

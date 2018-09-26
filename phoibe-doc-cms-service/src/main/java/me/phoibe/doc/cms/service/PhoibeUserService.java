@@ -14,7 +14,7 @@ public interface PhoibeUserService {
 
     PhoibeUser login(PhoibeUser phoibeUser);
 
-    PhoibeRole fetchUserRoleByUserId(Long userId);
+    List<PhoibeRole> fetchUserRoleByUserId(Long userId);
 
     UserInfo fetchUserInfoByUserId(Long userId);
 

@@ -1,6 +1,9 @@
 package me.phoibe.doc.cms.domain.dto;
 
+import me.phoibe.doc.cms.domain.po.PhoibeRole;
+
 import java.util.Date;
+import java.util.List;
 
 public class UserInfo {
 
@@ -18,9 +21,7 @@ public class UserInfo {
 
     private String nickname;
 
-    private Short roleType;
-
-    private String roleName;
+    private List<PhoibeRole> roles;
 
     public Short getStatus() {
         return status;
@@ -78,19 +79,11 @@ public class UserInfo {
         this.nickname = nickname;
     }
 
-    public Short getRoleType() {
-        return roleType;
+    public List<PhoibeRole> getRoles() {
+        return roles;
     }
 
-    public void setRoleType(Short roleType) {
-        this.roleType = roleType;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRoles(List<PhoibeRole> roles) {
+        this.roles = roles;
     }
 }

@@ -19,7 +19,7 @@ public interface PhoibeRoleMapper {
 
     int updateByPrimaryKey(PhoibeRole record);
 
-    PhoibeRole selectByUserId(Long userId);
+    List<PhoibeRole> selectByUserId(Long userId);
 
     List<PhoibeRole> selectByList();
 }

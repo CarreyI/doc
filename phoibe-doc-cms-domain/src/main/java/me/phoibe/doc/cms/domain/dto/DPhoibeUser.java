@@ -2,14 +2,16 @@ package me.phoibe.doc.cms.domain.dto;
 
 import me.phoibe.doc.cms.domain.po.PhoibeUser;
 
-public class DPhoibeUser extends PhoibeUser {
-    private Long roleId;
+import java.util.List;
 
-    public Long getRoleId() {
+public class DPhoibeUser extends PhoibeUser {
+    private List<Long> roleId;
+
+    public List<Long> getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(List<Long> roleId) {
         this.roleId = roleId;
     }
 }

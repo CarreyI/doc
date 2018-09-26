@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author tengzhaolei
@@ -66,9 +67,8 @@ public class LoginContorller {
                 String jwt = JwtUtil.generateToken(phoibeUser.getId().toString(),JwtUtil.EXPIRATION_TIME);
                 UserInfo userInfo = new UserInfo();
                 BeanUtils.copyProperties(phoibeUser,userInfo);
-                PhoibeRole phoibeRole = phoibeUserService.fetchUserRoleByUserId(userInfo.getId());
-                userInfo.setRoleType(phoibeRole.getRoleType());
-                userInfo.setRoleName(phoibeRole.getRoleName());
+                List<PhoibeRole> phoibeRole = phoibeUserService.fetchUserRoleByUserId(userInfo.getId());
+                userInfo.setRoles(phoibeRole);
 
                 Cookie cookie = new Cookie(JwtUtil.HEADER_STRING,jwt);
                 cookie.setPath("/");

@@ -20,7 +20,7 @@
 
   <select id="selectByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
-    r.*
+    r.ROLE_TYPE,r.ROLE_NAME
     from PHOIBE_ROLE r join PHOIBE_USER_ROLE ur on r.ROLE_ID = ur.ROLE_ID
     where ur.USER_ID = #{userId,jdbcType=DECIMAL}
   </select>
