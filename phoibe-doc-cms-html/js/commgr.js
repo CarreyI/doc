@@ -12,17 +12,17 @@ function loadData(pageindex) {
 
     var data = GAL_URL+"phoibe/comment/list/"+pageindex+"/10?1=1";
 
-    if (username_value != "undefined" && username_value != null) {
+    if (username_value != "" && username_value != null) {
         data = data + "&username=" + username_value.toLowerCase();
     }
-    if (nickname_value != "undefined" && nickname_value != null) {
+    if (nickname_value != "" && nickname_value != null) {
         data = data + "&nickname=" + nickname_value.toLowerCase();
     }
-    if (realname_value != "undefined" && realname_value != null) {
+    if (realname_value != "" && realname_value != null) {
         data = data + "&realname=" + realname_value.toLowerCase();
     }
 
-    if (create_time_value != "undefined" && create_time_value != null) {
+    if (create_time_value != "" && create_time_value != null) {
         data = data + "&create_time=" + create_time_value.toLowerCase();
     }
 
@@ -93,6 +93,29 @@ $(function () {
     $(".closed").click(function () {
         $(".bodyMask").hide();
     });
+    $("#btndel").click(function () {
+        var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
+        if (Id!=null){
+            var action = "phoibe/comment/remove/"+Id;
+            $.ajax({
+                url: GAL_URL + action,
+                type: "DELETE",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    if (data.code="success") {
+                        alert("删除成功");
+
+                        loadData(0);
+                    }else{
+                        alert("删除失败");
+                    }
+                }
+            });
+        }else{
+            alert("请选择要删除的数据");
+        }
+    });
 
     loadData(0);
 
@@ -101,32 +124,4 @@ $(function () {
         parent.iframeLoad();
     });
 
-    $('#submit').click(function () {
-
-        var form = $("#ajaxform");
-        var formdata ={};
-        for (var i = 0; i < form.serializeArray().length; i++) {
-            var key = form.serializeArray()[i].name;
-            var value = form.serializeArray()[i].value;
-            formdata[key] = value;
-        }
-        alert(GAL_URL + form.attr("action"));
-        $.ajax({
-            url: GAL_URL + form.attr("action"),
-            type: form.attr("method"),
-            data: JSON.stringify(formdata),
-            dataType: "json",
-            async: false,
-            contentType: "application/json;charset=UTF-8",
-            success: function (data) {
-                if (data.code="success") {
-                    alert("提交成功");
-                    $(".bodyMask").hide();
-                    loadData(0);
-                }else{
-                    alert("提交失败");
-                }
-            }
-        });
-    })
 });

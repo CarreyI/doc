@@ -13,7 +13,7 @@ function loadData(pageindex) {
     var data = GAL_URL+"/phoibe/user/list/"+pageindex+"/10?1=1";
 
     if (username_value != "undefined" && username_value != null && username_value != "") {
-        data = data + "&username=" + username_value.toLowerCase();
+        data = data + "&userName=" + username_value.toLowerCase();
     }
     if (nickname_value != "undefined" && nickname_value != null && nickname_value != "") {
         data = data + "&nickname=" + nickname_value.toLowerCase();
@@ -103,7 +103,11 @@ function loadData(pageindex) {
 }
 
 $(function () {
+
+    loadData(0);
+    getRolelist();
     $("#btnadd").click(function () {
+        $("#ajaxform")[0].reset();
         $(".bodyMask").fadeIn();
         $("#editBtn").hide();
         $("#submit").show();
@@ -111,31 +115,44 @@ $(function () {
     $("#btnmodify").click(function () {
         var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
         if (Id!=null){
+            $("#ajaxform")[0].reset();
             $(".model-title").html("修改标签");
             $("#submit").hide();
             $("#editBtn").show();
-            modifyUser(Id);
+            getUser(Id);
+        }else{
+            alert("请选择要修改的数据");
         }
-    });
-    $("#btnRole").click(function () {
-        var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
-        if (Id!=null){
-            $(".role_bodyMask").fadeIn();
-            allocationRole(Id);
-        }
-    });
-    $(".role_closed").click(function () {
-        $(".role_bodyMask").hide();
-        $(".userId").val("");
     });
     $(".closed").click(function () {
         $(".bodyMask").hide();
     });
 
-    loadData(0);
     $("#btnSearch").click(function () {
         loadData(0);
         parent.iframeLoad();
+    });
+    $("#btndel").click(function () {
+        var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
+        if (Id!=null){
+            var action = "phoibe/user/remove/"+Id;
+            $.ajax({
+                url: GAL_URL + action,
+                type: "DELETE",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    if (data.code="success") {
+                        alert("删除成功");
+                        loadData(0);
+                    }else{
+                        alert("删除失败");
+                    }
+                }
+            });
+        }else{
+            alert("请选择要删除的数据");
+        }
     });
 
     $('#submit').click(function () {
@@ -147,6 +164,13 @@ $(function () {
             var value = form.serializeArray()[i].value;
             formdata[key] = value;
         }
+        var roleArray=[];
+        $("#ajaxform input[type=checkbox]:checked").each(function(){
+            var Id = $(this).attr("role_Id");
+            roleArray.push(Id);
+        });
+
+        formdata.roleId = roleArray;
         $.ajax({
             url: GAL_URL + form.attr("action"),
             type: form.attr("method"),
@@ -175,6 +199,12 @@ $(function () {
             var value = form.serializeArray()[i].value;
             formdata[key] = value;
         }
+        var roleArray=[];
+        $("#ajaxform input[type=checkbox]:checked").each(function(){
+            var Id = $(this).attr("role_Id");
+            roleArray.push(Id);
+        });
+        formdata.roleId = roleArray;
         formdata.id = formdata.userId;
         $.ajax({
             url: GAL_URL + action,
@@ -196,7 +226,31 @@ $(function () {
     })
 
 });
-function modifyUser(Id){
+function getRolelist(){
+
+    $.ajax({
+        url: GAL_URL + "phoibe/user/role/list",
+        type: "GET",
+        dataType: "json",
+        async: false,
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            if (data.code="success") {
+                //var userInfo = data.data;
+                var rolelist_html ="";
+                var roleObj = data.data;
+                for (var i in data.data){
+                    var roleId = roleObj[i].roleId;
+                    var roleType = roleObj[i].roleType;
+                    var roleName = roleObj[i].roleName;
+                    rolelist_html = rolelist_html + "<li><input name=\"roleId\" type=\"checkBox\" role_Id="+roleId+" role_type="+roleType+">"+roleName+"</li>";
+                }
+                $(".roleCheckbox").html(rolelist_html);
+            }
+        }
+    });
+}
+function getUser(Id){
 
     $.ajax({
         url: GAL_URL + "phoibe/user/fetch/"+Id,
@@ -211,51 +265,20 @@ function modifyUser(Id){
                 $("#realname").val(userInfo.realname);
                 $("#nickname").val(userInfo.nickname);
                 $("#usertype").val(userInfo.type);
-                var roletype = userInfo.roleType;
-                if (userInfo.roleType == 104) {
-                    roletype = 4;
-                } else if (userInfo.roleType == 105) {
-                    roletype = 5;
-                } else if (userInfo.roleType == 102) {
-                    roletype = 2;
-                } else if (userInfo.roleType == 103) {
-                    roletype = 3;
-                }
-                $("#roleId").val(roletype);
+                var roles = userInfo.roles;
+
                 $(".userId").val(userInfo.id);
+
+                var roleObj = userInfo.roles;
+                $("#ajaxform input[type=checkbox]").prop("checked",false);
+                for (var i in roleObj){
+                    var roleType = roleObj[i].roleType;
+                    $("#ajaxform input[role_type="+roleType+"]").prop("checked",true);
+                }
+
                 $(".bodyMask").fadeIn();
             }
         }
     });
-}
-function allocationRole(Id){
-    $(".userId").val(Id);
-    alert("无法分配失败");
 
-    /*
-    var form = $("#role_ajaxform");
-
-    var formdata ={};
-    for (var i = 0; i < form.serializeArray().length; i++) {
-        var key = form.serializeArray()[i].name;
-        var value = form.serializeArray()[i].value;
-        formdata[key] = value;
-    }
-    $.ajax({
-        url: GAL_URL + form.attr("action"),
-        type: form.attr("method"),
-        data: JSON.stringify(formdata),
-        dataType: "json",
-        async: false,
-        contentType: "application/json;charset=UTF-8",
-        success: function (data) {
-            if (data.code="success") {
-                alert("提交成功");
-                $(".bodyMask").hide();
-                loadData(0);
-            }else{
-                alert("提交失败");
-            }
-        }
-    });*/
 }

@@ -59,5 +59,9 @@ public class CommentController {
         LogUtil.writeLog("浏览了评论信息", LogUtil.OPER_TYPE_LOOK,"评论管理",CommentController.class,request);
         return JsonUtils.toJson(new Result<PageList<DPhoibeComment>>(Code.SUCCESS, pageList));
     }
-
+    @DeleteMapping("/remove/{Id}")
+    public String remove(@PathVariable Long Id){
+        phoibeCommentService.deleteByPrimaryKey(Id);
+        return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+    }
 }

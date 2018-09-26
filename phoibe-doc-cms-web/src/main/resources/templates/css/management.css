@@ -812,7 +812,7 @@ color:#000;
 .row .title {
 	font-size: 16px;
 	/*font-weight: bold;*/
-    color:#ffffff !important;
+    color:#000000 !important;
 }
 
 .row ul li {
@@ -871,13 +871,27 @@ color:#000;
 	margin-top: 30px;
 	cursor: pointer
 }
+.file_submit {
+	background: url("../images/submit.png") no-repeat;
+	width: 88px;
+	height: 34px;
+	margin-top: 30px;
+	cursor: pointer
+}
+.filelist_submit {
+	background: url("../images/submit.png") no-repeat;
+	width: 88px;
+	height: 34px;
+	margin-top: 30px;
+	cursor: pointer
+}
 .role_submit {
-	 background: url("../images/submit.png") no-repeat;
-	 width: 88px;
-	 height: 34px;
-	 margin-top: 30px;
-	 cursor: pointer
- }
+	background: url("../images/submit.png") no-repeat;
+	width: 88px;
+	height: 34px;
+	margin-top: 30px;
+	cursor: pointer
+}
 #owner {
 	/*width: 120px;*/
 }
@@ -1319,7 +1333,16 @@ ol.list1 {
 	width: 100%;
 	display: none;
 }
-
+.file_bodyMask {
+	/* height: 100%; */
+	width: 100%;
+	display: none;
+}
+.filelist_bodyMask {
+	/* height: 100%; */
+	width: 100%;
+	display: none;
+}
 .role_bodyMask {
 	/* height: 100%; */
 	width: 100%;
@@ -1328,7 +1351,10 @@ ol.list1 {
 .roleCheckbox li{
 	/* height: 100%; */
 	float: left;
-	margin-left: 20px;
+	margin-right: 20px;
+}
+#doenlist{
+	display: none;
 }
 #index .mask {
     	height: auto;
@@ -1771,4 +1797,25 @@ font-size:18px;
 
 #condwhere .mask .popup {
     margin-top:50px;
+}
+
+.file_wrap{
+	overflow:hidden;/*父元素清除浮动*/
+}
+.file_divleft{
+	float:left;
+	width:200px;
+	border: 1px solid #baaaaa;
+	height: 370px;
+}
+.file_divright{
+	margin-left: 210px;/*不设置宽度，利用block元素的宽度填满父容器，并随着父容器的宽度自适应的流动特性。
+        block级别的元素会认为浮动的元素不存在，但是inline级别的元素能识别到浮动的元素。*/
+}
+.file_menu{
+	background: #0d4d81;
+	color: #ffffff;
+	height: 40px;
+	font-size: 15px;
+	text-align: center;
 }

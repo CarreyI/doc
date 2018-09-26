@@ -82,7 +82,7 @@
     <where>
       1=1
       <if test="param.userName != null">
-        and u.USER_NAME = #{param.userName,jdbcType=VARCHAR}
+        and u.USER_NAME LIKE '%'||#{param.userName,jdbcType=VARCHAR}||'%'
       </if>
       <if test="param.type != null">
         and u.TYPE = #{param.type,jdbcType=DECIMAL}

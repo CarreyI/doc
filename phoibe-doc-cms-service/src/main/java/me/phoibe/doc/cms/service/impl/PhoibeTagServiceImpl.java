@@ -28,4 +28,19 @@ public class PhoibeTagServiceImpl implements PhoibeTagService {
         phoibeTag.setCreateTime(new Date());
         phoibeTagMapper.insertSelective(phoibeTag);
     }
+
+    @Override
+    public void deleteByPrimaryKey(Short id) {
+        phoibeTagMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public PhoibeTag selectByPrimaryKey(Short id) {
+        return phoibeTagMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void updateByPrimaryKeySelective(PhoibeTag phoibeTag) {
+        phoibeTagMapper.updateByPrimaryKeySelective(phoibeTag);
+    }
 }

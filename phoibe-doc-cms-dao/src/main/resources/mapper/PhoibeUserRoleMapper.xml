@@ -21,6 +21,10 @@
     delete from PHOIBE_USER_ROLE
     where USER_ROLE_ID = #{userRoleId,jdbcType=DECIMAL}
   </delete>
+  <delete id="deleteByUserId" parameterType="java.lang.Long">
+    delete from PHOIBE_USER_ROLE
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </delete>
   <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUserRole">
     insert into PHOIBE_USER_ROLE (USER_ROLE_ID, USER_ID, ROLE_ID, 
       CREATE_TIME, UPDATE_TIME)

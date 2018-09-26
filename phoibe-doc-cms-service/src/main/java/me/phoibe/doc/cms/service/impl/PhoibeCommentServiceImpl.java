@@ -34,4 +34,9 @@ public class PhoibeCommentServiceImpl implements PhoibeCommentService {
 
         return PageList.createPage(pageParam,phoibeCommentMapper.selectCountByPage(pageParam),list);
     }
+
+    @Override
+    public void deleteByPrimaryKey(Long dirId) {
+         phoibeCommentMapper.deleteByPrimaryKey(dirId);
+    }
 }

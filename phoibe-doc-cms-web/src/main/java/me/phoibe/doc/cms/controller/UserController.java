@@ -62,7 +62,7 @@ public class UserController {
     @GetMapping("/role/list")
     public String list( HttpServletRequest request){
         List<PhoibeRole> list = phoibeUserService.fetchUserRoleList();
-        LogUtil.writeLog("浏览了角色关系", LogUtil.OPER_TYPE_LOOK,"角色关系",UserController.class,request);
+        //LogUtil.writeLog("浏览了角色关系", LogUtil.OPER_TYPE_LOOK,"角色关系",UserController.class,request);
         return JsonUtils.toJson(new Result<List<PhoibeRole>>(Code.SUCCESS, list));
     }
 
@@ -78,6 +78,11 @@ public class UserController {
     public String update(@RequestBody DPhoibeUser dPhoibeUser, HttpServletRequest request){
         phoibeUserService.modifyUser(dPhoibeUser);
         LogUtil.writeLog("更新了用户名为{"+dPhoibeUser.getUserName()+"}的用户信息", LogUtil.OPER_TYPE_EDIT,"用户管理",UserController.class,request);
+        return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+    }
+    @DeleteMapping("/remove/{Id}")
+    public String remove(@PathVariable Long Id){
+        phoibeUserService.deleteByPrimaryKey(Id);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
 }

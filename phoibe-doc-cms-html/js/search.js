@@ -2,24 +2,28 @@ var totalRows = 0;
 var currPage = 1;
 function loadData(type,pageindex) {
     $("#doc-content").children().remove()
-    var docname = $("#docname").val();
-    var owner = $("#owner").val();
-    var data = 'phoibe/document/list/' + pageindex + '/10?1=1';
-    var name = "";
-    if (getUrlString("s") == "1" && type!=1) {
-        name = getUrlString("name");
+
+    var url = 'phoibe/document/list/' + pageindex + '/10?1=1';
+    var data="";
+
+    var searchKey = $("#search-key").val();
+    if (searchKey!=""&&searchKey!=null){
+        data = url + "&contentStr=" + searchKey;
     }
-    if (name!=null);
-    data = data + "&name=" + docname;
-    if (null!=owner&&owner != "") {
-        data = data + "&userRealName=" + owner;
+    var docname = $("#docname").val();
+    if (docname!=""&&docname!=null){
+        data = data + "&docname=" + docname;
+    }
+    var owner = $("#owner").val();
+    if (owner != "") {
+        data = data + "&owner=" + owner;
     }
     var warstate = $("#warstate").val();
-    if (null!=warstate&&warstate != "") {
+    if (warstate != "") {
         data = data + "&warstate=" + warstate;
     }
     var waraddr = $("#waraddr").val();
-    if (null!=waraddr&&waraddr != "") {
+    if (waraddr != "") {
         data = data + "&waraddr=" + waraddr;
     }
     var wartime = $("#wartime").val();
@@ -27,38 +31,33 @@ function loadData(type,pageindex) {
         data = data + "&wartime=" + wartime;
     }
     var winner = $("#winner").val();
-    if (null!=winner&&winner != "") {
+    if (winner != "") {
         data = data + "&winner=" + winner;
     }
     var loser = $("#loser").val();
-    if (null!=loser&&loser != "") {
+    if (loser != "") {
         data = data + "&loser=" + loser;
     }
     var warnum = $("#warnum").val();
-    if (null!=warnum&&warnum != "") {
+    if (warnum != "") {
         data = data + "&warnum=" + warnum;
     }
     var wartypevalue = $("#wartype option:selected").val();
-    if (null!=wartypevalue&&wartypevalue != 0) {
-        data = data + "&combatType=" + wartypevalue;
+    if (wartypevalue != 0) {
+        data = data + "&wartype=" + wartypevalue;
     }
     var armtypevalue = $("#armtype option:selected").val();
-    if (null!=armtypevalue&&armtypevalue != 0) {
-        data = data + "&arms=" + armtypevalue;
+    if (armtypevalue != 0) {
+        data = data + "&armtype=" + armtypevalue;
     }
     var chkValue = $("#con-value li[checked='checked']");
     var doctypevalue = chkValue.html();
-   
-    if (getUrlString("s") == "1" && type!=1) {
-        doctypevalue = getUrlString("format");
-   }
-
     if (doctypevalue != "undefined" && doctypevalue != null) {
         data = data + "&format=" + doctypevalue.toLowerCase();
     }
          $.ajax({
              type: 'GET',
-             url: data,
+             url: GAL_URL + data,
              async: false,
              dataType: 'json',
              success: function (result) {
@@ -129,10 +128,10 @@ function loadData(type,pageindex) {
      }
      $(function () {
          //当首页跳转到查询页时，遍历取首页查询参数
-         $(".clearfix").find("input").each(function () {
+         $(".container").find("input").each(function () {
              var input_id = $(this).attr("id");
              var input_val = getUrlString(input_id);
-             $(this).val(input_val);
+             $(this).val(decodeURI(input_val));
          })
          var armtype = getUrlString("armtype");
          var wartype = getUrlString("wartype");

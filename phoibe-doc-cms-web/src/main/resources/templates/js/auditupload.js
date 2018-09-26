@@ -1,6 +1,6 @@
 var totalRows = 0;
 var currPage = 0;
-
+var docstatus =  1;
     function loadData(pageindex) {
         $("#tblist-body").children().remove();    
         var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?1=1';
@@ -35,6 +35,8 @@ var currPage = 0;
         if (auditTimeEnd != "") {
             data = data + "&auditTimeEnd=" + auditTimeEnd;
         }
+
+        data = data + "&auditStatus=" + docstatus;
         $.ajax({
             type: 'GET',
             url: data,
@@ -51,21 +53,12 @@ var currPage = 0;
                     var id = val["id"];
                     var pagecount = val["pagecount"];
                     var filesize = val["fileSize"];
-                    var status = val["status"];
                     var auditstatus = val["auditStatus"];
                     var owner = "admin";
                     var auditdate = "2018-08-26";
                     var auditor = "admin";
                     var tag = "";
-                    var docstatus = "";
                     var auditstatustyle = "f-blue";
-                    if (status == 1) {
-                        docstatus = "上传中";
-                    }
-                    
-                    else if (status == 2) {
-                        docstatus = "上传完成";
-                    }
                     if (auditstatus == 1) {
                         auditstatustyle = "f-red";
                         auditstatus="待审核";
@@ -179,9 +172,24 @@ var currPage = 0;
         });
 
         $(".btnSearch").click(function () {
-            currPage = 1;
-            totalRows = 0;
             loadData(0);
-           // parent.iframeLoad();
+            parent.iframeLoad();
         });
+
+        $("#docCheck").click(function () {
+            $("#btnaudit").show();
+            $("#btnreback").show();
+            docstatus=1;
+            loadData(0);
+            parent.iframeLoad();
+        });
+
+        $("#docDone").click(function () {
+            $("#btnaudit").hide();
+            $("#btnreback").hide();
+            docstatus=2;
+            loadData(0);
+             parent.iframeLoad();
+        });
+
     });

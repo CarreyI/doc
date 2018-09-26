@@ -99,12 +99,19 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
         PhoibeUser user = new PhoibeUser();
         BeanUtils.copyProperties(dPhoibeUser,user);
         phoibeUserMapper.updateByPrimaryKeySelective(user);
+        phoibeUserRoleMapper.deleteByUserId(user.getId());
         for(Long roleId : dPhoibeUser.getRoleId()) {
             PhoibeUserRole phoibeUserRole = new PhoibeUserRole();
             phoibeUserRole.setUpdateTime(new Date());
             phoibeUserRole.setRoleId(roleId);
             phoibeUserRole.setUserId(user.getId());
-            phoibeUserRoleMapper.updateByUserId(phoibeUserRole);
+            phoibeUserRoleMapper.insertSelective(phoibeUserRole);
         }
+    }
+
+    @Override
+    public void deleteByPrimaryKey(Long id) {
+        phoibeUserMapper.deleteByPrimaryKey(id);
+        phoibeUserRoleMapper.deleteByUserId(id);
     }
 }

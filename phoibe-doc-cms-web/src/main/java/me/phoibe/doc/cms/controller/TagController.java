@@ -1,6 +1,7 @@
 package me.phoibe.doc.cms.controller;
 
 import me.phoibe.doc.cms.config.LogUtil;
+import me.phoibe.doc.cms.domain.dto.UserInfo;
 import me.phoibe.doc.cms.domain.po.PageList;
 import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeTag;
@@ -21,13 +22,13 @@ public class TagController {
     private PhoibeTagService phoibeTagService;
 
     @GetMapping("/list/{index}/{limit}")
-    public String list(@PathVariable Integer index, @PathVariable Integer limit, HttpServletRequest request){
+    public String list(@PathVariable Integer index, @PathVariable Integer limit, @ModelAttribute PhoibeTag param,HttpServletRequest request){
         String orderBy = "CREATE_TIME";
         String sort = "DESC";
         PageParam<PhoibeTag> pageParam = new PageParam<>();
         pageParam.setStart(index);
         pageParam.setLimit(limit);
-        pageParam.setParam(new PhoibeTag());
+        pageParam.setParam(param == null ? new PhoibeTag() : param);
         pageParam.setOrderBy(orderBy);
         pageParam.setSort(sort);
         PageList<PhoibeTag> pageList = phoibeTagService.fetchTagByPageList(pageParam);
@@ -40,5 +41,25 @@ public class TagController {
         phoibeTagService.addTag(phoibeTag);
         LogUtil.writeLog("新增了标签", LogUtil.OPER_TYPE_ADD,"标签管理",TagController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+    }
+    @RequestMapping(value = {"update"})
+    public String update(@RequestBody PhoibeTag phoibeTag, HttpServletRequest request){
+        phoibeTagService.updateByPrimaryKeySelective(phoibeTag);
+        LogUtil.writeLog("修改了标签", LogUtil.OPER_TYPE_ADD,"标签管理",TagController.class,request);
+        return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+    }
+    @DeleteMapping("/remove/{Id}")
+    public String remove(@PathVariable Short Id){
+        phoibeTagService.deleteByPrimaryKey(Id);
+        return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+    }
+    @GetMapping("fetch/{id}")
+    public String getUser(@PathVariable Integer id,HttpServletRequest request) {
+
+        PhoibeTag tag = phoibeTagService.selectByPrimaryKey(id.shortValue());
+
+        LogUtil.writeLog("浏览了Id为{"+id+"}的标签信息", LogUtil.OPER_TYPE_LOOK,"标签管理",UserController.class,request);
+        return JsonUtils.toJson(new Result<PhoibeTag>(Code.SUCCESS, tag));
+
     }
 }

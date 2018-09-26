@@ -13,4 +13,6 @@ public interface PhoibeCommentService {
     void addComment(PhoibeComment phoibeComment);
 
     PageList<DPhoibeComment> fetchCommentByPageList(PageParam<PhoibeComment> pageParam);
+
+    void deleteByPrimaryKey(Long dirId);
 }

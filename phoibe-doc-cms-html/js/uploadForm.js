@@ -10,6 +10,7 @@ function uploadCompleteUpdate(dId,filemd5,filename){
         success: function (data)
         {
             if(data.success){
+                alert("提交成功");
                 emptyformw();//清空表单
             }
         }

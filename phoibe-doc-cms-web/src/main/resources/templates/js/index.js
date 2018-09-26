@@ -218,20 +218,18 @@ $(function () {
 
    
     $("#btnSearch").click(function () {
-        var searchKey = $("#search-key").val();
-        var chkValue = $("#con-value .check");
 
         var url = 'search.html?s=1';
-        var doctypevalue = chkValue.html();
-       var data = url + "&name=" + searchKey;
+        var data="";
 
-        var name = "";
-        if (getUrlString("s") == "1" && type!=1) {
-            name = getUrlString("name");
+        var searchKey = $("#search-key").val();
+        if (searchKey!=""&&searchKey!=null){
+            data = url + "&search-key=" + searchKey;
         }
-        if (name!=null);
         var docname = $("#docname").val();
-        data = data + "&docname=" + docname;
+        if (docname!=""&&docname!=null){
+            data = data + "&docname=" + docname;
+        }
         var owner = $("#owner").val();
         if (owner != "") {
             data = data + "&owner=" + owner;
@@ -268,17 +266,12 @@ $(function () {
         if (armtypevalue != 0) {
             data = data + "&armtype=" + armtypevalue;
         }
-        var chkValue = $("#con-value li[checked='checked']");
+        var chkValue = $("#con-value .check");
         var doctypevalue = chkValue.html();
-
-        if (getUrlString("s") == "1" && type!=1) {
-            doctypevalue = getUrlString("format");
-        }
-
         if (doctypevalue != "undefined" && doctypevalue != null) {
             data = data + "&format=" + doctypevalue.toLowerCase();
         }
-        if (doctypevalue != null);
-        window.location.href = data;
+
+        window.location.href = encodeURI(data);
     });
 });

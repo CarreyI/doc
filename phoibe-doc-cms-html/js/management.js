@@ -78,8 +78,10 @@ function userAuthController(){
         var createTime = userObject.createTime;
         var status = userObject.status;
         var nickname = userObject.nickname;
-        var roleName = userObject.roleName;
-        var roleType = userObject.roleType;
+        var roles = userObject.roles;
+
+        var roleName = userObject.roles[0].roleName;
+        var roleType = userObject.roles[0].roleType;
 
         $(".userName").html(nickname);
         $(".userIdentity").html(userObject.roleName);
@@ -124,6 +126,7 @@ function userAuthController(){
                 $("#nav_arrow").attr("data-value", 1);
             }else{
                 $("#main-content").css("padding-left", "30px");
+                $(this).remove();
             }
         })
     }

@@ -192,28 +192,138 @@ function loadData(pageindex) {
         });
        
     }
+    function loadFileMenu(){
+
+        $.ajax({
+            url: GAL_URL + "phoibe/directory/list",
+            type: "GET",
+            dataType: "json",
+            async: false,
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+                if (data.code="success") {
+                    //var userInfo = data.data;
+                    var filelist ="<li>+ <a href=\"#\"dirId=''>全部文件</a></li>";
+                    var selectlist_html ="";
+                    var roleObj = data.data;
+                    for (var i in data.data){
+                        var dirId = roleObj[i].id;
+                        var dirName = roleObj[i].dirName;
+
+                         filelist=filelist + "<li>+ <a href=\"#\" dirId='"+dirId+"'>"+dirName+"</a></li>";
+                         selectlist_html=selectlist_html + "<li><input type='radio' data-value='' name='chksel' value='"+dirId+"'/><a href=\"#\">"+dirName+"</a></li>";
+
+                    }
+
+                    $(".file_list").html(filelist);
+                    $(".file_selectlist").html(selectlist_html);
+                }
+            }
+        });
+
+        //添加点击行选中单选框
+        $(".file_selectlist").on("click","li",function () {
+
+            //标题行不作任何操作
+            if (this.rowIndex == 0) return;
+            if ($(this).find("input").checked) {
+                //已选中的行取消选中
+                $(this).find("input").prop("checked",false);
+            } else {
+                //未选中的行，进行选中
+                $(this).find("input").prop("checked",true);
+            }
+        });
+    }
     $(function () {
         loadData(0);
         bindDym();
         bindNearRead();
-
-        $("#move").click(function () {
-            var sel = $("#tblist-body tr td input[type='radio']:checked");
-            var rowid = $(sel).attr("data-value");
-            alert(rowid);
-        });
+        loadFileMenu();
 
         $("#del").click(function () {
             var sel = $("#tblist-body tr td input[type='radio']:checked");
             var rowid = $(sel).attr("data-value");
             alert(rowid);
         });
-        $("#uploadfile").click(function () {
-            $(window.parent.document).find(".bodyMask").fadeIn();
-        });
         $("#wartype").change(function(){
-        	var wartypevalue = $("#wartype option:selected").val();
-        	wartype = "&combatType=" + wartypevalue;
-        	loadData(0);
+            var wartypevalue = $("#wartype option:selected").val();
+            wartype = "&combatType=" + wartypevalue;
+            loadData(0);
         });
+        // 新建文件目录
+        $("#btnnewfolder").click(function () {
+            $(".file_bodyMask").fadeIn();
+        });
+        $(".file_closed").click(function () {
+            $(".file_bodyMask").hide();
+        });
+        // 移动到文件目录
+        $("#btnmove").click(function () {
+            var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
+            if (Id!=null){
+                $(".documentId").val(Id);
+                $(".filelist_bodyMask").fadeIn();
+            }
+        });
+
+        $(".filelist_closed").click(function () {
+            $(".filelist_bodyMask").hide();
+        });
+        // 新建目录提交
+        $('#file_submit').click(function () {
+
+            var form = $("#file_ajaxform");
+            var formdata ={};
+            for (var i = 0; i < form.serializeArray().length; i++) {
+                var key = form.serializeArray()[i].name;
+                var value = form.serializeArray()[i].value;
+                formdata[key] = value;
+            }
+            $.ajax({
+                url: GAL_URL + form.attr("action"),
+                type: form.attr("method"),
+                data: JSON.stringify(formdata),
+                dataType: "json",
+                async: false,
+                contentType: "application/json;charset=UTF-8",
+                success: function (data) {
+                    if (data.code="success") {
+                        alert("提交成功");
+                        $(".file_bodyMask").hide();
+                        loadFileMenu();
+                    }else{
+                        alert("提交失败");
+                    }
+                }
+            });
+        })
+        // 移动文件目录提交
+        $('#filelist_submit').click(function () {
+
+            var form = $("#filelist_ajaxform");
+
+            var formdata ={
+                directoryId : $(".file_selectlist  input[type='radio']:checked").val(),
+                 documentId : $(".documentId").val()
+            };
+
+            $.ajax({
+                url: GAL_URL + form.attr("action"),
+                type: form.attr("method"),
+                data: JSON.stringify(formdata),
+                dataType: "json",
+                async: false,
+                contentType: "application/json;charset=UTF-8",
+                success: function (data) {
+                    if (data.code="success") {
+                        alert("提交成功");
+                        $(".filelist_bodyMask").hide();
+                        loadFileMenu();
+                    }else{
+                        alert("提交失败");
+                    }
+                }
+            });
+        })
     });

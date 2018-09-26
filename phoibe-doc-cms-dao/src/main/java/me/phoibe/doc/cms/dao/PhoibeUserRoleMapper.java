@@ -5,7 +5,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface PhoibeUserRoleMapper {
+
     int deleteByPrimaryKey(Long userRoleId);
+
+    int deleteByUserId(Long userId);
 
     int insert(PhoibeUserRole record);
 

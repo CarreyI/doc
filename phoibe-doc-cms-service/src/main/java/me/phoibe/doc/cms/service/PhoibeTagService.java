@@ -8,4 +8,10 @@ public interface PhoibeTagService  {
     PageList<PhoibeTag> fetchTagByPageList(PageParam<PhoibeTag> pageParam);
 
     void addTag(PhoibeTag phoibeTag);
+
+    void deleteByPrimaryKey(Short id);
+
+    PhoibeTag selectByPrimaryKey(Short id);
+
+    void updateByPrimaryKeySelective(PhoibeTag phoibeTag);
 }

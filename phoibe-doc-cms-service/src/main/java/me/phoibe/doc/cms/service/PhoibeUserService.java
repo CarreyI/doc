@@ -25,4 +25,6 @@ public interface PhoibeUserService {
     void addUser(DPhoibeUser dPhoibeUser) throws UnsupportedEncodingException;
 
     void modifyUser(DPhoibeUser dPhoibeUser);
+
+    void deleteByPrimaryKey(Long id);
 }

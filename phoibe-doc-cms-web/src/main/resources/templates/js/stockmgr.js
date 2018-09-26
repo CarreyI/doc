@@ -16,8 +16,8 @@ var currPage = 0;
             var stockTimeBegin = startdate.value ;
             var stockTimeEnd = enddate.value;
 
-            if (doctypestatus>0 && doctypestatus != null) {
-                data = data + "&auditStatus=" + doctypestatus.toLowerCase();
+            if (doctypestatus!=""&&doctypestatus != null) {
+                data = data + "&isstock=" + doctypestatus.toLowerCase();
             }
 
             if (name != null);
