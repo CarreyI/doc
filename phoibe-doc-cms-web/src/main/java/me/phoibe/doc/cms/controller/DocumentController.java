@@ -273,6 +273,7 @@ public class DocumentController {
 		UserInfo userInfo = phoibeUserService.fetchUserInfoByUserId(userId);
 		try {
 			PhoibeDocument phoibeDocument = new PhoibeDocument();
+			phoibeDocument.setId(id.longValue());
 			if ("instorage".equals(f)) {
 				phoibeDocument.setIsstock(Short.valueOf("1"));
 				phoibeDocument.setStockTime(new Date());

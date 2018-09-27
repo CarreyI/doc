@@ -8,7 +8,7 @@ function loadData(type,pageindex) {
 
     var searchKey = $("#search-key").val();
     if (searchKey!=""&&searchKey!=null){
-        data = url + "&contentStr=" + searchKey;
+        data = data+ "&contentStr=" + searchKey;
     }
     var docname = $("#docname").val();
     if (docname!=""&&docname!=null){
@@ -50,12 +50,19 @@ function loadData(type,pageindex) {
     if (armtypevalue != 0) {
         data = data + "&armtype=" + armtypevalue;
     }
-    var chkValue = $("#con-value li[checked='checked']");
-    var doctypevalue = chkValue.html();
-    if (doctypevalue != "undefined" && doctypevalue != null) {
+    var doctypevalue = "";
+    $("#con-value .check").each(function () {
+        if (doctypevalue==""){
+            doctypevalue = $(this).html();
+        }else {
+            doctypevalue = doctypevalue +","+$(this).html();
+        }
+    })
+    if (doctypevalue != "" && doctypevalue != null) {
         data = data + "&format=" + doctypevalue.toLowerCase();
     }
-         $.ajax({
+    data = url + data;
+    $.ajax({
              type: 'GET',
              url: GAL_URL + data,
              async: false,
@@ -131,17 +138,26 @@ function loadData(type,pageindex) {
          $(".container").find("input").each(function () {
              var input_id = $(this).attr("id");
              var input_val = getUrlString(input_id);
-             $(this).val(decodeURI(input_val));
+             if(null!=input_val&&input_val!=""){
+                 $(this).val(decodeURI(input_val));
+             }
          })
          var armtype = getUrlString("armtype");
-         var wartype = getUrlString("wartype");
          if(null!=armtype&&armtype!=""){
             $("#armtype").val(armtype);
          }
+         var wartype = getUrlString("wartype");
          if(null!=wartype&&wartype!=""){
              $("#wartype").val(wartype);
          }
-
+         var format = getUrlString("format");
+            $(".checkList").find("li").each(function () {
+                var check_val = $(this).html();
+                if (format.indexOf(check_val)>-1){
+                    $(this).addClass("check");
+                    $(this).attr("checked","checked");
+                }
+            })
          loadData(0,0);
 
          $("#condif").click(function () {
