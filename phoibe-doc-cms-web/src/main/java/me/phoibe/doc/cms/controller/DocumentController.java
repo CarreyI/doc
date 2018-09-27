@@ -91,6 +91,15 @@ public class DocumentController {
 
 			}
 		}
+		if(param != null && !StringUtils.isEmpty(param.getFormat())){
+			String formatStr = "(";
+			String [] format = param.getFormat().split(",");
+			for(String str : format){
+				formatStr += "'"+str+"',";
+			}
+			formatStr = formatStr.substring(0,formatStr.length()-1)+")";
+			param.setFormat(formatStr);
+		}
 		PageParam<DPhoebeDocument> pageParam = new PageParam<>();
 		pageParam.setStart(index);
 		pageParam.setLimit(limit);
@@ -136,15 +145,15 @@ public class DocumentController {
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, count));
 	}
 
-	// @DeleteMapping("delete/{id}")
-	// public String removeDocument(@PathVariable Integer id) {
-	// try {
-	// phoibeDocumentService.removeDocumentById(id);
-	// } catch (Exception e) {
-	// JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
-	// }
-	// return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
-	// }
+	 @DeleteMapping("delete/{id}")
+	 public String removeDocument(@PathVariable Integer id) {
+	 try {
+	 phoibeDocumentService.removeDocumentById(id);
+	 } catch (Exception e) {
+	 JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
+	 }
+	 return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+	 }
 
 	@RequestMapping(value = { "save" })
 	public String saveOrUpdate(@RequestBody Map rb, HttpServletRequest request,
@@ -182,7 +191,6 @@ public class DocumentController {
 			phoibeDocument.setDescription((String) rb.get("description"));
 			phoibeDocument.setAuditStatus((short) (1));
 			phoibeDocument.setAuditUserId(1l);
-			phoibeDocument.setContent("正文内容正文内容正文内容正文内容正文内容正文内容".getBytes());
 
 			phoibeDocument.setFileSize(new BigDecimal(fileSize));
 			phoibeDocument.setFilePath(filemd5+"/"+filename);
@@ -264,7 +272,7 @@ public class DocumentController {
 				LogUtil.writeLog("将Id为{"+id+"}的文档添加入库", LogUtil.OPER_TYPE_INSTORAGE,"文档管理", DocumentController.class,request);
 			} else if ("outstorage".equals(f)) {
 				phoibeDocument.setIsstock(Short.valueOf("0"));
-				LogUtil.writeLog("删除了Id为{"+id+"}的文档", LogUtil.OPER_TYPE_DEL,"文档管理", DocumentController.class,request);
+				LogUtil.writeLog("从库中移除了Id为{"+id+"}的文档", LogUtil.OPER_TYPE_DEL,"文档管理", DocumentController.class,request);
 			} else if ("checkpass".equals(f)) {
 				phoibeDocument.setAuditStatus(Short.valueOf("2"));
 				phoibeDocument.setAuditTime(new Date());

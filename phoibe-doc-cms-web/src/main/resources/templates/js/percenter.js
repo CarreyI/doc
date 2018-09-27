@@ -2,6 +2,7 @@
 var totalRows = 0;
 var currPage = 0;
 var wartype = "";
+var dirId="";
 function bindNearRead() {
     var data = GAL_URL+'phoibe/document/list/0/10'
     $.ajax({
@@ -115,7 +116,7 @@ function loadData(pageindex) {
         userId = userObject.id;
     }
     var data = GAL_URL+'phoibe/document/list/' + pageindex + '/10?1=1';
-    data = data +"&userId="+userId;
+    data = data +"&userId="+userId+"&dirId="+dirId;
     $.ajax({
             type: 'GET',
             url: data,
@@ -198,9 +199,14 @@ function loadData(pageindex) {
        
     }
     function loadFileMenu(){
-
+        var userStr = getCookie("userObject");
+        var userId =1;
+        if (null!=userStr&&""!=userStr) {
+            userObject = JSON.parse(userStr);
+            userId = userObject.id;
+        }
         $.ajax({
-            url: GAL_URL + "phoibe/directory/list",
+            url: GAL_URL + "phoibe/directory/list/"+userId,
             type: "GET",
             dataType: "json",
             async: false,
@@ -239,6 +245,11 @@ function loadData(pageindex) {
                 $(this).find("input").prop("checked",true);
             }
         });
+
+        $(".file_list li").click(function(){
+            dirId = $(this).find("a").attr("dirid");
+            loadData(0);
+        });
     }
     $(function () {
         loadData(0);
@@ -246,10 +257,24 @@ function loadData(pageindex) {
         bindNearRead();
         loadFileMenu();
 
-        $("#del").click(function () {
+        $("#btndel").click(function () {
             var sel = $("#tblist-body tr td input[type='radio']:checked");
             var rowid = $(sel).attr("data-value");
-            alert(rowid);
+            $.ajax({
+                url: GAL_URL + "phoibe/document/delete/"+rowid,
+                type: "DELETE",
+                dataType: "json",
+                async: false,
+                contentType: "application/json;charset=UTF-8",
+                success: function (data) {
+                    if (data.code="success") {
+                        loadData(0);
+                        alert("删除成功");
+                    }else{
+                        alert("删除失败");
+                    }
+                }
+            });
         });
         $("#wartype").change(function(){
             var wartypevalue = $("#wartype option:selected").val();
@@ -285,6 +310,13 @@ function loadData(pageindex) {
                 var value = form.serializeArray()[i].value;
                 formdata[key] = value;
             }
+            var userStr = getCookie("userObject");
+            var userId =1;
+            if (null!=userStr&&""!=userStr) {
+                userObject = JSON.parse(userStr);
+                userId = userObject.id;
+            }
+            formdata.creator = userId;
             $.ajax({
                 url: GAL_URL + form.attr("action"),
                 type: form.attr("method"),
