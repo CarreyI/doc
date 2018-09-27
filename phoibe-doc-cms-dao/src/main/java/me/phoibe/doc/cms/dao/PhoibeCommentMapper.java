@@ -21,7 +21,7 @@ public interface PhoibeCommentMapper {
 
     int updateByPrimaryKey(PhoibeComment record);
 
-    List<DPhoibeComment> selectByPage(PageParam<PhoibeComment> pageParam);
+    List<DPhoibeComment> selectByPage(PageParam<DPhoibeComment> pageParam);
 
-    Long selectCountByPage(PageParam<PhoibeComment> pageParam);
+    Long selectCountByPage(PageParam<DPhoibeComment> pageParam);
 }

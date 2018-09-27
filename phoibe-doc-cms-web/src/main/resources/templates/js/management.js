@@ -33,7 +33,7 @@ $.ajaxSetup({
 
    })
 
-function roleAuthObject() {
+function roleAuthObject(roleType) {
 
     var roleObj = {
         commonRole: {
@@ -57,7 +57,30 @@ function roleAuthObject() {
             ops: ""
         }
     }
-    return roleObj;
+
+    var ret_roleobje={};
+    if (roleType==103){
+        //103	普通用户
+         ret_roleobje = roleObj.commonRole;
+    }
+    if (roleType==104){
+        //104	系统审核员
+        ret_roleobje = roleObj.auditRole;
+    }
+    if (roleType==105){
+        //105	系统入库员
+        ret_roleobje = roleObj.putRole;
+
+    }
+    if (roleType==102){
+        //101	系统管理员
+        ret_roleobje = roleObj.adminRole;
+    }
+    if (roleType==101){
+        //101	超级管理员
+        ret_roleobje = roleObj.superRole;
+    }
+    return ret_roleobje;
 }
 function userAuthController(){
     var userStr = getCookie("userObject");
@@ -79,8 +102,15 @@ function userAuthController(){
         var nickname = userObject.nickname;
         var roles = userObject.roles;
 
-        var roleName = userObject.roles[0].roleName;
-        var roleType = userObject.roles[0].roleType;
+        var roleobj_path ="";
+        for (var i in roles){
+            var roleName = roles[i].roleName;
+            var roleType = roles[i].roleType;
+
+            var obj = roleAuthObject(roleType);
+
+            roleobj_path = roleobj_path+","+obj.path;
+        }
 
         $(".userName").html(nickname);
         $(".userIdentity").html(userObject.roleName);
@@ -88,34 +118,10 @@ function userAuthController(){
         $("#nav_left").hide();
         $(".fl").find("li").hide();
 
-        var roleobje = {};
-        var authObject = roleAuthObject();
 
-        if (roleType==103){
-            //103	普通用户
-            var roleobje = authObject.commonRole;
-        }
-        if (roleType==104){
-            //104	系统审核员
-             roleobje = authObject.auditRole;
-        }
-        if (roleType==105){
-            //105	系统入库员
-             roleobje = authObject.putRole;
-
-        }
-        if (roleType==102){
-            //101	系统管理员
-             roleobje = authObject.adminRole;
-        }
-        if (roleType==101){
-            //101	超级管理员
-             roleobje = authObject.superRole;
-        }
         $(".fl").find("li").each(function(){
            var data_toggle =  $(this).attr("data-toggle");
-           var path = roleobje.path;
-            var pd = path.indexOf(data_toggle);
+            var pd = roleobj_path.indexOf(data_toggle);
             //alert(pd+"--"+roleType+"--"+path+"--"+data_toggle);
             if(pd>-1){
                 $("#nav_left").show();
@@ -123,11 +129,12 @@ function userAuthController(){
                 $("#main-content").css("padding-left", "260px");
                 $("#nav_left").delay(5).animate({ left: '0' });
                 $("#nav_arrow").attr("data-value", 1);
-            }else{
-                $("#main-content").css("padding-left", "30px");
-                $(this).remove();
             }
         })
+        if (roleobj_path==","){
+            $("#main-content").css("padding-left", "30px");
+            $(this).remove();
+        }
     }
 }
 function getUserType(type){

@@ -3,6 +3,7 @@ package me.phoibe.doc.cms.domain.dto;
 import me.phoibe.doc.cms.domain.po.PhoibeComment;
 
 public class DPhoibeComment extends PhoibeComment {
+
     private String realname;
 
     private String nickname;

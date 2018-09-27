@@ -444,8 +444,8 @@ body, html {
 	min-width: 900px;
 	text-align: center;
 	padding: 20px;
-	/*padding-top: 32px;*/
-	max-width: 1500px;
+	/*padding-top: 32px;
+	max-width: 1500px;*/
 }
 
 .main .container .search .inputBox {
@@ -557,7 +557,7 @@ body, html {
 .main .container .content {
 	width: 100%;
 	min-width: 860px;
-	max-width: 1500px;
+	/*max-width: 1500px;*/
 	padding-right: 340px;
 	padding-top: 12px;
 	position: relative;
@@ -796,6 +796,7 @@ color:#000;
 	float: left;
 	min-height: 80px;
 	margin-top: 6px;
+	margin-left: 3%;
 }
 
 .row {

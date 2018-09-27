@@ -37,9 +37,10 @@ function getInfo() {
                 $("#size").html(result.data.fileSize);
                 $("#owner").html(result.data.userRealName);
                 $("#doctitle").html(result.data.name);
-                var desc = result.data.description;
-                if(desc!="undefined" && desc!="")
-                $("#doc-content").html("<p>"+desc+"</p>");
+                var description = result.data.description;
+                if(desc!="undefined" && desc!=""){
+                    $("#doc-content").html("<p>"+description+"</p>");
+                }
             }
         }
     });
@@ -138,7 +139,6 @@ $(function () {
                 documentId: parseInt(tid),
                 userId: 1
             };
-            alert(JSON.stringify(formdata));
             $.ajax({
                 type: 'POST',
                 url: GAL_URL + url,

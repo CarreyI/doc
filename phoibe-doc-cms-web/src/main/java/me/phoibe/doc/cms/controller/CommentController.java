@@ -32,28 +32,27 @@ public class CommentController {
     }
 
     @RequestMapping("list/{docId}/{index}/{limit}")
-    public String listComment(@PathVariable Integer index, @PathVariable Integer limit, @PathVariable Long docId, HttpServletRequest request){
-        PageParam<PhoibeComment> pageParam = new PageParam<>();
+    public String listComment(@PathVariable Integer index, @PathVariable Integer limit, @PathVariable Long docId, @ModelAttribute DPhoibeComment param,HttpServletRequest request){
+        PageParam<DPhoibeComment> pageParam = new PageParam<DPhoibeComment>();
         pageParam.setStart(index);
         pageParam.setLimit(limit);
         pageParam.setOrderBy("c.UPDATE_TIME");
         pageParam.setSort("DESC");
-        PhoibeComment phoibeComment = new PhoibeComment();
-        phoibeComment.setDocumentId(docId);
-        pageParam.setParam(phoibeComment);
+        param.setDocumentId(docId);
+        pageParam.setParam(param);
+
         PageList<DPhoibeComment> pageList = phoibeCommentService.fetchCommentByPageList(pageParam);
         LogUtil.writeLog("浏览了文档Id为{"+docId+"}的评论信息", LogUtil.OPER_TYPE_LOOK,"文档评论",CommentController.class,request);
         return JsonUtils.toJson(new Result<PageList<DPhoibeComment>>(Code.SUCCESS, pageList));
     }
     @RequestMapping("list/{index}/{limit}")
-    public String list(@PathVariable Integer index,@PathVariable Integer limit, HttpServletRequest request){
-        PageParam<PhoibeComment> pageParam = new PageParam<>();
+    public String list(@PathVariable Integer index,@PathVariable Integer limit, @ModelAttribute DPhoibeComment param,HttpServletRequest request){
+        PageParam<DPhoibeComment> pageParam = new PageParam<>();
         pageParam.setStart(index);
         pageParam.setLimit(limit);
         pageParam.setOrderBy("c.UPDATE_TIME");
         pageParam.setSort("DESC");
-        PhoibeComment phoibeComment = new PhoibeComment();
-        pageParam.setParam(phoibeComment);
+        pageParam.setParam(param);
         PageList<DPhoibeComment> pageList = phoibeCommentService.fetchCommentByPageList(pageParam);
 
         LogUtil.writeLog("浏览了评论信息", LogUtil.OPER_TYPE_LOOK,"评论管理",CommentController.class,request);
