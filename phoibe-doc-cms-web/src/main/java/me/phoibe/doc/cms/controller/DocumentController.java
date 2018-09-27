@@ -91,6 +91,15 @@ public class DocumentController {
 
 			}
 		}
+		if(param != null && !StringUtils.isEmpty(param.getFormat())){
+			String formatStr = "(";
+			String [] format = param.getFormat().split(",");
+			for(String str : format){
+				formatStr += "'"+str+"',";
+			}
+			formatStr = formatStr.substring(0,formatStr.length()-1)+")";
+			param.setFormat(formatStr);
+		}
 		PageParam<DPhoebeDocument> pageParam = new PageParam<>();
 		pageParam.setStart(index);
 		pageParam.setLimit(limit);

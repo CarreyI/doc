@@ -462,7 +462,7 @@
         and USER_ID = #{param.userId,jdbcType=DECIMAL}
       </if>
       <if test="param.format != null and param.format != ''">
-        and FORMAT = #{param.format,jdbcType=VARCHAR}
+        and FORMAT in ${param.format}
       </if>
       <if test="param.userRealName != null and param.userRealName != ''">
         and USER_REAL_NAME Like '%'||#{param.userRealName,jdbcType=VARCHAR}||'%'
@@ -481,6 +481,9 @@
       </if>
       <if test="param.auditStatus != null and param.tag != ''">
         and AUDIT_STATUS = #{param.auditStatus,jdbcType=DECIMAL}
+      </if>
+      <if test="param.isstock != null and param.tag != ''">
+        and ISSTOCK = #{param.isstock,jdbcType=DECIMAL}
       </if>
       <if test="param.tag != null and param.tag != ''">
         and TAG LIKE '%'||#{param.tag,jdbcType=VARCHAR}||'%'
@@ -511,6 +514,9 @@
       </if>
       <if test="param.dirId != null">
         and ID in (select DOCUMENT_ID from PHOIBE_DOC_DIR where DIRECTORY_ID = #{param.dirId,jdbcType=DECIMAL})
+      </if>
+      <if test="param.contentStr != null and param.contentStr != ''">
+        and ID in (select DOCUMENT_ID from PHOIBE_ATTACH_CONTENT where ATTACH_CONTENT LIKE '%'||#{param.contentStr,jdbcType=VARCHAR}||'%')
       </if>
     </where>
   </sql>
