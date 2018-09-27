@@ -11,6 +11,8 @@ public class PhoibeDirectory {
 
     private Date updateTime;
 
+    private Long creator;
+
     public Long getId() {
         return id;
     }
@@ -41,5 +43,13 @@ public class PhoibeDirectory {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Long getCreator() {
+        return creator;
+    }
+
+    public void setCreator(Long creator) {
+        this.creator = creator;
     }
 }

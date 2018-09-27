@@ -32,4 +32,6 @@ public interface PhoibeDocumentService {
     void modifyDocumentById(PhoibeDocument phoibeDocument) throws Exception;
 
     DPhoebeDocument fetchDocumentById(Integer id);
+
+
 }

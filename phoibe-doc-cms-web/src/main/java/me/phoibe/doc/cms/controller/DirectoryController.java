@@ -22,9 +22,9 @@ public class DirectoryController {
     @Autowired
     private PhoibeDirectoryService phoibeDirectoryService;
 
-    @GetMapping("/list")
-    public String list(){
-        List<PhoibeDirectory> phoibeDirectories = phoibeDirectoryService.fetchPhoibeDirectoryList();
+    @GetMapping("/list/{userId}")
+    public String list(@PathVariable Long userId){
+        List<PhoibeDirectory> phoibeDirectories = phoibeDirectoryService.fetchPhoibeDirectoryList(userId);
         return JsonUtils.toJson(new Result<List<PhoibeDirectory>>(Code.SUCCESS, phoibeDirectories));
     }
 

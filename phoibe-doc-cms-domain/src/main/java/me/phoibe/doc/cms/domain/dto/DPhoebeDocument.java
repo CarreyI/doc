@@ -24,6 +24,16 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     private Date stockTimeEnd;
 
+    private Date createTimeBegin;
+
+    private Date createTimeEnd;
+
+    private Long warnumBegin;
+
+    private Long warnumEnd;
+
+    private Long dirId;
+
     private String contentStr;
 
     public void settings(){
@@ -31,6 +41,46 @@ public class DPhoebeDocument extends PhoibeDocument {
             this.contentStr =new String(getContent());
             setContent(null);
         }
+    }
+
+    public Date getCreateTimeBegin() {
+        return createTimeBegin;
+    }
+
+    public void setCreateTimeBegin(Date createTimeBegin) {
+        this.createTimeBegin = createTimeBegin;
+    }
+
+    public Date getCreateTimeEnd() {
+        return createTimeEnd;
+    }
+
+    public void setCreateTimeEnd(Date createTimeEnd) {
+        this.createTimeEnd = createTimeEnd;
+    }
+
+    public Long getWarnumBegin() {
+        return warnumBegin;
+    }
+
+    public void setWarnumBegin(Long warnumBegin) {
+        this.warnumBegin = warnumBegin;
+    }
+
+    public Long getWarnumEnd() {
+        return warnumEnd;
+    }
+
+    public void setWarnumEnd(Long warnumEnd) {
+        this.warnumEnd = warnumEnd;
+    }
+
+    public Long getDirId() {
+        return dirId;
+    }
+
+    public void setDirId(Long dirId) {
+        this.dirId = dirId;
     }
 
     public String getCombatTypeDesc() {

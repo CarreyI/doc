@@ -6,9 +6,10 @@
     <result column="DIR_NAME" jdbcType="VARCHAR" property="dirName" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="CREATOR" jdbcType="DECIMAL" property="creator" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, DIR_NAME, CREATE_TIME, UPDATE_TIME
+    ID, DIR_NAME, CREATE_TIME, UPDATE_TIME, CREATOR
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -17,10 +18,11 @@
     where ID = #{id,jdbcType=DECIMAL}
   </select>
 
-  <select id="selectByList" resultMap="BaseResultMap">
+  <select id="selectByList" resultMap="BaseResultMap" parameterType="long">
     select
     <include refid="Base_Column_List" />
     from PHOIBE_DIRECTORY
+    where CREATOR = #{userId,jdbcType=DECIMAL}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -29,9 +31,9 @@
   </delete>
   <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.PhoibeDirectory">
     insert into PHOIBE_DIRECTORY (ID, DIR_NAME, CREATE_TIME, 
-      UPDATE_TIME)
+      UPDATE_TIME, CREATOR)
     values (#{id,jdbcType=DECIMAL}, #{dirName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{updateTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeDirectory">
     insert into PHOIBE_DIRECTORY
@@ -48,6 +50,9 @@
       <if test="updateTime != null">
         UPDATE_TIME,
       </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -61,6 +66,9 @@
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -76,6 +84,9 @@
       <if test="updateTime != null">
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=DECIMAL},
+      </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
@@ -83,8 +94,8 @@
     update PHOIBE_DIRECTORY
     set DIR_NAME = #{dirName,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=DECIMAL}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
-
 </mapper>

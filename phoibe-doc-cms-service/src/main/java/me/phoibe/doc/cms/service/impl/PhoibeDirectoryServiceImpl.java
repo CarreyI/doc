@@ -49,7 +49,7 @@ public class PhoibeDirectoryServiceImpl implements PhoibeDirectoryService {
     }
 
     @Override
-    public List<PhoibeDirectory> fetchPhoibeDirectoryList() {
-        return phoibeDirectoryMapper.selectByList();
+    public List<PhoibeDirectory> fetchPhoibeDirectoryList(Long userId) {
+        return phoibeDirectoryMapper.selectByList(userId);
     }
 }

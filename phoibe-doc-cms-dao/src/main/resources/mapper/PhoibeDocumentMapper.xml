@@ -497,6 +497,21 @@
       <if test="param.stockTimeEnd != null">
         and STOCK_TIME &lt;= #{param.stockTimeEnd,jdbcType=TIMESTAMP}
       </if>
+      <if test="param.createTimeBegin != null">
+        and CREATE_TIME &gt;= #{param.createTimeBegin,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.createTimeEnd != null">
+        and CREATE_TIME &lt;= #{param.createTimeEnd,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.warnumBegin != null">
+        and WARNUM &gt;= #{param.warnumBegin,jdbcType=DECIMAL}
+      </if>
+      <if test="param.warnumEnd != null">
+        and WARNUM &lt;= #{param.warnumEnd,jdbcType=DECIMAL}
+      </if>
+      <if test="param.dirId != null">
+        and ID in (select DOCUMENT_ID from PHOIBE_DOC_DIR where DIRECTORY_ID = #{param.dirId,jdbcType=DECIMAL})
+      </if>
     </where>
   </sql>
   <select id="selectByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">

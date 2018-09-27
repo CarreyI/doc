@@ -15,5 +15,5 @@ public interface PhoibeDirectoryService {
 
     void moveDirectory(PhoibeDocDir phoibeDocDir);
 
-    List<PhoibeDirectory> fetchPhoibeDirectoryList();
+    List<PhoibeDirectory> fetchPhoibeDirectoryList(Long userId);
 }

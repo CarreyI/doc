@@ -19,5 +19,5 @@ public interface PhoibeDirectoryMapper {
 
     int updateByPrimaryKey(PhoibeDirectory record);
 
-    List<PhoibeDirectory> selectByList();
+    List<PhoibeDirectory> selectByList(Long userId);
 }
