@@ -3,12 +3,15 @@ package me.phoibe.doc.cms.controller;
 import me.phoibe.doc.cms.config.LogUtil;
 import me.phoibe.doc.cms.dao.PhoibeDocumentMapper;
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
+import me.phoibe.doc.cms.domain.dto.UserInfo;
 import me.phoibe.doc.cms.domain.po.PageList;
 import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeDocument;
 import me.phoibe.doc.cms.entity.Code;
 import me.phoibe.doc.cms.entity.Result;
+import me.phoibe.doc.cms.security.JwtUtil;
 import me.phoibe.doc.cms.service.PhoibeDocumentService;
+import me.phoibe.doc.cms.service.PhoibeUserService;
 import me.phoibe.doc.cms.utils.JsonUtils;
 import me.phoibe.doc.cms.utils.PlatDateTimeUtil;
 
@@ -53,6 +56,9 @@ public class DocumentController {
 	private PhoibeDocumentService phoibeDocumentService;
 	@Resource
 	private PhoibeDocumentMapper phoibeDocumentMapper;
+
+	@Autowired
+	private PhoibeUserService phoibeUserService;
 
 	@Value("${breakpoint.upload.window}")
 	private String window;
@@ -262,13 +268,15 @@ public class DocumentController {
 	
 	@RequestMapping("update/{f}/{id}")
 	public String modifyDocument(@PathVariable String f, @PathVariable Integer id,HttpServletRequest request) {
+		String token = JwtUtil.getCookieValueByName(request,JwtUtil.HEADER_STRING);
+		Long userId = Long.parseLong(JwtUtil.extractInfo(token).get(JwtUtil.USER_NAME).toString());
+		UserInfo userInfo = phoibeUserService.fetchUserInfoByUserId(userId);
 		try {
 			PhoibeDocument phoibeDocument = new PhoibeDocument();
-			phoibeDocument.setId(1l);
 			if ("instorage".equals(f)) {
 				phoibeDocument.setIsstock(Short.valueOf("1"));
 				phoibeDocument.setStockTime(new Date());
-				phoibeDocument.setStocker("admin");
+				phoibeDocument.setStocker(userInfo.getRealname());
 				LogUtil.writeLog("将Id为{"+id+"}的文档添加入库", LogUtil.OPER_TYPE_INSTORAGE,"文档管理", DocumentController.class,request);
 			} else if ("outstorage".equals(f)) {
 				phoibeDocument.setIsstock(Short.valueOf("0"));
@@ -276,12 +284,12 @@ public class DocumentController {
 			} else if ("checkpass".equals(f)) {
 				phoibeDocument.setAuditStatus(Short.valueOf("2"));
 				phoibeDocument.setAuditTime(new Date());
-				phoibeDocument.setAuditUserId(1l);
+				phoibeDocument.setAuditUserId(userInfo.getId());
 				LogUtil.writeLog("Id为{"+id+"}的文档审批通过", LogUtil.OPER_TYPE_CHECKPASS,"文档管理", DocumentController.class,request);
 			} else if ("checkrefuse".equals(f)) {
 				phoibeDocument.setAuditStatus(Short.valueOf("3"));
 				phoibeDocument.setAuditTime(new Date());
-				phoibeDocument.setAuditUserId(1l);
+				phoibeDocument.setAuditUserId(userInfo.getId());
 				LogUtil.writeLog("Id为{"+id+"}的文档被驳回", LogUtil.OPER_TYPE_CHECKPASS,"文档管理", DocumentController.class,request);
 			} else {
 				LogUtil.writeLog("Id为{"+id+"}的文档业务参数错误", LogUtil.OPER_TYPE_CHECKPASS,"文档管理", DocumentController.class,request);
