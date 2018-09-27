@@ -1387,7 +1387,8 @@ ol.list1 {
 #editBtn{
 	display: none;
 }
-#tblist-body tr:hover{ background: #265362;} /*鼠标悬停后表格背景颜色*/
+#tblist-body tr:hover{ background: #265362;color:#ffffff;} /*鼠标悬停后表格背景颜色*/
+#tblist-body tr:hover a{ color:#ffffff;}
 
 .mask span.fullScreen {
 	height: 100%;

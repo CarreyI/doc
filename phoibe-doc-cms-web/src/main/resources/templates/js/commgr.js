@@ -54,6 +54,7 @@ function loadData(pageindex) {
                     +"<td>"+create_time+"</td>"
                     +"</tr>";
                 $("#tblist-body").append(row);
+                parent.iframeLoad();
             });
         }
     });
@@ -121,7 +122,7 @@ $(function () {
 
     $("#btnSearch").click(function () {
         loadData(0);
-        parent.iframeLoad();
+
     });
 
 });
