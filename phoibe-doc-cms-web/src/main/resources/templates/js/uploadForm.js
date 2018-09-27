@@ -37,6 +37,13 @@ function formSubmit(filemd5,filename,fileext,filesize){
         var value = form.serializeArray()[i].value;
         formdata[key] = value;
     }
+    var select_tag = "";
+    $(".tag-li-in").each(function () {
+        var tagid = $(this).attr("tagid");
+        var tag_html = $(this).html();
+        select_tag = select_tag +tag_html+",";
+    })
+    formdata.tagId = select_tag;
     $("#formthelist").find(".item").each(function(){
         formdata.filemd5 = filemd5;
         formdata.filename = filename;
@@ -78,7 +85,28 @@ function emptyformw(){
     $("#picker").show();
     $(".bodyMask").hide();
 }
+function getTag(){
+    var data = GAL_URL+"phoibe/tag/list/0/10?1=1";
+    $.ajax({
+        url: data,
+        type: "GET",
+        dataType: "json",
+        async:false,
+        contentType:"application/json;charset=UTF-8",
+        success: function (result)
+        {
+            var rowhtml="";
+            $.each(result.data.dataList, function (i, val) {
+                var id = val["id"];;
+                var name =  val["name"];//"标签名称";
+                 rowhtml = rowhtml+ "<li class='tag-li' tagID='"+id+"'>#"+name+"#</li>";
+            });
+            $(".tag-ul").html(rowhtml);
+        }
+    });
+}
 $(function() {
+    getTag();
 
     $(".closed").click(function () {
         $(".bodyMask").hide();
@@ -95,6 +123,7 @@ $(function() {
         }
     });
     $("#submit").click(function() {
+        //没用
         //checkSubmit();
     })
 

@@ -29,7 +29,7 @@ public class PhoibeCommentServiceImpl implements PhoibeCommentService {
     }
 
     @Override
-    public PageList<DPhoibeComment> fetchCommentByPageList(PageParam<PhoibeComment> pageParam) {
+    public PageList<DPhoibeComment> fetchCommentByPageList(PageParam<DPhoibeComment> pageParam) {
         List<DPhoibeComment> list = phoibeCommentMapper.selectByPage(pageParam);
 
         return PageList.createPage(pageParam,phoibeCommentMapper.selectCountByPage(pageParam),list);

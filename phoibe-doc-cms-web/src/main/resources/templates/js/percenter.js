@@ -136,7 +136,10 @@ function loadData(pageindex) {
                     var status = val["status"];
                     var createtime = val["createTime"];
                     var auditstatus = val["auditStatus"];
-                    var owner = "admin";
+                    var tagId = val["tag"];
+                    if (val["tag"] == 'undefined' || val["tag"] == null) {
+                        tagId = '';
+                    }
                     var auditdate = val["auditTime"];
                     if (val["auditTime"] == 'undefined' || val["auditTime"] == null) {
                         auditdate = '';
@@ -144,7 +147,6 @@ function loadData(pageindex) {
 
                     var auditor = "admin";
                     var tid = val["id"];
-                    var tag = "";
                     var docstatus = "";
                     var auditstatustyle = "f-blue";
                     if (status == 101) {
@@ -167,7 +169,7 @@ function loadData(pageindex) {
                     }
 
                    
-                    var row = "<tr><td style='width:50px'><input type='radio' data-value='" + id + "' name='chksel'/></td><td><a href='docdetail.html?tid="+id+"' title='"+title+"'>" +  cutString(title, 20)  + "</a></td><td>" + filesize + "</td><td>" + format + "</td><td>"  + createtime + "</td><td>" + auditdate + "</td><td class='"+auditstatustyle+"'>"+auditstatus+"</td></tr>";
+                    var row = "<tr><td style='width:50px'><input type='radio' data-value='" + id + "' name='chksel'/></td><td><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>" + filesize + "</td><td>" + format + "</td><td>" + tagId + "</td><td>上传</td><td>" + createtime + "</td><td>" + auditdate + "</td><td class='"+auditstatustyle+"'>"+auditstatus+"</td></tr>";
                     $("#tblist-body").append(row);
                     parent.iframeLoad();
                 });
