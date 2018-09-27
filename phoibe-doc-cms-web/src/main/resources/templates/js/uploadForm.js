@@ -7,12 +7,10 @@ function uploadCompleteUpdate(dId,filemd5,filename){
         type: "post",
         dataType: "json",
         contentType:"application/json;charset=UTF-8",
-        success: function (data)
-        {
-            if(data.success){
-                alert("提交成功");
-                emptyformw();//清空表单
-            }
+        success: function (data) {
+            alert("提交成功");
+            emptyformw();//清空表单
+            window.location.reload();
         }
     });
 }
@@ -46,6 +44,14 @@ function formSubmit(filemd5,filename,fileext,filesize){
         formdata.filesize = filesize;
         formdata.div_file_id = $(this).attr("id").replace("form_","");
     });
+    var userStr = getCookie("userObject");
+    if (null!=userStr&&""!=userStr) {
+        userObject = JSON.parse(userStr);
+        formdata.userId = userObject.id;
+        formdata.userName = userObject.userName;
+        formdata.realname = userObject.realname;
+        formdata.nickname = userObject.nickname;
+    }
     $.ajax({
         url: GAL_URL + "phoibe/document/save",
         type: form.attr("method"),
@@ -70,6 +76,7 @@ function emptyformw(){
     $("#thelist").html("");
     $("#submit").show();
     $("#picker").show();
+    $(".bodyMask").hide();
 }
 $(function() {
 

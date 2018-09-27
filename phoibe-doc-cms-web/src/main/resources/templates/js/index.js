@@ -179,8 +179,7 @@ function bindDym() {
     });
 }
 function getDocNum() {
-    //var url = GAL_URL + 'phoibe/document/count';
-    //alert(url);
+
     var userStr = getCookie("userObject");
     var userId =1;
     if (null!=userStr&&""!=userStr) {

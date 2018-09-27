@@ -108,9 +108,14 @@ function bindDym() {
 function loadData(pageindex) {
 
     $("#tblist-body").children().remove();
-
+    var userStr = getCookie("userObject");
+    var userId =1;
+    if (null!=userStr&&""!=userStr) {
+        userObject = JSON.parse(userStr);
+        userId = userObject.id;
+    }
     var data = GAL_URL+'phoibe/document/list/' + pageindex + '/10?1=1';
-    data = data + wartype;
+    data = data +"&userId="+userId;
     $.ajax({
             type: 'GET',
             url: data,

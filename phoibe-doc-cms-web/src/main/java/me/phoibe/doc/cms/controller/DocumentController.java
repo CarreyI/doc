@@ -186,14 +186,14 @@ public class DocumentController {
 
 			phoibeDocument.setFileSize(new BigDecimal(fileSize));
 			phoibeDocument.setFilePath(filemd5+"/"+filename);
-			phoibeDocument.setFormat(fileext);;
+			phoibeDocument.setFormat(fileext);
 			phoibeDocument.setProgress((short) (20));
 			
 			phoibeDocument.setScore(new BigDecimal(1.2));
-			phoibeDocument.setTag("#战役#,#标签#,#讲解#,#视频#");
+			phoibeDocument.setTag((String) rb.get("tagId"));
 			phoibeDocument.setUpdateTime(new Date());
-			phoibeDocument.setUserId(1l);
-			phoibeDocument.setUserRealName("admin");
+			phoibeDocument.setUserId(Long.parseLong(rb.get("userId").toString()));
+			phoibeDocument.setUserRealName((String) rb.get("userName"));
 			phoibeDocument.setStatus((short) (101));//上传中
 			phoibeDocument.setCreateTime(new Date());
 			short pc = (short) (1 + Math.random() * (10 - 1 + 1));
