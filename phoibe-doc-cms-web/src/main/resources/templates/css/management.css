@@ -953,7 +953,6 @@ font-size:12px;
 	margin-top: 14px;
 	line-height: 46px;
 	font-size: 16px;
-   color:#ffffff;
 }
 
 #comm .row .name {
@@ -1428,6 +1427,7 @@ ol.list1 {
 	margin-left: 0px;
     background:#ffffff;
     border:1px solid #cccccc;
+	width:160px;
 }
 
 .tbl-row .ctrl .inputBox {

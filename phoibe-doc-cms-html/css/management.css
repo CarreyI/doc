@@ -1819,3 +1819,24 @@ font-size:18px;
 	font-size: 15px;
 	text-align: center;
 }
+
+
+#nav_arrow_right {
+	color: #ffffff;
+	width: 18px;
+	position: absolute;
+	cursor: pointer;
+	left: -50px;
+	top:164px;
+	height:220px;
+	text-align: center;
+	background: url("../images/nav_arrow_right.png") no-repeat;
+}
+
+
+#tag_type{
+    border: 1px solid #aaaaaa;
+    background: #efefef;
+    width:100px;
+    /*color:#ffffff;*/
+}
