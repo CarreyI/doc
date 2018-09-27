@@ -21,15 +21,14 @@ $.ajaxSetup({
        });
        //多选框
        $('li.checkBox').on('click', function () {
-
-           $(".checkList").each(function () {
-               $(this).find("li").each(function (i) {
-                   $(this).removeClass("check");
-               });
-           });
+           var checked = $(this).attr("checked");
+           if(checked!=null&&checked == "checked"){
+               $(this).removeAttr('checked');
+           }else{
+               $(this).attr('checked','checked');
+           }
            $(this).toggleClass('check')
-           $("li.checkBox").removeAttr('checked');
-           $(this).attr('checked', 'true');
+
        })
 
    })

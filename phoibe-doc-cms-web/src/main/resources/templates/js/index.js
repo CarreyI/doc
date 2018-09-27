@@ -223,7 +223,7 @@ $(function () {
 
         var searchKey = $("#search-key").val();
         if (searchKey!=""&&searchKey!=null){
-            data = url + "&search-key=" + searchKey;
+            data =  data+ "&search-key=" + searchKey;
         }
         var docname = $("#docname").val();
         if (docname!=""&&docname!=null){
@@ -265,12 +265,18 @@ $(function () {
         if (armtypevalue != 0) {
             data = data + "&armtype=" + armtypevalue;
         }
-        var chkValue = $("#con-value .check");
-        var doctypevalue = chkValue.html();
-        if (doctypevalue != "undefined" && doctypevalue != null) {
-            data = data + "&format=" + doctypevalue.toLowerCase();
+        var doctypevalue = "";
+        $("#con-value .check").each(function () {
+            if (doctypevalue==""){
+                doctypevalue = $(this).html();
+            }else {
+                doctypevalue = doctypevalue +","+$(this).html();
+            }
+        })
+        if (doctypevalue != "" && doctypevalue != null) {
+            data = data + "&format=" + doctypevalue;
         }
-
+        data = GAL_URL + url+ data;
         window.location.href = encodeURI(data);
     });
 });
