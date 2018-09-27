@@ -647,8 +647,7 @@ background-image: url("../images/i-sign.png");
     margin:0 auto;
 }
 .line {
-height:1px;
-border-bottom:1px solid #5e90ca;/*#fffdfe;;*/
+border:1px solid #5e90ca;/*#fffdfe;;*/
 }
 
 .main .container .content .dataword div.font16 {
