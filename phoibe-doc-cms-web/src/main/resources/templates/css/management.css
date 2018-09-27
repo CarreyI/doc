@@ -1396,7 +1396,7 @@ ol.list1 {
 }
 
 .model-title {
-	line-height: 30px;
+
 	font-size: 18px;
 	padding: 10px;
 	text-align: left;
@@ -1840,4 +1840,15 @@ font-size:18px;
     background: #efefef;
     width:100px;
     /*color:#ffffff;*/
+}
+.file_list{
+	margin-top:8px;
+	margin-top:8px;
+}
+.file_list li{
+	padding-left:4px;
+	color:#226c97;
+}
+.file_list li a{
+	color:#226c97;
 }
