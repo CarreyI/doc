@@ -1,83 +1,83 @@
 ﻿<!DOCTYPE html>
 <html>
 <head lang="en">
-<meta charset="UTF-8">
-<title>搜索文档</title>
-<script src="js/jquery-2.1.0.min.js"></script>
+	<meta charset="UTF-8">
+	<title>搜索文档</title>
+	<script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/data.js"></script>
-<script src="js/search.js"></script>
-<script src="js/layui.js"></script>
-<link rel="stylesheet" href="css/layui.css">
-<link rel="stylesheet" href="css/management.css" />
+	<script src="js/search.js"></script>
+	<script src="js/layui.js"></script>
+	<link rel="stylesheet" href="css/layui.css">
+	<link rel="stylesheet" href="css/management.css" />
 </head>
 <body>
-	<div id="docmgr">
-		<div class="main box_border r-content">
-			<div class="container box_border">
-				<div class="box_border">
-                    	<div class="bg_whiteSD box_border search">
-						<div class="inputBox">
-							<input type="text" class="box_border" id="search-key" />
-							<span class="btnSearch" id="btnSearch"></span><span id="condif">查询条件</span>
-						</div>
-						<ul id="con-value" class="checkList clearfix">
-							<li class="checkBox">PDF</li>
-							<li class="checkBox">DOC</li>
-							<li class="checkBox">DOCX</li>
-							<li class="checkBox">BMP</li>
-							<li class="checkBox">PNG</li>
-							<li class="checkBox ">GIF</li>
-							<li class="checkBox">JPG</li>
-							<li class="checkBox">JPEG</li>
-							<li class="checkBox ">MPG</li>
-							<li class="checkBox ">AVI</li>
-							<li class="checkBox">MOV</li>
-							<li class="checkBox ">MP4</li>
-							<li class="checkBox">MP3</li>
-							<li class="checkBox ">WAV</li>
-							<li class="checkBox">MID</li>
-						</ul>
+<div id="docmgr">
+	<div class="main box_border">
+		<div class="container box_border  r-content">
+			<div class="box_border">
+				<div class="bg_whiteSD box_border search">
+					<div class="inputBox">
+						<input type="text" class="box_border" id="search-key" />
+						<span class="btnSearch" id="btnSearch"></span><span id="condif">查询条件</span>
 					</div>
+					<ul id="con-value" class="checkList clearfix">
+						<li class="checkBox">PDF</li>
+						<li class="checkBox">DOC</li>
+						<li class="checkBox">DOCX</li>
+						<li class="checkBox">BMP</li>
+						<li class="checkBox">PNG</li>
+						<li class="checkBox ">GIF</li>
+						<li class="checkBox">JPG</li>
+						<li class="checkBox">JPEG</li>
+						<li class="checkBox ">MPG</li>
+						<li class="checkBox ">AVI</li>
+						<li class="checkBox">MOV</li>
+						<li class="checkBox ">MP4</li>
+						<li class="checkBox">MP3</li>
+						<li class="checkBox ">WAV</li>
+						<li class="checkBox">MID</li>
+					</ul>
 				</div>
-				<br />
-				<div class="content box_border top bg_whiteSD">
-					<div class="box_border">
-						<div id="doc-content"></div>
-						<div id="notice_pages"></div>
-					</div>
-				</div>
-
 			</div>
+
+			<div class="content box_border top bg_whiteSD">
+				<div class="box_border">
+					<div id="doc-content"></div>
+					<div id="notice_pages"></div>
+				</div>
+			</div>
+
 		</div>
 	</div>
+</div>
 
 
 <div class="bodyMask" id="condwhere">
-     <div class="mask" >
-		  <div class="popup">
-			   <div class="model-title fl">查询条件</div>
-				    <i class="closed fr"></i>
-				    <div class="clearfix"></div>
-				    <hr />
-	                <br/>	
-					<div class="bg_whiteSD box_border">
-						<div class="clearfix">
-						    <ul class="u-con-list">
+	<div class="mask" >
+		<div class="popup">
+			<div class="model-title fl">查询条件</div>
+			<i class="closed fr"></i>
+			<div class="clearfix"></div>
+			<hr />
+			<br/>
+			<div class="bg_whiteSD box_border">
+				<div class="clearfix">
+					<ul class="u-con-list">
 						<li class="label">战例类型：</li><li><select	id="wartype">
-							<option value="0">全部</option>
-							<option value="1">西方战例</option>
-							<option value="2 ">苏军战例</option>
-							<option value="3">俄军战例</option>
-							<option value="4 ">兵种战例</option>
-							<option value="5">其他</option>
-						</select></li>
+						<option value="0">全部</option>
+						<option value="1">西方战例</option>
+						<option value="2 ">苏军战例</option>
+						<option value="3">俄军战例</option>
+						<option value="4 ">兵种战例</option>
+						<option value="5">其他</option>
+					</select></li>
 						<li class="label">作战兵种：</li><li><select id="armtype">
-							<option value="0">全部</option>
-							<option value="1">步兵</option>
-							<option value="2">装甲兵</option>
-							<option value="3">通信兵</option>
-							<option value="4">炮兵</option>
-						</select></li>
+						<option value="0">全部</option>
+						<option value="1">步兵</option>
+						<option value="2">装甲兵</option>
+						<option value="3">通信兵</option>
+						<option value="4">炮兵</option>
+					</select></li>
 						<li class="label">文档名称：</li><li><input type="text" id="docname" /></li>
 						<li class="label">文档作者：</li><li><input type="text" id="owner" /></li>
 						<li class="label">参战国家：</li><li><input type="text" id="warstate" /> </li>
@@ -87,13 +87,13 @@
 						<li class="label">胜利方：</li><li><input	type="text" id="winner" /></li>
 						<li class="label">失败方：</li><li><input type="text" id="loser" /></li>
 						<li class="label">伤亡人数:</li><li><input type="text" id="warnum" /></li>
-						</ul>
-						</div>
-					
-					</div>
+					</ul>
+				</div>
 
-               </div>
-          </div>
+			</div>
+
+		</div>
+	</div>
 </div>
 <script src="js/management.js"></script>
 </body>
