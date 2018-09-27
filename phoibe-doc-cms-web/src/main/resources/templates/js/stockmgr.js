@@ -8,20 +8,18 @@ var currPage = 0;
 
             var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?1=1&f=storage';
 
-            var docname = $("#docname").val();
-            var owner = $("#owner").val();
+
+
             var chkValue = $("#con-value li[checked='checked']");
             var doctypestatus = $("#doctype option:selected").val();
-            
-            var stockTimeBegin = startdate.value ;
-            var stockTimeEnd = enddate.value;
-
             if (doctypestatus!=""&&doctypestatus != null) {
                 data = data + "&isstock=" + doctypestatus.toLowerCase();
             }
-
-            if (name != null);
-            data = data + "&name=" + docname;
+            var docname = $("#docname").val();
+            if (docname!=""&&docname != null){
+                data = data + "&name=" + docname;
+            }
+            var owner = $("#owner").val();
             if (owner != "") {
                 data = data + "&userRealName=" + owner;
             }
@@ -33,10 +31,11 @@ var currPage = 0;
                 data = data + "&format=" + doctypevalue.toLowerCase();
             }
 
+            var stockTimeBegin = startdate.value ;
             if (stockTimeBegin != "" && stockTimeBegin != null) {
                 data = data + "&stockTimeBegin=" + stockTimeBegin;
             }
-
+            var stockTimeEnd = enddate.value;
             if (stockTimeEnd != "" && stockTimeEnd != null) {
                 data = data + "&stockTimeEnd=" + stockTimeEnd;
             }
@@ -57,7 +56,7 @@ var currPage = 0;
                         var filesize = val["fileSize"];
                         var status = val["status"];
                         var stockTime = val["stockTime"];
-                        var docstockstatus = val["isstock"];
+                        var isstock = val["isstock"];
                         var owner = "admin";
                         var auditdate = "2018-08-26";
                         var auditor = "admin";
@@ -75,15 +74,16 @@ var currPage = 0;
 						}
 
                         var docstockstyle="";
-                        if (docstockstatus == 1) {
+						var docstockstatus="";
+                        if (isstock == 1) {
                             docstockstatus = "已入库";
                             docstockstyle = "f-blue";
                         }
-                        else {
+                        else if(isstock == 0){
                             docstockstatus= "未入库";
                             docstockstyle = "f-red";
                         }
-                        var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='" + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>" + owner + "</td><td>" + auditdate + "</td><td class='" + auditstatustyle + "'>" + stockTime + "</td><td class='" + docstockstyle + "'>" + docstockstatus + "</td><td>" + auditor + "</td></tr>";
+                        var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='" + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>" + owner + "</td><td>" + auditdate + "</td><td class='" + auditstatustyle + "'>" + stockTime + "</td><td class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td><td>" + auditor + "</td></tr>";
                         $("#tblist-body").append(row);
                         parent.iframeLoad();
                     });
