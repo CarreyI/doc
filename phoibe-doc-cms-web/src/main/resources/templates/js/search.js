@@ -107,7 +107,8 @@ function loadData(type,pageindex) {
                          auditstatustyle = "f-red";
                      }
                      var row = "<div class='row'><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><ul><li>上传时间:"+createtime+"</li><li>格式:"+format+"</li><li>46条评论</li><li>评分44</li><li>大小:"+filesize+"</li><li>文档拥有者:" + owner + "</li></ul></div>";
-                     $("#doc-content").append(row);
+                     $("#docmgr-content").append(row);
+                     parent.iframeLoad();
                  }
              }
          });
@@ -171,6 +172,5 @@ function loadData(type,pageindex) {
              currPage = 0;
              totalRows = 0;
              loadData(1,0);
-			 parent.iframeLoad();
          });
      });
