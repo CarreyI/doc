@@ -1,108 +1,113 @@
 ﻿<!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title>文档管理</title>
-    <link rel="stylesheet" href="css/management.css"/>
+	<meta charset="UTF-8">
+	<title>文档管理</title>
+	<link rel="stylesheet" href="css/management.css"/>
 	<script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/data.js"></script>
 	<script src="js/management.js"></script>
-    <link href="js/webuploader-0.1.5/webuploader.css" rel="stylesheet"
-	type="text/css" />
-<!-- 引入文件上传插件 -->
-<script type="text/javascript"
-	src="js/webuploader-0.1.5/webuploader.min.js"></script>
-<script src="js/uploadForm.js"></script>
+	<link href="js/webuploader-0.1.5/webuploader.css" rel="stylesheet"
+		  type="text/css" />
+	<!-- 引入文件上传插件 -->
+	<script type="text/javascript"
+			src="js/webuploader-0.1.5/webuploader.min.js"></script>
+	<script src="js/uploadForm.js"></script>
 </head>
 <body>
 <div id="index">
-<div class="main box_border w1920">
-    <div class="header">
-        <div class="logo"></div>
-        <div class="fl headerTitle"></div>
-        <div class="headerExit iconLeft fr" id="btnExit"></div>
-        <div class="headerPer iconLeft fr" id="btnper"></div> 
-         <div class="headerIndex iconLeft fr" id="btnindex"></div> 
-        <div class="dateBox fr">
-                <span id="curdate"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="curtime"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="curweek"></span>
-            </div>
-        <div class="headerUsers fr">
-            <span class="userName iconLeft iconUser ">李明</span>
-            <span class="userIdentity">参谋</span>
-        </div>
-    </div>
-	<div class="navLeft box_border" id="nav_left">
-		 <!--<div id="nav_title_btn">文档系统管理</div>-->
-		    <ul class="fl">
-                <li class="navList box_border active" data-toggle="index-m.html">
-                    <div class="box_border">
+	<div class="main box_border w1920">
+		<div class="header">
+			<div class="logo"></div>
+			<div class="fl headerTitle"></div>
+			<div class="headerExit iconLeft fr" id="btnExit"></div>
+			<div class="headerPer iconLeft fr" id="btnper"></div>
+			<div class="headerIndex iconLeft fr" id="btnindex"></div>
+			<div class="dateBox fr">
+				<span id="curdate"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="curtime"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="curweek"></span>
+			</div>
+			<div class="headerUsers fr">
+				<span class="userName iconLeft iconUser ">李明</span>
+				<span class="userIdentity">参谋</span>
+			</div>
+		</div>
+
+		<div class="nav_left_content">
+			<div class="navLeft box_border" id="nav_left">
+
+				<!--<div id="nav_title_btn">文档系统管理</div>-->
+				<ul class="fl">
+					<li class="navList box_border active" data-toggle="index-m.html">
+						<div class="box_border">
                     <span class="iconLeft iconIndex">首页
                     </span>
-                    </div>
-                </li>
-                <!--<li class="navList box_border" data-toggle="docmgr.html">
-                    <div class="box_border">
-                    <span class="iconLeft iconManagement">文档管理
-                    </span>
-                    </div>
-                </li>-->
-                <li class="navList box_border" data-toggle="percenter.html">
-                    <div class="box_border">
+						</div>
+					</li>
+					<!--<li class="navList box_border" data-toggle="docmgr.html">
+                        <div class="box_border">
+                        <span class="iconLeft iconManagement">文档管理
+                        </span>
+                        </div>
+                    </li>-->
+					<li class="navList box_border" data-toggle="percenter.html">
+						<div class="box_border">
                     <span class="iconLeft iconUser">个人中心
                     </span>
-                    </div>
-                </li>
-                <li class="navList box_border" data-toggle="auditupload.html">
-                    <div class="box_border">
+						</div>
+					</li>
+					<li class="navList box_border" data-toggle="auditupload.html">
+						<div class="box_border">
                     <span class="iconLeft iconUpload">审核上传
                     </span>
-                    </div>
-                </li>
-                <li class="navList box_border" data-toggle="stockmgr.html">
-                    <div class="box_border">
+						</div>
+					</li>
+					<li class="navList box_border" data-toggle="stockmgr.html">
+						<div class="box_border">
                     <span class="iconLeft iconJoin">入库管理
                     </span>
-                    </div>
-                </li>
-                 <li class="navList box_border" data-toggle="commgr.html">
-                    <div class="box_border">
+						</div>
+					</li>
+					<li class="navList box_border" data-toggle="commgr.html">
+						<div class="box_border">
                     <span class="iconLeft iconcomm">评论管理
                     </span>
-                    </div>
-                </li>
-                  <li class="navList box_border" data-toggle="usermgr.html">
-                    <div class="box_border">
+						</div>
+					</li>
+					<li class="navList box_border" data-toggle="usermgr.html">
+						<div class="box_border">
                     <span class="iconLeft iconUser">用户管理
                     </span>
-                    </div>
-                </li>
-              
-                 <li class="navList box_border" data-toggle="tagmgr.html">
-                    <div class="box_border">
+						</div>
+					</li>
+
+					<li class="navList box_border" data-toggle="tagmgr.html">
+						<div class="box_border">
                     <span class="iconLeft iconLabel">标签管理
                     </span>
-                    </div>
-                </li>
-                  <li class="navList box_border" data-toggle="logmgr.html">
-                    <div class="box_border">
+						</div>
+					</li>
+					<li class="navList box_border" data-toggle="logmgr.html">
+						<div class="box_border">
                     <span class="iconLeft iconSystem">日志管理
                     </span>
-                    </div>
-                </li>
-            </ul>
-            <div id="nav_arrow" class="nav_arrow fr" data-value="1"></div>
-            <div class="clearfix"></div>
-            <div class="uplaodTaskBox">
-		    	<span class="uplaodTaskBtn">上传任务</span>
-            </div>
-        </div>
-    <div class="container box_border" id="main-content">
-      <iframe id="frm-main" name="frm-main" src="index-m.html" style="width:100%;" scrolling="no"  frameborder="0" onload="iframeLoad()"></iframe>
-    </div>
-     
-</div>
+						</div>
+					</li>
+				</ul>
+				<div id="nav_arrow" class="nav_arrow fr" data-value="1"></div>
 
-<div class="bodyMask">
+				<div class="clearfix"></div>
+				<div class="uplaodTaskBox">
+					<span class="uplaodTaskBtn">上传任务</span>
+				</div>
+			</div>
+		</div>
+		<div class="container box_border" id="main-content">
+			<iframe id="frm-main" name="frm-main" src="index-m.html" style="width:100%;" scrolling="no"  frameborder="0" onload="iframeLoad()"></iframe>
+		</div>
+
+	</div>
+	<div id="nav_arrow_right"></div>
+	<div class="bodyMask">
 		<div class="mask">
 			<span class="fullScreen"></span>
 			<div class="popup">
@@ -110,19 +115,19 @@
 				<i class="closed fr"></i>
 				<div class="clearfix"></div>
 				<hr />
-	<br/>
-			<div class="tbl-row">
-				<div id="picker"class="lable">选择文件</div>
+				<br/>
+				<div class="tbl-row">
+					<div id="picker"class="lable">选择文件</div>
 					<div class="ctrl">
-					<div id="uploader" class="wu-example">
-						<div class="wu-example">
-							<div id="formthelist" class="uploader-list"></div>
-							<div id="filebtn">
-								<span class="stopBtn" style="cursor: pointer;" >暂停</span>
-								<span class="continueBtn"style="cursor: pointer;" >继续</span>
+						<div id="uploader" class="wu-example">
+							<div class="wu-example">
+								<div id="formthelist" class="uploader-list"></div>
+								<div id="filebtn">
+									<span class="stopBtn" style="cursor: pointer;" >暂停</span>
+									<span class="continueBtn"style="cursor: pointer;" >继续</span>
+								</div>
 							</div>
 						</div>
-					</div>
 					</div>
 				</div>
 				<form method="post" id="ajaxform">
@@ -132,23 +137,23 @@
 							<input type="text" id="name" name="name" class="inputBox" />
 						</div>
 					</div>
-					
+
 					<div class="tbl-row">
 						<div class="lable">参战国家:</div>
 						<div class="ctrl">
 							<input type="text" id="warcountry" name="warcountry"
-								class="inputBox" />
+								   class="inputBox" />
 						</div>
 					</div>
 					<div class="tbl-row">
 						<div class="lable">类型作战:</div>
 						<div class="ctrl">
 							<select id="combat_type" name="combat_type">
-							<option value="1">西方战例</option>
-							<option value="2">苏军战例</option>
-							<option value="3">俄军战例</option>
-							<option value="4 ">兵种战例</option>
-							<option value="5">其他</option>
+								<option value="1">西方战例</option>
+								<option value="2">苏军战例</option>
+								<option value="3">俄军战例</option>
+								<option value="4 ">兵种战例</option>
+								<option value="5">其他</option>
 							</select>
 						</div>
 					</div>
@@ -196,7 +201,7 @@
 						</div>
 					</div>
 					<div class="tbl-row">
-					<div class="lable">标签:</div>
+						<div class="lable">标签:</div>
 						<div class="ctrl">
 							<ul class='tag-ul'>
 								<li class='tag-li'>#战役#</li>
@@ -210,12 +215,12 @@
 						<div class="lable">摘要:</div>
 						<div class="ctrl">
 							<textarea rows="10" cols="50"
-								style="width: 79%; border: 1px solid #cccccc;" id="description"
-								name="description"></textarea>
+									  style="width: 79%; border: 1px solid #cccccc;" id="description"
+									  name="description"></textarea>
 						</div>
 					</div>
 				</form>
-				
+
 
 				<div class="tbl-row">
 					<div class="lable"></div>
@@ -226,110 +231,121 @@
 			</div>
 		</div>
 	</div>
-    
+
 </div>
 
-    <div class="uploadTaskListBox">
+<div class="uploadTaskListBox">
 	<div class="mask">
 		<div class="popup">
 			<div class="model-title fl">上传任务列表</div>
-				<i class="closed fr"></i>
-				<div class="clearfix"></div>
-				<hr />
-	<br/>	
-		<div class="tbl-row">
-			<div class="lable">上传:</div>
-			<div class="ctrl">
-			<div id="Div1" class="wu-example">
-				<div class="wu-example">
-					<div id="thelist" class="uploader-list"></div>
-					<div id="Div2">
-						<span class="stopBtn" style="cursor: pointer;" >暂停</span>
-						<span class="continueBtn"style="cursor: pointer;" >继续</span>
+			<i class="closed fr"></i>
+			<div class="clearfix"></div>
+			<hr />
+			<br/>
+			<div class="tbl-row">
+				<div class="lable">上传:</div>
+				<div class="ctrl">
+					<div id="Div1" class="wu-example">
+						<div class="wu-example">
+							<div id="thelist" class="uploader-list"></div>
+							<div id="Div2">
+								<span class="stopBtn" style="cursor: pointer;" >暂停</span>
+								<span class="continueBtn"style="cursor: pointer;" >继续</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			</div>
 		</div>
-		</div>
- 	</div>
+	</div>
 </div>
-    <script>
-        $(function () {
+<script>
+    $(function () {
 
-            $("#btnper").click(function () {
-                document.getElementById("frm-main").src = 'percenter.html';
-            });
-            $("#btnindex").click(function () {
-                document.getElementById("frm-main").src = 'index-m.html';
-            });
-
-            $("#btnExit").click(function () {
-                authExit();
-            });
-
-            initNav();
-            setInterval(function () {
-                var time = new Date();   // 程序计时的月从0开始取值后+1   
-                var m = time.getMonth() + 1;
-                $("#curdate").html(time.getFullYear() + "-" + m + "-"
-                + time.getDate());
-                var hours = time.getHours();
-                var minutes = time.getMinutes();
-                var seconds = time.getSeconds();
-                var hour = hours < 10 ? "0" + hours : hours;
-                var minute = minutes < 10 ? "0" + minutes : minutes;
-                var second = seconds < 10 ? "0" + seconds : seconds;
-                $("#curtime").html(hour + ":"
-                + minute + ":" + second);
-
-            }, 1000);
-
-            var week;
-            var iweek = new Date().getDay();
-            if (iweek == 0) week = "星期日"
-            if (iweek == 1) week = "星期一"
-            if (iweek == 2) week = "星期二"
-            if (iweek == 3) week = "星期三"
-            if (iweek == 4) week = "星期四"
-            if (iweek == 5) week = "星期五"
-            if (iweek == 6) week = "星期六"
-            curweek.innerHTML = week;
+        $("#btnper").click(function () {
+            document.getElementById("frm-main").src = 'percenter.html';
+        });
+        $("#btnindex").click(function () {
+            document.getElementById("frm-main").src = 'index-m.html';
         });
 
-        function initNav() {
-            $a = $(window).height();
-            $("nav_title").height($a);
-            $("#nav_arrow").click(function () {
-                var v = $("#nav_arrow").attr("data-value");
-                if (v == 1) {
-                    $("#nav_left").animate({ left: '-232px' });
-                    $("#main-content").css("padding-left", "30px");
-                    $("#nav_arrow").attr("data-value", 2);
-                }
-                else {
-                    $("#main-content").css("padding-left", "260px");
-                    $("#nav_left").delay(5).animate({ left: '0' });
-                    $("#nav_arrow").attr("data-value", 1);
-                }
+        $("#btnExit").click(function () {
+            authExit();
+        });
 
-            });
-        }
-        function iframeLoad() {
-            var iframe = document.getElementById("frm-main");
-            var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+        initNav();
+        setInterval(function () {
+            var time = new Date();   // 程序计时的月从0开始取值后+1
+            var m = time.getMonth() + 1;
+            $("#curdate").html(time.getFullYear() + "-" + m + "-"
+                + time.getDate());
+            var hours = time.getHours();
+            var minutes = time.getMinutes();
+            var seconds = time.getSeconds();
+            var hour = hours < 10 ? "0" + hours : hours;
+            var minute = minutes < 10 ? "0" + minutes : minutes;
+            var second = seconds < 10 ? "0" + seconds : seconds;
+            $("#curtime").html(hour + ":"
+                + minute + ":" + second);
 
-            iframe.height = 0;
+        }, 1000);
 
-            if (iframeWin.document.body) {
-                iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
-                $("#nav_left").css("height", iframe.height - 30);
+        var week;
+        var iweek = new Date().getDay();
+        if (iweek == 0) week = "星期日"
+        if (iweek == 1) week = "星期一"
+        if (iweek == 2) week = "星期二"
+        if (iweek == 3) week = "星期三"
+        if (iweek == 4) week = "星期四"
+        if (iweek == 5) week = "星期五"
+        if (iweek == 6) week = "星期六"
+        curweek.innerHTML = week;
+    });
+
+    function initNav() {
+        $a = $(window).height();
+        $("nav_title").height($a);
+        $("#nav_arrow_right").click(function () {
+            $("#nav_left").animate({ left: '0' });
+            $("#main-content").css("padding-left", "260px");
+            //$("#nav_arrow").attr("data-value", 2);
+            $("#nav_arrow_right").delay(5).animate({left:'-50'});
+        });
+        $("#nav_arrow").click(function () {
+            $("#nav_left").animate({ left: '-250px' });
+            $("#main-content").css("padding-left", "20px");
+            //$("#nav_arrow").attr("data-value", 2);
+            $("#nav_arrow_right").delay(5).animate({left:'-2'});
+            /*var v = $("#nav_arrow").attr("data-value");
+            if (v == 1) {
+                $("#nav_left").animate({ left: '-250px' });
+                $("#main-content").css("padding-left", "10px");
+                //$("#nav_arrow").attr("data-value", 2);
+                $("#nav_arrow_right").delay(500).animate({left:'60'});
             }
-        }
+            else {
+                $("#main-content").css("padding-left", "260px");
+                $("#nav_left").delay(5).animate({ left: '0' });
+                $("#nav_arrow").attr("data-value", 1);
+                $("#nav_arrow_right").delay(5).animate({left:'60'});
+            }*/
+        });
+    }
+    function iframeLoad() {
+        var iframe = document.getElementById("frm-main");
+        var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
 
-        window.onload = function () {
-            iframeLoad()
+        iframe.height = 0;
+
+        if (iframeWin.document.body) {
+            iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+            $("#nav_left").css("height", iframe.height - 30);
         }
-    </script>
+    }
+
+    window.onload = function () {
+        iframeLoad()
+    }
+</script>
 </body>
 </html>

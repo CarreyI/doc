@@ -52,7 +52,7 @@ upload:
   filePath: F:/Java_WorkSpace/satic/docword/
 breakpoint:
   upload:
-    window: F:/Java_WorkSpace/satic/docword/
+    window: D:/JavaTool/satic/docword/
     linux: satic/docword/
     status: 1
     chunkSize: 5242880
