@@ -31,7 +31,7 @@ function getInfo() {
                 }else{
                 	$(".perview").remove();
                 }
-                
+                 //提交代码
                 $("#date").html(result.data.createTime);
                 $("#format").html(result.data.format);
                 $("#size").html(result.data.fileSize);
