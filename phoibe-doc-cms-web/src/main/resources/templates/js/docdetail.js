@@ -36,6 +36,7 @@ function getInfo() {
                 $("#format").html(result.data.format);
                 $("#size").html(result.data.fileSize);
                 $("#owner").html(result.data.userRealName);
+                $("#tag").html(result.data.tag);
                 $("#doctitle").html(result.data.name);
                 var description = result.data.description;
                 if(desc!="undefined" && desc!=""){
