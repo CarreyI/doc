@@ -299,6 +299,10 @@ function loadData(pageindex) {
             }
         });
 
+        $("#uploadfile").click(function () {
+            $(window.parent.document).find(".bodyMask").fadeIn();
+        });
+
         $(".filelist_closed").click(function () {
             $(".filelist_bodyMask").hide();
         });
