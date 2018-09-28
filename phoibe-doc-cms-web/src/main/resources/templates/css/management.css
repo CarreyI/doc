@@ -661,6 +661,12 @@ border:1px solid #5e90ca;/*#fffdfe;;*/
 	/*padding-bottom: 20px;*/
 	margin-bottom: 12px;
 }
+.search-block{
+	background:#ffffff;
+	border:1px solid #eeeeee;
+
+	padding:10px;
+}
 
 #index-m .main, #docdetail .main, #tagmgr .main, #sysmgr .main,
 	#stockmgr .main, #percenter .main, #docmgr .main, #auditupload .main {
