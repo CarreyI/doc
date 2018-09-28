@@ -1,7 +1,7 @@
 var totalRows = 0;
 var currPage = 1;
 function loadData(type,pageindex) {
-    $("#doc-content").children().remove()
+    $("#docmgr-content").children().remove()
 
     var url = 'phoibe/document/list/' + pageindex + '/10?1=1';
     var data="";
@@ -88,6 +88,7 @@ function loadData(type,pageindex) {
                      var tag = "";
                      var docstatus = "";
                      var auditstatustyle = "f-blue";
+                     var desc = val["description"];
                      if (status == 1) {
                          docstatus = "上传中";
                      }
@@ -106,7 +107,7 @@ function loadData(type,pageindex) {
                          auditstatus = "审核不通过";
                          auditstatustyle = "f-red";
                      }
-                     var row = "<div class='row'><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><ul><li>上传时间:"+createtime+"</li><li>格式:"+format+"</li><li>46条评论</li><li>评分44</li><li>大小:"+filesize+"</li><li>文档拥有者:" + owner + "</li></ul></div>";
+                     var row = "<div class='row'><div class='doc-row'><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><div class='desc'>摘要："+desc+"</div><ul><li>上传时间:"+createtime+"</li><li>格式:"+format+"</li><li>46条评论</li><li>评分:44</li><li>大小:"+filesize+"</li><li>文档拥有者:" + owner + "</li></ul></div></div>";
                      $("#docmgr-content").append(row);
                      parent.iframeLoad();
                  }
@@ -154,9 +155,11 @@ function loadData(type,pageindex) {
          var format = getUrlString("format");
             $(".checkList").find("li").each(function () {
                 var check_val = $(this).html();
-                if (format.indexOf(check_val)>-1){
-                    $(this).addClass("check");
-                    $(this).attr("checked","checked");
+                if(format!=""&&format!=null){
+                    if (format.indexOf(check_val)>-1){
+                        $(this).addClass("check");
+                        $(this).attr("checked","checked");
+                    }
                 }
             })
          loadData(0,0);

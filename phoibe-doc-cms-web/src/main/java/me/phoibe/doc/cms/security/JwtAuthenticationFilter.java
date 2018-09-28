@@ -19,9 +19,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         try {
-            if(isProtectedUrl(request)) {
-                request = JwtUtil.validateTokenAndAddUserIdToHeader(request);
-            }
+//            if(isProtectedUrl(request)) {
+//                request = JwtUtil.validateTokenAndAddUserIdToHeader(request);
+//            }
         } catch (Exception e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
             return;

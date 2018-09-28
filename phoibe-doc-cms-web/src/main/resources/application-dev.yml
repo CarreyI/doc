@@ -49,7 +49,7 @@ crosDomain: '*'
 phoibe:
   address: http://127.0.0.1:8090/phoibe/
 upload:
-  filePath: F:/Java_WorkSpace/satic/docword/
+  filePath: D:/JavaTool/satic/docword/
 breakpoint:
   upload:
     window: D:/JavaTool/satic/docword/

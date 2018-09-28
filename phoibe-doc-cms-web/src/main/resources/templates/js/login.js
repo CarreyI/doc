@@ -39,6 +39,38 @@ $(function () {
             }
         });
     });
+    $('#submit').click(function () {
+        checkUserForm();
+        var form = $("#ajaxform");
+        var formdata ={};
+        for (var i = 0; i < form.serializeArray().length; i++) {
+            var key = form.serializeArray()[i].name;
+            var value = form.serializeArray()[i].value;
+            formdata[key] = value;
+        }
+        var roleArray=[];
+        roleArray.push(3);
+
+        formdata.roleId = roleArray;
+        formdata.password = formdata.repassword;
+        $.ajax({
+            url: GAL_URL + form.attr("action"),
+            type: form.attr("method"),
+            data: JSON.stringify(formdata),
+            dataType: "json",
+            async: false,
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+                if (data.code="success") {
+                    alert("注册成功");
+                    $(".bodyMask").hide();
+                    loadData(0);
+                }else{
+                    alert("注册失败");
+                }
+            }
+        });
+    })
     // 回车按下响应事件
     $(document).keypress(function(e) {
         // 回车键事件
@@ -47,3 +79,11 @@ $(function () {
         }
     });
 });
+function checkUserForm(){
+    var regpassword = $("#regpassword").val();
+    var repassword = $("#repassword").val();
+    if(regpassword!=repassword){
+        alert("请确认密码两次输入一致！");
+        return
+    }
+}

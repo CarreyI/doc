@@ -165,11 +165,8 @@ $(function () {
             formdata[key] = value;
         }
         var roleArray=[];
-        $("#ajaxform input[type=checkbox]:checked").each(function(){
-            var Id = $(this).attr("role_Id");
-            roleArray.push(Id);
-        });
-
+        var Id=3;
+        roleArray.push(Id);
         formdata.roleId = roleArray;
         $.ajax({
             url: GAL_URL + form.attr("action"),

@@ -39,7 +39,8 @@ function getInfo() {
                 $("#tag").html(result.data.tag);
                 $("#doctitle").html(result.data.name);
                 var description = result.data.description;
-                if(desc!="undefined" && desc!=""){
+
+                if(description!="undefined" && description!=""){
                     $("#doc-content").html("<p>"+description+"</p>");
                 }
             }
@@ -65,7 +66,7 @@ function loadData(pageindex) {
                         var content = val["commentContent"];
                         var createTime = val["createTime"];
                         var title = $("#doctitle").html();
-                        var name = "admin";
+                        var name = val["nickname"];
                         var step = 0;
                         var row = "";
                         var row = "<div class='row'><div class='imghead'><img src='images/head.png' /></div><span class='name'>" + name + "</span><span class='com-date'>"+createTime+"</span><br /><span class='doctitle'>《" + title + "》</span><span id='commconten'>"+content+"</span></div>";
@@ -134,11 +135,17 @@ $(function () {
         });
         $("#submit").click(function () {
             var url = "phoibe/comment/save";
+            var userStr = getCookie("userObject");
+            var userId =1;
+            if (null!=userStr&&""!=userStr) {
+                userObject = JSON.parse(userStr);
+                userId = userObject.id;
+            }
             var formdata = {
                 commentContent: $("#comment-content").val(),
                 score: parseInt($("#comentscore").val()),
                 documentId: parseInt(tid),
-                userId: 1
+                userId: userId
             };
             $.ajax({
                 type: 'POST',
