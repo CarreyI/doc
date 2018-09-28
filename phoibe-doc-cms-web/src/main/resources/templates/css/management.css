@@ -221,11 +221,11 @@ body, html {
 	text-align: left;
 	padding-left:10px;
 	color: #fff;*/
-    width:248px;
-    margin-left:8px;
-    margin-top: 8px;
-    height:50px;
-    background-image: url("../images/logo_text.png");
+	width: 288px;
+	margin-left: 8px;
+	margin-top: 12px;
+	height: 40px;
+	background-image: url("../images/logo_text.png");
 }
 .main .header .logo {
 	/*height: 88px;*/
@@ -662,10 +662,9 @@ border:1px solid #5e90ca;/*#fffdfe;;*/
 	margin-bottom: 12px;
 }
 .search-block{
-	background:#ffffff;
+	/*background:#ffffff;
 	border:1px solid #eeeeee;
-
-	padding:10px;
+	padding:10px;*/
 }
 
 #index-m .main, #docdetail .main, #tagmgr .main, #sysmgr .main,

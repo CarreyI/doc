@@ -2,6 +2,10 @@
  *
  */
 function uploadCompleteUpdate(dId,filemd5,filename){
+    if(dId==null&&dId==""){
+        alert("文档保存失败");
+        return
+    }
     $.ajax({
         url:  GAL_URL+"phoibe/document/completeSave/"+dId,
         type: "post",

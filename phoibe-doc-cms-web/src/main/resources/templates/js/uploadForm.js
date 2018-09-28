@@ -53,12 +53,13 @@ function formSubmit(filemd5,filename,fileext,filesize){
     });
     var userStr = getCookie("userObject");
     if (null!=userStr&&""!=userStr) {
-        userObject = JSON.parse(userStr);
+        var userObject = JSON.parse(userStr);
         formdata.userId = userObject.id;
         formdata.userName = userObject.userName;
         formdata.realname = userObject.realname;
         formdata.nickname = userObject.nickname;
     }
+    alert(formdata.userId);
     $.ajax({
         url: GAL_URL + "phoibe/document/save",
         type: form.attr("method"),
