@@ -1861,3 +1861,7 @@ font-size:18px;
 .file_list li a{
 	color:#226c97;
 }
+
+#lst-dym .list3 li a {
+	font-size:12px;
+}
