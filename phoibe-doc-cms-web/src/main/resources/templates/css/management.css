@@ -1667,7 +1667,26 @@ padding-left: 30px;
        border-radius:3px;
         color:#e8f0f4;
 }
-
+#btnbackup{background: url("../images/btnbackup.png") no-repeat left center;
+	background-position:8px 8px;
+	background-color:#226c97;/*#fc0b0d;*/
+	line-height: 24px;
+	border: 0;
+	color:#e8f0f4;
+	padding-left: 32px;
+	display: inline-block;
+	cursor: pointer;
+	border-radius:3px;}
+#btnexport{background: url("../images/btnexport.png") no-repeat left center;
+	background-position:8px 8px;
+	background-color:#226c97;/*#fc0b0d;*/
+	line-height: 24px;
+	border: 0;
+	color:#e8f0f4;
+	padding-left: 30px;
+	display: inline-block;
+	cursor: pointer;
+	border-radius:3px;}
 #btndel {
 	background: url("../images/btndel.png") no-repeat left center;
     background-position:8px 8px;
