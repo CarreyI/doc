@@ -1089,6 +1089,7 @@ border:1px solid #5e90ca;
 	background: #ffffff;
 	padding: 20px;
 	border: 1px solid #aaaaaa;
+	padding-left:0px;
 }
 
 .widget-tab .widget-title ul li {
@@ -1584,6 +1585,8 @@ width:100%;
 	padding: 0px 8px;
 	border-radius: 6px;
 	cursor: pointer;
+	margin-top:4px;
+	margin-bottom:4px;
 }
 
 .tag-li-in {
