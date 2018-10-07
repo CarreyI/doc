@@ -2,6 +2,7 @@
 var totalRows = 0;
 var currPage = 0;
 var tid = getUrlString("tid");
+var userid=0;
 function getInfo() {
     var url = GAL_URL+"phoibe/document/fetch/" + tid;
     $.ajax({
@@ -11,33 +12,26 @@ function getInfo() {
         dataType: 'json',
         success: function (result) {
             if (result.code = "SUCCESS") {
-            	var perviewStatus =0;
-                /*if (result.data.format == "doc" || result.data.format == "docx") {
-                    $("#icontitle").attr("class", "doc");
-                    perviewStatus=1;
-                }*/
-                if (result.data.format == "pdf") {
-                    $("#icontitle").attr("class", "pdf");
-                    perviewStatus=1;
-                }
-                if(perviewStatus ==1 ){
-                    var hrefurl = "openword.html?filePath="+result.data.filePath+"&docId="+tid;
-                    hrefurl= encodeURI(hrefurl)
-                    var pdfval = result.data.filePath.indexOf(".pdf");//验证文件后缀是否为pdf
-                    if(pdfval > 0){
-                    	hrefurl = GAL_URL+"/docword/"+result.data.filePath;
-                    }
+                userid= result.data.userId
+                var suffx = result.data.format.replace(".","");
+                if (suffx == "pdf"||suffx == "doc"||suffx == "docx") {
+                    // var hrefurl = "openword.html?filePath="+result.data.filePath+"&docId="+tid;
+                    var hrefurl = "phoibe/document/previewDoc/"+tid;
+                    hrefurl = GAL_URL+hrefurl;
                     $(".perview").attr("href",hrefurl);
+                    $("#icontitle").attr("class", "pdf");
                 }else{
                 	$(".perview").remove();
                 }
-                 //提交代码
+
+                $("#attention").attr("status",result.data.subscribe);
                 $("#date").html(result.data.createTime);
                 $("#format").html(result.data.format);
                 $("#size").html(result.data.fileSize);
                 $("#owner").html(result.data.userRealName);
                 $("#tag").html(result.data.tag);
                 $("#doctitle").html(result.data.name);
+                $("#score").html(result.data.score);
                 var description = result.data.description;
 
                 if(description!="undefined" && description!=""){
@@ -61,7 +55,7 @@ function loadData(pageindex) {
                 success: function (result) {
                     var total_rows = result.data.totalCount;
                     totalRows = total_rows;
-                 
+                 $("#comment").html(total_rows);
                     $.each(result.data.dataList, function (i, val) {
                         var content = val["commentContent"];
                         var createTime = val["createTime"];
@@ -121,19 +115,120 @@ function initstar() {
         }
         lis[i - 1].onclick = function () { //鼠标点击,同时会调用onmouseout,改变tempnum值点亮星星
             tempnum = this.index;
-            $("#comentscore").val(tempnum);
+            $("#comentscore").val(((tempnum-2)/2));
         }
     }
+}
+function isAttention(){
+    var url = GAL_URL + "phoibe/document/list/0/10?queryFlag=subscribe&userId="+userid;
+    $.ajax({
+        type: 'GET',
+        url: url,
+        async: false,
+        dataType: 'json',
+        success: function (result) {
+            if(result.data.totalCount>0){
+                $("#attention").addClass("attention_ok");
+            }
+        }
+    });
+}
+function isfavorite(){
+    var url = GAL_URL + "phoibe/document/list/0/10?queryFlag=collection&id="+tid;
+    $.ajax({
+        type: 'GET',
+        url: url,
+        async: false,
+        dataType: 'json',
+        success: function (result) {
+            if(result.data.totalCount>0){
+                $("#favorite").addClass("favorite_ok");
+            }
+        }
+    });
+}
+//关注
+function attentionAjax(){
+    var url = GAL_URL + "phoibe/document/subscribe/" + userid;
+    var status = $("#attention").attr("status");
+    $.ajax({
+        type: 'GET',
+        url: url,
+        async: false,
+        dataType: 'json',
+        success: function (result) {
+            if(result.code=="SUCCESS"){
+                if (status==0){
+                    $("#attention").addClass("attention_ok");
+                    $("#attention").removeClass("attention");
+                }else{
+                    $("#attention").addClass("attention");
+                    $("#attention").removeClass("attention_ok");
+                }
+            }
+        }
+    });
+}
+//收藏
+function favoriteAjax(){
+    var url = GAL_URL + "phoibe/document/collection/" + tid;
+    var status =$("#favorite").attr("status");
+    $.ajax({
+        type: 'GET',
+        url: url,
+        async: false,
+        dataType: 'json',
+        success: function (result) {
+            if(result.code=="SUCCESS"){
+                if (status==0){
+                    $("#favorite").addClass("favorite_ok");
+                    $("#favorite").removeClass("favorite");
+                }else{
+                    $("#favorite").addClass("favorite");
+                    $("#favorite").removeClass("favorite_ok");
+                }
+            }
+        }
+    });
+}
+//下载
+function downloadAjax(){
+    url = GAL_URL + "phoibe/document/download?Id=" + tid;
+    window.location.href = url;
+    // $.ajax({
+    //     type: 'GET',
+    //     url: url,
+    //     async: false,
+    //     dataType: 'json',
+    //     success: function (result) {
+    //         if (result.source==true){
+    //             window.location.href = url;
+    //         }else{
+    //             alert("下载文件请求失败，请联系管理员");
+    //         }
+    //     }
+    // });
 }
 $(function () {
     initstar();
         getInfo();
         loadData(0);
-        $(".download").click(function () {
-            url = GAL_URL + "phoibe/document/download?Id="+tid;
-            window.location.href = url;
-        });
+    isAttention();
+    isfavorite();
+    $(".attention").click(function () {
+        attentionAjax(tid);
+    });
+    $(".favorite").click(function () {
+        favoriteAjax(tid);
+    });
+    $(".download").click(function () {
+        downloadAjax(tid);
+    });
         $("#submit").click(function () {
+            if($("#comment-content").val()==""){
+                alert("请输入评论内容");
+                return
+            }
             var url = "phoibe/comment/save";
             var userStr = getCookie("userObject");
             var userId =1;
@@ -159,10 +254,13 @@ $(function () {
                         $("#comment-content").val("");
                         alert("评论成功");
                         loadData(0);
+                    }else{
+                        alert("评论失败")
                     }
                 }
             });
         });
+
 });   
 
       

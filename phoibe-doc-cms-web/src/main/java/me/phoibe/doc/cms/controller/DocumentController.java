@@ -14,6 +14,7 @@ import me.phoibe.doc.cms.service.PhoibeUserService;
 import me.phoibe.doc.cms.utils.JsonUtils;
 import me.phoibe.doc.cms.utils.PlatDateTimeUtil;
 
+import me.phoibe.doc.cms.utils.Word2PdfUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -329,28 +330,52 @@ public class DocumentController {
 		String pdId= request.getParameter("Id");
 		DPhoebeDocument pd = phoibeDocumentService.fetchDocumentById(Long.parseLong(pdId));
 
-			if(null!=pd){
-				String finalDirPath="";
-				if(status.equals("1")) {
-					finalDirPath = window;
-				}else {
-					finalDirPath = linux;
-				}
-				String fileAbosultePath = finalDirPath + pd.getFilePath();
-				
-				File file = new File(fileAbosultePath);
-				String filename = file.getName();
-				
-				byte[]bytes=getContent(fileAbosultePath);
-				LogUtil.writeLog("下载了Id为{"+pdId+"}的文档", LogUtil.OPER_TYPE_DOWN,"文档管理", DocumentController.class,request);
-				 response.setContentType("multipart/form-data"); 
-                 //2.设置文件头：最后一个参数是设置下载文件名(假如我们叫a.pdf)  
-				response.addHeader("Content-Disposition", "attachment;fileName="+new String(filename.getBytes("gbk"),"ISO8859-1"));  
-				return bytes;   
-			}
-			return null;
+        if(null!=pd){
+            String finalDirPath="";
+            if(status.equals("1")) {
+                finalDirPath = window;
+            }else {
+                finalDirPath = linux;
+            }
+            String fileAbosultePath = finalDirPath + pd.getFilePath();
+
+            File file = new File(fileAbosultePath);
+            String filename = file.getName();
+
+            byte[]bytes=getContent(fileAbosultePath);
+            LogUtil.writeLog("下载了Id为{"+pdId+"}的文档", LogUtil.OPER_TYPE_DOWN,"文档管理", DocumentController.class,request);
+            response.setContentType("multipart/form-data");
+            //2.设置文件头：最后一个参数是设置下载文件名(假如我们叫a.pdf)
+            response.addHeader("Content-Disposition", "attachment;fileName="+new String(filename.getBytes("gbk"),"ISO8859-1"));
+            return bytes;
+        }
+        return null;
+    }
+    @RequestMapping(value = "/previewDoc/{id}",method = RequestMethod.GET)
+    public void previewDoc(@PathVariable Long id,HttpServletResponse response) throws IOException {
+        DPhoebeDocument dPhoibeDocument = phoibeDocumentService.fetchDocumentById(id);
+		String filepath = dPhoibeDocument.getFilePath();
+		String finalDirPath="";
+		if(status.equals("1")) {
+			finalDirPath = window;
+		}else {
+			finalDirPath = linux;
+		}
+		String pdffilepath = filepath.substring(0,filepath.lastIndexOf(".")) + ".pdf";
+		String path = finalDirPath + pdffilepath;
+		File file = new File(path);
+		if (!file.exists()){
+			Word2PdfUtil.doc2pdf((finalDirPath+filepath),path);
+		}
+		response.sendRedirect("/docword/"+new String(path.replace(finalDirPath,"").getBytes("utf-8"), "ISO8859-1"));
 	}
 
+    /**
+     *
+     * @param id
+     * @param request
+     * @return
+     */
 	@RequestMapping("collection/{id}")
 	public String collection(@PathVariable Long id,HttpServletRequest request){
 		Long userId = getUserId(request);

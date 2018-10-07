@@ -35,55 +35,56 @@ function bindZhanfa() {
         }
     });
 }
-function bindResouDoc() {//<div class='font22 title'>中国战法</div>
-    $("#zgzhanfa").children().remove();
+function bindResouDoc() {
+    $(".resou-doc").children().remove();
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/0/19?f=hot',
-
+        url: GAL_URL + 'phoibe/document/hot',
         dataType: 'json',
-        success: function (result) {//<div class='font22 title'>中国战法</div>
+        success: function (result) {
             var total_rows = result.data.totalCount;
             var step = 0;
-            var row = "";
-            $.each(result.data.dataList, function (i, val) {
-                var title = val["name"];
-                var format = val["format"];
-                var tid = val["id"];
+            $.each(result.data, function (i, val) {
+                var title = 11;
+                var format = 22;
+                var tid = 33;
+                var score = 0;
                 step = step + 1;
-
-                var icon = "";
-                if (format == "pdf") {
-                    icon = "<i class='pdf'></i>";
+                var row="";
+                var realname = val["realname"];
+                var docnum = val["phoibeDocuments"].length;
+                var phoibeDocuments = val["phoibeDocuments"];
+                for (var i in phoibeDocuments){
+                    var docObj = phoibeDocuments[i];
+                    var title= docObj.name;
+                    var format = docObj.ormat;
+                    var tid = docObj.id;
+                    score=score + docObj.score;
+                    var icon = "";
+                    if (format == "pdf") {
+                        icon = "<i class='pdf'></i>";
+                    }
+                    else if (format == "doc" || format == "docx") {
+                        icon = "<i class='doc'></i>";
+                    }
+                    else {
+                        icon = "<i class='exls'></i>";
+                    }
+                    row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" + cutString(title, 26) + "</a></li>";
                 }
-                else if (format == "doc" || format == "docx") {
-                    icon = "<i class='doc'></i>";
+                score = score/phoibeDocuments.length;
+                console.log(realname+"--"+score)
+                var scoreStr="";
+                for(var l=0;l<score;l++){
+                    scoreStr= scoreStr+ "<i class='i-star'></i>";
                 }
-                else {
-                    icon = "<i class='exls'></i>";
-                }
-
-                row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" + cutString(title, 22) + "</a></li>";
-                if (step == total_rows) {
-                    var trow = "<div class='col3  clearfix'><div class='ul-header'><div class='ul-img fl'><img src='images/index-head.png'/></div><div class='ul-header-right fl'><div class='ul-header-name'>李明</div><span class='ul-header-docnum'>10689</span>篇文档</div></div><ul class='list1'>" + row + "</ul></div>";
-                    $("#resou-doc").append(trow)
-                    return;
-                }
-                if (step % 3 == 0) {
-                    var trow = "<div class='col3  clearfix'><div class='ul-header'><div class='ul-img fl'><img src='images/index-head.png'/></div><div class='ul-header-right fl'><div class='ul-header-name'>李明&nbsp;&nbsp;<span class='ul-header-docnum'>10689</span>篇文档&nbsp;</div>"
-                                      //+"<div class='scoreremark'><span class='ul-header-docnum'>10689</span>篇文档&nbsp;评分：<ul><li class='light'><a href='javascript:;'>1</a></li>"
-                                      /*+"<div class='scoreremark'>评分：<ul class='fr'><li class='light'><a href='javascript:;'>1</a></li>"  
-									  +"<li class='light'><a href='javascript:;'>2</a></li>"
-                                      +"<li class='light'><a href='javascript:;'>3</a></li>"
-                                      +"<li class='light'><a href='javascript:;'>4</a></li>"
-                                      +"<li class='light'><a href='javascript:;'>5</a></li>"
-                                     +"</ul></div></div></div><ul class='list1'>" + row + "</ul></div>";*/
-									 +"<div class='scoreremark'>评分:<i class='i-star'></i><i class='i-star'></i><i class='i-star'></i><i class='i-star'></i><i class='i-star'></i>"
-									 +"</div></div></div><ul class='list1'>" + row + "</ul></div>";
-					//alert(trow);
-                    $("#resou-doc").append(trow)
-                    row = "";
-                }
+                var trow = "<div class='col3  clearfix'>" +
+                    "<div class='ul-header'><div class='ul-img fl'><img src='images/index-head.png'/></div><div class='ul-header-right fl'>" +
+                    "<div class='ul-header-name'>"+realname+"&nbsp;&nbsp;" +
+                    "<span class='ul-header-docnum'>"+docnum+"</span>篇文档&nbsp;</div>"
+                    +"<div class='scoreremark'>评分:" +scoreStr
+                    +"</div></div></div><ul class='list1'>" + row + "</ul></div>";
+                $("#resou-doc").append(trow)
 
             });
         }

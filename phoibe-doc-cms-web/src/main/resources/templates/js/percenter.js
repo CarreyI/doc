@@ -3,8 +3,68 @@ var totalRows = 0;
 var currPage = 0;
 var wartype = "";
 var dirId="";
-function bindNearRead() {
-    var data = GAL_URL+'phoibe/document/list/0/10'
+//最新动态
+function docdymListLoad() {
+    $.ajax({
+        type: 'GET',
+        url: GAL_URL+'phoibe/document/list/0/9',
+        dataType: 'json',
+        success: function (result) {
+            var total_rows = result.data.totalCount;
+            var step = 0;
+            var row = "";
+            var step = 0;
+            $.each(result.data.dataList, function (i, val) {
+                step=step+1;
+                var title = val["name"];
+                var format = val["format"];
+                var pagecount = val["pagecount"];
+                var tid =val["id"]
+                var status = val["status"];
+                var docstatus = "";
+                if (status == 0) {
+                    docstatus = "上传中";
+                }
+                else if (status > 1) {
+                    docstatus = "上传完成";
+                }
+
+                //alert(docstatus);
+
+                var icon = "";
+                if (format == "pdf") {
+                    icon = "<i class='pdf'></i>";
+                }
+                else if (format == "doc" || format == "docx") {
+                    icon = "<i class='doc'></i>";
+                }
+                else{
+                    icon = "<i class='exls'></i>";//
+                }
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;'>" + docstatus + "</b></li>";
+
+                if (step == total_rows) {
+                    var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
+                    $("#docdym").append(trow)
+                    return;
+                }
+                if (step % 3 == 0) {
+                    var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";;
+                    $("#docdym").append(trow)
+                    row = "";
+                }
+            });
+
+            if (result.data.dataList==null){
+                var nullStr = "<ol class=\"list1\"><li><div>没有新的动态</div></li></ol>";
+                $("#docdym").append(nullStr);
+            }
+        }
+    });
+}
+//最近浏览
+function nearreadListLoad() {
+    var data = GAL_URL+'phoibe/document/list/0/9?queryFlag=browse'
     $.ajax({
         type: 'GET',
         url: data,
@@ -12,7 +72,6 @@ function bindNearRead() {
         success: function (result) {
             var total_rows = result.data.totalCount;
             totalRows = total_rows;
-            var step = 0;
             var row = "";
             var step = 0;
             $.each(result.data.dataList, function (i, val) {
@@ -31,12 +90,12 @@ function bindNearRead() {
                 else if (format == "doc" || format == "docx") {
                     icon = "<i class='doc'></i>";
                 }
-				else{
-						icon = "<i class='exls'></i>";//
-					}
+                else{
+                    icon = "<i class='exls'></i>";//
+                }
 
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 12) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a title='" + createtime + "'>" + cutString(createtime, 12) + "</a></b></li>";
-               // alert(row);
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 24) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a title='" + createtime + "'>" + cutString(createtime, 12) + "</a></b></li>";
+                // alert(row);
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
                     $("#nearread").append(trow)
@@ -48,63 +107,120 @@ function bindNearRead() {
                     row = "";
                 }
             });
+            if (result.data.dataList==null){
+             var nullStr = "<ol class=\"list1\"><li><div>最近未浏览任何文档</div></li></ol>";
+                $("#nearread").append(nullStr)
+            }
         }
     });
 }
 
-function bindDym() {
-        $.ajax({
-            type: 'GET',
-            url: GAL_URL+'phoibe/document/list/0/10',
-            dataType: 'json',
-            success: function (result) {
-                var total_rows = result.data.totalCount;
-                var step = 0;
-                var row = "";
-                var step = 0;
-                $.each(result.data.dataList, function (i, val) {
-                    step=step+1;
-                    var title = val["name"];
-                    var format = val["format"];
-                    var pagecount = val["pagecount"];
-                    var tid =val["id"]
-                    var status = val["status"];
-                    var docstatus = "";
-                    if (status == 0) {
-                        docstatus = "上传中";
-                    }
-                    else if (status > 1) {
-                        docstatus = "上传完成";
-                    }
-					
-					//alert(docstatus);
+//我的收藏
+function randomListLoad() {
+    var data = GAL_URL+'phoibe/document/list/0/9?queryFlag=collection'
+    $.ajax({
+        type: 'GET',
+        url: data,
+        dataType: 'json',
+        success: function (result) {
+            var total_rows = result.data.totalCount;
+            totalRows = total_rows;
+            var row = "";
+            var step = 0;
+            $.each(result.data.dataList, function (i, val) {
+                step = step + 1;
+                var title = val["name"];
+                var format = val["format"];
+                var createtime = val["createTime"];
+                var tid=val["id"];
+                var pagecount = val["pagecount"];
+                var status = val["status"];
+                var docstatus = "";
+                var icon = "";
+                if (format == "pdf") {
+                    icon = "<i class='pdf'></i>";
+                }
+                else if (format == "doc" || format == "docx") {
+                    icon = "<i class='doc'></i>";
+                }
+                else{
+                    icon = "<i class='exls'></i>";//
+                }
 
-                    var icon = "";
-                    if (format == "pdf") {
-                        icon = "<i class='pdf'></i>";
-                    }
-                    else if (format == "doc" || format == "docx") {
-                        icon = "<i class='doc'></i>";
-                    }
-					else{
-						icon = "<i class='exls'></i>";//
-					}
-                    row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;'>" + docstatus + "</b></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 24) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a title='" + createtime + "'>" + cutString(createtime, 12) + "</a></b></li>";
+                // alert(row);
+                if (step == total_rows) {
+                    var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
+                    $("#random_li").append(trow)
+                    return;
+                }
+                if (step % 3 == 0) {
+                    var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";;
+                    $("#random_li").append(trow)
+                    row = "";
+                }
+            });
 
-                    if (step == total_rows) {
-                        var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
-                        $("#docdym").append(trow)
-                        return;
-                    }
-                    if (step % 3 == 0) {
-                        var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";;
-                        $("#docdym").append(trow)
-                        row = "";
-                    }
-                });
+            if (result.data.dataList==null){
+                var nullStr = "<ol class=\"list1\"><li><div>未收藏任何文档</div></li></ol>";
+                $("#random_li").append(nullStr);
             }
-        });
+        }
+    });
 }
+//我的关注
+function attentionListLoad() {
+    var data = GAL_URL+'phoibe/document/list/0/9?queryFlag=subscribe'
+    $.ajax({
+        type: 'GET',
+        url: data,
+        dataType: 'json',
+        success: function (result) {
+            var total_rows = result.data.totalCount;
+            var row = "";
+            var step = 0;
+            $.each(result.data.dataList, function (i, val) {
+                step = step + 1;
+                var title = val["name"];
+                var format = val["format"];
+                var createtime = val["createTime"];
+                var tid=val["id"];
+                var pagecount = val["pagecount"];
+                var status = val["status"];
+                var docstatus = "";
+                var icon = "";
+                if (format == "pdf") {
+                    icon = "<i class='pdf'></i>";
+                }
+                else if (format == "doc" || format == "docx") {
+                    icon = "<i class='doc'></i>";
+                }
+                else{
+                    icon = "<i class='exls'></i>";//
+                }
+
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 24) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a title='" + createtime + "'>" + cutString(createtime, 12) + "</a></b></li>";
+                // alert(row);
+                if (step == total_rows) {
+                    var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
+                    $("#attention_li").append(trow)
+                    return;
+                }
+                if (step % 3 == 0) {
+                    var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";;
+                    $("#attention_li").append(trow)
+                    row = "";
+                }
+            });
+
+            if (result.data.dataList==null){
+                var nullStr = "<ol class=\"list1\"><li><div>未关注任何文档</div></li></ol>";
+                $("#attention_li").append(nullStr)
+            }
+        }
+    });
+}
+
 
 function loadData(pageindex) {
 
@@ -169,7 +285,7 @@ function loadData(pageindex) {
                     }
 
                    
-                    var row = "<tr><td style='width:50px'><input type='radio' data-value='" + id + "' name='chksel'/></td><td><a href='docdetail.html?tid="+id+"' title='"+title+"'>" + cutString(title,20) + "</a></td><td>" + filesize + "</td><td>" + format + "</td><td>" + createtime + "</td><td>" + auditdate + "</td><td class='"+auditstatustyle+"'>"+auditstatus+"</td></tr>";
+                    var row = "<tr><td style='width:50px'><input type='radio' data-value='" + id + "' name='chksel'/></td><td><a href='docdetail.html?tid="+id+"' title='"+title+"'>" + cutString(title,24) + "</a></td><td>" + filesize + "</td><td>" + format + "</td><td>" + createtime + "</td><td>" + auditdate + "</td><td class='"+auditstatustyle+"'>"+auditstatus+"</td></tr>";
                     $("#tblist-body").append(row);//<td>" + tagId + "</td>
                     parent.iframeLoad();
                 });
@@ -216,14 +332,14 @@ function loadData(pageindex) {
             success: function (data) {
                 if (data.code="success") {
                     //var userInfo = data.data;
-                    var filelist ="<li>+ <a href=\"#\"dirId=''>全部文件</a></li>";
+                    var filelist ="<li>+ <a href=\"#\" class=\"menu-a\" dirId=''>全部文件</a></li>";
                     var selectlist_html ="";
                     var roleObj = data.data;
                     for (var i in data.data){
                         var dirId = roleObj[i].id;
                         var dirName = roleObj[i].dirName;
 
-                         filelist=filelist + "<li>+ <a href=\"#\" dirId='"+dirId+"'>"+dirName+"</a></li>";
+                         filelist=filelist + "<li>+ <a href=\"#\" class=\"menu-a\" dirId='"+dirId+"'>"+dirName+"</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" class=\"menu-del\" dirId='"+dirId+"'>删除</a></li>";
                          selectlist_html=selectlist_html + "<li><input type='radio' data-value='' name='chksel' value='"+dirId+"'/><a href=\"#\">"+dirName+"</a></li>";
 
                     }
@@ -248,19 +364,48 @@ function loadData(pageindex) {
             }
         });
 
-        $(".file_list li").click(function(){
-            dirId = $(this).find("a").attr("dirid");
+        $(".file_list .menu-a").click(function(){
+            dirId = $(this).attr("dirid");
             loadData(0);
         });
+        $(".file_list li").hover(function(){
+            $(this).find(".menu-del").fadeIn();
+        },function () {
+            $(this).find(".menu-del").hide();
+        });
+        $(".menu-del").click(function(){
+            dirId = $(this).attr("dirid");
+            $.ajax({
+                url: GAL_URL + "phoibe/directory/remove/"+dirId,
+                type: "DELETE",
+                dataType: "json",
+                async: false,
+                contentType: "application/json;charset=UTF-8",
+                success: function (data) {
+                    if (data.code="SUCCESS") {
+                        loadFileMenu();
+                    }
+                }
+            });
+        });
+
     }
     $(function () {
+
+        docdymListLoad();
+        nearreadListLoad();
+        randomListLoad();
+        attentionListLoad();
+
         loadData(0);
-        bindDym();
-        bindNearRead();
         loadFileMenu();
 
         $("#btndel").click(function () {
             var sel = $("#tblist-body tr td input[type='radio']:checked");
+            if(sel==null){
+                alert("请选中要删除掉文章");
+                return
+            }
             var rowid = $(sel).attr("data-value");
             $.ajax({
                 url: GAL_URL + "phoibe/document/delete/"+rowid,
@@ -283,6 +428,7 @@ function loadData(pageindex) {
             wartype = "&combatType=" + wartypevalue;
             loadData(0);
         });
+
         // 新建文件目录
         $("#btnnewfolder").click(function () {
             $(".file_bodyMask").fadeIn();

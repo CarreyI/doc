@@ -73,17 +73,23 @@
             <groupId>org.apache.xmlbeans</groupId>
             <artifactId>xmlbeans</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/net.sf.jacob-project/jacob -->
-        <dependency>
-            <groupId>fr.opensagres.xdocreport</groupId>
-            <artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
-            <version>1.0.4</version>
-        </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.aspose.words</groupId>
+            <artifactId>aspose-words-14.9.0-jdk16</artifactId>
+            <version>14.9.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/aspose-words-14.9.0-jdk16.jar</systemPath>
+        </dependency>
     </dependencies>
 
 

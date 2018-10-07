@@ -59,7 +59,6 @@ function formSubmit(filemd5,filename,fileext,filesize){
         formdata.realname = userObject.realname;
         formdata.nickname = userObject.nickname;
     }
-    alert(formdata.userId);
     $.ajax({
         url: GAL_URL + "phoibe/document/save",
         type: form.attr("method"),

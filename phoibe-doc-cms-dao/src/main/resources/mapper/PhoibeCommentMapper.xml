@@ -179,7 +179,7 @@
     <include refid="selectByPage_Condition_Sql" />
   </select>
 
-  <select id="selectAvgScore" parameterType="long" >
+  <select id="selectAvgScore" parameterType="long" resultType="Double">
     select avg(score) from PHOIBE_COMMENT where DOCUMENT_ID = #{param.documentId,jdbcType=DECIMAL}
   </select>
 </mapper>

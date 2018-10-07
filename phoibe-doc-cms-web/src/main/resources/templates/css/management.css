@@ -1,4 +1,4 @@
-﻿@charset "utf-8";
+﻿﻿@charset "utf-8";
 /*reset*/
 body {
 font-size:14px;
@@ -862,6 +862,30 @@ color:#000;
 	margin-top: 30px;
 	margin-left: 10px;
 }
+#docdetail .right .favorite_ok {
+	background-image: url("../images/favorite_ok.png");
+	width: 88px;
+	height: 34px;
+	float: left;
+	margin-top: 30px;
+	margin-left: 10px;
+}
+#docdetail .right .attention {
+	background-image: url("../images/attention.png");
+	width: 88px;
+	height: 34px;
+	float: left;
+	margin-top: 30px;
+	margin-left: 10px;
+}
+#docdetail .right .attention_ok {
+	background-image: url("../images/attention_ok.png");
+	width: 88px;
+	height: 34px;
+	float: left;
+	margin-top: 30px;
+	margin-left: 10px;
+}
 
 .submit {
 	background: url("../images/submit.png") no-repeat;
@@ -1126,7 +1150,7 @@ border:1px solid #5e90ca;
 }
 
 #new:checked ~ .widget-title .new, #hot:checked ~ .widget-title .hot,
-	#random:checked ~ .widget-title .random {
+	#random:checked ~ .widget-title .random,#attention:checked ~ .widget-title .attention {
 	background: #0d4d81;
 	border: 1px solid #21a9c4;
 	/*border-bottom: 1px solid #ffffff;*/
@@ -1135,7 +1159,7 @@ border:1px solid #5e90ca;
 }
 
 #new:checked ~ .widget-box .new-list, #hot:checked ~ .widget-box .hot-list,
-	#random:checked ~ .widget-box .random-list {
+#random:checked ~ .widget-box .random-list,#attention:checked ~ .widget-box .attention-list {
 	display: block;
 	height: 90px;
 
@@ -1848,7 +1872,9 @@ font-size:18px;
 	text-align: center;
 	line-height:38px;
 }
-
+.menu-del{
+	display: none;
+}
 
 #nav_arrow_right {
 	color: #ffffff;
