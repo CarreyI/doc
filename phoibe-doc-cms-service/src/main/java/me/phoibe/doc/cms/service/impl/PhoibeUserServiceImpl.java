@@ -11,6 +11,8 @@ import me.phoibe.doc.cms.service.PhoibeUserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -18,7 +20,7 @@ import org.springframework.util.StringUtils;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
-
+@CacheConfig(cacheNames = {"userCache"})
 @Service
 public class PhoibeUserServiceImpl implements PhoibeUserService {
 
@@ -31,8 +33,9 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
     @Autowired
     private PhoibeUserRoleMapper phoibeUserRoleMapper;
 
+
     @Override
-    public PhoibeUser login(PhoibeUser phoibeUser) {
+    public UserInfo login(PhoibeUser phoibeUser) {
         if(StringUtils.isEmpty(phoibeUser.getUserName())){
             throw new BusinessException("用户名不能为空");
         }
@@ -41,7 +44,14 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
         }
         phoibeUser.setStatus(Short.valueOf("1"));
         PhoibeUser phoibeUser1 = phoibeUserMapper.selectByParam(phoibeUser);
-        return phoibeUser1;
+        if(phoibeUser1==null){
+            return null;
+        }
+        UserInfo userInfo = new UserInfo();
+        List<PhoibeRole> phoibeRole = phoibeRoleMapper.selectByUserId(phoibeUser1.getId());
+        BeanUtils.copyProperties(phoibeUser1,userInfo);
+        userInfo.setRoles(phoibeRole);
+        return userInfo;
     }
 
     @Override
@@ -49,6 +59,7 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
         return phoibeRoleMapper.selectByUserId(userId);
     }
 
+    @Cacheable(key = "#userId")
     @Override
     public UserInfo fetchUserInfoByUserId(Long userId) {
         if(null == userId){
@@ -114,4 +125,6 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
         phoibeUserMapper.deleteByPrimaryKey(id);
         phoibeUserRoleMapper.deleteByUserId(id);
     }
+
+
 }

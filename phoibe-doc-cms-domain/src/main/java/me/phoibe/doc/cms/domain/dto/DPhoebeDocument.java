@@ -36,11 +36,31 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     private String contentStr;
 
+    private String queryFlag;
+
+    private Long queryUserId;
+
     public void settings(){
         if(!StringUtils.isEmpty(getContent())){
             this.contentStr =new String(getContent());
             setContent(null);
         }
+    }
+
+    public Long getQueryUserId() {
+        return queryUserId;
+    }
+
+    public void setQueryUserId(Long queryUserId) {
+        this.queryUserId = queryUserId;
+    }
+
+    public String getQueryFlag() {
+        return queryFlag;
+    }
+
+    public void setQueryFlag(String queryFlag) {
+        this.queryFlag = queryFlag;
     }
 
     public Date getCreateTimeBegin() {

@@ -2,17 +2,14 @@ package me.phoibe.doc.cms.service;
 
 import me.phoibe.doc.cms.domain.dto.DPhoibeUser;
 import me.phoibe.doc.cms.domain.dto.UserInfo;
-import me.phoibe.doc.cms.domain.po.PageList;
-import me.phoibe.doc.cms.domain.po.PageParam;
-import me.phoibe.doc.cms.domain.po.PhoibeRole;
-import me.phoibe.doc.cms.domain.po.PhoibeUser;
+import me.phoibe.doc.cms.domain.po.*;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface PhoibeUserService {
 
-    PhoibeUser login(PhoibeUser phoibeUser);
+    UserInfo login(PhoibeUser phoibeUser);
 
     List<PhoibeRole> fetchUserRoleByUserId(Long userId);
 
@@ -27,4 +24,5 @@ public interface PhoibeUserService {
     void modifyUser(DPhoibeUser dPhoibeUser);
 
     void deleteByPrimaryKey(Long id);
+
 }

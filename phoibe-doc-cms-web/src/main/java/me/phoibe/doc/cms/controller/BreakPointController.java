@@ -137,7 +137,7 @@ public class BreakPointController {
 		try {       
 			if (request.getContentLength() > 0) 
 			{           
-				DPhoebeDocument dPhoibeDocument = phoibeDocumentService.fetchDocumentById(Integer.parseInt(docId));
+				DPhoebeDocument dPhoibeDocument = phoibeDocumentService.fetchDocumentById(Long.parseLong(docId));
 
 				String getFilePath = dPhoibeDocument.getFilePath();	
 				

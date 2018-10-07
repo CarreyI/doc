@@ -1,9 +1,7 @@
 package me.phoibe.doc.cms.service;
 
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
-import me.phoibe.doc.cms.domain.po.PageList;
-import me.phoibe.doc.cms.domain.po.PhoibeDocument;
-import me.phoibe.doc.cms.domain.po.PageParam;
+import me.phoibe.doc.cms.domain.po.*;
 
 import java.util.List;
 
@@ -31,7 +29,13 @@ public interface PhoibeDocumentService {
 
     void modifyDocumentById(PhoibeDocument phoibeDocument) throws Exception;
 
-    DPhoebeDocument fetchDocumentById(Integer id);
+    DPhoebeDocument fetchDocumentById(Long id);
+
+    void browse(PhoibeBrowse phoibeBrowse);
+
+    void collection(PhoibeCollection phoibeCollection);
+
+    void subscribe(PhoibeSubscribe phoibeSubscribe);
 
 
 }

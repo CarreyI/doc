@@ -1,13 +1,9 @@
 package me.phoibe.doc.cms.service.impl;
 
-import me.phoibe.doc.cms.dao.PhoibeAttachContentMapper;
-import me.phoibe.doc.cms.dao.PhoibeDocumentMapper;
+import me.phoibe.doc.cms.dao.*;
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
-import me.phoibe.doc.cms.domain.po.PageList;
-import me.phoibe.doc.cms.domain.po.PageParam;
-import me.phoibe.doc.cms.domain.po.PhoibeAttachContent;
+import me.phoibe.doc.cms.domain.po.*;
 import me.phoibe.doc.cms.service.PhoibeDocumentService;
-import me.phoibe.doc.cms.domain.po.PhoibeDocument;
 import me.phoibe.doc.cms.utils.FileUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +29,15 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
 
     @Autowired
     private PhoibeAttachContentMapper phoibeAttachContentMapper;
+
+    @Autowired
+    private PhoibeCollectionMapper phoibeCollectionMapper;
+
+    @Autowired
+    private PhoibeBrowseMapper phoibeBrowseMapper;
+
+    @Autowired
+    private PhoibeSubscribeMapper phoibeSubscribeMapper;
 
     @Value("${breakpoint.upload.window}")
     private String window;
@@ -116,17 +121,37 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
     }
 
     @Override
-    public DPhoebeDocument fetchDocumentById(Integer id) {
+    public DPhoebeDocument fetchDocumentById(Long id) {
         if(null == id){
             return null;
         }
         DPhoebeDocument dmodel = new DPhoebeDocument();
-        PhoibeDocument model = phoibeDocumentMapper.selectByPrimaryKey(id.longValue());
+        PhoibeDocument model = phoibeDocumentMapper.selectByPrimaryKey(id);
         if(null == model){
             return null;
         }
         BeanUtils.copyProperties(model,dmodel);
         dmodel.settings();
         return dmodel;
+    }
+
+    @Override
+    @Transactional
+    public void browse(PhoibeBrowse phoibeBrowse) {
+        phoibeBrowse.setCreateTime(new Date());
+        phoibeBrowseMapper.insertSelective(phoibeBrowse);
+        phoibeBrowseMapper.deleteOldByUserId(phoibeBrowse.getUserId());
+    }
+
+    @Override
+    public void collection(PhoibeCollection phoibeCollection) {
+        phoibeCollection.setCreateTime(new Date());
+        phoibeCollectionMapper.insertSelective(phoibeCollection);
+    }
+
+    @Override
+    public void subscribe(PhoibeSubscribe phoibeSubscribe) {
+        phoibeSubscribe.setCreateTime(new Date());
+        phoibeSubscribeMapper.insertSelective(phoibeSubscribe);
     }
 }

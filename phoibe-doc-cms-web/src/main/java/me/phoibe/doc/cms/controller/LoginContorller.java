@@ -12,6 +12,7 @@ import me.phoibe.doc.cms.service.PhoibeUserService;
 import me.phoibe.doc.cms.utils.JsonUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -34,6 +35,9 @@ public class LoginContorller {
     @Autowired
     private PhoibeUserService phoibeUserService;
 
+    @Autowired
+    private CacheManager cacheManager;
+
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
@@ -41,6 +45,9 @@ public class LoginContorller {
         Cookie cookie = new Cookie(JwtUtil.HEADER_STRING,jwt);
         cookie.setPath("/");
         cookie.setMaxAge(0);
+        String token = JwtUtil.getCookieValueByName(request,JwtUtil.HEADER_STRING);
+        Long userId = Long.parseLong(JwtUtil.extractInfo(token).get(JwtUtil.USER_NAME).toString());
+        cacheManager.getCache("userCache").evict(userId);
         response.addCookie(cookie);
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"");
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
@@ -62,13 +69,9 @@ public class LoginContorller {
         phoibeUser.setPassword(password);
 
         try {
-            phoibeUser = phoibeUserService.login(phoibeUser);
-            if(phoibeUser != null){
-                String jwt = JwtUtil.generateToken(phoibeUser.getId().toString(),JwtUtil.EXPIRATION_TIME);
-                UserInfo userInfo = new UserInfo();
-                BeanUtils.copyProperties(phoibeUser,userInfo);
-                List<PhoibeRole> phoibeRole = phoibeUserService.fetchUserRoleByUserId(userInfo.getId());
-                userInfo.setRoles(phoibeRole);
+            UserInfo userInfo = phoibeUserService.login(phoibeUser);
+            if(userInfo != null){
+                String jwt = JwtUtil.generateToken(userInfo.getId().toString(),JwtUtil.EXPIRATION_TIME);
 
                 Cookie cookie = new Cookie(JwtUtil.HEADER_STRING,jwt);
                 cookie.setPath("/");

@@ -25,6 +25,9 @@ spring:
     multipart:
       maxFileSize: 1048580000Mb
       maxRequestSize: 10485800000MB
+  cache:
+    ehcache:
+      config: ehcache.xml
   aop:
     auto: true # Add @EnableAspectJAutoProxy.
     proxy-target-class: false # Whether subclass-based (CGLIB) proxies are to be created (true) as opposed to standard Java interface-based proxies (false).
@@ -54,5 +57,5 @@ breakpoint:
   upload:
     window: D:/JavaTool/satic/docword/
     linux: satic/docword/
-    status: 1
+    status: 2
     chunkSize: 5242880

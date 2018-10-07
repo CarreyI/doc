@@ -4,9 +4,7 @@ import me.phoibe.doc.cms.config.LogUtil;
 import me.phoibe.doc.cms.dao.PhoibeDocumentMapper;
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
 import me.phoibe.doc.cms.domain.dto.UserInfo;
-import me.phoibe.doc.cms.domain.po.PageList;
-import me.phoibe.doc.cms.domain.po.PageParam;
-import me.phoibe.doc.cms.domain.po.PhoibeDocument;
+import me.phoibe.doc.cms.domain.po.*;
 import me.phoibe.doc.cms.entity.Code;
 import me.phoibe.doc.cms.entity.Result;
 import me.phoibe.doc.cms.security.JwtUtil;
@@ -66,6 +64,12 @@ public class DocumentController {
 	private String linux;
 	@Value("${breakpoint.upload.status}")
 	private String status;
+
+	private Long getUserId(HttpServletRequest request){
+		String token = JwtUtil.getCookieValueByName(request,JwtUtil.HEADER_STRING);
+		Long userId = Long.parseLong(JwtUtil.extractInfo(token).get(JwtUtil.USER_NAME).toString());
+		return userId;
+	}
 	
 	@GetMapping("list/{index}/{limit}")
 	public String listDoucument(@PathVariable Integer index, @PathVariable Integer limit,
@@ -97,6 +101,12 @@ public class DocumentController {
 
 			}
 		}
+
+		if(!StringUtils.isEmpty(param.getQueryFlag())){
+			Long userId = getUserId(request);
+			param.setQueryUserId(userId);
+		}
+
 		if(param != null && !StringUtils.isEmpty(param.getFormat())){
 			String formatStr = "(";
 			String [] format = param.getFormat().split(",");
@@ -133,10 +143,15 @@ public class DocumentController {
 	}
 
 	@GetMapping("fetch/{id}")
-	public String getDoucument(@PathVariable Integer id,HttpServletRequest request) {
+	public String getDoucument(@PathVariable Long id,HttpServletRequest request) {
 
 		DPhoebeDocument dPhoibeDocument = phoibeDocumentService.fetchDocumentById(id);
 
+		Long userId = getUserId(request);
+		PhoibeBrowse phoibeBrowse = new PhoibeBrowse();
+		phoibeBrowse.setDocumentId(id);
+		phoibeBrowse.setUserId(userId);
+		phoibeDocumentService.browse(phoibeBrowse);
 		LogUtil.writeLog("浏览了Id为{"+id+"}的文档", LogUtil.OPER_TYPE_LOOK,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<DPhoebeDocument>(Code.SUCCESS, dPhoibeDocument));
 
@@ -308,7 +323,7 @@ public class DocumentController {
 	@RequestMapping(value = {"download"})
 	public byte[] download(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String pdId= request.getParameter("Id");
-		DPhoebeDocument pd = phoibeDocumentService.fetchDocumentById(Integer.parseInt(pdId));
+		DPhoebeDocument pd = phoibeDocumentService.fetchDocumentById(Long.parseLong(pdId));
 
 			if(null!=pd){
 				String finalDirPath="";
@@ -330,6 +345,26 @@ public class DocumentController {
 				return bytes;   
 			}
 			return null;
+	}
+
+	@RequestMapping("collection/{id}")
+	public String collection(@PathVariable Long id,HttpServletRequest request){
+		Long userId = getUserId(request);
+		PhoibeCollection phoibeCollection = new PhoibeCollection();
+		phoibeCollection.setDocumentId(id);
+		phoibeCollection.setUserId(userId);
+		phoibeDocumentService.collection(phoibeCollection);
+		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+	}
+
+	@RequestMapping("subscribe/{id}")
+	public String subscribe(@PathVariable Long id,HttpServletRequest request){
+		Long userId = getUserId(request);
+		PhoibeSubscribe phoibeSubscribe = new PhoibeSubscribe();
+		phoibeSubscribe.setSubUserId(id);
+		phoibeSubscribe.setUserId(userId);
+		phoibeDocumentService.subscribe(phoibeSubscribe);
+		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
 	}
 
 	public byte[] getContent(String filePath) throws IOException {
