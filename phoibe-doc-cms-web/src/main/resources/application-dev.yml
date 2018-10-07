@@ -52,10 +52,10 @@ crosDomain: '*'
 phoibe:
   address: http://127.0.0.1:8090/phoibe/
 upload:
-  filePath: D:/JavaTool/satic/docword/
+  filePath: F:/Java_WorkSpace/satic/docword/
 breakpoint:
   upload:
     window: D:/JavaTool/satic/docword/
     linux: satic/docword/
-    status: 2
+    status: 1
     chunkSize: 5242880
