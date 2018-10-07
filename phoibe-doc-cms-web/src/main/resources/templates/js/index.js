@@ -148,7 +148,7 @@ function bindDym() {
                 var tid = val["id"];
                 var d = new Date();
                 var curTime = d.getTime();
-                var username = "admin";
+                var username = val["userRealName"];
                 var i = 1;
 
                 var date3 = curTime - Date.parse(createTime);  //时间差的毫秒数

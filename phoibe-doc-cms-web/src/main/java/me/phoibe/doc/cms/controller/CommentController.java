@@ -5,14 +5,17 @@ import me.phoibe.doc.cms.domain.dto.DPhoibeComment;
 import me.phoibe.doc.cms.domain.po.PageList;
 import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeComment;
+import me.phoibe.doc.cms.domain.po.PhoibeDocument;
 import me.phoibe.doc.cms.entity.Code;
 import me.phoibe.doc.cms.entity.Result;
 import me.phoibe.doc.cms.service.PhoibeCommentService;
+import me.phoibe.doc.cms.service.PhoibeDocumentService;
 import me.phoibe.doc.cms.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 
 /**
  * Created by carrey on 18-8-26.
@@ -23,10 +26,22 @@ public class CommentController {
     @Autowired
     private PhoibeCommentService phoibeCommentService;
 
+    @Autowired
+    private PhoibeDocumentService phoibeDocumentService;
+
     @PostMapping("/save")
     public String save(@RequestBody PhoibeComment phoibeComment, HttpServletRequest request){
         phoibeCommentService.addComment(phoibeComment);
         long documentId = phoibeComment.getDocumentId();
+
+        Double score = phoibeCommentService.fetchDocumentAvgScore(documentId);
+
+        PhoibeDocument phoibeDocument = new PhoibeDocument();
+        phoibeDocument.setScore(BigDecimal.valueOf(score));
+        phoibeDocument.setId(documentId);
+
+        phoibeDocumentService.modifyDocumentById(phoibeDocument);
+
         LogUtil.writeLog("对Id为{"+documentId+"}的文档进行留言评论", LogUtil.OPER_TYPE_ADD,"文档评论",CommentController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }

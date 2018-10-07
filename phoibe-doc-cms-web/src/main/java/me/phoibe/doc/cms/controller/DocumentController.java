@@ -3,6 +3,7 @@ package me.phoibe.doc.cms.controller;
 import me.phoibe.doc.cms.config.LogUtil;
 import me.phoibe.doc.cms.dao.PhoibeDocumentMapper;
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
+import me.phoibe.doc.cms.domain.dto.DPhoibeUser;
 import me.phoibe.doc.cms.domain.dto.UserInfo;
 import me.phoibe.doc.cms.domain.po.*;
 import me.phoibe.doc.cms.entity.Code;
@@ -84,7 +85,8 @@ public class DocumentController {
 					break;
 				}
 				case "handpick": {
-					orderBy = "RECORDER";
+					orderBy = "SCORE";
+					param.setQueryFlag("handpick");
 					break;
 				}
 				case "audit": {
@@ -180,6 +182,8 @@ public class DocumentController {
 	public String saveOrUpdate(@RequestBody Map rb, HttpServletRequest request,
 			HttpServletResponse response) {
 
+		UserInfo userInfo = phoibeUserService.fetchUserInfoByUserId(getUserId(request));
+
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			request.setCharacterEncoding("UTF-8");
@@ -218,11 +222,11 @@ public class DocumentController {
 			phoibeDocument.setFormat(fileext);
 			phoibeDocument.setProgress((short) (20));
 			
-			phoibeDocument.setScore(new BigDecimal(1.2));
+			phoibeDocument.setScore(new BigDecimal(0));
 			phoibeDocument.setTag((String) rb.get("tagId"));
 			phoibeDocument.setUpdateTime(new Date());
-			phoibeDocument.setUserId(Long.parseLong(rb.get("userId").toString()));
-			phoibeDocument.setUserRealName((String) rb.get("userName"));
+			phoibeDocument.setUserId(userInfo.getId());
+			phoibeDocument.setUserRealName(userInfo.getRealname());
 			phoibeDocument.setStatus((short) (101));//上传中
 			phoibeDocument.setCreateTime(new Date());
 			short pc = (short) (1 + Math.random() * (10 - 1 + 1));
@@ -365,6 +369,15 @@ public class DocumentController {
 		phoibeSubscribe.setUserId(userId);
 		phoibeDocumentService.subscribe(phoibeSubscribe);
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+	}
+
+	@GetMapping("hot")
+	public String hot(){
+		List<DPhoibeUser> phoibeUsers = phoibeUserService.fetchUserByDocCount();
+		for(DPhoibeUser dPhoibeUser:phoibeUsers){
+			dPhoibeUser.setPhoibeDocuments(phoibeDocumentService.fetchHotUserDocument(dPhoibeUser.getId()));
+		}
+		return JsonUtils.toJson(new Result<List<DPhoibeUser>>(Code.SUCCESS, phoibeUsers));
 	}
 
 	public byte[] getContent(String filePath) throws IOException {

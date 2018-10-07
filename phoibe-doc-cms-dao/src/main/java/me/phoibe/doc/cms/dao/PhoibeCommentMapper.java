@@ -24,4 +24,6 @@ public interface PhoibeCommentMapper {
     List<DPhoibeComment> selectByPage(PageParam<DPhoibeComment> pageParam);
 
     Long selectCountByPage(PageParam<DPhoibeComment> pageParam);
+
+    double selectAvgScore(Long documentId);
 }

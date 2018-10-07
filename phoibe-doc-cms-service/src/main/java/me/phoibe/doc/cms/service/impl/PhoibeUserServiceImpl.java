@@ -126,5 +126,8 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
         phoibeUserRoleMapper.deleteByUserId(id);
     }
 
-
+    @Override
+    public List<DPhoibeUser> fetchUserByDocCount() {
+        return phoibeUserMapper.selectUserByDocCount();
+    }
 }

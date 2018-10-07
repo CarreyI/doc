@@ -178,4 +178,8 @@
     from PHOIBE_COMMENT c join PHOIBE_USER u on c.USER_ID = u.ID join PHOIBE_DOCUMENT d on c.DOCUMENT_ID = d.ID
     <include refid="selectByPage_Condition_Sql" />
   </select>
+
+  <select id="selectAvgScore" parameterType="long" >
+    select avg(score) from PHOIBE_COMMENT where DOCUMENT_ID = #{param.documentId,jdbcType=DECIMAL}
+  </select>
 </mapper>

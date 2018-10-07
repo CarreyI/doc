@@ -235,4 +235,7 @@
       NICKNAME = #{nickname,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
+  <select id="selectUserByDocCount" resultType="me.phoibe.doc.cms.domain.dto.DPhoibeUser">
+    select * from PHOIBE_USER where ID in (select t.USER_ID from (select USER_ID,ROWNUM rno from (select USER_ID,count(USER_ID) c from PHOIBE_DOCUMENT group by USER_ID order by c desc)) t where t.rno &lt; 7)
+  </select>
 </mapper>

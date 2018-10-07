@@ -39,4 +39,9 @@ public class PhoibeCommentServiceImpl implements PhoibeCommentService {
     public void deleteByPrimaryKey(Long dirId) {
          phoibeCommentMapper.deleteByPrimaryKey(dirId);
     }
+
+    @Override
+    public Double fetchDocumentAvgScore(Long documentId) {
+        return phoibeCommentMapper.selectAvgScore(documentId);
+    }
 }

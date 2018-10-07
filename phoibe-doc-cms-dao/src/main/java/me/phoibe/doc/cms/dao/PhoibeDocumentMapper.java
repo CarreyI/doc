@@ -28,4 +28,7 @@ public interface PhoibeDocumentMapper {
     Long selectCountByPage(PageParam<DPhoebeDocument> pageParam);
 
     List<DPhoebeDocument> selectDocumentUser(PageParam<DPhoebeDocument> pageParam);
+
+    int updateHitcountById(Long documentId);
+
 }

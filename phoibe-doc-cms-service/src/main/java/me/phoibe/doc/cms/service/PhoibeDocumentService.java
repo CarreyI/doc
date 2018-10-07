@@ -25,9 +25,11 @@ public interface PhoibeDocumentService {
 
     List<DPhoebeDocument> fetchDocumentUserList(PageParam<DPhoebeDocument> pageParam);
 
-    void removeDocumentById(Integer id) throws Exception;
+    List<PhoibeDocument> fetchHotUserDocument(Long userId);
 
-    void modifyDocumentById(PhoibeDocument phoibeDocument) throws Exception;
+    void removeDocumentById(Integer id);
+
+    void modifyDocumentById(PhoibeDocument phoibeDocument);
 
     DPhoebeDocument fetchDocumentById(Long id);
 

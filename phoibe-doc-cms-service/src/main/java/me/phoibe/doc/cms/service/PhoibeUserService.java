@@ -25,4 +25,6 @@ public interface PhoibeUserService {
 
     void deleteByPrimaryKey(Long id);
 
+    List<DPhoibeUser> fetchUserByDocCount();
+
 }

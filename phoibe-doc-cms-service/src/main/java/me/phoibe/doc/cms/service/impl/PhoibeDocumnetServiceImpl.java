@@ -3,6 +3,7 @@ package me.phoibe.doc.cms.service.impl;
 import me.phoibe.doc.cms.dao.*;
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
 import me.phoibe.doc.cms.domain.po.*;
+import me.phoibe.doc.cms.exception.BusinessException;
 import me.phoibe.doc.cms.service.PhoibeDocumentService;
 import me.phoibe.doc.cms.utils.FileUtil;
 import org.springframework.beans.BeanUtils;
@@ -105,17 +106,17 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
     }
 
     @Override
-    public void removeDocumentById(Integer id) throws Exception {
+    public void removeDocumentById(Integer id) {
         if(null == id){
-            throw new Exception("删除参数id为空");
+            throw new BusinessException("删除参数id为空");
         }
         phoibeDocumentMapper.deleteByPrimaryKey(id.longValue());
     }
 
     @Override
-    public void modifyDocumentById(PhoibeDocument phoibeDocument) throws Exception {
+    public void modifyDocumentById(PhoibeDocument phoibeDocument) {
         if(null == phoibeDocument || null == phoibeDocument.getId()){
-            throw new Exception("修改参数错误");
+            throw new BusinessException("修改参数错误");
         }
         phoibeDocumentMapper.updateByPrimaryKeySelective(phoibeDocument);
     }
@@ -141,6 +142,7 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
         phoibeBrowse.setCreateTime(new Date());
         phoibeBrowseMapper.insertSelective(phoibeBrowse);
         phoibeBrowseMapper.deleteOldByUserId(phoibeBrowse.getUserId());
+        phoibeDocumentMapper.updateHitcountById(phoibeBrowse.getDocumentId());
     }
 
     @Override
@@ -153,5 +155,19 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
     public void subscribe(PhoibeSubscribe phoibeSubscribe) {
         phoibeSubscribe.setCreateTime(new Date());
         phoibeSubscribeMapper.insertSelective(phoibeSubscribe);
+    }
+
+    @Override
+    public List<PhoibeDocument> fetchHotUserDocument(Long userId) {
+        PageParam<DPhoebeDocument> pageParam = new PageParam<>();
+        pageParam.setStart(0);
+        pageParam.setLimit(3);
+        pageParam.setOrderBy("SCORE");
+        pageParam.setSort("DESC");
+        DPhoebeDocument dPhoebeDocument = new DPhoebeDocument();
+        dPhoebeDocument.setUserId(userId);
+        pageParam.setParam(dPhoebeDocument);
+        List<PhoibeDocument> list = phoibeDocumentMapper.selectByPage(pageParam);
+        return list;
     }
 }

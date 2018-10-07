@@ -15,4 +15,6 @@ public interface PhoibeCommentService {
     PageList<DPhoibeComment> fetchCommentByPageList(PageParam<DPhoibeComment> pageParam);
 
     void deleteByPrimaryKey(Long dirId);
+
+    Double fetchDocumentAvgScore(Long documentId);
 }

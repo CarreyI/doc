@@ -40,7 +40,7 @@ public class PhoibeDocument {
 
     private Short pagecount;
 
-    private Short hitcount;
+    private Long hitcount;
 
     private Short recorder;
 
@@ -212,11 +212,11 @@ public class PhoibeDocument {
         this.pagecount = pagecount;
     }
 
-    public Short getHitcount() {
+    public Long getHitcount() {
         return hitcount;
     }
 
-    public void setHitcount(Short hitcount) {
+    public void setHitcount(Long hitcount) {
         this.hitcount = hitcount;
     }
 

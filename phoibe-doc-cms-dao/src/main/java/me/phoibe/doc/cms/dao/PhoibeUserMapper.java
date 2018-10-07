@@ -1,5 +1,6 @@
 package me.phoibe.doc.cms.dao;
 
+import me.phoibe.doc.cms.domain.dto.DPhoibeUser;
 import me.phoibe.doc.cms.domain.dto.UserInfo;
 import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeUser;
@@ -26,4 +27,6 @@ public interface PhoibeUserMapper {
     List<UserInfo> selectByPageList(PageParam<UserInfo> pageParam);
 
     Long selectByPageListCount(PageParam<UserInfo> pageParam);
+
+    List<DPhoibeUser> selectUserByDocCount();
 }
