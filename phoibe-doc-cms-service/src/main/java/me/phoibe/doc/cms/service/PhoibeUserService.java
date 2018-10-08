@@ -27,4 +27,8 @@ public interface PhoibeUserService {
 
     List<DPhoibeUser> fetchUserByDocCount();
 
+    boolean checkSubscribe(PhoibeSubscribe phoibeSubscribe);
+
+    void cancelSubscribe(PhoibeSubscribe phoibeSubscribe);
+
 }

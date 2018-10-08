@@ -170,4 +170,14 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
         List<PhoibeDocument> list = phoibeDocumentMapper.selectByPage(pageParam);
         return list;
     }
+
+    @Override
+    public boolean checkCollection(PhoibeCollection phoibeCollection) {
+        return phoibeCollectionMapper.selectCountByParam(phoibeCollection) > 0;
+    }
+
+    @Override
+    public void cancelCollection(PhoibeCollection phoibeCollection) {
+        phoibeCollectionMapper.deleteByParam(phoibeCollection);
+    }
 }

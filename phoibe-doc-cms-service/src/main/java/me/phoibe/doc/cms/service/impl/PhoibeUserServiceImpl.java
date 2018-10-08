@@ -1,6 +1,7 @@
 package me.phoibe.doc.cms.service.impl;
 
 import me.phoibe.doc.cms.dao.PhoibeRoleMapper;
+import me.phoibe.doc.cms.dao.PhoibeSubscribeMapper;
 import me.phoibe.doc.cms.dao.PhoibeUserMapper;
 import me.phoibe.doc.cms.dao.PhoibeUserRoleMapper;
 import me.phoibe.doc.cms.domain.dto.DPhoibeUser;
@@ -32,6 +33,9 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
 
     @Autowired
     private PhoibeUserRoleMapper phoibeUserRoleMapper;
+
+    @Autowired
+    private PhoibeSubscribeMapper phoibeSubscribeMapper;
 
 
     @Override
@@ -129,5 +133,15 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
     @Override
     public List<DPhoibeUser> fetchUserByDocCount() {
         return phoibeUserMapper.selectUserByDocCount();
+    }
+
+    @Override
+    public boolean checkSubscribe(PhoibeSubscribe phoibeSubscribe) {
+        return phoibeSubscribeMapper.selectCountByParam(phoibeSubscribe) > 0;
+    }
+
+    @Override
+    public void cancelSubscribe(PhoibeSubscribe phoibeSubscribe) {
+        phoibeSubscribeMapper.deleteByParam(phoibeSubscribe);
     }
 }

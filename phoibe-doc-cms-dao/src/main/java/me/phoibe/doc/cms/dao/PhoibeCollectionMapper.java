@@ -16,4 +16,8 @@ public interface PhoibeCollectionMapper {
     int updateByPrimaryKeySelective(PhoibeCollection record);
 
     int updateByPrimaryKey(PhoibeCollection record);
+
+    int selectCountByParam(PhoibeCollection phoibeCollection);
+
+    int deleteByParam(PhoibeCollection phoibeCollection);
 }

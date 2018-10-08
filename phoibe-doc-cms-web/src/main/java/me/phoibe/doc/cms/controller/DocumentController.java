@@ -150,6 +150,11 @@ public class DocumentController {
 
 		DPhoebeDocument dPhoibeDocument = phoibeDocumentService.fetchDocumentById(id);
 
+		PhoibeCollection phoibeCollection = new PhoibeCollection();
+		phoibeCollection.setDocumentId(id);
+		phoibeCollection.setUserId(getUserId(request));
+		dPhoibeDocument.setCollection(phoibeDocumentService.checkCollection(phoibeCollection));
+
 		Long userId = getUserId(request);
 		PhoibeBrowse phoibeBrowse = new PhoibeBrowse();
 		phoibeBrowse.setDocumentId(id);
@@ -403,6 +408,32 @@ public class DocumentController {
 			dPhoibeUser.setPhoibeDocuments(phoibeDocumentService.fetchHotUserDocument(dPhoibeUser.getId()));
 		}
 		return JsonUtils.toJson(new Result<List<DPhoibeUser>>(Code.SUCCESS, phoibeUsers));
+	}
+
+	@GetMapping("checkSubscribe/{id}")
+	public String checkSubscribe(@PathVariable Long id,HttpServletRequest request){
+		PhoibeSubscribe phoibeSubscribe = new PhoibeSubscribe();
+		phoibeSubscribe.setSubUserId(id);
+		phoibeSubscribe.setUserId(getUserId(request));
+		return JsonUtils.toJson(new Result<Boolean>(Code.SUCCESS, phoibeUserService.checkSubscribe(phoibeSubscribe)));
+	}
+
+	@GetMapping("cancelCollection/{id}")
+	public String cancelCollection(@PathVariable Long id,HttpServletRequest request){
+		PhoibeCollection phoibeCollection = new PhoibeCollection();
+		phoibeCollection.setDocumentId(id);
+		phoibeCollection.setUserId(getUserId(request));
+		phoibeDocumentService.cancelCollection(phoibeCollection);
+		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+	}
+
+	@GetMapping("cancelSubscribe/{id}")
+	public String cancelSubscribe(@PathVariable Long id,HttpServletRequest request){
+		PhoibeSubscribe phoibeSubscribe = new PhoibeSubscribe();
+		phoibeSubscribe.setSubUserId(id);
+		phoibeSubscribe.setUserId(getUserId(request));
+		phoibeUserService.cancelSubscribe(phoibeSubscribe);
+		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
 	}
 
 	public byte[] getContent(String filePath) throws IOException {

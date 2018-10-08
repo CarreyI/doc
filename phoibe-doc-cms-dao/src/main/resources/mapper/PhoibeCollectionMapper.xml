@@ -79,4 +79,10 @@
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
+  <select id="selectCountByParam" parameterType="me.phoibe.doc.cms.domain.po.PhoibeCollection" resultType="int">
+    select count(*) from PHOIBE_COLLECTION where DOCUMENT_ID = #{documentId,jdbcType=DECIMAL} and USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByParam" parameterType="me.phoibe.doc.cms.domain.po.PhoibeCollection">
+    delete from PHOIBE_COLLECTION where DOCUMENT_ID = #{documentId,jdbcType=DECIMAL} and USER_ID = #{userId,jdbcType=DECIMAL}
+  </delete>
 </mapper>

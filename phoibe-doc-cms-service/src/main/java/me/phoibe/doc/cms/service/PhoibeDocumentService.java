@@ -39,5 +39,7 @@ public interface PhoibeDocumentService {
 
     void subscribe(PhoibeSubscribe phoibeSubscribe);
 
+    boolean checkCollection(PhoibeCollection phoibeCollection);
 
+    void cancelCollection(PhoibeCollection phoibeCollection);
 }

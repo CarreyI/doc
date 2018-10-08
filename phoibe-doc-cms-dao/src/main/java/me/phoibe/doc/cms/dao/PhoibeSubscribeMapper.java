@@ -16,4 +16,8 @@ public interface PhoibeSubscribeMapper {
     int updateByPrimaryKeySelective(PhoibeSubscribe record);
 
     int updateByPrimaryKey(PhoibeSubscribe record);
+
+    int selectCountByParam(PhoibeSubscribe phoibeSubscribe);
+
+    int deleteByParam(PhoibeSubscribe phoibeSubscribe);
 }

@@ -40,11 +40,21 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     private Long queryUserId;
 
+    private Boolean isCollection;
+
     public void settings(){
         if(!StringUtils.isEmpty(getContent())){
             this.contentStr =new String(getContent());
             setContent(null);
         }
+    }
+
+    public Boolean getCollection() {
+        return isCollection;
+    }
+
+    public void setCollection(Boolean collection) {
+        isCollection = collection;
     }
 
     public Long getQueryUserId() {
