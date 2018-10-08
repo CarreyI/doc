@@ -185,4 +185,17 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
     public double fetchAvgScore(Long userId) {
         return phoibeDocumentMapper.selectAvgScore(userId);
     }
+
+    @Override
+    public PageList<DPhoebeDocument> fetchJoinDocumentByPageList(PageParam<DPhoebeDocument> pageParam) {
+        List<DPhoebeDocument> dlist = new ArrayList<>();
+        List<PhoibeDocument> list = phoibeDocumentMapper.selectJoinByPage(pageParam);
+        for (PhoibeDocument model:list){
+            DPhoebeDocument dmodel = new DPhoebeDocument();
+            BeanUtils.copyProperties(model,dmodel);
+            dmodel.settings();
+            dlist.add(dmodel);
+        }
+        return PageList.createPage(pageParam,phoibeDocumentMapper.selectJoinCountByPage(pageParam),dlist);
+    }
 }

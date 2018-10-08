@@ -518,12 +518,6 @@
       <if test="param.contentStr != null and param.contentStr != ''">
         and ID in (select DOCUMENT_ID from PHOIBE_ATTACH_CONTENT where ATTACH_CONTENT LIKE '%'||#{param.contentStr,jdbcType=VARCHAR}||'%')
       </if>
-      <if test="param.queryFlag != null and param.queryFlag == 'browse'">
-        and ID in (select DOCUMENT_ID from PHOIBE_BROWSE where USER_ID = #{param.queryUserId,jdbcType=DECIMAL})
-      </if>
-      <if test="param.queryFlag != null and param.queryFlag == 'collection'">
-        and ID in (select DOCUMENT_ID from PHOIBE_COLLECTION where USER_ID = #{param.queryUserId,jdbcType=DECIMAL})
-      </if>
       <if test="param.queryFlag != null and param.queryFlag == 'subscribe'">
         and USER_ID in (select SUB_USER_ID from PHOIBE_SUBSCRIBE where USER_ID = #{param.queryUserId,jdbcType=DECIMAL})
       </if>
@@ -547,6 +541,107 @@
     COUNT(*)
     from PHOIBE_DOCUMENT
     <include refid="selectByPage_Condition_Sql"/>
+  </select>
+
+  <sql id="selectJoinByPage_Condition_Sql">
+    <where>
+      1=1
+      <if test="param.name != null and param.name != ''">
+        and NAME LIKE '%'||#{param.name,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="param.description != null and param.description != ''">
+        and DESCRIPTION LIKE '%'||#{param.description,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="param.userId != null and param.userId != ''">
+        and USER_ID = #{param.userId,jdbcType=DECIMAL}
+      </if>
+      <if test="param.format != null and param.format != ''">
+        and FORMAT in ${param.format}
+      </if>
+      <if test="param.userRealName != null and param.userRealName != ''">
+        and USER_REAL_NAME Like '%'||#{param.userRealName,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="param.score != null and param.score != ''">
+        and SCORE = #{param.score,jdbcType=DECIMAL}
+      </if>
+      <if test="param.combatType != null and param.arms != ''">
+        and COMBAT_TYPE = #{param.combatType,jdbcType=DECIMAL}
+      </if>
+      <if test="param.arms != null and param.arms != ''">
+        and ARMS = #{param.arms,jdbcType=DECIMAL}
+      </if>
+      <if test="param.status != null and param.tag != ''">
+        and STATUS = #{param.status,jdbcType=DECIMAL}
+      </if>
+      <if test="param.auditStatus != null and param.tag != ''">
+        and AUDIT_STATUS = #{param.auditStatus,jdbcType=DECIMAL}
+      </if>
+      <if test="param.isstock != null and param.tag != ''">
+        and ISSTOCK = #{param.isstock,jdbcType=DECIMAL}
+      </if>
+      <if test="param.tag != null and param.tag != ''">
+        and TAG LIKE '%'||#{param.tag,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="param.auditTimeBegin != null">
+        and AUDIT_TIME &gt;= #{param.auditTimeBegin,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.auditTimeEnd != null">
+        and AUDIT_TIME &lt;= #{param.auditTimeEnd,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.stockTimeBegin != null">
+        and STOCK_TIME &gt;= #{param.stockTimeBegin,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.stockTimeEnd != null">
+        and STOCK_TIME &lt;= #{param.stockTimeEnd,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.createTimeBegin != null">
+        and CREATE_TIME &gt;= #{param.createTimeBegin,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.createTimeEnd != null">
+        and CREATE_TIME &lt;= #{param.createTimeEnd,jdbcType=TIMESTAMP}
+      </if>
+      <if test="param.warnumBegin != null">
+        and WARNUM &gt;= #{param.warnumBegin,jdbcType=DECIMAL}
+      </if>
+      <if test="param.warnumEnd != null">
+        and WARNUM &lt;= #{param.warnumEnd,jdbcType=DECIMAL}
+      </if>
+      <if test="param.dirId != null">
+        and ID in (select DOCUMENT_ID from PHOIBE_DOC_DIR where DIRECTORY_ID = #{param.dirId,jdbcType=DECIMAL})
+      </if>
+      <if test="param.contentStr != null and param.contentStr != ''">
+        and ID in (select DOCUMENT_ID from PHOIBE_ATTACH_CONTENT where ATTACH_CONTENT LIKE '%'||#{param.contentStr,jdbcType=VARCHAR}||'%')
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectJoinByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">
+    select * from (SELECT a.*,rownum rno FROM (
+    select
+    d.*
+    from PHOIBE_DOCUMENT d
+    <if test="param.queryFlag != null and param.queryFlag == 'browse'">
+      join PHOIBE_BROWSE b on d.ID = b.DOCUMENT_ID and b.USER_ID = #{param.queryUserId,jdbcType=DECIMAL}
+    </if>
+    <if test="param.queryFlag != null and param.queryFlag == 'collection'">
+      join PHOIBE_COLLECTION c on d.ID = c.DOCUMENT_ID and c.USER_ID = #{param.queryUserId,jdbcType=DECIMAL}
+    </if>
+    <include refid="selectJoinByPage_Condition_Sql"/>
+    ORDER BY ${orderBy} ${sort}) a
+    ) t WHERE t.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
+  </select>
+
+  <select id="selectJoinCountByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
+    select
+    count(*)
+    from PHOIBE_DOCUMENT d
+    <if test="param.queryFlag != null and param.queryFlag == 'browse'">
+      join PHOIBE_BROWSE b on d.ID = b.DOCUMENT_ID and b.USER_ID = #{param.queryUserId,jdbcType=DECIMAL}
+    </if>
+    <if test="param.queryFlag != null and param.queryFlag == 'collection'">
+      join PHOIBE_COLLECTION c on d.ID = c.DOCUMENT_ID and c.USER_ID = #{param.queryUserId,jdbcType=DECIMAL}
+    </if>
+    <include refid="selectJoinByPage_Condition_Sql"/>
   </select>
 
   <select id="selectDocumentUser" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="me.phoibe.doc.cms.domain.dto.DPhoebeDocument">

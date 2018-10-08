@@ -33,4 +33,8 @@ public interface PhoibeDocumentMapper {
 
     double selectAvgScore(Long userId);
 
+    List<PhoibeDocument> selectJoinByPage(PageParam<DPhoebeDocument> pageParam);
+
+    Long selectJoinCountByPage(PageParam<DPhoebeDocument> pageParam);
+
 }

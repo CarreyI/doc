@@ -81,10 +81,6 @@ public class DocumentController {
 
 		if(!StringUtils.isEmpty(f)) {
 			switch (f) {
-				case "hot": {
-					orderBy = "HITCOUNT";
-					break;
-				}
 				case "handpick": {
 					orderBy = "SCORE";
 					param.setQueryFlag("handpick");
@@ -131,6 +127,71 @@ public class DocumentController {
 		LogUtil.writeLog("浏览了文档查询", LogUtil.OPER_TYPE_LOOK,"文档查询", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, pageList));
 	}
+
+	@GetMapping("list/browse/{index}/{limit}")
+	public String listBrowse(@PathVariable Integer index, @PathVariable Integer limit,@ModelAttribute DPhoebeDocument param,HttpServletRequest request) {
+		String orderBy = "b.CREATE_TIME";
+		String sort = "DESC";
+
+
+		Long userId = getUserId(request);
+		param.setQueryUserId(userId);
+		param.setQueryFlag("browse");
+
+		if(param != null && !StringUtils.isEmpty(param.getFormat())){
+			String formatStr = "(";
+			String [] format = param.getFormat().split(",");
+			for(String str : format){
+				formatStr += "'"+str+"',";
+			}
+			formatStr = formatStr.substring(0,formatStr.length()-1)+")";
+			param.setFormat(formatStr);
+		}
+		PageParam<DPhoebeDocument> pageParam = new PageParam<>();
+		pageParam.setStart(index);
+		pageParam.setLimit(limit);
+		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
+		pageParam.setOrderBy(orderBy);
+		pageParam.setSort(sort);
+
+		PageList<DPhoebeDocument> pageList = phoibeDocumentService.fetchJoinDocumentByPageList(pageParam);
+
+		LogUtil.writeLog("浏览了文档查询", LogUtil.OPER_TYPE_LOOK,"文档查询", DocumentController.class,request);
+		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, pageList));
+	}
+
+	@GetMapping("list/collection/{index}/{limit}")
+	public String listCollection(@PathVariable Integer index, @PathVariable Integer limit,@ModelAttribute DPhoebeDocument param,HttpServletRequest request) {
+		String orderBy = "c.CREATE_TIME";
+		String sort = "DESC";
+
+
+		Long userId = getUserId(request);
+		param.setQueryUserId(userId);
+		param.setQueryFlag("collection");
+
+		if(param != null && !StringUtils.isEmpty(param.getFormat())){
+			String formatStr = "(";
+			String [] format = param.getFormat().split(",");
+			for(String str : format){
+				formatStr += "'"+str+"',";
+			}
+			formatStr = formatStr.substring(0,formatStr.length()-1)+")";
+			param.setFormat(formatStr);
+		}
+		PageParam<DPhoebeDocument> pageParam = new PageParam<>();
+		pageParam.setStart(index);
+		pageParam.setLimit(limit);
+		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
+		pageParam.setOrderBy(orderBy);
+		pageParam.setSort(sort);
+
+		PageList<DPhoebeDocument> pageList = phoibeDocumentService.fetchJoinDocumentByPageList(pageParam);
+
+		LogUtil.writeLog("浏览了文档查询", LogUtil.OPER_TYPE_LOOK,"文档查询", DocumentController.class,request);
+		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, pageList));
+	}
+
 
 	@GetMapping("list/user/{index}/{limit}")
 	public String listDoucumentUser(@PathVariable Integer index, @PathVariable Integer limit,@ModelAttribute DPhoebeDocument param,HttpServletRequest request) {

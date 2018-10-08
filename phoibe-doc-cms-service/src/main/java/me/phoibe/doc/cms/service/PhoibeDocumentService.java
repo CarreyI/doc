@@ -44,4 +44,6 @@ public interface PhoibeDocumentService {
     void cancelCollection(PhoibeCollection phoibeCollection);
 
     double fetchAvgScore(Long userId);
+
+    PageList<DPhoebeDocument> fetchJoinDocumentByPageList(PageParam<DPhoebeDocument> pageParam);
 }
