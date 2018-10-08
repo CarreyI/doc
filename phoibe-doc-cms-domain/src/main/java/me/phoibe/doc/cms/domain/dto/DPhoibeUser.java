@@ -10,6 +10,16 @@ public class DPhoibeUser extends PhoibeUser {
 
     private List<PhoibeDocument> phoibeDocuments;
 
+    private Double avgScore;
+
+    public Double getAvgScore() {
+        return avgScore;
+    }
+
+    public void setAvgScore(Double avgScore) {
+        this.avgScore = avgScore;
+    }
+
     public List<PhoibeDocument> getPhoibeDocuments() {
         return phoibeDocuments;
     }

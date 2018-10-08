@@ -42,4 +42,6 @@ public interface PhoibeDocumentService {
     boolean checkCollection(PhoibeCollection phoibeCollection);
 
     void cancelCollection(PhoibeCollection phoibeCollection);
+
+    double fetchAvgScore(Long userId);
 }

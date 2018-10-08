@@ -519,10 +519,10 @@
         and ID in (select DOCUMENT_ID from PHOIBE_ATTACH_CONTENT where ATTACH_CONTENT LIKE '%'||#{param.contentStr,jdbcType=VARCHAR}||'%')
       </if>
       <if test="param.queryFlag != null and param.queryFlag == 'browse'">
-        and ID in (select DOCUMENT_ID from PHOIBE_BROWSE where USER_ID = #{param.queryUserId,jdbcType=DECIMAL} order by CREATE_TIME desc )
+        and ID in (select DOCUMENT_ID from PHOIBE_BROWSE where USER_ID = #{param.queryUserId,jdbcType=DECIMAL})
       </if>
       <if test="param.queryFlag != null and param.queryFlag == 'collection'">
-        and ID in (select DOCUMENT_ID from PHOIBE_COLLECTION where USER_ID = #{param.queryUserId,jdbcType=DECIMAL} order by CREATE_TIME desc )
+        and ID in (select DOCUMENT_ID from PHOIBE_COLLECTION where USER_ID = #{param.queryUserId,jdbcType=DECIMAL})
       </if>
       <if test="param.queryFlag != null and param.queryFlag == 'subscribe'">
         and USER_ID in (select SUB_USER_ID from PHOIBE_SUBSCRIBE where USER_ID = #{param.queryUserId,jdbcType=DECIMAL})
@@ -564,4 +564,8 @@
   <update id="updateHitcountById" parameterType="long">
     update PHOIBE_DOCUMENT SET HITCOUNT = HITCOUNT+1 WHERE ID = #{documentId,jdbcType=DECIMAL}
   </update>
+
+  <select id="selectAvgScore" parameterType="long" resultType="double">
+    select avg(SCORE) from PHOIBE_DOCUMENT where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
 </mapper>

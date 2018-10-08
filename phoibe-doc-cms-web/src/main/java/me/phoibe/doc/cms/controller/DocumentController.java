@@ -405,6 +405,7 @@ public class DocumentController {
 	public String hot(){
 		List<DPhoibeUser> phoibeUsers = phoibeUserService.fetchUserByDocCount();
 		for(DPhoibeUser dPhoibeUser:phoibeUsers){
+			dPhoibeUser.setAvgScore(phoibeDocumentService.fetchAvgScore(dPhoibeUser.getId()));
 			dPhoibeUser.setPhoibeDocuments(phoibeDocumentService.fetchHotUserDocument(dPhoibeUser.getId()));
 		}
 		return JsonUtils.toJson(new Result<List<DPhoibeUser>>(Code.SUCCESS, phoibeUsers));

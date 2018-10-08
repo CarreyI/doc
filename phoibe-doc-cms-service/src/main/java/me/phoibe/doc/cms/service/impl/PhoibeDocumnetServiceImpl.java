@@ -180,4 +180,9 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
     public void cancelCollection(PhoibeCollection phoibeCollection) {
         phoibeCollectionMapper.deleteByParam(phoibeCollection);
     }
+
+    @Override
+    public double fetchAvgScore(Long userId) {
+        return phoibeDocumentMapper.selectAvgScore(userId);
+    }
 }

@@ -31,4 +31,6 @@ public interface PhoibeDocumentMapper {
 
     int updateHitcountById(Long documentId);
 
+    double selectAvgScore(Long userId);
+
 }
