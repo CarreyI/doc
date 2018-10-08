@@ -71,10 +71,22 @@ var docstatus =  1;
                         auditstatustyle = "f-red";
                     }
 
-                    var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>" + filesize + "</td><td>" + owner + "</td><td>" + tag + "</td><td>" + auditdate + "</td><td class='" + auditstatustyle + "'>" + auditstatus + "</td><td>" + auditor + "</td></tr>";
+                    var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>" + filesize + "</td><td>" + owner + "</td><td>" + tag + "</td><td>" + auditdate + "</td><td class='" + auditstatustyle + "'>" + auditstatus + "</td><td>" + auditor + "</td>" +
+                        "<td><a class='list-del doc-add' tid='"+id+"'>审核</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>驳回</a></td></tr>";
+
                     //alert(row);
                     $("#tblist-body").append(row);
                     parent.iframeLoad();
+                });
+                $(".doc-add").click(function () {
+                    var tid = $(this).attr("tid");
+                    docAddAjax(tid);
+
+                });
+                $(".doc-del").click(function () {
+                    var tid = $(this).attr("tid");
+                    docDelAjax(tid);
+
                 });
             }
 
@@ -102,6 +114,40 @@ var docstatus =  1;
         });
     }
 
+function docAddAjax(rowid){
+    var data = 'phoibe/document/update/checkpass/' + rowid;
+    $.ajax({
+        type: 'GET',
+        url: data,
+        dataType: 'json',
+        async: false,
+        success: function (result) {
+            if (result.code == "SUCCESS");
+            {
+                alert("文档审批通过");
+                loadData(currPage);
+            }
+        }
+    });
+}
+function docDelAjax(rowid){
+
+    var data = GAL_URL+'/phoibe/document/update/checkrefuse/' + rowid;
+    //alert(data);
+    $.ajax({
+        type: 'GET',
+        url: data,
+        dataType: 'json',
+        async: false,
+        success: function (result) {
+            if (result.code == "SUCCESS");
+            {
+                alert("驳回文档");
+                loadData(0);
+            }
+        }
+    });
+}
     $(function () {
 
         laydate.render({
@@ -133,42 +179,23 @@ var docstatus =  1;
         loadData(0);
         $("#btnaudit").click(function () {
             var sel = $("#tblist-body tr td input[type='radio']:checked");
+            if(sel==null){
+                alert("请选中要审核的文章");
+                return
+            }
             var rowid = $(sel).attr("data-value");
-            
-            var data = 'phoibe/document/update/checkpass/' + rowid;
-            $.ajax({
-                type: 'GET',
-                url: data,
-                dataType: 'json',
-                async: false,
-                success: function (result) {
-                    if (result.code == "SUCCESS");
-                    {
-                        alert("文档审批通过");
-                        loadData(currPage);
-                    }
-                }
-            });
+          docAddAjax(rowid);
         });
 
         $("#btnreback").click(function () {
             var sel = $("#tblist-body tr td input[type='radio']:checked");
+
+            if(sel==null){
+                alert("请选中要驳回的文章");
+                return
+            }
             var rowid = $(sel).attr("data-value");
-            var data = GAL_URL+'/phoibe/document/update/checkrefuse/' + rowid;
-            //alert(data);
-            $.ajax({
-                type: 'GET',
-                url: data,
-                dataType: 'json',
-                async: false,
-                success: function (result) {
-                    if (result.code == "SUCCESS");
-                    {
-                        alert("驳回文档");
-                        loadData(0);
-                    }
-                }
-            });
+            docDelAjax(rowid);
         });
 
         $(".btnSearch").click(function () {

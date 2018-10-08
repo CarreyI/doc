@@ -43,9 +43,14 @@ function loadData(pageindex) {
                     +"<td>"+title+"</td>"
                     +"<td>"+comment_content+"</td>"
                     +"<td>"+create_time+"</td>"
-                    +"</tr>";
+                    +"<td><a  class='list-del doc-del' cid='"+id+"'>删除</a></td></tr>";
                 $("#tblist-body").append(row);
                 parent.iframeLoad();
+            });
+            $(".doc-del").click(function () {
+                var cid = $(this).attr("cid");
+                commgrDelAjax(cid);
+
             });
         }
     });
@@ -74,6 +79,24 @@ function loadData(pageindex) {
 
 }
 
+function commgrDelAjax(Id){
+    var action = "phoibe/comment/remove/"+Id;
+    $.ajax({
+        url: GAL_URL + action,
+        type: "DELETE",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.code="success") {
+                alert("删除成功");
+
+                loadData(0);
+            }else{
+                alert("删除失败");
+            }
+        }
+    });
+}
 $(function () {
     $("#btnadd").click(function () {
         $(".bodyMask").fadeIn();
@@ -88,22 +111,7 @@ $(function () {
     $("#btndel").click(function () {
         var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
         if (Id!=null){
-            var action = "phoibe/comment/remove/"+Id;
-            $.ajax({
-                url: GAL_URL + action,
-                type: "DELETE",
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    if (data.code="success") {
-                        alert("删除成功");
-
-                        loadData(0);
-                    }else{
-                        alert("删除失败");
-                    }
-                }
-            });
+            commgrDelAjax(Id);
         }else{
             alert("请选择要删除的数据");
         }

@@ -83,9 +83,21 @@ var currPage = 0;
                             docstockstatus= "未入库";
                             docstockstyle = "f-red";
                         }
-                        var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='" + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>" + owner + "</td><td>" + auditdate + "</td><td class='" + auditstatustyle + "'>" + stockTime + "</td><td class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td><td>" + auditor + "</td></tr>";
+                        var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='" + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>" + owner + "</td><td>" + auditdate + "</td><td class='" + auditstatustyle + "'>" + stockTime + "</td><td class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td><td>" + auditor + "</td>" +
+
+                            "<td><a class='list-del doc-add' tid='"+id+"'>入库</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
                         $("#tblist-body").append(row);
                         parent.iframeLoad();
+                    });
+                    $(".doc-add").click(function () {
+                        var tid = $(this).attr("tid");
+                        docAddAjax(tid);
+
+                    });
+                    $(".doc-del").click(function () {
+                        var tid = $(this).attr("tid");
+                        docDelAjax(tid);
+
                     });
                 }
             });
@@ -112,6 +124,39 @@ var currPage = 0;
      });
         }
 
+function docAddAjax(rowid){
+    var data = 'phoibe/document/update/instorage/' + rowid;
+    $.ajax({
+        type: 'GET',
+        url: data,
+        dataType: 'json',
+        async: false,
+        success: function (result) {
+            if (result.code == "SUCCESS");
+            {
+                alert("文档入库成功");
+                loadData(0);
+            }
+        }
+    });
+}
+function docDelAjax(rowid){
+
+    var data = GAL_URL+'phoibe/document/update/outstorage/' + rowid;
+    $.ajax({
+        type: 'GET',
+        url: data,
+        dataType: 'json',
+        async: false,
+        success: function (result) {
+            if (result.code == "SUCCESS");
+            {
+                alert("删除入库文档");
+                loadData(0);
+            }
+        }
+    });
+}
         $(function () {
             laydate.render({
                 elem: '#startdate'
@@ -131,42 +176,21 @@ var currPage = 0;
 
             $("#btnaddstock").click(function () {
                 var sel = $("#tblist-body tr td input[type='radio']:checked");
+                if(sel==null){
+                    alert("请选中要入库的文章");
+                    return
+                }
                 var rowid = $(sel).attr("data-value");
-                var data = 'phoibe/document/update/instorage/' + rowid;
-                $.ajax({
-                    type: 'GET',
-                    url: data,
-                    dataType: 'json',
-                    async: false,
-                    success: function (result) {
-                        if (result.code == "SUCCESS");
-                        {
-                            alert("文档入库成功");
-                            loadData(0);
-                        }
-                    }
-                });
-
-                
+                docAddAjax(rowid);
             });
             $("#btndelstock").click(function () {
                 var sel = $("#tblist-body tr td input[type='radio']:checked");
+                if(sel==null){
+                    alert("请选中要删除的文章");
+                    return
+                }
                 var rowid = $(sel).attr("data-value");
-
-                var data = GAL_URL+'phoibe/document/update/outstorage/' + rowid;
-                $.ajax({
-                    type: 'GET',
-                    url: data,
-                    dataType: 'json',
-                    async: false,
-                    success: function (result) {
-                        if (result.code == "SUCCESS");
-                        {
-                            alert("删除入库文档");
-                            loadData(0);
-                        }
-                    }
-                });
+                docDelAjax(rowid)
             });
 
             $("#btnSearch").click(function () {

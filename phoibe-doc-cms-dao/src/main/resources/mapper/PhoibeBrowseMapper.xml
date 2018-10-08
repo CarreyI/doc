@@ -89,4 +89,7 @@
     ORDER BY CREATE_TIME desc ) a
     ) t WHERE t.rno > 50)
   </delete>
+  <delete id="deleteByParam" parameterType="me.phoibe.doc.cms.domain.po.PhoibeBrowse">
+    delete from PHOIBE_BROWSE where DOCUMENT_ID = #{documentId,jdbcType=DECIMAL} and USER_ID = #{userId,jdbcType=DECIMAL}
+  </delete>
 </mapper>

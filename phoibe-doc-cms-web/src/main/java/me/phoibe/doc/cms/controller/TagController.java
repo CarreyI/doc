@@ -1,7 +1,6 @@
 package me.phoibe.doc.cms.controller;
 
 import me.phoibe.doc.cms.config.LogUtil;
-import me.phoibe.doc.cms.domain.dto.UserInfo;
 import me.phoibe.doc.cms.domain.po.PageList;
 import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeTag;
@@ -32,7 +31,7 @@ public class TagController {
         pageParam.setOrderBy(orderBy);
         pageParam.setSort(sort);
         PageList<PhoibeTag> pageList = phoibeTagService.fetchTagByPageList(pageParam);
-        LogUtil.writeLog("浏览了标签", LogUtil.OPER_TYPE_LOOK,"标签管理",TagController.class,request);
+        LogUtil.writeLog("浏览了标签列表", LogUtil.OPER_TYPE_LOOK,"标签管理",TagController.class,request);
         return JsonUtils.toJson(new Result<PageList<PhoibeTag>>(Code.SUCCESS, pageList));
     }
 
@@ -49,8 +48,9 @@ public class TagController {
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
     @DeleteMapping("/remove/{Id}")
-    public String remove(@PathVariable Short Id){
+    public String remove(@PathVariable Short Id,HttpServletRequest request){
         phoibeTagService.deleteByPrimaryKey(Id);
+        LogUtil.writeLog("删除了Id为{"+Id+"}的标签记录", LogUtil.OPER_TYPE_LOOK,"标签管理",UserController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
     @GetMapping("fetch/{id}")

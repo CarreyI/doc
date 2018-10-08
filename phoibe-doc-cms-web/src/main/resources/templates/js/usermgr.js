@@ -71,8 +71,22 @@ function loadData(pageindex) {
                 }
                 var row = "<tr><td class='chksel'><input type='radio' name='chksel' data-value='" + id + "'/></td><td>"
                     + username + "</td><td>" + realname + "</td><td>"
-                    + nickname + "</td><td>" + type_name + "</td></tr>";
+                    + nickname + "</td><td>" + type_name + "</td>" +
+                    "<td><a class='list-del user-edit' uid='"+id+"'>修改</a>&nbsp;&nbsp;<a  class='list-del doc-del' uid='"+id+"'>删除</a></td></tr>";
                 $("#tblist-body").append(row);
+            });
+            $(".doc-del").click(function () {
+                var uid = $(this).attr("uid");
+                userDelAjax(uid);
+
+            });
+            $(".user-edit").click(function () {
+                var uid = $(this).attr("uid");
+                $("#ajaxform")[0].reset();
+                $(".model-title").html("修改标签");
+                $("#submit").hide();
+                $("#editBtn").show();
+                getUser(uid);
             });
         }
     });
@@ -102,6 +116,23 @@ function loadData(pageindex) {
 
 }
 
+function userDelAjax(Id){
+    var action = "phoibe/user/remove/"+Id;
+    $.ajax({
+        url: GAL_URL + action,
+        type: "DELETE",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.code="success") {
+                alert("删除成功");
+                loadData(0);
+            }else{
+                alert("删除失败");
+            }
+        }
+    });
+}
 $(function () {
 
     loadData(0);
@@ -135,21 +166,7 @@ $(function () {
     $("#btndel").click(function () {
         var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
         if (Id!=null){
-            var action = "phoibe/user/remove/"+Id;
-            $.ajax({
-                url: GAL_URL + action,
-                type: "DELETE",
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    if (data.code="success") {
-                        alert("删除成功");
-                        loadData(0);
-                    }else{
-                        alert("删除失败");
-                    }
-                }
-            });
+            userDelAjax(Id);
         }else{
             alert("请选择要删除的数据");
         }

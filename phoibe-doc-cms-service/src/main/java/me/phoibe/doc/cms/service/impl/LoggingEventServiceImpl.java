@@ -32,4 +32,9 @@ public class LoggingEventServiceImpl implements LoggingEventService {
 
         return PageList.createPage(pageParam,loggingEventMapper.selectCountByPage(pageParam),list);
     }
+
+    @Override
+    public int deleteByPrimaryKey(Long eventId) {
+        return loggingEventMapper.deleteByPrimaryKey(eventId);
+    }
 }

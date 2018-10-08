@@ -16,7 +16,7 @@ function loadData(pageindex) {
             totalRows = total_rows;
             $.each(result.data.dataList, function (i, val) {
                 //alert(JSON.stringify(val));
-                var id = val["id"];//
+                var id = val["eventId"];//
                 var message = val["formattedMessage"];//"日志信息";
                 var ipAddr = val["arg0"];//"IP";
                 var opertype = val["arg1"];//"操作类型";
@@ -25,15 +25,20 @@ function loadData(pageindex) {
                 var datatime = val["timestmp"];//"记录时间";
                 datatime = (new Date(datatime)).Format("yyyy-MM-dd hh:mm:ss.S")
 
-                var row="<tr>" +
+                var row="<tr><td style='width:50px'><input type='radio' data-value='" + id + "' name='chksel'/>" +
                     "<td>"+modulename+"</td>"
                     +"<td>"+opertype+"</td>"
                     +"<td>"+message+"</td>"
                     +"<td>"+username+"</td>"
                     +"<td>"+ipAddr+"</td>"
                     +"<td>"+datatime+"</td>"
-                    +"</tr>";
+                    +"<td><a class='list-del doc-del' lid='"+id+"'>删除</a></td></tr>";
                 $("#tblist-body").append(row);
+            });
+            $(".doc-del").click(function () {
+                var lid = $(this).attr("lid");
+                logDelAjax(lid);
+
             });
         }
     });
@@ -58,7 +63,23 @@ function loadData(pageindex) {
         });
     });
 }
-
+function logDelAjax(lid){
+    $.ajax({
+        url: GAL_URL + "phoibe/logging/delete/"+lid,
+        type: "DELETE",
+        dataType: "json",
+        async: false,
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            if (data.code="success") {
+                loadData(0);
+                alert("删除成功");
+            }else{
+                alert("删除失败");
+            }
+        }
+    });
+}
 
 
 $(function () {

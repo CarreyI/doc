@@ -43,6 +43,8 @@ public interface PhoibeDocumentService {
 
     void cancelCollection(PhoibeCollection phoibeCollection);
 
+    void cancelBrowse(PhoibeBrowse phoibeBrowse);
+
     double fetchAvgScore(Long userId);
 
     PageList<DPhoebeDocument> fetchJoinDocumentByPageList(PageParam<DPhoebeDocument> pageParam);

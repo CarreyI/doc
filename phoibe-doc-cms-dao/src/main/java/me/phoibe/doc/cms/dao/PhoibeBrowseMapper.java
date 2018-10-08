@@ -18,4 +18,6 @@ public interface PhoibeBrowseMapper {
     int updateByPrimaryKey(PhoibeBrowse record);
 
     int deleteOldByUserId(Long userId);
+
+    int deleteByParam(PhoibeBrowse record);
 }

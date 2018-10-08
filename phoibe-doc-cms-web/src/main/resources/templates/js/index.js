@@ -42,24 +42,19 @@ function bindResouDoc() {
         url: GAL_URL + 'phoibe/document/hot',
         dataType: 'json',
         success: function (result) {
-            var total_rows = result.data.totalCount;
             var step = 0;
             $.each(result.data, function (i, val) {
-                var title = 11;
-                var format = 22;
-                var tid = 33;
-                var score = 0;
                 step = step + 1;
                 var row="";
                 var realname = val["realname"];
                 var docnum = val["phoibeDocuments"].length;
                 var phoibeDocuments = val["phoibeDocuments"];
+                var score=val["avgScore"];
                 for (var i in phoibeDocuments){
                     var docObj = phoibeDocuments[i];
                     var title= docObj.name;
-                    var format = docObj.ormat;
+                    var format = docObj.format;
                     var tid = docObj.id;
-                    score=score + docObj.score;
                     var icon = "";
                     if (format == "pdf") {
                         icon = "<i class='pdf'></i>";
@@ -72,10 +67,8 @@ function bindResouDoc() {
                     }
                     row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" + cutString(title, 26) + "</a></li>";
                 }
-                score = score/phoibeDocuments.length;
-                console.log(realname+"--"+score)
                 var scoreStr="";
-                for(var l=0;l<score;l++){
+                for(var l=1;l<score;l++){
                     scoreStr= scoreStr+ "<i class='i-star'></i>";
                 }
                 var trow = "<div class='col3  clearfix'>" +

@@ -13,4 +13,6 @@ public interface LoggingEventService {
     void addLogingEvent(LoggingEvent loggingEvent);
 
     PageList<DLoggingEvent> fetchLoggingEventByPageList(PageParam<LoggingEvent> pageParam);
+
+    int deleteByPrimaryKey(Long eventId);
 }

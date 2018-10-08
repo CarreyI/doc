@@ -74,8 +74,9 @@ public class CommentController {
         return JsonUtils.toJson(new Result<PageList<DPhoibeComment>>(Code.SUCCESS, pageList));
     }
     @DeleteMapping("/remove/{Id}")
-    public String remove(@PathVariable Long Id){
+    public String remove(@PathVariable Long Id,HttpServletRequest request){
         phoibeCommentService.deleteByPrimaryKey(Id);
+        LogUtil.writeLog("删除了id为{"+Id+"}了评论记录", LogUtil.OPER_TYPE_LOOK,"评论管理",CommentController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
 }

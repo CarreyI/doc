@@ -23,7 +23,11 @@ function getInfo() {
                 }else{
                 	$(".perview").remove();
                 }
-
+                var collection= result.data.isCollection;
+                if (collection){
+                    $("#favorite").addClass("favorite_ok");
+                    $("#favorite").attr("status",1)
+                }
                 $("#attention").attr("status",result.data.subscribe);
                 $("#date").html(result.data.createTime);
                 $("#format").html(result.data.format);
@@ -120,37 +124,30 @@ function initstar() {
     }
 }
 function isAttention(){
-    var url = GAL_URL + "phoibe/document/list/0/10?queryFlag=subscribe&userId="+userid;
+    var url = GAL_URL + "phoibe/document/checkSubscribe/"+userid;
     $.ajax({
         type: 'GET',
         url: url,
         async: false,
         dataType: 'json',
         success: function (result) {
-            if(result.data.totalCount>0){
+            if(result.data){
                 $("#attention").addClass("attention_ok");
+                $("#attention").attr("status",1)
             }
         }
     });
 }
-function isfavorite(){
-    var url = GAL_URL + "phoibe/document/list/0/10?queryFlag=collection&id="+tid;
-    $.ajax({
-        type: 'GET',
-        url: url,
-        async: false,
-        dataType: 'json',
-        success: function (result) {
-            if(result.data.totalCount>0){
-                $("#favorite").addClass("favorite_ok");
-            }
-        }
-    });
-}
+
 //关注
 function attentionAjax(){
-    var url = GAL_URL + "phoibe/document/subscribe/" + userid;
+    var url = "";
     var status = $("#attention").attr("status");
+    if(status==0){
+        url = GAL_URL + "phoibe/document/subscribe/" + userid
+    }else{
+        url = GAL_URL + "phoibe/document/cancelSubscribe/" + userid
+    }
     $.ajax({
         type: 'GET',
         url: url,
@@ -161,9 +158,11 @@ function attentionAjax(){
                 if (status==0){
                     $("#attention").addClass("attention_ok");
                     $("#attention").removeClass("attention");
+                    $("#attention").attr("status",1)
                 }else{
                     $("#attention").addClass("attention");
                     $("#attention").removeClass("attention_ok");
+                    $("#attention").attr("status",0)
                 }
             }
         }
@@ -171,8 +170,14 @@ function attentionAjax(){
 }
 //收藏
 function favoriteAjax(){
-    var url = GAL_URL + "phoibe/document/collection/" + tid;
-    var status =$("#favorite").attr("status");
+
+    var url = "";
+    var status = $("#favorite").attr("status");
+    if(status==0){
+        url = GAL_URL + "phoibe/document/collection/" + tid;
+    }else{
+        url = GAL_URL + "phoibe/document/cancelCollection/" + tid;
+    }
     $.ajax({
         type: 'GET',
         url: url,
@@ -183,9 +188,11 @@ function favoriteAjax(){
                 if (status==0){
                     $("#favorite").addClass("favorite_ok");
                     $("#favorite").removeClass("favorite");
+                    $("#favorite").attr("status",1)
                 }else{
                     $("#favorite").addClass("favorite");
                     $("#favorite").removeClass("favorite_ok");
+                    $("#favorite").attr("status",0)
                 }
             }
         }
@@ -214,7 +221,6 @@ $(function () {
         getInfo();
         loadData(0);
     isAttention();
-    isfavorite();
     $(".attention").click(function () {
         attentionAjax(tid);
     });

@@ -182,6 +182,11 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
     }
 
     @Override
+    public void cancelBrowse(PhoibeBrowse phoibeBrowse) {
+        phoibeBrowseMapper.deleteByParam(phoibeBrowse);
+    }
+
+    @Override
     public double fetchAvgScore(Long userId) {
         return phoibeDocumentMapper.selectAvgScore(userId);
     }

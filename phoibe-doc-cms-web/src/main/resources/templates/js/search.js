@@ -12,7 +12,7 @@ function loadData(type,pageindex) {
     }
     var docname = $("#docname").val();
     if (docname!=""&&docname!=null){
-        data = data + "&docname=" + docname;
+        data = data + "&docname=" + docname+ "&name=" + docname;
     }
     var owner = $("#owner").val();
     if (owner != "") {
@@ -49,6 +49,15 @@ function loadData(type,pageindex) {
     var armtypevalue = $("#armtype option:selected").val();
     if (armtypevalue != 0) {
         data = data + "&armtype=" + armtypevalue;
+    }
+    var queryFlag = $("#queryFlag").val();
+
+    if (queryFlag != "undefined"&&queryFlag!=""&&queryFlag!=null) {
+        if (queryFlag == "subscribe"){
+            data = data + "&queryFlag=" + queryFlag;
+        }else{
+            url = 'phoibe/document/list/'+queryFlag+"/" + pageindex + '/10?1=1';
+        }
     }
     var doctypevalue = "";
     $("#con-value .check").each(function () {
@@ -137,7 +146,7 @@ function loadData(type,pageindex) {
      }
      $(function () {
          //当首页跳转到查询页时，遍历取首页查询参数
-         $(".container").find("input").each(function () {
+         $("#condwhere").find("input").each(function () {
              var input_id = $(this).attr("id");
              var input_val = getUrlString(input_id);
              if(null!=input_val&&input_val!=""){

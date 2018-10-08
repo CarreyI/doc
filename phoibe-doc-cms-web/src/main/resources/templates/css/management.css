@@ -1875,7 +1875,10 @@ font-size:18px;
 .menu-del{
 	display: none;
 }
-
+ .list-del{
+	 color: red;
+	 cursor:pointer;
+ }
 #nav_arrow_right {
 	color: #ffffff;
 	width: 18px;

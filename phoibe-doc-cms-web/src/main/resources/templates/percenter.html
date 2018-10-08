@@ -22,16 +22,16 @@
                      <div class="sidebar">
 
 	<div class="widget widget-tab">
-        
-		<input type="radio" name="widget-tab" value="1" id="new" checked="checked" style="display:none;"/>
-		<input type="radio" name="widget-tab" value="2" id="hot" style="display:none;"/>
+
+		<!--<input type="radio" name="widget-tab" value="1" id="new"style="display:none;"/>-->
+		<input type="radio" name="widget-tab" value="2" id="hot"  checked="checked" style="display:none;"/>
         <input type="radio" name="widget-tab" value="3" id="random" style="display:none;"/>
         <input type="radio" name="widget-tab" value="4" id="attention" style="display:none;"/>
 		<div class="widget-title inline-ul">
 			<ul>
-				<li class="new">
-					<label for="new">文档动态</label>
-				</li>
+				<!--<li class="new">-->
+					<!--<label for="new">文档动态</label>-->
+				<!--</li>-->
 
 				<li class="hot">
 					<label for="hot">最近浏览</label>
@@ -46,16 +46,19 @@
 			</ul>
 		</div>
 		<div class="widget-box">
-            <ul class="new-list">
-				<li id="docdym"></li>
-			</ul>
+            <!--<ul class="new-list">-->
+				<!--<li id="docdym"></li>-->
+			<!--</ul>-->
 			<ul class="hot-list">
+
 				<li id="nearread"></li>
 			</ul>
             <ul class="random-list">
+
                 <li id="random_li"></li>
             </ul>
             <ul class="attention-list">
+
                 <li id="attention_li"></li>
             </ul>
 
@@ -99,6 +102,7 @@
                                              <th>创建时间</th>
                                              <th>审批时间</th>
                                              <th>状态</th>
+                                             <th>操作</th>
                                          </tr>
                                          <tbody id="tblist-body"></tbody>
                                      </table>

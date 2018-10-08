@@ -11,7 +11,6 @@ function docdymListLoad() {
         dataType: 'json',
         success: function (result) {
             var total_rows = result.data.totalCount;
-            var step = 0;
             var row = "";
             var step = 0;
             $.each(result.data.dataList, function (i, val) {
@@ -41,7 +40,7 @@ function docdymListLoad() {
                 else{
                     icon = "<i class='exls'></i>";//
                 }
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;'>" + docstatus + "</b></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;'>" + docstatus + "</b></li>";
 
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
@@ -64,7 +63,7 @@ function docdymListLoad() {
 }
 //最近浏览
 function nearreadListLoad() {
-    var data = GAL_URL+'phoibe/document/list/0/9?queryFlag=browse'
+    var data = GAL_URL+'phoibe/document/list/browse/0/9?queryFlag=browse'
     $.ajax({
         type: 'GET',
         url: data,
@@ -74,15 +73,14 @@ function nearreadListLoad() {
             totalRows = total_rows;
             var row = "";
             var step = 0;
+            $("#nearread").html("");
             $.each(result.data.dataList, function (i, val) {
                 step = step + 1;
                 var title = val["name"];
                 var format = val["format"];
                 var createtime = val["createTime"];
                 var tid=val["id"];
-                var pagecount = val["pagecount"];
-                var status = val["status"];
-                var docstatus = "";
+                var userRealName=val["userRealName"];
                 var icon = "";
                 if (format == "pdf") {
                     icon = "<i class='pdf'></i>";
@@ -93,31 +91,37 @@ function nearreadListLoad() {
                 else{
                     icon = "<i class='exls'></i>";//
                 }
-
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 24) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a title='" + createtime + "'>" + cutString(createtime, 12) + "</a></b></li>";
-                // alert(row);
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 18) + "</a>&nbsp;&nbsp;&nbsp;" + createtime.substring(0,16) + "<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del nearread-del' tid='"+tid+"'>清除</a></b></li>";
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
                     $("#nearread").append(trow)
                     return;
                 }
                 if (step % 3 == 0) {
-                    var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";;
+                    var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
                     $("#nearread").append(trow)
                     row = "";
                 }
             });
+            if (step==9){
+                var frs ="<a class=\"frs\" style=\"position: absolute;\" href=\"searchadv.html?queryFlag=browse\">更多</a>";
+                $("#nearread").append(frs);
+            }
             if (result.data.dataList==null){
              var nullStr = "<ol class=\"list1\"><li><div>最近未浏览任何文档</div></li></ol>";
                 $("#nearread").append(nullStr)
             }
+            $(".nearread-del").click(function () {
+                var tid = $(this).attr("tid");
+                nearreadAjax(tid);
+            });
         }
     });
 }
 
 //我的收藏
 function randomListLoad() {
-    var data = GAL_URL+'phoibe/document/list/0/9?queryFlag=collection'
+    var data = GAL_URL+'phoibe/document/list/collection/0/9?queryFlag=collection'
     $.ajax({
         type: 'GET',
         url: data,
@@ -127,15 +131,14 @@ function randomListLoad() {
             totalRows = total_rows;
             var row = "";
             var step = 0;
+            $("#random_li").html("");
             $.each(result.data.dataList, function (i, val) {
                 step = step + 1;
                 var title = val["name"];
                 var format = val["format"];
                 var createtime = val["createTime"];
                 var tid=val["id"];
-                var pagecount = val["pagecount"];
-                var status = val["status"];
-                var docstatus = "";
+                var userRealName=val["userRealName"];
                 var icon = "";
                 if (format == "pdf") {
                     icon = "<i class='pdf'></i>";
@@ -146,9 +149,8 @@ function randomListLoad() {
                 else{
                     icon = "<i class='exls'></i>";//
                 }
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 24) + "</a>&nbsp;&nbsp;&nbsp;" + createtime.substring(0,10) + "<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del random-del' tid='"+tid+"'>取消</a></b></li>";
 
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 24) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a title='" + createtime + "'>" + cutString(createtime, 12) + "</a></b></li>";
-                // alert(row);
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
                     $("#random_li").append(trow)
@@ -160,11 +162,20 @@ function randomListLoad() {
                     row = "";
                 }
             });
+            if (step==9){
+                var frs ="<a class=\"frs\" style=\"position: absolute;\"  href=\"searchadv.html?queryFlag=collection\">更多</a>";
+                $("#random_li").append(frs);
+            }
 
             if (result.data.dataList==null){
                 var nullStr = "<ol class=\"list1\"><li><div>未收藏任何文档</div></li></ol>";
                 $("#random_li").append(nullStr);
             }
+
+            $(".random-del").click(function () {
+                var tid = $(this).attr("tid");
+                favoriteAjax(tid);
+            });
         }
     });
 }
@@ -179,15 +190,15 @@ function attentionListLoad() {
             var total_rows = result.data.totalCount;
             var row = "";
             var step = 0;
+            $("#attention_li").html("");
             $.each(result.data.dataList, function (i, val) {
                 step = step + 1;
                 var title = val["name"];
                 var format = val["format"];
                 var createtime = val["createTime"];
                 var tid=val["id"];
-                var pagecount = val["pagecount"];
-                var status = val["status"];
-                var docstatus = "";
+                var userRealName=val["userRealName"];
+                var userId=val["userId"];
                 var icon = "";
                 if (format == "pdf") {
                     icon = "<i class='pdf'></i>";
@@ -199,7 +210,7 @@ function attentionListLoad() {
                     icon = "<i class='exls'></i>";//
                 }
 
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 24) + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a title='" + createtime + "'>" + cutString(createtime, 12) + "</a></b></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 22) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' >"+userRealName+"&nbsp;&nbsp;<a class='list-del attention-del' userId='"+userId+"'>取消</a></b></li>";
                 // alert(row);
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
@@ -207,21 +218,90 @@ function attentionListLoad() {
                     return;
                 }
                 if (step % 3 == 0) {
-                    var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";;
+                    var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
                     $("#attention_li").append(trow)
                     row = "";
                 }
             });
-
+            if (step==9){
+                var frs ="<a class=\"frs\" style=\"position: absolute;\"  href=\"searchadv.html?queryFlag=subscribe\">更多</a>";
+                $("#attention_li").append(frs);
+            }
             if (result.data.dataList==null){
                 var nullStr = "<ol class=\"list1\"><li><div>未关注任何文档</div></li></ol>";
                 $("#attention_li").append(nullStr)
+            }
+            $(".attention-del").click(function () {
+                var userId = $(this).attr("userId");
+                attentionAjax(userId);
+            });
+        }
+    });
+}
+
+//清除记录
+function nearreadAjax(tid){
+    var url = GAL_URL + "phoibe/document/cancelbrowse/" + tid;
+    $.ajax({
+        type: 'GET',
+        url: url,
+        async: false,
+        dataType: 'json',
+        success: function (result) {
+            if(result.code=="SUCCESS"){
+                nearreadListLoad();
+            }
+        }
+    });
+}
+//取消收藏
+function favoriteAjax(tid){
+    var url = GAL_URL + "phoibe/document/cancelCollection/" + tid;
+    $.ajax({
+        type: 'GET',
+        url: url,
+        async: false,
+        dataType: 'json',
+        success: function (result) {
+            if(result.code=="SUCCESS"){
+                randomListLoad();
             }
         }
     });
 }
 
-
+//取消关注
+function attentionAjax(userid){
+    var url = GAL_URL + "phoibe/document/cancelSubscribe/" + userid;
+    $.ajax({
+        type: 'GET',
+        url: url,
+        async: false,
+        dataType: 'json',
+        success: function (result) {
+            if(result.code=="SUCCESS"){
+                attentionListLoad();
+            }
+        }
+    });
+}
+function docDelAjax(tid){
+    $.ajax({
+        url: GAL_URL + "phoibe/document/delete/"+tid,
+        type: "DELETE",
+        dataType: "json",
+        async: false,
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            if (data.code="success") {
+                loadData(0);
+                alert("删除成功");
+            }else{
+                alert("删除失败");
+            }
+        }
+    });
+}
 function loadData(pageindex) {
 
     $("#tblist-body").children().remove();
@@ -232,7 +312,10 @@ function loadData(pageindex) {
         userId = userObject.id;
     }
     var data = GAL_URL+'phoibe/document/list/' + pageindex + '/10?1=1';
-    data = data +"&userId="+userId+"&dirId="+dirId;
+    data = data +"&userId="+userId;
+    if (dirId!=""){
+        data = data +"&dirId="+dirId;
+    }
     $.ajax({
             type: 'GET',
             url: data,
@@ -241,6 +324,8 @@ function loadData(pageindex) {
             success: function (result) {//<div class='font22 title'>中国战法</div>
                 var total_rows = result.data.totalCount;
                 totalRows = total_rows;
+
+                if (total_rows < 1) currPage = 1;
                 var step = 0;
                 var row = "";
                 $.each(result.data.dataList, function (i, val) {
@@ -285,9 +370,26 @@ function loadData(pageindex) {
                     }
 
                    
-                    var row = "<tr><td style='width:50px'><input type='radio' data-value='" + id + "' name='chksel'/></td><td><a href='docdetail.html?tid="+id+"' title='"+title+"'>" + cutString(title,24) + "</a></td><td>" + filesize + "</td><td>" + format + "</td><td>" + createtime + "</td><td>" + auditdate + "</td><td class='"+auditstatustyle+"'>"+auditstatus+"</td></tr>";
+                    var row = "<tr><td style='width:50px'><input type='radio' data-value='" + id + "' name='chksel'/></td>" +
+                        "<td><a href='docdetail.html?tid="+id+"' title='"+title+"'>" + cutString(title,22) + "</a></td>" +
+                        "<td>" + filesize + "</td>" +
+                        "<td>" + format + "</td>" +
+                        "<td>" + createtime + "</td>" +
+                        "<td>" + auditdate + "</td>" +
+                        "<td class='"+auditstatustyle+"'>"+auditstatus+"</td>" +
+                        "<td><a class='list-del doc-move' tid='"+id+"'>移动</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
                     $("#tblist-body").append(row);//<td>" + tagId + "</td>
                     parent.iframeLoad();
+                });
+                $(".doc-del").click(function () {
+                    var tid = $(this).attr("tid");
+                    docDelAjax(tid);
+
+                });
+                $(".doc-move").click(function () {
+                    var tid = $(this).attr("tid");
+                        $(".documentId").val(tid);
+                        $(".filelist_bodyMask").fadeIn();
                 });
             }
         });
@@ -295,12 +397,11 @@ function loadData(pageindex) {
         layui.use(['laypage', 'layer'], function () {
             var laypage = layui.laypage
             , layer = layui.layer;
-
             //自定义首页、尾页、上一页、下一页文本
             laypage.render({
                 elem: 'notice_pages'
               , count: totalRows
-              ,curr:currPage
+              , curr:currPage
               , first: '首页'
               , last: '尾页'
               , prev: '<em>←</em>'
@@ -339,7 +440,7 @@ function loadData(pageindex) {
                         var dirId = roleObj[i].id;
                         var dirName = roleObj[i].dirName;
 
-                         filelist=filelist + "<li>+ <a href=\"#\" class=\"menu-a\" dirId='"+dirId+"'>"+dirName+"</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" class=\"menu-del\" dirId='"+dirId+"'>删除</a></li>";
+                         filelist=filelist + "<li>+ <a href=\"#\" class=\"menu-a\" dirId='"+dirId+"'>"+dirName+"</a>&nbsp;&nbsp;&nbsp;<a href=\"#\" class=\"menu-del\" dirId='"+dirId+"'>删除</a></li>";
                          selectlist_html=selectlist_html + "<li><input type='radio' data-value='' name='chksel' value='"+dirId+"'/><a href=\"#\">"+dirName+"</a></li>";
 
                     }
@@ -373,6 +474,7 @@ function loadData(pageindex) {
         },function () {
             $(this).find(".menu-del").hide();
         });
+        // 删除目录
         $(".menu-del").click(function(){
             dirId = $(this).attr("dirid");
             $.ajax({
@@ -392,7 +494,7 @@ function loadData(pageindex) {
     }
     $(function () {
 
-        docdymListLoad();
+       // docdymListLoad();
         nearreadListLoad();
         randomListLoad();
         attentionListLoad();
@@ -407,21 +509,7 @@ function loadData(pageindex) {
                 return
             }
             var rowid = $(sel).attr("data-value");
-            $.ajax({
-                url: GAL_URL + "phoibe/document/delete/"+rowid,
-                type: "DELETE",
-                dataType: "json",
-                async: false,
-                contentType: "application/json;charset=UTF-8",
-                success: function (data) {
-                    if (data.code="success") {
-                        loadData(0);
-                        alert("删除成功");
-                    }else{
-                        alert("删除失败");
-                    }
-                }
-            });
+            docDelAjax(rowid);
         });
         $("#wartype").change(function(){
             var wartypevalue = $("#wartype option:selected").val();

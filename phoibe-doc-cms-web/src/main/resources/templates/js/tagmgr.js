@@ -33,8 +33,14 @@ function loadData(pageindex) {
 
 
                 var row = "<tr><td class='chksel'><input type='radio' name='chksel' data-value='" + id + "'/></td><td>"
-                    + name + "</td><td>" + createtime + "</td><td>"+status+"</td><td class='f-blue'>启用</td></tr>";
+                    + name + "</td><td>" + createtime + "</td><td>"+status+"</td><td class='f-blue'>启用</td>" +
+                    "<td><a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
                 $("#tblist-body").append(row);
+            });
+            $(".doc-del").click(function () {
+                var tid = $(this).attr("tid");
+                tagDelAjax(tid);
+
             });
         }
     });
@@ -63,6 +69,23 @@ function loadData(pageindex) {
 
 }
 
+function tagDelAjax(tid){
+    $.ajax({
+        url: GAL_URL + "phoibe/tag/remove/"+tid,
+        type: "DELETE",
+        dataType: "json",
+        async: false,
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            if (data.code="success") {
+                loadData(0);
+                alert("删除成功");
+            }else{
+                alert("删除失败");
+            }
+        }
+    });
+}
 $(function () {
 
     loadData(0);
