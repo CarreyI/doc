@@ -663,4 +663,14 @@
   <select id="selectAvgScore" parameterType="long" resultType="double">
     select avg(SCORE) from PHOIBE_DOCUMENT where USER_ID = #{userId,jdbcType=DECIMAL}
   </select>
+  <select id="selectStatisticalByParam" parameterType="string" resultType="me.phoibe.doc.cms.domain.dto.DStatistical">
+    select di.DICT_NAME name,count(d.ID) count from PHOIBE_DOCUMENT d
+    <if test="_parameter == 'COMBAT'">
+      join PHOIBE_DICT di on d.COMBAT_TYPE = di.ID where di.GROUP_KEY = #{_parameter,jdbcType=VARCHAR}
+    </if>
+    <if test="_parameter == 'SOLDIERS'">
+      join PHOIBE_DICT di on d.ARMS = di.ID where di.GROUP_KEY = #{_parameter,jdbcType=VARCHAR}
+    </if>
+     GROUP BY di.DICT_NAME
+  </select>
 </mapper>

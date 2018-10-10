@@ -2,6 +2,7 @@ package me.phoibe.doc.cms.service.impl;
 
 import me.phoibe.doc.cms.dao.*;
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
+import me.phoibe.doc.cms.domain.dto.DStatistical;
 import me.phoibe.doc.cms.domain.po.*;
 import me.phoibe.doc.cms.exception.BusinessException;
 import me.phoibe.doc.cms.service.PhoibeDocumentService;
@@ -162,7 +163,7 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
         PageParam<DPhoebeDocument> pageParam = new PageParam<>();
         pageParam.setStart(0);
         pageParam.setLimit(3);
-        pageParam.setOrderBy("SCORE");
+        pageParam.setOrderBy("HITCOUNT");
         pageParam.setSort("DESC");
         DPhoebeDocument dPhoebeDocument = new DPhoebeDocument();
         dPhoebeDocument.setUserId(userId);
@@ -202,5 +203,10 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
             dlist.add(dmodel);
         }
         return PageList.createPage(pageParam,phoibeDocumentMapper.selectJoinCountByPage(pageParam),dlist);
+    }
+
+    @Override
+    public List<DStatistical> fetchStatisticalByParam(String group) {
+        return phoibeDocumentMapper.selectStatisticalByParam(group);
     }
 }

@@ -235,7 +235,14 @@
       NICKNAME = #{nickname,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
-  <select id="selectUserByDocCount" resultType="me.phoibe.doc.cms.domain.dto.DPhoibeUser">
-    select * from PHOIBE_USER where ID in (select t.USER_ID from (select USER_ID,ROWNUM rno from (select USER_ID,count(USER_ID) c from PHOIBE_DOCUMENT group by USER_ID order by c desc)) t where t.rno &lt; 7)
+  <select id="selectUserByScore" resultType="me.phoibe.doc.cms.domain.dto.DPhoibeUser">
+    select *
+    from PHOIBE_USER
+    where ID in (select t.USER_ID
+    from (select USER_ID, ROWNUM rno
+    from (select u.ID USER_ID,sum(c.SCORE) c from PHOIBE_DOCUMENT d join PHOIBE_COMMENT c on d.ID = c.DOCUMENT_ID and c.STATUS = 0 join PHOIBE_USER u on d.USER_ID = u.ID
+    group by u.ID order by c desc)) t
+    where t.rno &lt;
+    7)
   </select>
 </mapper>

@@ -25,7 +25,7 @@ public interface PhoibeUserService {
 
     void deleteByPrimaryKey(Long id);
 
-    List<DPhoibeUser> fetchUserByDocCount();
+    List<DPhoibeUser> fetchUserByScore();
 
     boolean checkSubscribe(PhoibeSubscribe phoibeSubscribe);
 

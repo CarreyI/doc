@@ -4,6 +4,7 @@ import me.phoibe.doc.cms.config.LogUtil;
 import me.phoibe.doc.cms.dao.PhoibeDocumentMapper;
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
 import me.phoibe.doc.cms.domain.dto.DPhoibeUser;
+import me.phoibe.doc.cms.domain.dto.DStatistical;
 import me.phoibe.doc.cms.domain.dto.UserInfo;
 import me.phoibe.doc.cms.domain.po.*;
 import me.phoibe.doc.cms.entity.Code;
@@ -466,7 +467,7 @@ public class DocumentController {
 
 	@GetMapping("hot")
 	public String hot(HttpServletRequest request){
-		List<DPhoibeUser> phoibeUsers = phoibeUserService.fetchUserByDocCount();
+		List<DPhoibeUser> phoibeUsers = phoibeUserService.fetchUserByScore();
 		for(DPhoibeUser dPhoibeUser:phoibeUsers){
 			dPhoibeUser.setAvgScore(phoibeDocumentService.fetchAvgScore(dPhoibeUser.getId()));
 			dPhoibeUser.setPhoibeDocuments(phoibeDocumentService.fetchHotUserDocument(dPhoibeUser.getId()));
@@ -511,6 +512,12 @@ public class DocumentController {
 		phoibeUserService.cancelSubscribe(phoibeSubscribe);
 		LogUtil.writeLog("取消关注Id为{"+id+"}的用户", LogUtil.OPER_TYPE_DOWN,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+	}
+
+	@GetMapping("statistical/{group}")
+	public String statistical(@PathVariable String group){
+		List<DStatistical> list = phoibeDocumentService.fetchStatisticalByParam(group);
+		return JsonUtils.toJson(new Result<List<DStatistical>>(Code.SUCCESS, list));
 	}
 
 	public byte[] getContent(String filePath) throws IOException {

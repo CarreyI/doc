@@ -131,8 +131,8 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
     }
 
     @Override
-    public List<DPhoibeUser> fetchUserByDocCount() {
-        return phoibeUserMapper.selectUserByDocCount();
+    public List<DPhoibeUser> fetchUserByScore() {
+        return phoibeUserMapper.selectUserByScore();
     }
 
     @Override

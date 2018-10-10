@@ -1,6 +1,7 @@
 package me.phoibe.doc.cms.dao;
 
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
+import me.phoibe.doc.cms.domain.dto.DStatistical;
 import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeDocument;
 import org.apache.ibatis.annotations.Mapper;
@@ -36,5 +37,7 @@ public interface PhoibeDocumentMapper {
     List<PhoibeDocument> selectJoinByPage(PageParam<DPhoebeDocument> pageParam);
 
     Long selectJoinCountByPage(PageParam<DPhoebeDocument> pageParam);
+
+    List<DStatistical> selectStatisticalByParam(String group);
 
 }

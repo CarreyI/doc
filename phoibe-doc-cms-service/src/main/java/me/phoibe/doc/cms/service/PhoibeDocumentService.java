@@ -1,6 +1,7 @@
 package me.phoibe.doc.cms.service;
 
 import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
+import me.phoibe.doc.cms.domain.dto.DStatistical;
 import me.phoibe.doc.cms.domain.po.*;
 
 import java.util.List;
@@ -48,4 +49,6 @@ public interface PhoibeDocumentService {
     double fetchAvgScore(Long userId);
 
     PageList<DPhoebeDocument> fetchJoinDocumentByPageList(PageParam<DPhoebeDocument> pageParam);
+
+    List<DStatistical> fetchStatisticalByParam(String group);
 }

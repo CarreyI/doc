@@ -28,5 +28,5 @@ public interface PhoibeUserMapper {
 
     Long selectByPageListCount(PageParam<UserInfo> pageParam);
 
-    List<DPhoibeUser> selectUserByDocCount();
+    List<DPhoibeUser> selectUserByScore();
 }
