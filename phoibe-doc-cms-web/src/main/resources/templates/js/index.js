@@ -65,7 +65,7 @@ function bindResouDoc() {
                     else {
                         icon = "<i class='exls'></i>";
                     }
-                    row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" + cutString(title, 26) + "</a></li>";
+                    row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" + cutString(title, 22) + "</a></li>";
                 }
                 var scoreStr="";
                 for(var l=1;l<score;l++){
@@ -113,7 +113,7 @@ function bindRecommDoc() {
                 else {
                     icon = "<i class='exls'></i>";
                 }
-                row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' tile="+title+">" +cutString(title,22) + "</a></li>";
+                row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' tile="+title+">" +cutString(title,20) + "</a></li>";
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ul class='list1'>" + row + "</ul></div>";;
                     $("#recom-doc").append(trow)
