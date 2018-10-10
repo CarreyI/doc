@@ -304,27 +304,13 @@
         $("#nav_arrow_right").click(function () {
             $("#nav_left").animate({ left: '0' });
             $("#main-content").css("padding-left", "260px");
-            //$("#nav_arrow").attr("data-value", 2);
             $("#nav_arrow_right").delay(5).animate({left:'-50'});
         });
         $("#nav_arrow").click(function () {
             $("#nav_left").animate({ left: '-250px' });
             $("#main-content").css("padding-left", "20px");
-            //$("#nav_arrow").attr("data-value", 2);
             $("#nav_arrow_right").delay(5).animate({left:'-2'});
-            /*var v = $("#nav_arrow").attr("data-value");
-            if (v == 1) {
-                $("#nav_left").animate({ left: '-250px' });
-                $("#main-content").css("padding-left", "10px");
-                //$("#nav_arrow").attr("data-value", 2);
-                $("#nav_arrow_right").delay(500).animate({left:'60'});
-            }
-            else {
-                $("#main-content").css("padding-left", "260px");
-                $("#nav_left").delay(5).animate({ left: '0' });
-                $("#nav_arrow").attr("data-value", 1);
-                $("#nav_arrow_right").delay(5).animate({left:'60'});
-            }*/
+          
         });
     }
     function iframeLoad() {

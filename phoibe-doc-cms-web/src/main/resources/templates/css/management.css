@@ -1913,3 +1913,15 @@ font-size:18px;
 #lst-dym .list3 li a {
 	font-size:12px;
 }
+.search-cond{
+	background:#ffffff;
+	border:1px solid #eeeeee;
+	padding:10px;
+}
+.search-cond ul li{
+	line-height:28px;
+}
+.search-cond-title{
+font-size:16px;
+	margin-bottom:8px;
+}
