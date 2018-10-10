@@ -40,7 +40,7 @@ function docdymListLoad() {
                 else{
                     icon = "<i class='exls'></i>";//
                 }
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;'>" + docstatus + "</b></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title,12) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;'>" + docstatus + "</b></li>";
 
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
@@ -91,7 +91,7 @@ function nearreadListLoad() {
                 else{
                     icon = "<i class='exls'></i>";//
                 }
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 18) + "</a>&nbsp;&nbsp;&nbsp;" + createtime.substring(0,16) + "<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del nearread-del' tid='"+tid+"'>清除</a></b></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 12) + "</a>&nbsp;&nbsp;&nbsp;" + createtime.substring(0,16) + "<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del nearread-del' tid='"+tid+"'>清除</a></b></li>";
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
                     $("#nearread").append(trow)
@@ -149,7 +149,7 @@ function randomListLoad() {
                 else{
                     icon = "<i class='exls'></i>";//
                 }
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 24) + "</a>&nbsp;&nbsp;&nbsp;" + createtime.substring(0,10) + "<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del random-del' tid='"+tid+"'>取消</a></b></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 14) + "</a>&nbsp;&nbsp;&nbsp;" + createtime.substring(0,10) + "<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del random-del' tid='"+tid+"'>取消</a></b></li>";
 
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
@@ -210,7 +210,7 @@ function attentionListLoad() {
                     icon = "<i class='exls'></i>";//
                 }
 
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 22) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' >"+userRealName+"&nbsp;&nbsp;<a class='list-del attention-del' userId='"+userId+"'>取消</a></b></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title,16) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' title='"+userRealName+"'>"+cutString(userRealName,14)+"&nbsp;&nbsp;<a class='list-del attention-del' userId='"+userId+"'>取消</a></b></li>";
                 // alert(row);
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
@@ -371,7 +371,7 @@ function loadData(pageindex) {
 
                    
                     var row = "<tr><td style='width:50px'><input type='radio' data-value='" + id + "' name='chksel'/></td>" +
-                        "<td><a href='docdetail.html?tid="+id+"' title='"+title+"'>" + cutString(title,22) + "</a></td>" +
+                        "<td><a href='docdetail.html?tid="+id+"' title='"+title+"'>" + cutString(title,18) + "</a></td>" +
                         "<td>" + filesize + "</td>" +
                         "<td>" + format + "</td>" +
                         "<td>" + createtime + "</td>" +
