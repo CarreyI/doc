@@ -41,6 +41,8 @@ function getInfo() {
                 if(description!="undefined" && description!=""){
                     $("#doc-content").html("<p>"+description+"</p>");
                 }
+
+                parent.iframeLoad();
             }
         }
     });
