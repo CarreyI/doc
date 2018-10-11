@@ -49,11 +49,14 @@ public class LoggingController {
         LogUtil.writeLog("浏览了日志列表", LogUtil.OPER_TYPE_LOOK,"日志管理", LoginContorller.class,request);
         return JsonUtils.toJson(new Result<PageList<DLoggingEvent>>(Code.SUCCESS, pageList));
     }
-    @DeleteMapping("delete/{id}")
-    public String removeDocument(@PathVariable Integer id,HttpServletRequest request) {
+    @DeleteMapping("delete")
+    public String removeDocument(@RequestParam String idstr,HttpServletRequest request) {
         try {
-            loggingEventService.deleteByPrimaryKey(id.longValue());
-            LogUtil.writeLog("删除了Id为{"+id+"}的日志记录", LogUtil.OPER_TYPE_DEL,"日志管理", LoginContorller.class,request);
+            String [] ids = idstr.split(",");
+            for(String id : ids) {
+                loggingEventService.deleteByPrimaryKey(Long.parseLong(id));
+            }
+            LogUtil.writeLog("删除了Id为{"+idstr+"}的日志记录", LogUtil.OPER_TYPE_DEL,"日志管理", LoginContorller.class,request);
         } catch (Exception e) {
             JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
         }

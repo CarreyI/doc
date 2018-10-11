@@ -34,9 +34,12 @@ public class DictController {
 
     }
 
-    @DeleteMapping("/remove/{id}")
-    public String remove(@PathVariable Long id, HttpServletRequest request){
-        phoibeDictService.removeDict(id);
+    @DeleteMapping("/remove")
+    public String remove(@RequestParam String idstr, HttpServletRequest request){
+        String [] ids = idstr.split(",");
+        for(String id : ids) {
+            phoibeDictService.removeDict(Long.parseLong(id));
+        }
         LogUtil.writeLog("浏览了数据字典记录", LogUtil.OPER_TYPE_DEL,"数据字典", DictController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }

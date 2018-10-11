@@ -236,14 +236,18 @@ public class DocumentController {
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, count));
 	}
 
-	 @DeleteMapping("delete/{id}")
-	public String removeDocument(@PathVariable Integer id, HttpServletRequest request) {
+	 @DeleteMapping("delete")
+	public String removeDocument(@RequestParam String idstr, HttpServletRequest request) {
 		try {
-			phoibeDocumentService.removeDocumentById(id);
+			String [] ids = idstr.split(",");
+			for(String id : ids){
+				phoibeDocumentService.removeDocumentById(Integer.parseInt(id));
+			}
+
 		} catch (Exception e) {
 			JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
 		}
-		 LogUtil.writeLog("删除了id为{"+id+"}的文档", LogUtil.OPER_TYPE_LOOK,"个人文档", DocumentController.class,request);
+		 LogUtil.writeLog("删除了id为{"+idstr+"}的文档", LogUtil.OPER_TYPE_LOOK,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
 	}
 

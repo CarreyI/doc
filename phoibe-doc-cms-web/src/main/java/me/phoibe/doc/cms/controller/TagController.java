@@ -47,10 +47,13 @@ public class TagController {
         LogUtil.writeLog("修改了标签", LogUtil.OPER_TYPE_EDIT,"标签管理",TagController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
-    @DeleteMapping("/remove/{Id}")
-    public String remove(@PathVariable Short Id,HttpServletRequest request){
-        phoibeTagService.deleteByPrimaryKey(Id);
-        LogUtil.writeLog("删除了Id为{"+Id+"}的标签记录", LogUtil.OPER_TYPE_DEL,"标签管理",UserController.class,request);
+    @DeleteMapping("/remove")
+    public String remove(@RequestParam String idstr,HttpServletRequest request){
+        String [] ids = idstr.split(",");
+        for(String id : ids) {
+            phoibeTagService.deleteByPrimaryKey(Short.parseShort(id));
+        }
+        LogUtil.writeLog("删除了Id为{"+idstr+"}的标签记录", LogUtil.OPER_TYPE_DEL,"标签管理",UserController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
     @GetMapping("fetch/{id}")
