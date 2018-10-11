@@ -49,10 +49,12 @@ jasypt:
   encryptor:
     password: foo
 crosDomain: '*'
-phoibe:
-  address: http://127.0.0.1:8090/phoibe/
-upload:
-  filePath: F:/Java_WorkSpace/satic/docword/
+
+logfile: D:/JavaTool/satic/log
+
+#window:status:1
+#linux: status:2
+
 breakpoint:
   upload:
     window: D:/JavaTool/satic/docword/

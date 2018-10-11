@@ -3,7 +3,6 @@ package me.phoibe.doc.cms.config;
 import me.phoibe.doc.cms.domain.dto.UserInfo;
 import me.phoibe.doc.cms.security.JwtUtil;
 import me.phoibe.doc.cms.service.PhoibeUserService;
-import me.phoibe.doc.cms.service.impl.PhoibeUserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 @Component
 public class LogUtil {
@@ -83,7 +81,7 @@ public class LogUtil {
         if (token != null) {
             Long userId = Long.parseLong(JwtUtil.extractInfo(token).get(JwtUtil.USER_NAME).toString());
             userInfo = logUtil.phoibeUserService.fetchUserInfoByUserId(userId);
-        }else{
+        } else {
             userInfo = (UserInfo) request.getAttribute("userInfo");
         }
 
@@ -133,5 +131,46 @@ public class LogUtil {
             ip = "本地";
         }
         return ip;
+    }
+
+    public static  String convertorLogType(int type) {
+
+        String typeName = "";
+        switch (type) {
+            case OPER_TYPE_LOGIN:
+                typeName = "登录操作";
+                break;
+            case OPER_TYPE_LOGOFF:
+                typeName = "退出操作";
+                break;
+            case OPER_TYPE_ADD:
+                typeName = "新增操作";
+                break;
+            case OPER_TYPE_EDIT:
+                typeName = "修改操作";
+                break;
+            case OPER_TYPE_DEL:
+                typeName = "删除操作";
+                break;
+            case OPER_TYPE_LOOK:
+                typeName = "查看操作";
+                break;
+            case OPER_TYPE_UPLOAD:
+                typeName = "上传操作";
+                break;
+            case OPER_TYPE_OTHER:
+                typeName = "其它操作";
+                break;
+            case OPER_TYPE_DOWN:
+                typeName = "下载操作";
+                break;
+            case OPER_TYPE_INSTORAGE:
+                typeName = "入库操作";
+                break;
+            case OPER_TYPE_CHECKPASS:
+                typeName = "审批操作";
+                break;
+        }
+        return typeName;
     }
 }

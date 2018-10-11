@@ -44,13 +44,13 @@ public class TagController {
     @RequestMapping(value = {"update"})
     public String update(@RequestBody PhoibeTag phoibeTag, HttpServletRequest request){
         phoibeTagService.updateByPrimaryKeySelective(phoibeTag);
-        LogUtil.writeLog("修改了标签", LogUtil.OPER_TYPE_ADD,"标签管理",TagController.class,request);
+        LogUtil.writeLog("修改了标签", LogUtil.OPER_TYPE_EDIT,"标签管理",TagController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
     @DeleteMapping("/remove/{Id}")
     public String remove(@PathVariable Short Id,HttpServletRequest request){
         phoibeTagService.deleteByPrimaryKey(Id);
-        LogUtil.writeLog("删除了Id为{"+Id+"}的标签记录", LogUtil.OPER_TYPE_LOOK,"标签管理",UserController.class,request);
+        LogUtil.writeLog("删除了Id为{"+Id+"}的标签记录", LogUtil.OPER_TYPE_DEL,"标签管理",UserController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
     @GetMapping("fetch/{id}")

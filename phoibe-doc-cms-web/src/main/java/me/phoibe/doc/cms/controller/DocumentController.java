@@ -222,12 +222,13 @@ public class DocumentController {
 		phoibeBrowse.setDocumentId(id);
 		phoibeBrowse.setUserId(userId);
 		phoibeDocumentService.browse(phoibeBrowse);
+		LogUtil.writeLog("浏览了id为{"+id+"}的文档", LogUtil.OPER_TYPE_LOOK,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<DPhoebeDocument>(Code.SUCCESS, dPhoibeDocument));
 
 	}
 
 	@GetMapping("count")
-	public String countDoucument(@ModelAttribute DPhoebeDocument param,HttpServletRequest request) {
+	public String countDoucument(@ModelAttribute DPhoebeDocument param) {
 		PageParam<DPhoebeDocument> pageParam = new PageParam<>();
 		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
 		Long count = phoibeDocumentMapper.selectCountByPage(pageParam);
@@ -236,18 +237,18 @@ public class DocumentController {
 	}
 
 	 @DeleteMapping("delete/{id}")
-	public String removeDocument(@PathVariable Integer id) {
+	public String removeDocument(@PathVariable Integer id, HttpServletRequest request) {
 		try {
 			phoibeDocumentService.removeDocumentById(id);
 		} catch (Exception e) {
 			JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
 		}
+		 LogUtil.writeLog("删除了id为{"+id+"}的文档", LogUtil.OPER_TYPE_LOOK,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
 	}
 
 	@RequestMapping(value = { "save" })
-	public String saveOrUpdate(@RequestBody Map rb, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String saveOrUpdate(@RequestBody Map rb, HttpServletRequest request) {
 
 		UserInfo userInfo = phoibeUserService.fetchUserInfoByUserId(getUserId(request));
 
@@ -433,7 +434,7 @@ public class DocumentController {
 		if (!file.exists()){
 			Word2PdfUtil.doc2pdf((finalDirPath+filepath),path);
 		}
-		LogUtil.writeLog("查看了Id为{"+id+"}的文档文件", LogUtil.OPER_TYPE_DOWN,"文档管理", DocumentController.class,request);
+		LogUtil.writeLog("查看了Id为{"+id+"}的文档文件", LogUtil.OPER_TYPE_LOOK,"文档管理", DocumentController.class,request);
 		response.sendRedirect("/docword/"+new String(path.replace(finalDirPath,"").getBytes("utf-8"), "ISO8859-1"));
 	}
 
@@ -450,7 +451,7 @@ public class DocumentController {
 		phoibeCollection.setDocumentId(id);
 		phoibeCollection.setUserId(userId);
 		phoibeDocumentService.collection(phoibeCollection);
-		LogUtil.writeLog("收藏了Id为{"+id+"}的文档", LogUtil.OPER_TYPE_DOWN,"个人文档", DocumentController.class,request);
+		LogUtil.writeLog("收藏了Id为{"+id+"}的文档", LogUtil.OPER_TYPE_ADD,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
 	}
 
@@ -461,7 +462,7 @@ public class DocumentController {
 		phoibeSubscribe.setSubUserId(id);
 		phoibeSubscribe.setUserId(userId);
 		phoibeDocumentService.subscribe(phoibeSubscribe);
-		LogUtil.writeLog("关注了Id为{"+id+"}的用户", LogUtil.OPER_TYPE_DOWN,"个人文档", DocumentController.class,request);
+		LogUtil.writeLog("关注了Id为{"+id+"}的用户", LogUtil.OPER_TYPE_ADD,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
 	}
 
@@ -472,7 +473,7 @@ public class DocumentController {
 			dPhoibeUser.setAvgScore(phoibeDocumentService.fetchAvgScore(dPhoibeUser.getId()));
 			dPhoibeUser.setPhoibeDocuments(phoibeDocumentService.fetchHotUserDocument(dPhoibeUser.getId()));
 		}
-		LogUtil.writeLog("浏览了首页热搜", LogUtil.OPER_TYPE_DOWN,"首页热搜", DocumentController.class,request);
+		LogUtil.writeLog("浏览了首页热搜", LogUtil.OPER_TYPE_LOOK,"首页热搜", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<List<DPhoibeUser>>(Code.SUCCESS, phoibeUsers));
 	}
 
@@ -490,7 +491,7 @@ public class DocumentController {
 		phoibeCollection.setDocumentId(id);
 		phoibeCollection.setUserId(getUserId(request));
 		phoibeDocumentService.cancelCollection(phoibeCollection);
-		LogUtil.writeLog("取消收藏了Id为{"+id+"}的文档", LogUtil.OPER_TYPE_DOWN,"个人文档", DocumentController.class,request);
+		LogUtil.writeLog("取消收藏了Id为{"+id+"}的文档", LogUtil.OPER_TYPE_DEL,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
 	}
 
@@ -500,7 +501,7 @@ public class DocumentController {
 		phoibeBrowse.setDocumentId(id);
 		phoibeBrowse.setUserId(getUserId(request));
 		phoibeDocumentService.cancelBrowse(phoibeBrowse);
-		LogUtil.writeLog("用户清除了Id为{"+id+"}的文档浏览记录", LogUtil.OPER_TYPE_DOWN,"个人文档", DocumentController.class,request);
+		LogUtil.writeLog("用户清除了Id为{"+id+"}的文档浏览记录", LogUtil.OPER_TYPE_DEL,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
 	}
 
@@ -510,13 +511,15 @@ public class DocumentController {
 		phoibeSubscribe.setSubUserId(id);
 		phoibeSubscribe.setUserId(getUserId(request));
 		phoibeUserService.cancelSubscribe(phoibeSubscribe);
-		LogUtil.writeLog("取消关注Id为{"+id+"}的用户", LogUtil.OPER_TYPE_DOWN,"个人文档", DocumentController.class,request);
+		LogUtil.writeLog("取消关注Id为{"+id+"}的用户", LogUtil.OPER_TYPE_DEL,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
 	}
 
 	@GetMapping("statistical/{group}")
-	public String statistical(@PathVariable String group){
+	public String statistical(@PathVariable String group,HttpServletRequest request){
 		List<DStatistical> list = phoibeDocumentService.fetchStatisticalByParam(group);
+
+		LogUtil.writeLog("浏览了文档统计图", LogUtil.OPER_TYPE_DEL,"文档统计", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<List<DStatistical>>(Code.SUCCESS, list));
 	}
 

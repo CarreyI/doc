@@ -90,6 +90,11 @@
             <scope>system</scope>
             <systemPath>${basedir}/aspose-words-14.9.0-jdk16.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.6</version>
+        </dependency>
     </dependencies>
 
 

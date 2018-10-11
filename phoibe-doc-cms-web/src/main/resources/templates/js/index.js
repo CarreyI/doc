@@ -16,8 +16,10 @@ function bindZhanfa() {
             var step = 0;
             var row = "";
             $.each(result.data, function (i, val) {
+
                 var title = val["name"];
                 var pagecount = val["pagecount"];
+                var realname = val["realname"];
                 var status = val["status"];
                 var tid = val["id"];
                 var docstatus = "";
@@ -28,7 +30,7 @@ function bindZhanfa() {
                     docstatus = "上传完成";
                 }
 
-                var row = "<li class='per-50'><i class='i-star'></i><a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a></li><li class='per-10'>" + pagecount + "</li><li class='per-30'>" + docstatus + "</li>";
+                var row = "<li class='per-60'><i class='i-star'></i><a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a></li><li class='per-30'>" + docstatus + "</li>";
                 $("#zgzhanfa").append(row);
 
             });
@@ -90,8 +92,7 @@ function bindRecommDoc() {
     //alert(url);
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/0/19?f=handpick',
-
+        url: url,
         dataType: 'json',
         success: function (result) {//<div class='font22 title'>中国战法</div>
             var total_rows = result.data.totalCount;
@@ -212,7 +213,7 @@ $(function () {
    
     $("#btnSearch").click(function () {
 
-        var url = 'search.html?s=1';
+        var url = 'searchadv.html?s=1';
         var data="";
 
         var searchKey = $("#search-key").val();

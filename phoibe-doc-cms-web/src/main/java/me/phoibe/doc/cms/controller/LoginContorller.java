@@ -50,6 +50,7 @@ public class LoginContorller {
         cacheManager.getCache("userCache").evict(userId);
         response.addCookie(cookie);
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"");
+        LogUtil.writeLog(userId+"退出了系统", LogUtil.OPER_TYPE_LOGOFF,"系统退出",LoginContorller.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
 

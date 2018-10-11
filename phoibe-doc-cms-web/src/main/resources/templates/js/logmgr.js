@@ -122,5 +122,9 @@ $(function () {
             totalRows = 0;
             loadData(0);
         });
-
+    $("#btnexport").click(function () {
+        var sDatatime="1538127089241";
+        var eDatatime="1538127119722";
+        window.location.href= GAL_URL + "phoibe/logging/export?sDatatime="+sDatatime+"&eDatatime="+eDatatime;
+    });
     });

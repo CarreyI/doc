@@ -3,7 +3,6 @@ package me.phoibe.doc.cms.domain.dto;
 import me.phoibe.doc.cms.domain.po.PhoibeDocument;
 import org.springframework.util.StringUtils;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class DPhoebeDocument extends PhoibeDocument {
@@ -41,6 +40,11 @@ public class DPhoebeDocument extends PhoibeDocument {
     private Long queryUserId;
 
     private Boolean isCollection;
+
+    private String realname;
+
+    private String nickname;
+
 
     public void settings(){
         if(!StringUtils.isEmpty(getContent())){
@@ -183,5 +187,21 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     public void setContentStr(String contentStr) {
         this.contentStr = contentStr;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
