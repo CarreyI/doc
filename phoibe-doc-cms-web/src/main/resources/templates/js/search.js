@@ -3,7 +3,7 @@ var currPage = 1;
 function loadData(type,pageindex) {
     $("#docmgr-content").children().remove()
 
-    var url = 'phoibe/document/list/' + pageindex + '/10?1=1';
+    var url = 'phoibe/document/list/' + pageindex + '/10?s=1';
     var data="";
 
     var searchKey = $("#search-key").val();
@@ -118,13 +118,32 @@ function loadData(type,pageindex) {
                          auditstatus = "审核不通过";
                          auditstatustyle = "f-red";
                      }
-                     var row = "<div class='row'><div class='doc-row'><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><div class='desc'>摘要："+desc+"</div><ul><li>上传时间:"+createtime+"</li><li class='format_btn'>格式:"+format+"</li><li>评分:"+score+"</li><li>大小:"+filesize+"</li><li class='owner_btn'>文档拥有者:" + owner + "</li></ul></div></div>";
+                     var row = "<div class='row'><div class='doc-row'><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><div class='desc'>摘要："+desc+"</div><ul><li>上传时间:"+createtime+
+                         "</li><li class='format_btn a_btn' format='"+format+"'>格式:"+format+"</li><li>评分:"+score+"</li><li>大小:"+filesize+"kb</li><li class='owner_btn a_btn' owner='"+owner+"'>文档拥有者:" + owner + "</li></ul></div></div>";
                      $("#docmgr-content").append(row);
                      parent.iframeLoad();
                  }
              }
          });
 
+    $(".format_btn").click(function () {
+        var format_val = $(this).attr("format");
+        format_val = format_val.toLocaleUpperCase();
+        $(".checkList").find("li").each(function () {
+            var check_val = $(this).html();
+                if (format_val==check_val){
+                    $(this).addClass("check");
+                    $(this).attr("checked","checked");
+                }
+        })
+        loadData(1, 0);
+    });
+    $(".owner_btn").click(function () {
+        var owner_val = $(this).attr("owner");
+        $("#owner").val(owner_val);
+        loadData(1, 0);
+
+    });
          layui.use(['laypage', 'layer'], function () {
              var laypage = layui.laypage
              , layer = layui.layer;
@@ -169,7 +188,7 @@ function appendDitHtml(){
             $("#wartype .tag-li-in").removeClass('tag-li-in');
             $(this).addClass('tag-li-in');
         }
-        loadData(0);
+        loadData(1, 0);
     });
     $("#armtype .tag-li").click(function() {
         if ($(this).hasClass('tag-li-in')) {
@@ -178,7 +197,7 @@ function appendDitHtml(){
             $("#armtype .tag-li-in").removeClass('tag-li-in');
             $(this).addClass('tag-li-in');
         }
-        loadData(0);
+        loadData(1, 0);
     });
 }
      $(function () {
@@ -200,6 +219,7 @@ function appendDitHtml(){
              $("#wartype .tag-li[dictKey='"+wartype+"']").addClass('tag-li-in');
          }
          var format = getUrlString("format");
+
             $(".checkList").find("li").each(function () {
                 var check_val = $(this).html();
                 if(format!=""&&format!=null){

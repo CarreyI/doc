@@ -1,4 +1,20 @@
-
+function appendDitHtml(){
+    var dataDict = parent.dataDictLoadAjax();
+    // {
+    // "SOLDIERS":[{"dictKey":"PB","dictName":"炮兵"},[{"dictKey":"TXB","dictName":"通讯兵"}],[{"dictKey":"ZJB","dictName":"装甲兵"}],[{"dictKey":"BB","dictName":"步兵"}]],
+    // "COMBAT":[{"dictKey":"BZ","dictName":"兵种战例"},[{"dictKey":"XF","dictName":"西方战例"}],[{"dictKey":"EJ","dictName":"俄军战例"}],[{"dictKey":"SJ","dictName":"苏军战例"}]]}
+    // <option value="4 ">兵种战例</option>
+    var combat_type = "<option value='0'>全部</option>";
+    var arms = "<option value='0'>全部</option>";
+    $.each(dataDict.COMBAT,function (i,val) {
+        combat_type +="<option value='"+val["id"]+"'>"+val["dictName"]+"</option>";
+    })
+    $.each(dataDict.SOLDIERS,function (i,val) {
+        arms +="<option value='"+val["id"]+"'>"+val["dictName"]+"</option>";
+    })
+    $("#wartype").html(combat_type);
+    $("#armtype").html(arms);
+}
 function bindZhanfa() {
     $("#zgzhanfa").children().remove();
     var userStr = getCookie("userObject");
@@ -199,6 +215,7 @@ $(function () {
     bindDym();
     bindZhanfa();
     bindResouDoc();
+    appendDitHtml();
     $("#upload").click(function () {
         parent.appendDitHtml();
         $(window.parent.document).find(".bodyMask").fadeIn();
@@ -272,6 +289,7 @@ $(function () {
         if (doctypevalue != "" && doctypevalue != null) {
             data = data + "&format=" + doctypevalue;
         }
+
         data = GAL_URL + url+ data;
         window.location.href = encodeURI(data);
     });
