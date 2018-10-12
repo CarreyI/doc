@@ -1954,3 +1954,7 @@ font-size:18px;
 font-size:16px;
 	margin-bottom:8px;
 }
+.a_btn{
+	cursor: pointer;
+	text-decoration: underline;
+}
