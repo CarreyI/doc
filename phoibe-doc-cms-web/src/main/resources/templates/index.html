@@ -80,12 +80,18 @@
 						</div>
 					</li>
 
-					<li class="navList box_border" data-toggle="tagmgr.html">
-						<div class="box_border">
+                    <li class="navList box_border" data-toggle="tagmgr.html">
+                        <div class="box_border">
                     <span class="iconLeft iconLabel">标签管理
                     </span>
-						</div>
-					</li>
+                        </div>
+                    </li>
+                    <li class="navList box_border" data-toggle="datamgr.html">
+                    <div class="box_border">
+                    <span class="iconLeft iconLabel">字典管理
+                    </span>
+                    </div>
+                    </li>
 					<li class="navList box_border" data-toggle="logmgr.html">
 						<div class="box_border">
                     <span class="iconLeft iconSystem">日志管理
@@ -146,14 +152,9 @@
 						</div>
 					</div>
 					<div class="tbl-row">
-						<div class="lable">类型作战:</div>
+						<div class="lable">战例类型:</div>
 						<div class="ctrl">
 							<select id="combat_type" name="combat_type">
-								<option value="1">西方战例</option>
-								<option value="2">苏军战例</option>
-								<option value="3">俄军战例</option>
-								<option value="4 ">兵种战例</option>
-								<option value="5">其他</option>
 							</select>
 						</div>
 					</div>
@@ -162,10 +163,6 @@
 						<div class="lable">参战兵种:</div>
 						<div class="ctrl">
 							<select id="arms" name="arms">
-								<option value="1">步兵</option>
-								<option value="2">装甲兵</option>
-								<option value="3">通信兵</option>
-								<option value="4">炮兵</option>
 							</select>
 						</div>
 					</div>
@@ -254,6 +251,9 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div class="loaddingBox mask">
+	<div class="loadingimg"></div>
 </div>
 <script>
     $(function () {

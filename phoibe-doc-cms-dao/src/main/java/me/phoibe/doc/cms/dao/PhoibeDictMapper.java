@@ -23,4 +23,6 @@ public interface PhoibeDictMapper {
     List<PhoibeDict> selectByPage(PageParam<PhoibeDict> pageParam);
 
     long selectCountByPage(PageParam<PhoibeDict> pageParam);
+
+    void deleteByGroupKey(String groupKey);
 }

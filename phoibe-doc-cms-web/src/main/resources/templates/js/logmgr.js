@@ -5,7 +5,17 @@ function loadData(pageindex) {
     $("#tblist-body").children().remove();
 
     var data = GAL_URL+"phoibe/logging/list/"+pageindex+"/10?1=1";
+    var sDatatime=$("#startdate").val();
+    var eDatatime=$("#enddate").val();
 
+    if (sDatatime!=""){
+        sDatatime = new Date(sDatatime).getTime();
+        data = data +"&sDatatime="+sDatatime;
+    }
+    if (eDatatime!=""){
+        eDatatime = new Date(eDatatime).getTime();
+        data = data +"&eDatatime="+eDatatime;
+    }
     $.ajax({
         type: 'GET',
         url: data,
@@ -115,6 +125,19 @@ $(function () {
                  $("#enddate").attr("data-value", value);
              }
         });
+
+        laydate.render({
+            elem: '#sDatatime'
+            , done: function (value, date, endDate) {
+                $("#sDatatime").attr("data-value", value);
+            }
+        });
+        laydate.render({
+            elem: '#eDatatime'
+            , done: function (value, date, endDate) {
+                $("#eDatatime").attr("data-value", value);
+            }
+        });
         loadData(0);
         
         $(".btnSearch").click(function () {
@@ -122,9 +145,54 @@ $(function () {
             totalRows = 0;
             loadData(0);
         });
+    // 新建文件目录
     $("#btnexport").click(function () {
-        var sDatatime="1538127089241";
-        var eDatatime="1538127119722";
-        window.location.href= GAL_URL + "phoibe/logging/export?sDatatime="+sDatatime+"&eDatatime="+eDatatime;
+        $(".export_bodyMask").fadeIn();
     });
+    $(".export_closed").click(function () {
+        $(".export_bodyMask").hide();
     });
+    $("#export_submit").click(function () {
+        var sDatatime=$("#sDatatime").val();
+        var eDatatime=$("#eDatatime").val();
+
+        var url= GAL_URL +"phoibe/logging/export?1=1";
+        if (sDatatime!=""){
+            sDatatime = new Date(sDatatime).getTime();
+            url = url +"&sDatatime="+sDatatime;
+        }
+        if (eDatatime!=""){
+            eDatatime = new Date(eDatatime).getTime();
+            url = url +"&eDatatime="+eDatatime;
+        }
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "json",
+            beforeSend: function () {
+                // 禁用按钮防止重复提交
+                $(".export_bodyMask").hide();
+                $(window.parent.document).find(".loaddingBox").fadeIn();
+            },
+            complete: function () {
+                // Handle the complete event
+                $(window.parent.document).find(".loaddingBox").hide();
+            },
+            success: function (data) {
+                if (data.code = "SUCCESS") {
+                    window.location.href=encodeURI(encodeURI(GAL_URL+"phoibe/logging/exportDownload/"+data.data));
+                    $(".file_bodyMask").hide();
+                    //清空输入框
+                    $("#sDatatime").val("");
+                    $("#eDatatime").val("");
+                } else {
+                    alert("提交失败,请联系管理员");
+                }
+            },
+            error: function (data) {
+                alert("提交失败,请联系管理员");
+                console.info("error: " + data.responseText);
+            }
+        });
+    });
+});

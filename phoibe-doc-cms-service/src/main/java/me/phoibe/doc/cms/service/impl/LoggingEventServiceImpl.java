@@ -27,7 +27,7 @@ public class LoggingEventServiceImpl implements LoggingEventService {
     }
 
     @Override
-    public PageList<DLoggingEvent> fetchLoggingEventByPageList(PageParam<LoggingEvent> pageParam) {
+    public PageList<DLoggingEvent> fetchLoggingEventByPageList(PageParam<DLoggingEvent> pageParam) {
         List<DLoggingEvent> list = loggingEventMapper.selectByPage(pageParam);
 
         return PageList.createPage(pageParam,loggingEventMapper.selectCountByPage(pageParam),list);

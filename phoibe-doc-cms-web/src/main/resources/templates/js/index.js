@@ -200,6 +200,7 @@ $(function () {
     bindZhanfa();
     bindResouDoc();
     $("#upload").click(function () {
+        parent.appendDitHtml();
         $(window.parent.document).find(".bodyMask").fadeIn();
     });
 
@@ -211,7 +212,7 @@ $(function () {
     });
 
    
-    $("#btnSearch").click(function () {
+    $(".btnSearch").click(function () {
 
         var url = 'searchadv.html?s=1';
         var data="";

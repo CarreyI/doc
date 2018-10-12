@@ -9,7 +9,13 @@ public class PhoibeDict {
 
     private String groupKey;
 
+    private String groupName;
+
     private Short orderBy;
+
+    private Short dictType;
+
+    private Short dictStatus;
 
     public Long getId() {
         return id;
@@ -49,5 +55,29 @@ public class PhoibeDict {
 
     public void setOrderBy(Short orderBy) {
         this.orderBy = orderBy;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public Short getDictType() {
+        return dictType;
+    }
+
+    public void setDictType(Short dictType) {
+        this.dictType = dictType;
+    }
+
+    public Short getDictStatus() {
+        return dictStatus;
+    }
+
+    public void setDictStatus(Short dictStatus) {
+        this.dictStatus = dictStatus;
     }
 }

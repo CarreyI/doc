@@ -1,5 +1,6 @@
 package me.phoibe.doc.cms.controller;
 
+import jodd.util.URLDecoder;
 import me.phoibe.doc.cms.config.LogUtil;
 import me.phoibe.doc.cms.domain.dto.DLoggingEvent;
 import me.phoibe.doc.cms.domain.po.LoggingEvent;
@@ -8,17 +9,19 @@ import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.entity.Code;
 import me.phoibe.doc.cms.entity.Result;
 import me.phoibe.doc.cms.service.LoggingEventService;
+import me.phoibe.doc.cms.utils.DateUtils;
 import me.phoibe.doc.cms.utils.ExcelUtil;
 import me.phoibe.doc.cms.utils.JsonUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +33,9 @@ public class LoggingController {
     @Autowired
     private LoggingEventService loggingEventService;
 
+    @Value("${exportlog}")
+    private String exportlog;
+
     @PostMapping("/save")
     public String save(@RequestBody LoggingEvent loggingEvent){
         loggingEventService.addLogingEvent(loggingEvent);
@@ -38,12 +44,12 @@ public class LoggingController {
 
     @RequestMapping("list/{index}/{limit}")
     public String list(@PathVariable Integer index, @PathVariable Integer limit, HttpServletRequest request){
-        PageParam<LoggingEvent> pageParam = new PageParam<>();
+        PageParam<DLoggingEvent> pageParam = new PageParam<>();
         pageParam.setStart(index);
         pageParam.setLimit(limit);
         pageParam.setOrderBy("l.TIMESTMP");
         pageParam.setSort("DESC");
-        LoggingEvent loggingEvent = new LoggingEvent();
+        DLoggingEvent loggingEvent = new DLoggingEvent();
         pageParam.setParam(loggingEvent);
         PageList<DLoggingEvent> pageList = loggingEventService.fetchLoggingEventByPageList(pageParam);
         LogUtil.writeLog("浏览了日志列表", LogUtil.OPER_TYPE_LOOK,"日志管理", LoginContorller.class,request);
@@ -64,16 +70,16 @@ public class LoggingController {
     }
 
     @RequestMapping("/export")
-    public void exportLogExcel(HttpServletRequest request, HttpServletResponse response){
+    public String exportLogExcel(@ModelAttribute DLoggingEvent loggingEvent, HttpServletRequest request, HttpServletResponse response){
+        String excelFIleName="";
         try {
-            Long sDatatime = Long.valueOf(request.getParameter("sDatatime"));
-            Long eDatatime = Long.valueOf(request.getParameter("eDatatime"));
-            PageParam<LoggingEvent> pageParam = new PageParam<>();
+            String sDatatime="";
+            String eDatatime="";
+            PageParam<DLoggingEvent> pageParam = new PageParam<>();
             pageParam.setStart(0);
             pageParam.setLimit(1000000000);
             pageParam.setOrderBy("l.TIMESTMP");
             pageParam.setSort("DESC");
-            LoggingEvent loggingEvent = new LoggingEvent();
             pageParam.setParam(loggingEvent);
             PageList<DLoggingEvent> pageList = loggingEventService.fetchLoggingEventByPageList(pageParam);
             List<List<String>> rowList =new ArrayList<>();
@@ -86,6 +92,11 @@ public class LoggingController {
                 stringList.add(dLoggingEvent.getArg3());
                 stringList.add(dLoggingEvent.getTimestmp()+"");
                 rowList.add(stringList);
+
+                if (sDatatime==""){
+                    sDatatime = DateUtils.formatDate(new Date(dLoggingEvent.getEventId()),"yyyy-MM-dd");
+                }
+                eDatatime = DateUtils.formatDate(new Date(dLoggingEvent.getEventId()),"yyyy-MM-dd");
             }
             List<String> listTitle = new ArrayList<>();
             listTitle.add("日志内容");
@@ -94,37 +105,38 @@ public class LoggingController {
             listTitle.add("用户名-昵称-真实姓名");
             listTitle.add("功能模块");
             listTitle.add("记录时间");
-            String excelFIleName= "日志信息记录表"+System.currentTimeMillis()+".xls";
+            excelFIleName= "日志信息记录表"+System.currentTimeMillis()+".xls";
             HSSFWorkbook wb =  ExcelUtil.getHSSFWorkbook(excelFIleName,listTitle,rowList,null);
-            //响应到客户端
-            this.setResponseHeader(response, excelFIleName);
-            OutputStream os = response.getOutputStream();
-            wb.write(os);
-            os.flush();
-            os.close();
 
-            LogUtil.writeLog("导出了{"+sDatatime+" -- "+eDatatime+"}范围内的日志记录", LogUtil.OPER_TYPE_ADD,"日志管理", LoginContorller.class,request);
+            File filedir = new File(exportlog);
+            if (!filedir.exists()) {
+                filedir.mkdirs();
+            }
+            File file = new File(exportlog,excelFIleName);
+            wb.write(file);
+            LogUtil.writeLog("导出了{"+sDatatime+" -- "+eDatatime+"}范围内的日志记录", LogUtil.OPER_TYPE_ADD,"日志管理", LoggingController.class,request);
         }catch (Exception e) {
             e.printStackTrace();
             JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
         }
+        return JsonUtils.toJson(new Result<>(Code.SUCCESS, excelFIleName));
     }
-    //发送响应流方法
-    public void setResponseHeader(HttpServletResponse response, String fileName) {
+    @RequestMapping("/exportDownload/{fileName}")
+    public byte[] exportDownload(HttpServletResponse response,@PathVariable String fileName) {
         try {
-            try {
-                fileName = new String(fileName.getBytes(),"ISO8859-1");
-            } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            response.setContentType("application/octet-stream;charset=ISO8859-1");
-            response.setHeader("Content-Disposition", "attachment;filename="+ fileName);
-            response.addHeader("Pargam", "no-cache");
-            response.addHeader("Cache-Control", "no-cache");
-            response.addHeader("Content-Type", "text/html; charset=utf-8");
+            fileName = URLDecoder.decode(fileName,"UTF-8");
+            String fileAbosultePath = exportlog + "/"+fileName+".xls";
+
+            File file = new File(fileAbosultePath);
+            String filename = file.getName();
+
+            byte[]bytes=DocumentController.getContent(fileAbosultePath);
+            response.setContentType("multipart/form-data");
+            response.addHeader("Content-Disposition", "attachment;fileName="+new String(filename.getBytes("gbk"),"ISO8859-1"));
+            return bytes;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        return null;
     }
 }

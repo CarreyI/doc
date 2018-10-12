@@ -51,7 +51,7 @@ jasypt:
 crosDomain: '*'
 
 logfile: D:/JavaTool/satic/log
-
+exportlog: D:/JavaTool/satic/exportlog
 #window:status:1
 #linux: status:2
 

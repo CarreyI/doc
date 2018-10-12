@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>字典管理</title>
+    <link rel="stylesheet" href="css/management.css"/>
+	<link rel="stylesheet" href="css/layui.css">
+	<script src="js/jquery-2.1.0.min.js"></script>
+	<script src="js/layui.js"></script>
+    <script src="js/data.js"></script>
+	<script src="js/datamgr.js"></script>
+
+</head>
+<body>
+    <div id="tagmgr">
+        <div class="main box_border">
+            <div class="container box_border r-content">
+                    <div class="bg_whiteSD box_border search inputblock">
+                    <div class="plateHeader i-tagmgr"></div>
+                        属性名称:<input type="text" id="search_dictName"/>
+                        属性标识:<input type="text" id="search_dictKey"/>
+                        字段标识:<input type="text" id="search_groupKey"/>
+                        <span class="btnSearch" id="btnSearch"></span>
+                    </div>
+                <div class="line"></div>
+               <div class="content box_border top bg_whiteSD">
+                       <div class="box_border">
+					    <div class="btn-cmd-list">
+					    <a id="btnadd">新增字段</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmodify">修改字段</a></div>
+                           <br/>
+                           <div class="file_wrap">
+                               <div class="file_divleft">
+                                   <div class="data_menu file_menu"><span>字段列表</span></div>
+                                   <!--字典列表-->
+                                   <ul class="data_list file_list">
+                                   </ul>
+                               </div>
+                               <div class="file_divright">
+                                   <table class="tblist" border="0">
+                                       <tr><th>属性名称</th><th>属性值</th><th>字段标识</th><th>排序</th>
+                                           <th>操作</th></tr>
+                                       <tbody id="tblist-body"></tbody>
+                                   </table>
+                                   <div id="notice_pages"></div>
+                               </div>
+                           </div>
+
+						</div>
+               </div>
+             </div>
+            </div>
+        </div>
+
+ 
+ <div class="bodyMask">
+     <div class="mask">
+         <span class="fullScreen"></span>
+         <div class="popup">
+             <div class="model-title fl">添加字段</div>
+             <i class="closed fr"></i>
+             <div class="clearfix"></div>
+             <hr/>
+             　
+             <form action="phoibe/dict/add" method="POST" id="ajaxform">
+
+                 <div class="tbl-row">
+                     <div class="lable">*字段名称:</div>
+                     <div class="ctrl">
+                         <input type="text" id="groupName" name="groupName" class="inputBox"/>
+                     </div>
+                 </div>
+                 <div class="tbl-row">
+                     <div class="lable">*字段标识:</div>
+                     <div class="ctrl">
+                         <input type="text" id="groupKey" name="groupKey" class="inputBox"/>
+                     </div>
+                 </div>
+                 <div class="tbl-row">
+                     <div class="lable"></div>
+                     <div class="ctrl">
+                         <div id="group_submit" class="submit"></div>
+                     </div>
+                 </div>
+                 <input type="hidden" name="dictType" value=2>
+             </form>
+         </div>
+     </div>
+</div>
+    <div class="son_bodyMask">
+        <div class="mask">
+            <span class="fullScreen"></span>
+            <div class="popup">
+                <div class="model-title fl">添加属性</div>
+                <i class="closed fr"></i>
+                <div class="clearfix"></div>
+                <hr/>
+                　
+                <form action="phoibe/dict/add" method="POST" id="son_ajaxform">
+
+                    <div class="tbl-row">
+                        <div class="lable">*属性名称:</div>
+                        <div class="ctrl">
+                            <input type="text" id="dictName" name="dictName" class="inputBox"/>
+                        </div>
+                    </div>
+                    <div class="tbl-row">
+                        <div class="lable">*属性值:</div>
+                        <div class="ctrl">
+                            <input type="text" id="dictKey" name="dictKey" class="inputBox"/>
+                        </div>
+                    </div>
+                    <div class="tbl-row">
+                        <div class="lable">*属性顺序:</div>
+                        <div class="ctrl">
+                            <input type="text" id="orderBy" name="orderBy" class="inputBox"/>
+                        </div>
+                    </div>
+                    <input type="hidden" name="dictType" value=1>
+                    <input type="hidden" id="parent_groupKey" name="groupKey" value="">
+                    <div class="tbl-row">
+                        <div class="lable"></div>
+                        <div class="ctrl">
+                            <div id="son_submit" class="submit"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

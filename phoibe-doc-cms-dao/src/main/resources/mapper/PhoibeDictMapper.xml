@@ -6,10 +6,13 @@
     <result column="DICT_KEY" jdbcType="VARCHAR" property="dictKey" />
     <result column="DICT_NAME" jdbcType="VARCHAR" property="dictName" />
     <result column="GROUP_KEY" jdbcType="VARCHAR" property="groupKey" />
+    <result column="GROUP_NAME" jdbcType="VARCHAR" property="groupName" />
     <result column="ORDER_BY" jdbcType="DECIMAL" property="orderBy" />
+    <result column="DICT_TYPE" jdbcType="DECIMAL" property="dictType" />
+    <result column="DICT_STATUS" jdbcType="DECIMAL" property="dictStatus" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, DICT_KEY, DICT_NAME, GROUP_KEY, ORDER
+    ID, DICT_KEY, DICT_NAME, GROUP_KEY,GROUP_NAME,ORDER_BY,DICT_TYPE,DICT_STATUS
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -21,11 +24,16 @@
     delete from PHOIBE_DICT
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
+  <delete id="deleteByGroupKey" parameterType="java.lang.String">
+    delete from PHOIBE_DICT
+    where GROUP_KEY = #{groupKey,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.PhoibeDict">
     insert into PHOIBE_DICT (ID, DICT_KEY, DICT_NAME, 
       GROUP_KEY, ORDER_BY)
     values (#{id,jdbcType=DECIMAL}, #{dictKey,jdbcType=VARCHAR}, #{dictName,jdbcType=VARCHAR}, 
-      #{groupKey,jdbcType=VARCHAR}, #{order,jdbcType=DECIMAL})
+      #{groupKey,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR},#{order,jdbcType=DECIMAL},
+      #{dictType,jdbcType=DECIMAL},#{dictStatus,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeDict">
     insert into PHOIBE_DICT
@@ -42,8 +50,17 @@
       <if test="groupKey != null">
         GROUP_KEY,
       </if>
-      <if test="order != null">
-        ORDER,
+      <if test="groupName != null">
+        GROUP_NAME,
+      </if>
+      <if test="orderBy != null">
+        ORDER_BY,
+      </if>
+      <if test="dictType != null">
+        DICT_TYPE,
+      </if>
+      <if test="dictStatus != null">
+        DICT_STATUS,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -59,8 +76,17 @@
       <if test="groupKey != null">
         #{groupKey,jdbcType=VARCHAR},
       </if>
-      <if test="order != null">
-        #{order,jdbcType=DECIMAL},
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderBy != null">
+        #{orderBy,jdbcType=DECIMAL},
+      </if>
+      <if test="dictType != null">
+        #{dictType,jdbcType=DECIMAL},
+      </if>
+      <if test="dictStatus != null">
+        #{dictStatus,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -76,8 +102,17 @@
       <if test="groupKey != null">
         GROUP_KEY = #{groupKey,jdbcType=VARCHAR},
       </if>
-      <if test="order != null">
-        ORDER = #{order,jdbcType=DECIMAL},
+      <if test="groupName != null">
+        GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderBy != null">
+        ORDER_BY = #{orderBy,jdbcType=DECIMAL},
+      </if>
+      <if test="dictType != null">
+        DICT_TYPE = #{dictType,jdbcType=DECIMAL},
+      </if>
+      <if test="dictStatus != null">
+        DICT_STATUS = #{dictStatus,jdbcType=DECIMAL},
       </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
@@ -87,17 +122,32 @@
     set DICT_KEY = #{dictKey,jdbcType=VARCHAR},
       DICT_NAME = #{dictName,jdbcType=VARCHAR},
       GROUP_KEY = #{groupKey,jdbcType=VARCHAR},
-      ORDER_BY = #{order,jdbcType=DECIMAL}
+      GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+      ORDER_BY = #{order,jdbcType=DECIMAL},
+      DICT_TYPE = #{dictType,jdbcType=DECIMAL},
+      DICT_STATUS = #{dictStatus,jdbcType=DECIMAL}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
   <sql id="selectByPage_Condition_Sql" >
     <where>
       1=1
       <if test="param.dictName != null and param.dictName != ''">
-        and DICT_NAME = #{param.dictName,jdbcType=VARCHAR}
+        and DICT_NAME LIKE '%'||#{param.dictName,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="param.dictKey != null and param.dictKey != ''">
+        and lower(DICT_KEY) LIKE '%'||#{param.dictKey,jdbcType=VARCHAR}||'%'
       </if>
       <if test="param.groupKey != null and param.groupKey != ''">
-        and GROUP_KEY = #{param.groupKey,jdbcType=VARCHAR}
+        and lower(GROUP_KEY) LIKE '%'||#{param.groupKey,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="param.groupName != null and param.groupName != ''">
+        and GROUP_NAME LIKE '%'||#{param.groupName,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="param.dictStatus != null and param.dictStatus != ''">
+        and DICT_STATUS = #{param.dictStatus,jdbcType=DECIMAL}
+      </if>
+      <if test="param.dictType != null and param.dictType != ''">
+        and DICT_TYPE = #{param.dictType,jdbcType=DECIMAL}
       </if>
     </where>
   </sql>
@@ -107,7 +157,7 @@
     <include refid="Base_Column_List" />
     from PHOIBE_DICT
     <include refid="selectByPage_Condition_Sql"/>
-    ORDER BY ORDER_BY ) a
+    ORDER BY ${orderBy} ${sort} ) a
     ) t WHERE t.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
   </select>
   <select id="selectCountByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">

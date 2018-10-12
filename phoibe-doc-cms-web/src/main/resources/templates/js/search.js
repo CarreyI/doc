@@ -42,13 +42,13 @@ function loadData(type,pageindex) {
     if (warnum != "") {
         data = data + "&warnum=" + warnum;
     }
-    var wartypevalue = $("#wartype option:selected").val();
-    if (wartypevalue != 0) {
-        data = data + "&wartype=" + wartypevalue;
+    var wartypevalue = $("#wartype .tag-li-in").attr("dictKey");
+    if (wartypevalue != ""&&wartypevalue!=null) {
+        data = data + "&combatType=" + wartypevalue;
     }
-    var armtypevalue = $("#armtype option:selected").val();
-    if (armtypevalue != 0) {
-        data = data + "&armtype=" + armtypevalue;
+    var armtypevalue = $("#armtype .tag-li-in").attr("dictKey");
+    if (armtypevalue != ""&&armtypevalue!=null) {
+        data = data + "&arms=" + armtypevalue;
     }
     var queryFlag = $("#queryFlag").val();
 
@@ -83,6 +83,7 @@ function loadData(type,pageindex) {
                  var row = "";
                  for(var i in result.data.dataList){
                      var val = result.data.dataList[i];
+                     var score = val["score"];
                      var title = val["name"];
                      var format = val["format"];
                      var id = val["id"];
@@ -98,6 +99,7 @@ function loadData(type,pageindex) {
                      var docstatus = "";
                      var auditstatustyle = "f-blue";
                      var desc = val["description"];
+                     var tag = "";
                      if (status == 1) {
                          docstatus = "上传中";
                      }
@@ -116,7 +118,7 @@ function loadData(type,pageindex) {
                          auditstatus = "审核不通过";
                          auditstatustyle = "f-red";
                      }
-                     var row = "<div class='row'><div class='doc-row'><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><div class='desc'>摘要："+desc+"</div><ul><li>上传时间:"+createtime+"</li><li>格式:"+format+"</li><li>46条评论</li><li>评分:44</li><li>大小:"+filesize+"</li><li>文档拥有者:" + owner + "</li></ul></div></div>";
+                     var row = "<div class='row'><div class='doc-row'><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><div class='desc'>摘要："+desc+"</div><ul><li>上传时间:"+createtime+"</li><li class='format_btn'>格式:"+format+"</li><li>评分:"+score+"</li><li>大小:"+filesize+"</li><li class='owner_btn'>文档拥有者:" + owner + "</li></ul></div></div>";
                      $("#docmgr-content").append(row);
                      parent.iframeLoad();
                  }
@@ -144,7 +146,43 @@ function loadData(type,pageindex) {
              });
          });
      }
+function appendDitHtml(){
+    var dataDict = parent.dataDictLoadAjax();
+    // {
+    // "SOLDIERS":[{"dictKey":"PB","dictName":"炮兵"},[{"dictKey":"TXB","dictName":"通讯兵"}],[{"dictKey":"ZJB","dictName":"装甲兵"}],[{"dictKey":"BB","dictName":"步兵"}]],
+    // "COMBAT":[{"dictKey":"BZ","dictName":"兵种战例"},[{"dictKey":"XF","dictName":"西方战例"}],[{"dictKey":"EJ","dictName":"俄军战例"}],[{"dictKey":"SJ","dictName":"苏军战例"}]]}
+    // <option value="4 ">兵种战例</option>
+    var wartype = "";
+    var armtype = "";
+    $.each(dataDict.COMBAT,function (i,val) {
+        wartype +="<li class='tag-li' dictKey="+val["id"]+">"+val["dictName"]+"</li>";
+    })
+    $.each(dataDict.SOLDIERS,function (i,val) {
+        armtype +="<li class='tag-li' dictKey="+val["id"]+">"+val["dictName"]+"</li>";
+    })
+    $("#wartype").html(wartype);
+    $("#armtype").html(armtype);
+    $("#wartype .tag-li").click(function() {
+        if ($(this).hasClass('tag-li-in')) {
+            $(this).removeClass('tag-li-in');
+        } else {
+            $("#wartype .tag-li-in").removeClass('tag-li-in');
+            $(this).addClass('tag-li-in');
+        }
+        loadData(0);
+    });
+    $("#armtype .tag-li").click(function() {
+        if ($(this).hasClass('tag-li-in')) {
+            $(this).removeClass('tag-li-in');
+        } else {
+            $("#armtype .tag-li-in").removeClass('tag-li-in');
+            $(this).addClass('tag-li-in');
+        }
+        loadData(0);
+    });
+}
      $(function () {
+         appendDitHtml();
          //当首页跳转到查询页时，遍历取首页查询参数
          $("#condwhere").find("input").each(function () {
              var input_id = $(this).attr("id");
@@ -155,11 +193,11 @@ function loadData(type,pageindex) {
          })
          var armtype = getUrlString("armtype");
          if(null!=armtype&&armtype!=""){
-            $("#armtype").val(armtype);
+            $("#armtype .tag-li[dictKey='"+armtype+"']").addClass('tag-li-in');
          }
          var wartype = getUrlString("wartype");
          if(null!=wartype&&wartype!=""){
-             $("#wartype").val(wartype);
+             $("#wartype .tag-li[dictKey='"+wartype+"']").addClass('tag-li-in');
          }
          var format = getUrlString("format");
             $(".checkList").find("li").each(function () {
@@ -180,7 +218,7 @@ function loadData(type,pageindex) {
              $("#condwhere").fadeOut();
          });
 
-         $("#btnSearch").click(function () {
+         $(".btnSearch").click(function () {
              currPage = 0;
              totalRows = 0;
              loadData(1,0);

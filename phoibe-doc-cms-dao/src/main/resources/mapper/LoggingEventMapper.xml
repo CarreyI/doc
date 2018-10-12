@@ -307,7 +307,8 @@
     select * from (SELECT a.*,rownum rno FROM (
     select
     l.*
-    from LOGGING_EVENT l WHERE L.ARG1  > 0
+    from LOGGING_EVENT l
+    <include refid="selectByPage_Condition_Sql"/>
     order by ${orderBy} ${sort}) a
     ) t WHERE t.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
   </select>
@@ -315,6 +316,18 @@
   <select id="selectCountByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
     select
     COUNT(*)
-    from LOGGING_EVENT l WHERE l.ARG1  > 0
+    from LOGGING_EVENT l
+    <include refid="selectByPage_Condition_Sql"/>
   </select>
+  <sql id="selectByPage_Condition_Sql">
+    <where>
+      L.ARG1  > 0
+      <if test="param.sDatatime != null">
+        and TIMESTMP &gt;= #{param.sDatatime,jdbcType=DECIMAL}
+      </if>
+      <if test="param.eDatatime != null">
+        and TIMESTMP &lt;= #{param.eDatatime,jdbcType=DECIMAL}
+      </if>
+    </where>
+  </sql>
 </mapper>

@@ -36,4 +36,9 @@ public class PhoibeDictServiceImpl implements PhoibeDictService {
         List<PhoibeDict> list = phoibeDictMapper.selectByPage(pageParam);
         return PageList.createPage(pageParam,phoibeDictMapper.selectCountByPage(pageParam),list);
     }
+
+    @Override
+    public void removeDictByGroupKey(String groupKey) {
+        phoibeDictMapper.deleteByGroupKey(groupKey);
+    }
 }

@@ -20,7 +20,7 @@ public interface LoggingEventMapper {
 
     int updateByPrimaryKey(LoggingEvent record);
 
-    List<DLoggingEvent> selectByPage(PageParam<LoggingEvent> pageParam);
+    List<DLoggingEvent> selectByPage(PageParam<DLoggingEvent> pageParam);
 
-    Long selectCountByPage(PageParam<LoggingEvent> pageParam);
+    Long selectCountByPage(PageParam<DLoggingEvent> pageParam);
 }

@@ -179,7 +179,7 @@ function randomListLoad() {
         }
     });
 }
-//我的关注
+//我的订阅
 function attentionListLoad() {
     var data = GAL_URL+'phoibe/document/list/0/9?queryFlag=subscribe'
     $.ajax({
@@ -228,7 +228,7 @@ function attentionListLoad() {
                 $("#attention_li").append(frs);
             }
             if (result.data.dataList==null){
-                var nullStr = "<ol class=\"list1\"><li><div>未关注任何文档</div></li></ol>";
+                var nullStr = "<ol class=\"list1\"><li><div>未订阅任何文档</div></li></ol>";
                 $("#attention_li").append(nullStr)
             }
             $(".attention-del").click(function () {
@@ -270,7 +270,7 @@ function favoriteAjax(tid){
     });
 }
 
-//取消关注
+//取消订阅
 function attentionAjax(userid){
     var url = GAL_URL + "phoibe/document/cancelSubscribe/" + userid;
     $.ajax({
@@ -440,7 +440,7 @@ function loadData(pageindex) {
                         var dirId = roleObj[i].id;
                         var dirName = roleObj[i].dirName;
 
-                         filelist=filelist + "<li>+ <a href=\"#\" class=\"menu-a\" dirId='"+dirId+"'>"+dirName+"</a>&nbsp;&nbsp;&nbsp;<a href=\"#\" class=\"menu-del\" dirId='"+dirId+"'>删除</a></li>";
+                         filelist=filelist + "<li>+ <a href=\"#\" class=\"menu-a\" dirId='"+dirId+"'>"+dirName+"</a>&nbsp;&nbsp;&nbsp;<a href=\"#\" class=\"menu-del menu-btn\" dirId='"+dirId+"'>删除</a></li>";
                          selectlist_html=selectlist_html + "<li><input type='radio' data-value='' name='chksel' value='"+dirId+"'/><a href=\"#\">"+dirName+"</a></li>";
 
                     }
@@ -470,9 +470,9 @@ function loadData(pageindex) {
             loadData(0);
         });
         $(".file_list li").hover(function(){
-            $(this).find(".menu-del").fadeIn();
+            $(this).find(".menu-btn").fadeIn();
         },function () {
-            $(this).find(".menu-del").hide();
+            $(this).find(".menu-btn").hide();
         });
         // 删除目录
         $(".menu-del").click(function(){
@@ -519,10 +519,10 @@ function loadData(pageindex) {
 
         // 新建文件目录
         $("#btnnewfolder").click(function () {
-            $(".file_bodyMask").fadeIn();
+            $(".export_bodyMask").fadeIn();
         });
         $(".file_closed").click(function () {
-            $(".file_bodyMask").hide();
+            $(".export_bodyMask").hide();
         });
         // 移动到文件目录
         $("#btnmove").click(function () {
@@ -534,6 +534,7 @@ function loadData(pageindex) {
         });
 
         $("#uploadfile").click(function () {
+            parent.appendDitHtml();
             $(window.parent.document).find(".bodyMask").fadeIn();
         });
 

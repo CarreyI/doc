@@ -19,12 +19,20 @@ public class DictController {
     @Autowired
     private PhoibeDictService phoibeDictService;
 
-    @GetMapping("/list/{start}/{limit}")
-    public String list(@PathVariable Integer index, @PathVariable Integer limit,
+    @GetMapping("/list/{index}/{limit}/{flag}")
+    public String list(@PathVariable Integer index, @PathVariable Integer limit,@PathVariable Integer flag,
                         @ModelAttribute PhoibeDict phoibeDict, HttpServletRequest request){
         PageParam<PhoibeDict> pageParam = new PageParam<>();
+        String orderBy="id";
+        String sort="DESC";
+        if (flag==1){
+            orderBy = "order_by";
+            sort = "ASC";
+        }
         pageParam.setStart(index);
         pageParam.setLimit(limit);
+        pageParam.setOrderBy(orderBy);
+        pageParam.setSort(sort);
         pageParam.setParam(phoibeDict == null ? new PhoibeDict() : phoibeDict);
 
         PageList<PhoibeDict> pageList = phoibeDictService.fetchByPage(pageParam);
@@ -40,10 +48,15 @@ public class DictController {
         for(String id : ids) {
             phoibeDictService.removeDict(Long.parseLong(id));
         }
-        LogUtil.writeLog("浏览了数据字典记录", LogUtil.OPER_TYPE_DEL,"数据字典", DictController.class,request);
+        LogUtil.writeLog("删除了id为{"+idstr+"}字典数据记录", LogUtil.OPER_TYPE_DEL,"数据字典", DictController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
-
+    @DeleteMapping("/removekey")
+    public String removeByGroupKey(@RequestParam String groupKey, HttpServletRequest request){
+        phoibeDictService.removeDictByGroupKey(groupKey);
+        LogUtil.writeLog("删除了字段标识为{"+groupKey+"}字典数据记录", LogUtil.OPER_TYPE_DEL,"数据字典", DictController.class,request);
+        return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+    }
     @PostMapping("/add")
     public String add(@RequestBody PhoibeDict phoibeDict, HttpServletRequest request){
         phoibeDictService.addDict(phoibeDict);

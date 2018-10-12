@@ -1414,6 +1414,17 @@ ol.list1 {
 	width: 500px;
 	padding-bottom: 20px;
 }
+
+.export_bodyMask {
+	/* height: 100%; */
+	width: 100%;
+	display: none;
+}
+.son_bodyMask {
+	/* height: 100%; */
+	width: 100%;
+	display: none;
+}
 #editBtn{
 	display: none;
 }
@@ -1791,7 +1802,17 @@ position: absolute;
 top: 40%;
 left: 35%;
 }
-
+.loaddingBox{
+	width: 100%;
+	display: none;
+}
+.loaddingBox .loadingimg{
+	background: url("../images/loading.gif") no-repeat;
+	height:32px;
+	width:32px;
+	margin: 0 auto;
+	margin-top: 20%;
+}
 .nav_arrow {
 background: url("../images/nav_arrow.png") no-repeat;
 height:220px;
@@ -1875,7 +1896,7 @@ font-size:18px;
 	text-align: center;
 	line-height:38px;
 }
-.menu-del{
+.menu-btn{
 	display: none;
 }
  .list-del{

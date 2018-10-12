@@ -141,7 +141,7 @@ function isAttention(){
     });
 }
 
-//关注
+//订阅
 function attentionAjax(){
     var url = "";
     var status = $("#attention").attr("status");

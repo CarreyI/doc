@@ -6,7 +6,34 @@ $.ajaxSetup({
         }
     }
 });
+function dataDictLoadAjax(){
+    var data = GAL_URL+"phoibe/dict/list/0/10/0?dictType=1";
+    var dataDict={};
+    $.ajax({
+        type: 'GET',
+        url: data,
+        async:false,
+        dataType: 'json',
+        success: function (result) {
+            $.each(result.data.dataList, function (i, val) {
 
+                var groupKey =val["groupKey"];
+                var obj= {
+                    id: val["id"],
+                    dictName: val["dictName"]
+                }
+                if (null!=dataDict[groupKey]){
+                    var listobj = dataDict[groupKey];
+                    listobj.push(obj);
+                    dataDict[groupKey] = listobj;
+                } else {
+                    dataDict[groupKey] = [obj];
+                }
+            });
+        }
+    });
+    return dataDict;
+}
    $(function(){
 
        userAuthController();
@@ -53,7 +80,7 @@ function roleAuthObject(roleType) {
             ops: ""
         },
         superRole: {
-            path: "index-m.html,stockmgr.html,auditupload.html,commgr.html,percenter.html,usermgr.html,tagmgr.html,logmgr.html",
+            path: "index-m.html,stockmgr.html,auditupload.html,commgr.html,percenter.html,usermgr.html,tagmgr.html,datamgr.html,logmgr.html",
             ops: ""
         }
     }

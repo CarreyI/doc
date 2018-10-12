@@ -466,7 +466,7 @@ public class DocumentController {
 		phoibeSubscribe.setSubUserId(id);
 		phoibeSubscribe.setUserId(userId);
 		phoibeDocumentService.subscribe(phoibeSubscribe);
-		LogUtil.writeLog("关注了Id为{"+id+"}的用户", LogUtil.OPER_TYPE_ADD,"个人文档", DocumentController.class,request);
+		LogUtil.writeLog("订阅了Id为{"+id+"}的用户", LogUtil.OPER_TYPE_ADD,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
 	}
 
@@ -515,7 +515,7 @@ public class DocumentController {
 		phoibeSubscribe.setSubUserId(id);
 		phoibeSubscribe.setUserId(getUserId(request));
 		phoibeUserService.cancelSubscribe(phoibeSubscribe);
-		LogUtil.writeLog("取消关注Id为{"+id+"}的用户", LogUtil.OPER_TYPE_DEL,"个人文档", DocumentController.class,request);
+		LogUtil.writeLog("取消订阅Id为{"+id+"}的用户", LogUtil.OPER_TYPE_DEL,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
 	}
 
@@ -527,7 +527,7 @@ public class DocumentController {
 		return JsonUtils.toJson(new Result<List<DStatistical>>(Code.SUCCESS, list));
 	}
 
-	public byte[] getContent(String filePath) throws IOException {
+	public static byte[] getContent(String filePath) throws IOException {
 		File file = new File(filePath);
 		long fileSize = file.length();
 		if (fileSize > Integer.MAX_VALUE) {

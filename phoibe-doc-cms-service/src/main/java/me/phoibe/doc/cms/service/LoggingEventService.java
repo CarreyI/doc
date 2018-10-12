@@ -12,7 +12,7 @@ public interface LoggingEventService {
 
     void addLogingEvent(LoggingEvent loggingEvent);
 
-    PageList<DLoggingEvent> fetchLoggingEventByPageList(PageParam<LoggingEvent> pageParam);
+    PageList<DLoggingEvent> fetchLoggingEventByPageList(PageParam<DLoggingEvent> pageParam);
 
     int deleteByPrimaryKey(Long eventId);
 }
