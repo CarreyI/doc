@@ -1514,7 +1514,12 @@ ol.list1 {
 
 #tblist-body tr td {
 	padding-left: 4px;
-	text-align: left;
+	text-align: center;
+
+}
+#tblist-body tr td:first-child>input  {
+	width: 18px;
+
 }
 
 #doc-content {

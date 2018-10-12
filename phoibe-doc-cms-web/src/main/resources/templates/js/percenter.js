@@ -287,11 +287,11 @@ function attentionAjax(userid){
 }
 function docDelAjax(tid){
     $.ajax({
-        url: GAL_URL + "phoibe/document/delete/"+tid,
-        type: "DELETE",
+        url: GAL_URL + "phoibe/document/delete",
+        type: "post",
+        data:{"_method":"delete","idstr":tid},
         dataType: "json",
         async: false,
-        contentType: "application/json;charset=UTF-8",
         success: function (data) {
             if (data.code="success") {
                 loadData(0);
@@ -370,7 +370,7 @@ function loadData(pageindex) {
                     }
 
                    
-                    var row = "<tr><td style='width:50px'><input type='radio' data-value='" + id + "' name='chksel'/></td>" +
+                    var row = "<tr><td style='width:30px'><input type='checkbox' data-value='" + id + "' name='chksel'/></td>" +
                         "<td><a href='docdetail.html?tid="+id+"' title='"+title+"'>" + cutString(title,18) + "</a></td>" +
                         "<td>" + filesize + "</td>" +
                         "<td>" + format + "</td>" +
@@ -503,13 +503,17 @@ function loadData(pageindex) {
         loadFileMenu();
 
         $("#btndel").click(function () {
-            var sel = $("#tblist-body tr td input[type='radio']:checked");
-            if(sel==null){
+            var sel = $("#tblist-body tr td input[type='checkbox']:checked");
+            if(sel.length == 0){
                 alert("请选中要删除掉文章");
                 return
             }
-            var rowid = $(sel).attr("data-value");
-            docDelAjax(rowid);
+            var idstr = "";
+            $.each(sel,function (index,obj) {
+                idstr += $(obj).attr("data-value")+",";
+            })
+            idstr = idstr.substring(0,idstr.length-1)
+            docDelAjax(idstr);
         });
         $("#wartype").change(function(){
             var wartypevalue = $("#wartype option:selected").val();
@@ -526,7 +530,12 @@ function loadData(pageindex) {
         });
         // 移动到文件目录
         $("#btnmove").click(function () {
-            var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
+            var sel = $("#tblist-body input[type=checkbox]:checked");
+            if(sel.length > 1){
+                alert("一次只能选中一条");
+                return;
+            }
+            var Id = $(sel).attr("data-value");
             if (Id!=null){
                 $(".documentId").val(Id);
                 $(".filelist_bodyMask").fadeIn();

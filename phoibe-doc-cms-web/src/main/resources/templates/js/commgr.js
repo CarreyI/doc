@@ -36,7 +36,7 @@ function loadData(pageindex) {
                 var create_time = val["createTime"];//"创建时间";
 
 
-                var row="<tr><td class='chksel'><input type='radio' name='chksel' data-value='" + id + "'</td>" +
+                var row="<tr><td class='chksel'><input type='checkbox' name='chksel' data-value='" + id + "'</td>" +
                     "<td>"+username+"</td>"
                     +"<td>"+realname+"</td>"
                     +"<td>"+nickname+"</td>"
@@ -80,10 +80,11 @@ function loadData(pageindex) {
 }
 
 function commgrDelAjax(Id){
-    var action = "phoibe/comment/remove/"+Id;
+    var action = "phoibe/comment/remove";
     $.ajax({
         url: GAL_URL + action,
-        type: "DELETE",
+        type: "post",
+        data:{"_method":"delete","idstr":Id},
         dataType: "json",
         async: false,
         success: function (data) {
@@ -109,12 +110,17 @@ $(function () {
         $(".bodyMask").hide();
     });
     $("#btndel").click(function () {
-        var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
-        if (Id!=null){
-            commgrDelAjax(Id);
-        }else{
-            alert("请选择要删除的数据");
+        var sel = $("#tblist-body tr td input[type='checkbox']:checked");
+        if(sel.length == 0){
+            alert("请选中要删除的数据");
+            return
         }
+        var idstr = "";
+        $.each(sel,function (index,obj) {
+            idstr += $(obj).attr("data-value")+",";
+        })
+        idstr = idstr.substring(0,idstr.length-1)
+        commgrDelAjax(idstr);
     });
 
     loadData(0);

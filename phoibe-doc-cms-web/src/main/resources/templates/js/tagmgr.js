@@ -32,7 +32,7 @@ function loadData(pageindex) {
                 var status =  val["status"];//"排序";--新增排序字段后修改
 
 
-                var row = "<tr><td class='chksel'><input type='radio' name='chksel' data-value='" + id + "'/></td><td>"
+                var row = "<tr><td class='chksel'><input type='checkbox' name='chksel' data-value='" + id + "'/></td><td>"
                     + name + "</td><td>" + createtime + "</td><td>"+status+"</td><td class='f-blue'>启用</td>" +
                     "<td><a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
                 $("#tblist-body").append(row);
@@ -71,11 +71,11 @@ function loadData(pageindex) {
 
 function tagDelAjax(tid){
     $.ajax({
-        url: GAL_URL + "phoibe/tag/remove/"+tid,
-        type: "DELETE",
+        url: GAL_URL + "phoibe/tag/remove",
+        type: "post",
+        data:{"_method":"delete","idstr":tid},
         dataType: "json",
         async: false,
-        contentType: "application/json;charset=UTF-8",
         success: function (data) {
             if (data.code="success") {
                 loadData(0);
@@ -98,11 +98,17 @@ $(function () {
         $(".model-title").html("修改标签");
         $("#submit").hide();
         $("#editBtn").show();
-        var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
+        var sel = $("#tblist-body input[type=checkbox]:checked");
+        if(sel.length > 1){
+            alert("一次只能选中一条");
+            return;
+        }
+        var Id = $(sel).attr("data-value");
         if (Id!=null){
             getTag(Id);
         }else{
-            alert("请选择要删除的数据");
+            alert("请选择要修改的数据");
+            return;
         }
         $(".bodyMask").fadeIn();
     });
@@ -114,26 +120,17 @@ $(function () {
         parent.iframeLoad();
     });
     $("#btndel").click(function () {
-        var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
-        if (Id!=null){
-            var action = "phoibe/tag/remove/"+Id;
-            $.ajax({
-                url: GAL_URL + action,
-                type: "DELETE",
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    if (data.code="success") {
-                        alert("删除成功");
-                        loadData(0);
-                    }else{
-                        alert("删除失败");
-                    }
-                }
-            });
-        }else{
-            alert("请选择要删除的数据");
+        var sel = $("#tblist-body tr td input[type='checkbox']:checked");
+        if(sel.length == 0){
+            alert("请选中要删除的标签");
+            return
         }
+        var idstr = "";
+        $.each(sel,function (index,obj) {
+            idstr += $(obj).attr("data-value")+",";
+        })
+        idstr = idstr.substring(0,idstr.length-1)
+        tagDelAjax(idstr);
     });
 
     $('#submit').click(function () {

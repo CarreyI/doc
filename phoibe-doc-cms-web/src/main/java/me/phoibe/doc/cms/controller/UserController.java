@@ -80,12 +80,9 @@ public class UserController {
         LogUtil.writeLog("更新了用户名为{"+dPhoibeUser.getUserName()+"}的用户信息", LogUtil.OPER_TYPE_EDIT,"用户管理",UserController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
-    @DeleteMapping("/remove")
-    public String remove(@RequestParam String idstr){
-        String [] ids = idstr.split(",");
-        for(String id : ids) {
-            phoibeUserService.deleteByPrimaryKey(Long.parseLong(id));
-        }
+    @DeleteMapping("/remove/{id}")
+    public String remove(@PathVariable Long id){
+        phoibeUserService.deleteByPrimaryKey(id);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
 }

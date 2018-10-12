@@ -30,13 +30,10 @@ public class DirectoryController {
         return JsonUtils.toJson(new Result<List<PhoibeDirectory>>(Code.SUCCESS, phoibeDirectories));
     }
 
-    @DeleteMapping("/remove")
-    public String remove(@RequestParam String idstr,HttpServletRequest request){
-        String [] ids = idstr.split(",");
-        for(String id : ids) {
-            phoibeDirectoryService.removeDirectory(Long.parseLong(id));
-        }
-        LogUtil.writeLog("删除了id为{"+idstr+"}的个人目录", LogUtil.OPER_TYPE_DEL,"个人目录", DictController.class,request);
+    @DeleteMapping("/remove/{id}")
+    public String remove(@PathVariable Long id,HttpServletRequest request){
+            phoibeDirectoryService.removeDirectory(id);
+        LogUtil.writeLog("删除了id为{"+id+"}的个人目录", LogUtil.OPER_TYPE_DEL,"个人目录", DictController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
 

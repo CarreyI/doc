@@ -35,7 +35,7 @@ function loadData(pageindex) {
                 var datatime = val["timestmp"];//"记录时间";
                 datatime = (new Date(datatime)).Format("yyyy-MM-dd hh:mm:ss.S")
 
-                var row="<tr><td style='width:50px'><input type='radio' data-value='" + id + "' name='chksel'/>" +
+                var row="<tr><td style='width:50px'><input type='checkbox' data-value='" + id + "' name='chksel'/>" +
                     "<td>"+modulename+"</td>"
                     +"<td>"+opertype+"</td>"
                     +"<td>"+message+"</td>"
@@ -75,11 +75,11 @@ function loadData(pageindex) {
 }
 function logDelAjax(lid){
     $.ajax({
-        url: GAL_URL + "phoibe/logging/delete/"+lid,
-        type: "DELETE",
+        url: GAL_URL + "phoibe/logging/delete",
+        type: "post",
+        data:{"_method":"delete","idstr":lid},
         dataType: "json",
         async: false,
-        contentType: "application/json;charset=UTF-8",
         success: function (data) {
             if (data.code="success") {
                 loadData(0);
@@ -151,6 +151,19 @@ $(function () {
     });
     $(".export_closed").click(function () {
         $(".export_bodyMask").hide();
+    });
+    $("#btndel").click(function () {
+        var sel = $("#tblist-body tr td input[type='checkbox']:checked");
+        if(sel.length == 0){
+            alert("请选中要删除的数据");
+            return
+        }
+        var idstr = "";
+        $.each(sel,function (index,obj) {
+            idstr += $(obj).attr("data-value")+",";
+        })
+        idstr = idstr.substring(0,idstr.length-1)
+        logDelAjax(idstr);
     });
     $("#export_submit").click(function () {
         var sDatatime=$("#sDatatime").val();

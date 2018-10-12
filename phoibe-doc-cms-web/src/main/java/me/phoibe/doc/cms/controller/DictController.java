@@ -42,13 +42,10 @@ public class DictController {
 
     }
 
-    @DeleteMapping("/remove")
-    public String remove(@RequestParam String idstr, HttpServletRequest request){
-        String [] ids = idstr.split(",");
-        for(String id : ids) {
-            phoibeDictService.removeDict(Long.parseLong(id));
-        }
-        LogUtil.writeLog("删除了id为{"+idstr+"}字典数据记录", LogUtil.OPER_TYPE_DEL,"数据字典", DictController.class,request);
+    @DeleteMapping("/remove/{id}")
+    public String remove(@PathVariable Long id, HttpServletRequest request){
+        phoibeDictService.removeDict(id);
+        LogUtil.writeLog("删除了id为{"+id+"}字典数据记录", LogUtil.OPER_TYPE_DEL,"数据字典", DictController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
     @DeleteMapping("/removekey")
