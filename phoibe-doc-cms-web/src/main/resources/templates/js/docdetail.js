@@ -262,6 +262,7 @@ $(function () {
                         $("#comment-content").val("");
                         alert("评论成功");
                         loadData(0);
+                        getInfo();
                     }else{
                         alert("评论失败")
                     }

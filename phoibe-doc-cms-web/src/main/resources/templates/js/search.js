@@ -210,6 +210,10 @@ function appendDitHtml(){
                  $(this).val(decodeURI(input_val));
              }
          })
+         var search_key = getUrlString("search-key");
+         if(null!=search_key&&search_key!=""){
+             $("#search-key").val(decodeURI(search_key));
+         }
          var armtype = getUrlString("armtype");
          if(null!=armtype&&armtype!=""){
             $("#armtype .tag-li[dictKey='"+armtype+"']").addClass('tag-li-in');
