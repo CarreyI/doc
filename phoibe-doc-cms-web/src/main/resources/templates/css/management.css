@@ -1304,6 +1304,7 @@ background-image: url("../images/commgr.png");
 /*border:1px solid #3d7194;*/
 }
 #tblist-body tr td {
+	text-align:left;
 
 }
 #tblist-body tr td a {
@@ -1514,8 +1515,6 @@ ol.list1 {
 
 #tblist-body tr td {
 	padding-left: 4px;
-	text-align: center;
-
 }
 #tblist-body tr td:first-child>input  {
 	width: 18px;
