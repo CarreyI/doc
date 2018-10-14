@@ -3,7 +3,7 @@ var currPage = 1;
 function loadData(type,pageindex) {
     $("#docmgr-content").children().remove()
 
-    var url = 'phoibe/document/list/' + pageindex + '/6?s=1';
+    var url = 'phoibe/document/list/' + pageindex + '/7?1=1';
     var data="";
 
     var searchKey = $("#search-key").val();
@@ -50,6 +50,11 @@ function loadData(type,pageindex) {
     if (armtypevalue != ""&&armtypevalue!=null) {
         data = data + "&arms=" + armtypevalue;
     }
+    var tagtypevalue = $("#tagtype").val()
+    if(0<tagtypevalue){
+        var tagtypevalue= $("#tagtype").find("option:selected").text();
+        data = data + "&tag=" + tagtypevalue;
+    }
     var queryFlag = $("#queryFlag").val();
 
     if (queryFlag != "undefined"&&queryFlag!=""&&queryFlag!=null) {
@@ -70,7 +75,7 @@ function loadData(type,pageindex) {
     if (doctypevalue != "" && doctypevalue != null) {
         data = data + "&format=" + doctypevalue.toLowerCase();
     }
-    data = url + data;
+    data = url + data + "&isstock=1";
     $.ajax({
              type: 'GET',
              url: GAL_URL + data,
@@ -200,8 +205,20 @@ function appendDitHtml(){
         loadData(1, 0);
     });
 }
+function appendTagHtml() {
+    var dataList = parent.tagLoadAjax();
+    var rowhtml = "<option value=''>全部</option>";
+    $.each(dataList, function (i, val) {
+        var id = val["id"];
+        ;
+        var name = val["name"];//"标签名称";
+        rowhtml +="<option value='" + id + "'>" + name + "</option>";
+    });
+    $("#tagtype").html(rowhtml);
+}
      $(function () {
          appendDitHtml();
+         appendTagHtml();
          //当首页跳转到查询页时，遍历取首页查询参数
          $("#condwhere").find("input").each(function () {
              var input_id = $(this).attr("id");
@@ -221,6 +238,11 @@ function appendDitHtml(){
          var wartype = getUrlString("wartype");
          if(null!=wartype&&wartype!=""){
              $("#wartype .tag-li[dictKey='"+wartype+"']").addClass('tag-li-in');
+         }
+
+         var tagtype = getUrlString("tagname");
+         if(null!=tagtype&&tagtype!=""){
+             $("#tagtype").val(tagtype);
          }
          var format = getUrlString("format");
 

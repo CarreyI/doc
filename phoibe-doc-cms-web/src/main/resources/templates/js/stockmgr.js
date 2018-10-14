@@ -6,7 +6,7 @@ var currPage = 0;
         function loadData(pageindex) {
             $("#tblist-body").children().remove();
 
-            var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?1=1&f=storage';
+            var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?f=storage';
 
 
 
@@ -142,20 +142,22 @@ function docAddAjax(rowid){
 }
 function docDelAjax(rowid){
 
-    var data = GAL_URL+'phoibe/document/update/outstorage/' + rowid;
-    $.ajax({
-        type: 'GET',
-        url: data,
-        dataType: 'json',
-        async: false,
-        success: function (result) {
-            if (result.code == "SUCCESS");
-            {
-                alert("删除入库文档");
-                loadData(0);
+    if (confirm("确认删除选中文章吗？")) {
+        var data = GAL_URL + 'phoibe/document/update/outstorage/' + rowid;
+        $.ajax({
+            type: 'GET',
+            url: data,
+            dataType: 'json',
+            async: false,
+            success: function (result) {
+                if (result.code == "SUCCESS") ;
+                {
+                    alert("删除入库文档");
+                    loadData(0);
+                }
             }
-        }
-    });
+        });
+    }
 }
         $(function () {
             laydate.render({
@@ -190,7 +192,7 @@ function docDelAjax(rowid){
                     return
                 }
                 var rowid = $(sel).attr("data-value");
-                docDelAjax(rowid)
+                    docDelAjax(rowid)
             });
 
             $("#btnSearch").click(function () {

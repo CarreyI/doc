@@ -43,13 +43,15 @@ function loadData(pageindex) {
 
 
                 var row = "<tr><td>"
-                    + dictName + "</td><td>" + dictKey + "</td><td>" + groupKey + "</td><td>"+orderBy+"</td>" +
+                    + dictName + "</td>" +
+                    // "<td>" + dictKey + "</td><td>" + groupKey + "</td>" +
+                    "<td>"+orderBy+"</td>" +
                     "<td><a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
                 $("#tblist-body").append(row);
             });
             $(".doc-del").click(function () {
                 var tid = $(this).attr("tid");
-                tagSonDelAjax(tid);
+                    tagSonDelAjax(tid);
 
             });
         }
@@ -80,38 +82,42 @@ function loadData(pageindex) {
 }
 
 function tagSonDelAjax(tid){
-    $.ajax({
-        url: GAL_URL + "phoibe/dict/remove?idstr="+tid,
-        type: "DELETE",
-        dataType: "json",
-        async: false,
-        contentType: "application/json;charset=UTF-8",
-        success: function (data) {
-            if (data.code="success") {
-                loadData(0);
-                alert("删除成功");
-            }else{
-                alert("删除失败");
+    if (confirm("确认删除选中的属性吗？")) {
+        $.ajax({
+            url: GAL_URL + "phoibe/dict/remove?idstr=" + tid,
+            type: "DELETE",
+            dataType: "json",
+            async: false,
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+                if (data.code = "success") {
+                    loadData(0);
+                    alert("删除成功");
+                } else {
+                    alert("删除失败");
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 function groupKeyDelAjax(groupkey){
-    $.ajax({
-        url: GAL_URL + "phoibe/dict/removekey?groupKey="+groupkey,
-        type: "DELETE",
-        dataType: "json",
-        async: false,
-        contentType: "application/json;charset=UTF-8",
-        success: function (data) {
-            if (data.code="SUCCESS") {
-                groupKey="";
-                loadData(0);
-                loadDataMenu();
+    if (confirm("确认删除此项字段吗？")) {
+        $.ajax({
+            url: GAL_URL + "phoibe/dict/removekey?groupKey=" + groupkey,
+            type: "DELETE",
+            dataType: "json",
+            async: false,
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+                if (data.code = "SUCCESS") {
+                    groupKey = "";
+                    loadData(0);
+                    loadDataMenu();
+                }
             }
-        }
-    });
+        });
+    }
 }
 function loadDataMenu(){
 
@@ -150,10 +156,8 @@ function loadDataMenu(){
     });
     // 删除字段
     $(".menu-del").click(function(){
-        if (confirm("确认删除此项字段吗？")) {
             groupKey = $(this).attr("groupKey");
             groupKeyDelAjax(groupKey);
-        }
     });
     // 新增属性
     $(".menu-add").click(function(){

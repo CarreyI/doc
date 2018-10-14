@@ -34,6 +34,23 @@ function dataDictLoadAjax(){
     });
     return dataDict;
 }
+
+function tagLoadAjax(){
+    var data = GAL_URL+"phoibe/tag/list/0/10?1=1";
+    var dataList;
+    $.ajax({
+        url: data,
+        type: "GET",
+        dataType: "json",
+        async:false,
+        contentType:"application/json;charset=UTF-8",
+        success: function (result)
+        {
+            dataList = result.data.dataList;
+        }
+    });
+    return dataList;
+}
    $(function(){
 
        userAuthController();

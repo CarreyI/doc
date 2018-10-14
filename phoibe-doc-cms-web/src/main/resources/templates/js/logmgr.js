@@ -74,21 +74,23 @@ function loadData(pageindex) {
     });
 }
 function logDelAjax(lid){
-    $.ajax({
-        url: GAL_URL + "phoibe/logging/delete",
-        type: "post",
-        data:{"_method":"delete","idstr":lid},
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            if (data.code="success") {
-                loadData(0);
-                alert("删除成功");
-            }else{
-                alert("删除失败");
+    if (confirm("确认删除选中日志吗？")) {
+        $.ajax({
+            url: GAL_URL + "phoibe/logging/delete",
+            type: "post",
+            data: {"_method": "delete", "idstr": lid},
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data.code = "success") {
+                    loadData(0);
+                    alert("删除成功");
+                } else {
+                    alert("删除失败");
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 
@@ -156,7 +158,7 @@ $(function () {
     $("#btndel").click(function () {
         var sel = $("#tblist-body tr td input[type='checkbox']:checked");
         if(sel.length == 0){
-            alert("请选中要删除的数据");
+            alert("请选中要删除的日志");
             return
         }
         var idstr = "";
@@ -164,7 +166,7 @@ $(function () {
             idstr += $(obj).attr("data-value")+",";
         })
         idstr = idstr.substring(0,idstr.length-1)
-        logDelAjax(idstr);
+            logDelAjax(idstr);
     });
     $("#export_submit").click(function () {
         var sDatatime=$("#sDatatime").val();

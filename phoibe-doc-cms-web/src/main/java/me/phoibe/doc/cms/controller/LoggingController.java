@@ -43,14 +43,13 @@ public class LoggingController {
     }
 
     @RequestMapping("list/{index}/{limit}")
-    public String list(@PathVariable Integer index, @PathVariable Integer limit, HttpServletRequest request){
+    public String list(@ModelAttribute DLoggingEvent param,@PathVariable Integer index, @PathVariable Integer limit, HttpServletRequest request){
         PageParam<DLoggingEvent> pageParam = new PageParam<>();
         pageParam.setStart(index);
         pageParam.setLimit(limit);
         pageParam.setOrderBy("l.TIMESTMP");
         pageParam.setSort("DESC");
-        DLoggingEvent loggingEvent = new DLoggingEvent();
-        pageParam.setParam(loggingEvent);
+        pageParam.setParam(param);
         PageList<DLoggingEvent> pageList = loggingEventService.fetchLoggingEventByPageList(pageParam);
         LogUtil.writeLog("浏览了日志列表", LogUtil.OPER_TYPE_LOOK,"日志管理", LoginContorller.class,request);
         return JsonUtils.toJson(new Result<PageList<DLoggingEvent>>(Code.SUCCESS, pageList));
@@ -68,7 +67,53 @@ public class LoggingController {
         }
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
+    @RequestMapping("/backups")
+    public String backupsSql(@ModelAttribute DLoggingEvent loggingEvent, HttpServletRequest request, HttpServletResponse response){
+        String excelFIleName="";
+        try {
+            String sDatatime="";
+            String eDatatime="";
+            PageParam<DLoggingEvent> pageParam = new PageParam<>();
+            pageParam.setStart(0);
+            pageParam.setLimit(1000000000);
+            pageParam.setOrderBy("l.TIMESTMP");
+            pageParam.setSort("DESC");
+            pageParam.setParam(loggingEvent);
+            PageList<DLoggingEvent> pageList = loggingEventService.fetchLoggingEventByPageList(pageParam);
+            StringBuilder logsub =new StringBuilder();
+            logsub.append("/*");
+            logsub.append("\r\n File Create Time：");
+            logsub.append(DateUtils.formatDate(new Date(),"yyyy-MM-dd HH:mm:ss"));
+            logsub.append("\r\n Log Start Time：");
+            logsub.append("\r\n Log End Time：");
+            logsub.append("\r\n */");
+            logsub.append("\r\n INSERT INTO \"LOGGING_EVENT\"");
+            for (DLoggingEvent dLoggingEvent :pageList.getDataList()){
+                logsub.append(dLoggingEvent.getFormattedMessage());
+                logsub.append(dLoggingEvent.getArg0());
+                logsub.append(LogUtil.convertorLogType(Integer.parseInt(dLoggingEvent.getArg1())));
+                logsub.append(dLoggingEvent.getArg2());
+                logsub.append(dLoggingEvent.getArg3());
+                logsub.append(dLoggingEvent.getTimestmp()+"");
 
+                if (sDatatime==""){
+                    sDatatime = DateUtils.formatDate(new Date(dLoggingEvent.getEventId()),"yyyy-MM-dd");
+                }
+                eDatatime = DateUtils.formatDate(new Date(dLoggingEvent.getEventId()),"yyyy-MM-dd");
+            }
+            File filedir = new File(exportlog);
+            if (!filedir.exists()) {
+                filedir.mkdirs();
+            }
+            File file = new File(exportlog,excelFIleName);
+
+            LogUtil.writeLog("导出了{"+sDatatime+" -- "+eDatatime+"}范围内的日志记录", LogUtil.OPER_TYPE_ADD,"日志管理", LoggingController.class,request);
+        }catch (Exception e) {
+            e.printStackTrace();
+            JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
+        }
+        return JsonUtils.toJson(new Result<>(Code.SUCCESS, excelFIleName));
+    }
     @RequestMapping("/export")
     public String exportLogExcel(@ModelAttribute DLoggingEvent loggingEvent, HttpServletRequest request, HttpServletResponse response){
         String excelFIleName="";

@@ -117,21 +117,23 @@ function loadData(pageindex) {
 }
 
 function userDelAjax(Id){
-    var action = "phoibe/user/remove/"+Id;
-    $.ajax({
-        url: GAL_URL + action,
-        type: "DELETE",
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            if (data.code="success") {
-                alert("删除成功");
-                loadData(0);
-            }else{
-                alert("删除失败");
+    if (confirm("确认删除选中用户吗？")) {
+        var action = "phoibe/user/remove/" + Id;
+        $.ajax({
+            url: GAL_URL + action,
+            type: "DELETE",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data.code = "success") {
+                    alert("删除成功");
+                    loadData(0);
+                } else {
+                    alert("删除失败");
+                }
             }
-        }
-    });
+        });
+    }
 }
 $(function () {
 
@@ -166,7 +168,7 @@ $(function () {
     $("#btndel").click(function () {
         var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
         if (Id!=null){
-            userDelAjax(Id);
+                userDelAjax(Id);
         }else{
             alert("请选择要删除的数据");
         }

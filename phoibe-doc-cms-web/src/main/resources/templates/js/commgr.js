@@ -81,22 +81,24 @@ function loadData(pageindex) {
 
 function commgrDelAjax(Id){
     var action = "phoibe/comment/remove";
-    $.ajax({
-        url: GAL_URL + action,
-        type: "post",
-        data:{"_method":"delete","idstr":Id},
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            if (data.code="success") {
-                alert("删除成功");
+    if (confirm("确认删除选中评论吗？")) {
+        $.ajax({
+            url: GAL_URL + action,
+            type: "post",
+            data: {"_method": "delete", "idstr": Id},
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data.code = "success") {
+                    alert("删除成功");
 
-                loadData(0);
-            }else{
-                alert("删除失败");
+                    loadData(0);
+                } else {
+                    alert("删除失败");
+                }
             }
-        }
-    });
+        });
+    }
 }
 $(function () {
     $("#btnadd").click(function () {
@@ -112,7 +114,7 @@ $(function () {
     $("#btndel").click(function () {
         var sel = $("#tblist-body tr td input[type='checkbox']:checked");
         if(sel.length == 0){
-            alert("请选中要删除的数据");
+            alert("请选中要删除的评论");
             return
         }
         var idstr = "";
@@ -120,7 +122,7 @@ $(function () {
             idstr += $(obj).attr("data-value")+",";
         })
         idstr = idstr.substring(0,idstr.length-1)
-        commgrDelAjax(idstr);
+            commgrDelAjax(idstr);
     });
 
     loadData(0);

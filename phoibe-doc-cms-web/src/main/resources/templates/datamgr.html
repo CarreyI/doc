@@ -27,8 +27,9 @@
                 <div class="line"></div>
                <div class="content box_border top bg_whiteSD">
                        <div class="box_border">
-					    <div class="btn-cmd-list">
-					    <a id="btnadd">新增字段</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmodify">修改字段</a></div>
+					    <!--<div class="btn-cmd-list">-->
+					    <!--<a id="btnadd">新增字段</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmodify">修改字段</a>-->
+                        <!--</div>-->
                            <br/>
                            <div class="file_wrap">
                                <div class="file_divleft">
@@ -39,7 +40,9 @@
                                </div>
                                <div class="file_divright">
                                    <table class="tblist" border="0">
-                                       <tr><th>属性名称</th><th>属性值</th><th>字段标识</th><th>排序</th>
+                                       <tr><th>属性名称</th>
+                                           <!--<th>属性值</th><th>字段标识</th>-->
+                                           <th>排序</th>
                                            <th>操作</th></tr>
                                        <tbody id="tblist-body"></tbody>
                                    </table>
@@ -53,41 +56,41 @@
             </div>
         </div>
 
- 
- <div class="bodyMask">
-     <div class="mask">
-         <span class="fullScreen"></span>
-         <div class="popup">
-             <div class="model-title fl">添加字段</div>
-             <i class="closed fr"></i>
-             <div class="clearfix"></div>
-             <hr/>
-             　
-             <form action="phoibe/dict/add" method="POST" id="ajaxform">
+ <!---->
+ <!--<div class="bodyMask">-->
+     <!--<div class="mask">-->
+         <!--<span class="fullScreen"></span>-->
+         <!--<div class="popup">-->
+             <!--<div class="model-title fl">添加字段</div>-->
+             <!--<i class="closed fr"></i>-->
+             <!--<div class="clearfix"></div>-->
+             <!--<hr/>-->
+             <!--　-->
+             <!--<form action="phoibe/dict/add" method="POST" id="ajaxform">-->
 
-                 <div class="tbl-row">
-                     <div class="lable">*字段名称:</div>
-                     <div class="ctrl">
-                         <input type="text" id="groupName" name="groupName" class="inputBox"/>
-                     </div>
-                 </div>
-                 <div class="tbl-row">
-                     <div class="lable">*字段标识:</div>
-                     <div class="ctrl">
-                         <input type="text" id="groupKey" name="groupKey" class="inputBox"/>
-                     </div>
-                 </div>
-                 <div class="tbl-row">
-                     <div class="lable"></div>
-                     <div class="ctrl">
-                         <div id="group_submit" class="submit"></div>
-                     </div>
-                 </div>
-                 <input type="hidden" name="dictType" value=2>
-             </form>
-         </div>
-     </div>
-</div>
+                 <!--<div class="tbl-row">-->
+                     <!--<div class="lable">*字段名称:</div>-->
+                     <!--<div class="ctrl">-->
+                         <!--<input type="text" id="groupName" name="groupName" class="inputBox"/>-->
+                     <!--</div>-->
+                 <!--</div>-->
+                 <!--<div class="tbl-row">-->
+                     <!--<div class="lable">*字段标识:</div>-->
+                     <!--<div class="ctrl">-->
+                         <!--<input type="text" id="groupKey" name="groupKey" class="inputBox"/>-->
+                     <!--</div>-->
+                 <!--</div>-->
+                 <!--<div class="tbl-row">-->
+                     <!--<div class="lable"></div>-->
+                     <!--<div class="ctrl">-->
+                         <!--<div id="group_submit" class="submit"></div>-->
+                     <!--</div>-->
+                 <!--</div>-->
+                 <!--<input type="hidden" name="dictType" value=2>-->
+             <!--</form>-->
+         <!--</div>-->
+     <!--</div>-->
+<!--</div>-->
     <div class="son_bodyMask">
         <div class="mask">
             <span class="fullScreen"></span>
@@ -105,12 +108,12 @@
                             <input type="text" id="dictName" name="dictName" class="inputBox"/>
                         </div>
                     </div>
-                    <div class="tbl-row">
-                        <div class="lable">*属性值:</div>
-                        <div class="ctrl">
-                            <input type="text" id="dictKey" name="dictKey" class="inputBox"/>
-                        </div>
-                    </div>
+                    <!--<div class="tbl-row">-->
+                        <!--<div class="lable">*属性值:</div>-->
+                        <!--<div class="ctrl">-->
+                            <!--<input type="text" id="dictKey" name="dictKey" class="inputBox"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="tbl-row">
                         <div class="lable">*属性顺序:</div>
                         <div class="ctrl">

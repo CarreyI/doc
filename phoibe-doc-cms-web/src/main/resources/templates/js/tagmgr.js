@@ -70,21 +70,23 @@ function loadData(pageindex) {
 }
 
 function tagDelAjax(tid){
-    $.ajax({
-        url: GAL_URL + "phoibe/tag/remove",
-        type: "post",
-        data:{"_method":"delete","idstr":tid},
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            if (data.code="success") {
-                loadData(0);
-                alert("删除成功");
-            }else{
-                alert("删除失败");
+    if (confirm("确认删除此项标签吗？")) {
+        $.ajax({
+            url: GAL_URL + "phoibe/tag/remove",
+            type: "post",
+            data: {"_method": "delete", "idstr": tid},
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data.code = "success") {
+                    loadData(0);
+                    alert("删除成功");
+                } else {
+                    alert("删除失败");
+                }
             }
-        }
-    });
+        });
+    }
 }
 $(function () {
 
@@ -130,7 +132,7 @@ $(function () {
             idstr += $(obj).attr("data-value")+",";
         })
         idstr = idstr.substring(0,idstr.length-1)
-        tagDelAjax(idstr);
+            tagDelAjax(idstr);
     });
 
     $('#submit').click(function () {

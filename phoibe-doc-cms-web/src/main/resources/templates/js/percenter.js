@@ -7,7 +7,7 @@ var dirId="";
 function docdymListLoad() {
     $.ajax({
         type: 'GET',
-        url: GAL_URL+'phoibe/document/list/0/9',
+        url: GAL_URL+'phoibe/document/list/0/9?isstock=1',
         dataType: 'json',
         success: function (result) {
             var total_rows = result.data.totalCount;
@@ -63,7 +63,7 @@ function docdymListLoad() {
 }
 //最近浏览
 function nearreadListLoad() {
-    var data = GAL_URL+'phoibe/document/list/browse/0/9?queryFlag=browse'
+    var data = GAL_URL+'phoibe/document/list/browse/0/9?queryFlag=browse&isstock=1'
     $.ajax({
         type: 'GET',
         url: data,
@@ -121,7 +121,7 @@ function nearreadListLoad() {
 
 //我的收藏
 function randomListLoad() {
-    var data = GAL_URL+'phoibe/document/list/collection/0/9?queryFlag=collection'
+    var data = GAL_URL+'phoibe/document/list/collection/0/9?queryFlag=collection&isstock=1'
     $.ajax({
         type: 'GET',
         url: data,
@@ -181,7 +181,7 @@ function randomListLoad() {
 }
 //我的订阅
 function attentionListLoad() {
-    var data = GAL_URL+'phoibe/document/list/0/9?queryFlag=subscribe'
+    var data = GAL_URL+'phoibe/document/list/0/9?queryFlag=subscribe&isstock=1'
     $.ajax({
         type: 'GET',
         url: data,
@@ -256,51 +256,57 @@ function nearreadAjax(tid){
 }
 //取消收藏
 function favoriteAjax(tid){
-    var url = GAL_URL + "phoibe/document/cancelCollection/" + tid;
-    $.ajax({
-        type: 'GET',
-        url: url,
-        async: false,
-        dataType: 'json',
-        success: function (result) {
-            if(result.code=="SUCCESS"){
-                randomListLoad();
+    if (confirm("确认取消关注当前文章吗？")) {
+        var url = GAL_URL + "phoibe/document/cancelCollection/" + tid;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            async: false,
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == "SUCCESS") {
+                    randomListLoad();
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 //取消订阅
 function attentionAjax(userid){
-    var url = GAL_URL + "phoibe/document/cancelSubscribe/" + userid;
-    $.ajax({
-        type: 'GET',
-        url: url,
-        async: false,
-        dataType: 'json',
-        success: function (result) {
-            if(result.code=="SUCCESS"){
-                attentionListLoad();
+    if (confirm("确认取消对当前文章作者的订阅吗？")) {
+        var url = GAL_URL + "phoibe/document/cancelSubscribe/" + userid;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            async: false,
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == "SUCCESS") {
+                    attentionListLoad();
+                }
             }
-        }
-    });
+        });
+    }
 }
 function docDelAjax(tid){
-    $.ajax({
-        url: GAL_URL + "phoibe/document/delete",
-        type: "post",
-        data:{"_method":"delete","idstr":tid},
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            if (data.code="success") {
-                loadData(0);
-                alert("删除成功");
-            }else{
-                alert("删除失败");
+    if (confirm("确认删除选中文章吗？")) {
+        $.ajax({
+            url: GAL_URL + "phoibe/document/delete",
+            type: "post",
+            data: {"_method": "delete", "idstr": tid},
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data.code = "success") {
+                    loadData(0);
+                    alert("删除成功");
+                } else {
+                    alert("删除失败");
+                }
             }
-        }
-    });
+        });
+    }
 }
 function loadData(pageindex) {
 
@@ -433,7 +439,7 @@ function loadData(pageindex) {
             success: function (data) {
                 if (data.code="success") {
                     //var userInfo = data.data;
-                    var filelist ="<li>+ <a href=\"#\" class=\"menu-a\" dirId=''>全部文件</a></li>";
+                    var filelist ="<li>+ <a href=\"#\" class=\"menu-a\" dirId=''>全部文章</a></li>";
                     var selectlist_html ="";
                     var roleObj = data.data;
                     for (var i in data.data){
@@ -476,22 +482,28 @@ function loadData(pageindex) {
         });
         // 删除目录
         $(".menu-del").click(function(){
-            dirId = $(this).attr("dirid");
-            $.ajax({
-                url: GAL_URL + "phoibe/directory/remove/"+dirId,
-                type: "DELETE",
-                dataType: "json",
-                async: false,
-                contentType: "application/json;charset=UTF-8",
-                success: function (data) {
-                    if (data.code="SUCCESS") {
-                        loadFileMenu();
-                    }
-                }
-            });
+                dirId = $(this).attr("dirid");
+                delMenuAjax(dirId);
         });
 
     }
+
+function delMenuAjax(dirId) {
+    if (confirm("确认删除选中目录吗？")) {
+        $.ajax({
+            url: GAL_URL + "phoibe/directory/remove/" + dirId,
+            type: "DELETE",
+            dataType: "json",
+            async: false,
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+                if (data.code = "SUCCESS") {
+                    loadFileMenu();
+                }
+            }
+        });
+    }
+}
     $(function () {
 
        // docdymListLoad();
@@ -513,7 +525,7 @@ function loadData(pageindex) {
                 idstr += $(obj).attr("data-value")+",";
             })
             idstr = idstr.substring(0,idstr.length-1)
-            docDelAjax(idstr);
+                docDelAjax(idstr);
         });
         $("#wartype").change(function(){
             var wartypevalue = $("#wartype option:selected").val();

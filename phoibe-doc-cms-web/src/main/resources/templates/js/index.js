@@ -15,6 +15,17 @@ function appendDitHtml(){
     $("#wartype").html(combat_type);
     $("#armtype").html(arms);
 }
+function appendTagHtml() {
+    var dataList = parent.tagLoadAjax();
+    var rowhtml = "<option value=''>全部</option>";
+    $.each(dataList, function (i, val) {
+        var id = val["id"];
+        ;
+        var name = val["name"];//"标签名称";
+        rowhtml +="<option value='" + id + "'>" + name + "</option>";
+    });
+    $("#tagtype").html(rowhtml);
+}
 function bindZhanfa() {
     $("#zgzhanfa").children().remove();
     var userStr = getCookie("userObject");
@@ -104,7 +115,7 @@ function bindResouDoc() {
 
 function bindRecommDoc() {
     $("#zgzhanfa").children().remove();
-    var url = GAL_URL + 'phoibe/document/list/0/19?f=handpick';
+    var url = GAL_URL + 'phoibe/document/list/0/19?f=handpick&isstock=1';
     //alert(url);
     $.ajax({
         type: 'GET',
@@ -149,7 +160,7 @@ function bindRecommDoc() {
 function bindDym() {
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/user/0/10',
+        url: GAL_URL + 'phoibe/document/list/user/0/10&isstock=1',
         //url: 'http://199.139.199.154:8090/phoibe/document/selectDoucumentList',
         dataType: 'json',
         success: function (result) {
@@ -189,7 +200,7 @@ function bindDym() {
         }
     });
 }
-function getDocNum() {
+function getUserDocNum() {
 
     var userStr = getCookie("userObject");
     var userId =1;
@@ -204,18 +215,38 @@ function getDocNum() {
         success: function (result) {
             if (result.code == "SUCCESS");
             //alert(result.data);
+            $("#userdocnum").html(result.data);
+        }
+    });
+}
+function getDocNum() {
+
+    var userStr = getCookie("userObject");
+    var userId =1;
+    if (null!=userStr&&""!=userStr) {
+        userObject = JSON.parse(userStr);
+        userId = userObject.id;
+    }
+    $.ajax({
+        type: 'GET',
+        url: GAL_URL + 'phoibe/document/count?f=storage',
+        dataType: 'json',
+        success: function (result) {
+            if (result.code == "SUCCESS");
+            //alert(result.data);
             $("#docnum").html(result.data);
         }
     });
 }
-
 $(function () {
+    getUserDocNum();
     getDocNum();
     bindRecommDoc();
     bindDym();
     bindZhanfa();
     bindResouDoc();
     appendDitHtml();
+    appendTagHtml();
     $("#upload").click(function () {
         parent.appendDitHtml();
         $(window.parent.document).find(".bodyMask").fadeIn();
@@ -277,6 +308,10 @@ $(function () {
         var armtypevalue = $("#armtype option:selected").val();
         if (armtypevalue != 0) {
             data = data + "&armtype=" + armtypevalue;
+        }
+        var tagtypevalue = $("#tagtype option:selected").val();
+        if (tagtypevalue != 0) {
+            data = data + "&tagname=" + tagtypevalue;
         }
         var doctypevalue = "";
         $("#con-value .check").each(function () {

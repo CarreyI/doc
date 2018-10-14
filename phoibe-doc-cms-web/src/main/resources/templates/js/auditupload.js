@@ -4,39 +4,27 @@ var docstatus =  1;
     function loadData(pageindex) {
         $("#tblist-body").children().remove();    
         var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?1=1';
-        var name = "";
-        var owner = "";
-        var sel = $(".widget-tab input[type='radio']:checked");
-        var auditTimeBegin = "";
-        var auditTimeEnd = "";
-        if (sel.val() == 1) {
-           name = $("#docname").val();
-           owner = $("#owner").val();
-           var chkValue = $("#con-value li[checked='checked']");
-           auditTimeBegin = auditstartdate.value;
-           auditTimeEnd = auditenddate.value;
-        }
-        else {
-            name = $("#wait-docname").val();
-            owner = $("#wait-owner").val();
-            var chkValue = $("#con-value li[checked='checked']");
-            auditTimeBegin = waitstartdate.value;
-            auditTimeEnd = waitenddate.value;
-        }
 
-        if (name != null);
-            data = data + "&name=" + name;
-        if (owner != "") {
+
+        var docname = $("#docname").val();
+
+        if (docname != ""&&docname != null){
+            data = data + "&name=" + docname;
+        }
+        var owner = $("#owner").val();
+        if (owner != ""&&owner != null) {
             data = data + "&userRealName=" + owner;
         }
-        if (auditTimeBegin != "") {
+        var auditTimeBegin =$("#waitstartdate").val();
+        if (auditTimeBegin != ""&&auditTimeBegin != null) {
             data = data + "&auditTimeBegin=" + auditTimeBegin;
         }
-        if (auditTimeEnd != "") {
+        var auditTimeEnd = $("#waitenddate").val();
+        if (auditTimeEnd != ""&&auditTimeEnd != null) {
             data = data + "&auditTimeEnd=" + auditTimeEnd;
         }
 
-        data = data + "&auditStatus=" + docstatus;
+        data = data + "isstock=0&auditStatus=" + docstatus;
         $.ajax({
             type: 'GET',
             url: data,
@@ -70,9 +58,12 @@ var docstatus =  1;
                         auditstatus = "审核不通过";
                         auditstatustyle = "f-red";
                     }
-
+                    var opertionHtml="<a class='list-del doc-add' tid='"+id+"'>审核</a>&nbsp;&nbsp;<a class='list-del doc-del' tid='"+id+"'>驳回</a>";
+                    if (docstatus==1){
+                        opertionHtml="<a class='list-del doc-del' tid='"+id+"'>驳回</a>";
+                    }
                     var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>" + filesize + "</td><td>" + owner + "</td><td>" + tag + "</td><td>" + auditdate + "</td><td class='" + auditstatustyle + "'>" + auditstatus + "</td><td>" + auditor + "</td>" +
-                        "<td><a class='list-del doc-add' tid='"+id+"'>审核</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>驳回</a></td></tr>";
+                        "<td>"+opertionHtml+"</td></tr>";
 
                     //alert(row);
                     $("#tblist-body").append(row);

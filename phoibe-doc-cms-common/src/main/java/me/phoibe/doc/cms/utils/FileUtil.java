@@ -43,4 +43,31 @@ public class FileUtil {
         }
         return text;
     }
+
+    public static String writeStringToFile(String filePath,StringBuilder sub) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                throw new BusinessException("文件"+file.getName()+"不存在已为您创建!");
+            }catch (IOException e) {
+                throw new BusinessException("创建文件异常!");
+                e.printStackTrace();
+            }
+        }else{
+            throw new BusinessException("文件"+file.getName()+"已存在!");
+        }
+        FileOutputStream fos = null;
+        PrintStream ps = null;
+        try {
+            fos = new FileOutputStream(file,true);// 文件输出流	追加
+            ps = new PrintStream(fos);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ps.print(sub); // 执行写操作
+        ps.close();	// 关闭流
+
+        return "";
+    }
 }
