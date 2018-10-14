@@ -975,7 +975,7 @@ font-size:12px;
 
 #comm .row {
 	margin-top: 14px;
-	line-height: 46px;
+	line-height: 36px;
 	font-size: 16px;
 }
 
@@ -1027,9 +1027,10 @@ border:1px solid #5e90ca;
 }
 
 #com-score {
-	line-height: 44px;
+	line-height: 40px;
 	font-size: 16px;
 	float: left;
+	width:600px;
 }
 
 .scoreremark ul {
@@ -1535,6 +1536,7 @@ ul.search-con li .btnSearch{
 #doc-content {
 	width: 100%;
     background:#ffffff;
+	min-height:180px;
 }
 
 #doc-content p {
