@@ -3,7 +3,7 @@ var currPage = 1;
 function loadData(type,pageindex) {
     $("#docmgr-content").children().remove()
 
-    var url = 'phoibe/document/list/' + pageindex + '/5?s=1';
+    var url = 'phoibe/document/list/' + pageindex + '/6?s=1';
     var data="";
 
     var searchKey = $("#search-key").val();

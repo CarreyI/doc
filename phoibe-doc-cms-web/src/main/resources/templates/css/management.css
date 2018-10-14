@@ -1976,3 +1976,6 @@ font-size:16px;
 	min-height:420px;
 	height:420px;
 }
+#docmgr-content .row{
+	line-height:32px;
+}
