@@ -722,8 +722,8 @@ ul.list3 li {
 .i-star {
 	background: url("../images/iconstar.png") no-repeat;
 	display: inline-block;
-	width: 14px;
-	height: 14px;
+	width: 16px;
+	height: 16px;
 	vertical-align: middle;
 }
 
@@ -1271,6 +1271,13 @@ background-image: url("../images/commgr.png");
 }
 .i-tagmgr {
 	background-image: url("../images/tagmgr.png");
+	width: 150px;
+	height: 34px;
+	margin-bottom: 16px;
+}
+
+.i-dicmgr{
+	background-image: url("../images/dicmgr.png");
 	width: 150px;
 	height: 34px;
 	margin-bottom: 16px;
@@ -1988,3 +1995,4 @@ font-size:16px;
 #com-score label{float:left;}
 #com-score .submit{margin-top:8px;}
 .frs{margin-top:-10px;margin-right:4px;}
+#resou-doc .col3, #recom-doc .col3{width:24%;margin-left:10px;}
