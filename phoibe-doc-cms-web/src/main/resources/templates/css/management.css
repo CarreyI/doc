@@ -1996,3 +1996,5 @@ font-size:16px;
 #com-score .submit{margin-top:8px;}
 .frs{margin-top:-10px;margin-right:4px;}
 #resou-doc .col3, #recom-doc .col3{width:24%;margin-left:10px;}
+.main .navLeft li span.dicLabel{background-image: url("../images/dicLabel.png");}
+.main .navLeft li span.logLabel{background-image: url("../images/logLabel.png");}
