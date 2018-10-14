@@ -3,7 +3,7 @@ var currPage = 1;
 function loadData(type,pageindex) {
     $("#docmgr-content").children().remove()
 
-    var url = 'phoibe/document/list/' + pageindex + '/10?s=1';
+    var url = 'phoibe/document/list/' + pageindex + '/6?s=1';
     var data="";
 
     var searchKey = $("#search-key").val();
@@ -118,7 +118,7 @@ function loadData(type,pageindex) {
                          auditstatus = "审核不通过";
                          auditstatustyle = "f-red";
                      }
-                     var row = "<div class='row'><div class='doc-row'><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><div class='desc'>摘要："+desc+"</div><ul><li>上传时间:"+createtime+
+                     var row = "<div class='row'><div class='doc-row'><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><div class='desc' title='"+desc+"'>摘要："+cutString(desc,200)+"</div><ul><li>上传时间:"+createtime+
                          "</li><li class='format_btn a_btn' format='"+format+"'>格式:"+format+"</li><li>评分:"+score+"</li><li>大小:"+filesize+"kb</li><li class='owner_btn a_btn' owner='"+owner+"'>文档拥有者:" + owner + "</li></ul></div></div>";
                      $("#docmgr-content").append(row);
                      parent.iframeLoad();
@@ -210,6 +210,10 @@ function appendDitHtml(){
                  $(this).val(decodeURI(input_val));
              }
          })
+         var search_key = getUrlString("search-key");
+         if(null!=search_key&&search_key!=""){
+             $("#search-key").val(decodeURI(search_key));
+         }
          var armtype = getUrlString("armtype");
          if(null!=armtype&&armtype!=""){
             $("#armtype .tag-li[dictKey='"+armtype+"']").addClass('tag-li-in');

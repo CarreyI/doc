@@ -136,7 +136,7 @@ function bindRecommDoc() {
                     $("#recom-doc").append(trow)
                     return;
                 }
-                if (step % 3 == 0) {
+                if (step % 12 == 0) {
                     var trow = "<div class='col3'><ul class='list1'>" + row + "</ul></div>";;
                     $("#recom-doc").append(trow)
                     row = "";

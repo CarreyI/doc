@@ -39,7 +39,7 @@ public class FileUtil {
                 text = wordExtractor.getText();
             }
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return text;
     }

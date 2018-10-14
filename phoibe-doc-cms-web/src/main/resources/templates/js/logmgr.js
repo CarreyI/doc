@@ -138,6 +138,7 @@ $(function () {
                 $("#eDatatime").attr("data-value", value);
             }
         });
+
         loadData(0);
         
         $(".btnSearch").click(function () {
