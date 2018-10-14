@@ -41,4 +41,9 @@ public class PhoibeDictServiceImpl implements PhoibeDictService {
     public void removeDictByGroupKey(String groupKey) {
         phoibeDictMapper.deleteByGroupKey(groupKey);
     }
+
+    @Override
+    public PhoibeDict fetchById(Long id) {
+        return phoibeDictMapper.selectByPrimaryKey(id);
+    }
 }

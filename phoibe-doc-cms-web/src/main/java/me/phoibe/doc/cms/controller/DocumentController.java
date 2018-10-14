@@ -11,6 +11,7 @@ import me.phoibe.doc.cms.entity.Code;
 import me.phoibe.doc.cms.entity.Result;
 import me.phoibe.doc.cms.security.JwtUtil;
 import me.phoibe.doc.cms.service.PhoibeDocumentService;
+import me.phoibe.doc.cms.service.PhoibeSearchService;
 import me.phoibe.doc.cms.service.PhoibeUserService;
 import me.phoibe.doc.cms.utils.JsonUtils;
 import me.phoibe.doc.cms.utils.PlatDateTimeUtil;
@@ -37,10 +38,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author pc
@@ -60,6 +58,9 @@ public class DocumentController {
 
 	@Autowired
 	private PhoibeUserService phoibeUserService;
+
+	@Autowired
+	private PhoibeSearchService phoibeSearchService;
 
 	@Value("${breakpoint.upload.window}")
 	private String window;
@@ -101,9 +102,16 @@ public class DocumentController {
 
 			}
 		}
+		Long userId = getUserId(request);
+		if(!StringUtils.isEmpty(param.getName())){
+			PhoibeSearch phoibeSearch = new PhoibeSearch();
+			phoibeSearch.setUserId(userId);
+			phoibeSearch.setSearchContent(param.getName());
+			phoibeSearchService.addSearch(phoibeSearch);
+		}
 
 		if(!StringUtils.isEmpty(param.getQueryFlag())){
-			Long userId = getUserId(request);
+
 			param.setQueryUserId(userId);
 		}
 
@@ -477,6 +485,15 @@ public class DocumentController {
 			dPhoibeUser.setAvgScore(phoibeDocumentService.fetchAvgScore(dPhoibeUser.getId()));
 			dPhoibeUser.setPhoibeDocuments(phoibeDocumentService.fetchHotUserDocument(dPhoibeUser.getId()));
 		}
+		for(int i = 0;i < phoibeUsers.size() -1;i++){
+			for(int j = 0; j < phoibeUsers.size() - i -1;j++){
+				if(phoibeUsers.get(j).getAvgScore() < phoibeUsers.get(j+1).getAvgScore()){
+					DPhoibeUser phoibeUser = phoibeUsers.get(j);
+					phoibeUsers.set(j,phoibeUser);
+					phoibeUsers.set(j+1,phoibeUser);
+				}
+			}
+		}
 		LogUtil.writeLog("浏览了首页热搜", LogUtil.OPER_TYPE_LOOK,"首页热搜", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<List<DPhoibeUser>>(Code.SUCCESS, phoibeUsers));
 	}
@@ -525,6 +542,19 @@ public class DocumentController {
 
 		LogUtil.writeLog("浏览了文档统计图", LogUtil.OPER_TYPE_DEL,"文档统计", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<List<DStatistical>>(Code.SUCCESS, list));
+	}
+
+	@GetMapping("hotsearch")
+	public String hotsearch(){
+		List<String> list = phoibeSearchService.fetchHotSearch();
+		return JsonUtils.toJson(new Result<List<String>>(Code.SUCCESS, list));
+	}
+
+	@GetMapping("usersearch")
+	public String usersearch(HttpServletRequest request){
+		Long userId = getUserId(request);
+		List<String> list = phoibeSearchService.fetchByUserId(userId);
+		return JsonUtils.toJson(new Result<List<String>>(Code.SUCCESS, list));
 	}
 
 	public static byte[] getContent(String filePath) throws IOException {

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.phoibe.doc.cms.dao.PhoibeSearchMapper">
+  <resultMap id="BaseResultMap" type="me.phoibe.doc.cms.domain.po.PhoibeSearch">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="SEARCH_CONTENT" jdbcType="VARCHAR" property="searchContent" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, SEARCH_CONTENT, USER_ID, CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from PHOIBE_SEARCH
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from PHOIBE_SEARCH
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.PhoibeSearch">
+    insert into PHOIBE_SEARCH (ID, SEARCH_CONTENT, USER_ID,
+      CREATE_TIME)
+    values (#{id,jdbcType=DECIMAL}, #{searchContent,jdbcType=VARCHAR}, #{userId,jdbcType=DECIMAL},
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeSearch">
+    insert into PHOIBE_SEARCH
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="searchContent != null">
+        SEARCH_CONTENT,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="searchContent != null">
+        #{searchContent,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeSearch">
+    update PHOIBE_SEARCH
+    <set>
+      <if test="searchContent != null">
+        SEARCH_CONTENT = #{searchContent,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.phoibe.doc.cms.domain.po.PhoibeSearch">
+    update PHOIBE_SEARCH
+    set SEARCH_CONTENT = #{searchContent,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="selectHotSearch" resultType="java.lang.String" >
+    select SEARCH_CONTENT from (select SEARCH_CONTENT,ROWNUM rno from (select SEARCH_CONTENT from PHOIBE_SEARCH group by SEARCH_CONTENT order by count(SEARCH_CONTENT) desc)) where rno between 1 and 11
+  </select>
+  <delete id="deleteOldByUserId" parameterType="long">
+    delete from PHOIBE_SEARCH where ID in (select t.id from (SELECT a.ID id,rownum rno FROM (
+    select
+    ID
+    from PHOIBE_SEARCH
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+    ORDER BY CREATE_TIME desc ) a
+    ) t WHERE t.rno > 10)
+  </delete>
+  <select id="selectByUserId" parameterType="long" resultType="java.lang.String" >
+    select SEARCH_CONTENT from PHOIBE_SEARCH where USER_ID = #{userId,jdbcType=DECIMAL} order by CREATE_TIME desc
+  </select>
+  <select id="selectCountByContent" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*) from PHOIBE_SEARCH where SEARCH_CONTENT = #{_parameter,jdbcType=VARCHAR}
+  </select>
+</mapper>
