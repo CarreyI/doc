@@ -15,4 +15,6 @@ public interface PhoibeDictService {
     PageList<PhoibeDict> fetchByPage(PageParam<PhoibeDict> pageParam);
 
     void removeDictByGroupKey(String groupKey);
+
+    PhoibeDict fetchById(Long id);
 }

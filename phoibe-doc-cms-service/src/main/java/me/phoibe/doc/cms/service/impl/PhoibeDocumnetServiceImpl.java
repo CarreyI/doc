@@ -5,6 +5,7 @@ import me.phoibe.doc.cms.domain.dto.DPhoebeDocument;
 import me.phoibe.doc.cms.domain.dto.DStatistical;
 import me.phoibe.doc.cms.domain.po.*;
 import me.phoibe.doc.cms.exception.BusinessException;
+import me.phoibe.doc.cms.service.PhoibeDictService;
 import me.phoibe.doc.cms.service.PhoibeDocumentService;
 import me.phoibe.doc.cms.utils.FileUtil;
 import org.springframework.beans.BeanUtils;
@@ -40,6 +41,9 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
 
     @Autowired
     private PhoibeSubscribeMapper phoibeSubscribeMapper;
+
+    @Autowired
+    private PhoibeDictService phoibeDictService;
 
     @Value("${breakpoint.upload.window}")
     private String window;
@@ -82,7 +86,19 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
         }
         String fileAbosultePath = finalDirPath + model.getFilePath();
         PhoibeAttachContent phoibeAttachContent = new PhoibeAttachContent();
-        phoibeAttachContent.setAttachContent(FileUtil.readAttachText(fileAbosultePath));
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(model.getName()+"#");
+        stringBuilder.append(phoibeDictService.fetchById(model.getArms().longValue())+"#");
+        stringBuilder.append(phoibeDictService.fetchById(model.getCombatType().longValue())+"#");
+        stringBuilder.append(model.getUserRealName()+"#");
+        stringBuilder.append(model.getWaraddr()+"#");
+        stringBuilder.append(model.getWinner()+"#");
+        stringBuilder.append(model.getLoser()+"#");
+        stringBuilder.append(model.getWarstate()+"#");
+        stringBuilder.append(model.getWartime()+"#");
+        stringBuilder.append(FileUtil.readAttachText(fileAbosultePath));
+        phoibeAttachContent.setAttachContent(stringBuilder.toString());
         phoibeAttachContent.setDocumentId(phoibeDocument.getId());
         phoibeAttachContentMapper.updateByDocumentId(phoibeAttachContent);
         return i;
