@@ -1981,3 +1981,8 @@ font-size:16px;
 #docmgr-content .row{
 	line-height:32px;
 }
+.scoreremark{
+	float:right;
+}
+
+#com-score label{float:left;}
