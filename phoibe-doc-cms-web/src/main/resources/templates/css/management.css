@@ -1982,7 +1982,7 @@ font-size:16px;
 	line-height:32px;
 }
 .scoreremark{
-	float:right;
+	float:left;
 }
 
 #com-score label{float:left;}
