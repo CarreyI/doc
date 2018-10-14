@@ -1983,6 +1983,9 @@ font-size:16px;
 }
 .scoreremark{
 	float:left;
+	margin-top:8px;
 }
 
 #com-score label{float:left;}
+
+#com-score .submit{margin-top:8px;}
