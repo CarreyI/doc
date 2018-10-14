@@ -830,8 +830,8 @@ color:#000;
 .main .container .top {
 	min-width: 900px;
 	padding: 20px;
-	/*padding-top: 32px;*/
-	max-width: 1500px;
+	/*padding-top: 32px;
+	max-width: 1500px;*/
 }
 
 #docdetail .left {
