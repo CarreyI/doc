@@ -1998,3 +1998,5 @@ font-size:16px;
 #resou-doc .col3, #recom-doc .col3{width:24%;margin-left:10px;}
 .main .navLeft li span.dicLabel{background-image: url("../images/dicLabel.png");}
 .main .navLeft li span.logLabel{background-image: url("../images/logLabel.png");}
+#docmgr-content .row ul li.owner_btn:hover{color:#00a2d4;}
+#docmgr-content .row ul li.format_btn:hover{color:#00a2d4;}
