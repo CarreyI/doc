@@ -641,6 +641,7 @@ background-image: url("../images/i-sign.png");
     margin:0 auto;
 }
 .line {
+	clear:both;
 border:1px solid #5e90ca;/*#fffdfe;;*/
 }
 
@@ -1519,6 +1520,16 @@ ol.list1 {
 #tblist-body tr td:first-child>input  {
 	width: 18px;
 
+}
+
+ul.search-con li
+{
+	float:left;
+	margin-bottom:10px;
+}
+
+ul.search-con li .btnSearch{
+	margin-left:10px;
 }
 
 #doc-content {

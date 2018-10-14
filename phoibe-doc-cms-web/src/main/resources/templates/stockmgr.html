@@ -19,16 +19,19 @@
                  <div class="bg_whiteSD box_border search inputblock">
                     <div class="plateHeader i-stock"></div>
                     <div class="search-block">
-                     文档名称:<input type="text" id="docname"/>&nbsp;&nbsp;上传人:<input type="text" id="owner" style="width:90px"/>
-                         &nbsp;&nbsp;文档状态:
-            <select style="width:60px;" id="doctype">
-                            <option value ="">所有</option>
-                            <option value ="0">待入库</option>
-                      <option value ="1">已入库</option>
-                        </select>
-                        &nbsp;&nbsp;入库时间:<input type="text" id="startdate" style="width:90px" data-value=""/>-<input id="enddate" type="text" style="width:90px" data-value=""/>&nbsp;&nbsp;
-                        <span class="btnSearch" id="btnSearch"></span>
-                        <ul class="checkList clearfix " id="con-value">
+
+                        <ul class="search-con"><li> 文档名称:<input type="text" id="docname"/></li>
+                            <li>上传人:<input type="text" id="owner" style="width:90px"/></li>
+                            <li>文档状态:
+                                <select style="width:60px;" id="doctype">
+                                    <option value ="">所有</option>
+                                    <option value ="0">待入库</option>
+                                    <option value ="1">已入库</option>
+                                </select></li>
+                            <li>入库时间:<input type="text" id="startdate" style="width:90px" data-value=""/>-<input id="enddate" type="text" style="width:90px" data-value=""/></li>
+                            <li><span class="btnSearch" id="btnSearch"></span></li>
+                        </ul>
+                        <!--<ul class="checkList clearfix " id="con-value">
                            <li class="checkBox">PDF</li>
                             <li class="checkBox">DOC</li>
                             <li class="checkBox ">DOCX</li>
@@ -44,7 +47,7 @@
                             <li class="checkBox">MP3</li>
                             <li class="checkBox ">WAV</li>
                             <li class="checkBox">MID</li>
-                        </ul>
+                        </ul>-->
             </div>
                </div>
                     <div class="line"></div>
