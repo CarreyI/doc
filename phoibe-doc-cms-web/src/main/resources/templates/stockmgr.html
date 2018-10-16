@@ -12,66 +12,79 @@
     <link rel="stylesheet" href="css/layui.css">
 </head>
 <body>
-      <div id="stockmgr">
-          <div class="main box_border">
-            <div class="container box_border r-content">
-                <div class="box_border">
-                 <div class="bg_whiteSD box_border search inputblock">
+<div id="stockmgr">
+    <div class="main box_border">
+        <div class="container box_border r-content">
+            <div class="box_border">
+                <div class="bg_whiteSD box_border search inputblock">
                     <div class="plateHeader i-stock"></div>
-                    <div class="search-block">
+                    <div class="sidebar">
 
-                        <ul class="search-con"><li> 文档名称:<input type="text" id="docname"/></li>
-                            <li>上传人:<input type="text" id="owner" style="width:90px"/></li>
-                            <li>文档状态:
-                                <select style="width:60px;" id="doctype">
-                                    <option value ="">所有</option>
-                                    <option value ="0">待入库</option>
-                                    <option value ="1">已入库</option>
-                                </select></li>
-                            <li>入库时间:<input type="text" id="startdate" style="width:90px" data-value=""/>-<input id="enddate" type="text" style="width:90px" data-value=""/></li>
-                            <li><span class="btnSearch" id="btnSearch"></span></li>
-                        </ul>
-                        <!--<ul class="checkList clearfix " id="con-value">
-                           <li class="checkBox">PDF</li>
-                            <li class="checkBox">DOC</li>
-                            <li class="checkBox ">DOCX</li>
-                            <li class="checkBox">BMP</li>
-                            <li class="checkBox">PNG</li>
-                            <li class="checkBox ">GIF</li>
-                            <li class="checkBox">JPG</li>
-                            <li class="checkBox">JPEG</li>
-                            <li class="checkBox ">MPG</li>
-                            <li class="checkBox ">AVI</li>
-                            <li class="checkBox">MOV</li>
-                            <li class="checkBox ">MP4</li>
-                            <li class="checkBox">MP3</li>
-                            <li class="checkBox ">WAV</li>
-                            <li class="checkBox">MID</li>
-                        </ul>-->
-            </div>
-               </div>
-                    <div class="line"></div>
-               <div class="content box_border inputblock top bg_whiteSD">
-                         <div class="box_border">
-                           
-                                <div class="addstock" id="btnaddstock"></div>&nbsp;&nbsp;&nbsp;&nbsp;<div class="delstock" id="btndelstock"></div>              
-                           <br />  <br />
-                             <table class="tblist" border="0" id="tblist-content">
-                                 <tr id="t-header" class='tblist-header'><th style="width:50px"></th><th>文档名称</th><th>大小</th><th>上传人</th><th>审批时间</th><th>入库时间</th><th>文档状态</th><th>审批人</th>
-                                     <th>操作</th></tr>
-                                <tbody id="tblist-body"></tbody>
-                             </table>
-                              <div id="notice_pages"></div>
-                         </div>
-                  
+                        <div class="widget widget-tab">
+                            <input type="radio" name="widget-tab" id="check" value="1" checked="checked"
+                                   style="display:none;"/>
+                            <input type="radio" name="widget-tab" id="done" value="2" style="display:none;"/>
+                            <div class="widget-title inline-ul">
+                                <ul>
+                                    <li class="check">
+                                        <label for="check" id="docCheck">待入库</label>
+                                    </li>
+                                    <li class="done">
+                                        <label for="done" id="docDone">已入库</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="widget-box">
+                                <ul class="check-list done-list search-con">
+                                    <li> 文档名称:<input type="text" id="docname"/></li>
+                                    <li>上传人:<input type="text" id="owner" style="width:90px"/></li>
+                                    <li>文档状态:
+                                        <select style="width:60px;" id="doctype">
+                                            <option value="">所有</option>
+                                            <option value="0">待入库</option>
+                                            <option value="1">已入库</option>
+                                        </select></li>
+                                    <li>入库时间:<input type="text" id="startdate" style="width:90px" data-value=""/>-<input
+                                            id="enddate" type="text" style="width:90px" data-value=""/></li>
+                                    <li><span class="btnSearch" id="btnSearch"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div> 
-              
-           </div>
-            
+            </div>
+            <div class="line"></div>
+            <div class="content box_border inputblock top bg_whiteSD">
+                <div class="box_border">
+
+                    <div class="addstock" id="btnaddstock"></div>&nbsp;&nbsp;&nbsp;&nbsp;<div class="delstock"
+                                                                                              id="btndelstock"></div>
+                    <br/> <br/>
+                    <table class="tblist" border="0" id="tblist-content">
+                        <tr id="t-header" class='tblist-header'>
+                            <th style="width:50px"></th>
+                            <th>文档名称</th>
+                            <th>大小</th>
+                            <th>上传人</th>
+                            <th>审批时间</th>
+                            <th>入库时间</th>
+                            <th>文档状态</th>
+                            <th>审批人</th>
+                            <th>操作</th>
+                        </tr>
+                        <tbody id="tblist-body"></tbody>
+                    </table>
+                    <div id="notice_pages"></div>
+                </div>
+
+            </div>
         </div>
+
     </div>
 
-    <script src="js/management.js"></script>
+</div>
+</div>
+
+<script src="js/management.js"></script>
 </body>
 </html>

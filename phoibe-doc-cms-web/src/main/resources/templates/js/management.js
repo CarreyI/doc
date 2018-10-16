@@ -6,6 +6,34 @@ $.ajaxSetup({
         }
     }
 });
+function hotsearchLoadAjax(){
+    var data = GAL_URL+"phoibe/document/hotsearch";
+    var resultData=[];
+    $.ajax({
+        type: 'GET',
+        url: data,
+        async:false,
+        dataType: 'json',
+        success: function (result) {
+            resultData=result.data;
+        }
+    });
+    return resultData;
+}
+function usersearchLoadAjax(){
+    var data = GAL_URL+"phoibe/document/usersearch";
+    var resultData=[];
+    $.ajax({
+        type: 'GET',
+        url: data,
+        async:false,
+        dataType: 'json',
+        success: function (result) {
+            resultData=result.data;
+        }
+    });
+    return resultData;
+}
 function dataDictLoadAjax(){
     var data = GAL_URL+"phoibe/dict/list/0/10/0?dictType=1";
     var dataDict={};

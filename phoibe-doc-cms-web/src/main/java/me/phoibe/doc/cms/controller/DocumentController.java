@@ -103,10 +103,10 @@ public class DocumentController {
 			}
 		}
 		Long userId = getUserId(request);
-		if(!StringUtils.isEmpty(param.getName())){
+		if(!StringUtils.isEmpty(param.getContentStr())){
 			PhoibeSearch phoibeSearch = new PhoibeSearch();
 			phoibeSearch.setUserId(userId);
-			phoibeSearch.setSearchContent(param.getName());
+			phoibeSearch.setSearchContent(param.getContentStr());
 			phoibeSearchService.addSearch(phoibeSearch);
 		}
 

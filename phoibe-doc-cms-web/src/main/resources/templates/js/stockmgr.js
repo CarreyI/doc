@@ -1,20 +1,14 @@
 
 var totalRows = 0;
 var currPage = 0;
-
+var docstatus=0;
 
         function loadData(pageindex) {
+            currPage = pageindex;
             $("#tblist-body").children().remove();
 
-            var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?f=storage';
+            var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?f=audit';
 
-
-
-            var chkValue = $("#con-value li[checked='checked']");
-            var doctypestatus = $("#doctype option:selected").val();
-            if (doctypestatus!=""&&doctypestatus != null) {
-                data = data + "&isstock=" + doctypestatus.toLowerCase();
-            }
             var docname = $("#docname").val();
             if (docname!=""&&docname != null){
                 data = data + "&name=" + docname;
@@ -39,6 +33,7 @@ var currPage = 0;
             if (stockTimeEnd != "" && stockTimeEnd != null) {
                 data = data + "&stockTimeEnd=" + stockTimeEnd;
             }
+            data = data + "&auditStatus=2&&isstock=" + docstatus;
             $.ajax({
                 type: 'GET',
                 url: data,
@@ -199,5 +194,21 @@ function docDelAjax(rowid){
                 currPage = 1;
                 totalRows = 0;
                 loadData(0);
+            });
+
+            $("#docCheck").click(function () {
+                $("#btnaudit").show();
+                $("#btnreback").show();
+                docstatus=0;
+                loadData(0);
+                parent.iframeLoad();
+            });
+
+            $("#docDone").click(function () {
+                $("#btnaudit").hide();
+                $("#btnreback").hide();
+                docstatus="1&f=storage";
+                loadData(0);
+                parent.iframeLoad();
             });
         });

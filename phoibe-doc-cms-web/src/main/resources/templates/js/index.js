@@ -26,6 +26,33 @@ function appendTagHtml() {
     });
     $("#tagtype").html(rowhtml);
 }
+function appendHotSearchHtml(){
+    var resultData = parent.hotsearchLoadAjax();
+    var rowhtml = "<li class=''>热搜：</li>";
+    $.each(resultData, function (i, val) {
+        rowhtml +="<a class='line-li' href='#'>" + val + "</a>";
+    });
+    $("#hotSerach").html(rowhtml);
+
+    $("#hotSerach a").click(function () {
+        var hotChar = $(this).text();
+        $("#search-key").val(hotChar);
+       $("#btnSearch").click();
+    })
+    $("#serachType a").click(function () {
+        $(this).addClass("acheck");
+        $("#btnSearch").click();
+    })
+
+}
+function appendUserSearchHtml(){
+    var resultData = parent.hotsearchLoadAjax();
+    var rowhtml = "";
+    $.each(resultData, function (i, val) {
+        rowhtml +="<option value='"  + val + "' />";
+    });
+    $("#userSearchList").html(rowhtml);
+}
 function bindZhanfa() {
     $("#zgzhanfa").children().remove();
     var userStr = getCookie("userObject");
@@ -43,21 +70,23 @@ function bindZhanfa() {
             var step = 0;
             var row = "";
             $.each(result.data, function (i, val) {
-
                 var title = val["name"];
-                var pagecount = val["pagecount"];
-                var realname = val["realname"];
-                var status = val["status"];
+                var isstock = val["isstock"];
+                var auditStatus = val["auditStatus"];
                 var tid = val["id"];
-                var docstatus = "";
-                if (status == 0) {
-                    docstatus = "上传中";
+                var statusStr="";
+                if (isstock==0){
+                    if (auditStatus==1){
+                        statusStr="审核中";
+                    }else if(auditStatus==2) {
+                        statusStr="发布中"
+                    }else if(auditStatus==3) {
+                        statusStr="审核未通过";
+                    }
+                } else if (isstock==1&&auditStatus==2) {
+                    statusStr="已发布"
                 }
-                else{
-                    docstatus = "上传完成";
-                }
-
-                var row = "<li class='per-60'><i class='i-star'></i><a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a></li><li class='per-30'>" + docstatus + "</li>";
+                var row = "<li class='per-60'><i class='i-star'></i><a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a></li><li class='per-30'>" + statusStr + "</li>";
                 $("#zgzhanfa").append(row);
 
             });
@@ -97,7 +126,7 @@ function bindResouDoc() {
                     row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" + cutString(title, 22) + "</a></li>";
                 }
                 var scoreStr="";
-                for(var l=1;l<score;l++){
+                for(var l=0;l<score;l++){
                     scoreStr= scoreStr+ "<i class='i-star'></i>";
                 }
                 var trow = "<div class='col3  clearfix'>" +
@@ -160,18 +189,18 @@ function bindRecommDoc() {
 function bindDym() {
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/user/0/10&isstock=1',
+        url: GAL_URL + 'phoibe/document/list/0/10?f=storage&isstock=1',
         //url: 'http://199.139.199.154:8090/phoibe/document/selectDoucumentList',
         dataType: 'json',
         success: function (result) {
-            $.each(result.data, function (i, val) {
+
+            $.each(result.data.dataList, function (i, val) {
                 var docname = val["name"];
-                var createTime = val["createTime"];
+                var createTime = val["stockTime"];
                 var tid = val["id"];
                 var d = new Date();
                 var curTime = d.getTime();
                 var username = val["userRealName"];
-                var i = 1;
 
                 var date3 = curTime - Date.parse(createTime);  //时间差的毫秒数
 
@@ -189,12 +218,12 @@ function bindDym() {
                 var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
                 var seconds = Math.round(leave3 / 1000)
                 var minutesTip = "";
-                if (seconds > 0) minutesTip = seconds + " 秒前上传";
+                if (seconds > 0) minutesTip = seconds + " 秒前发布";
                 if (minutes > 0) minutesTip = minutes + "分钟" + minutesTip;
                 if (hours > 0) minutesTip = hours + "小时" + minutesTip;
                 if (days > 0) minutesTip = days + "天" + minutesTip;
 
-                var row = "<ul class='list3'><li><a href='docdetail.html?tid=" + tid + "' title='" + docname + "'>" + cutString(docname, 28) + "</a></li><li><span>" + username + "</span></li><li>" + minutesTip + "</li></ul>";
+                var row = "<ul class='list3'><li><a href='docdetail.html?tid=" + tid + "' title='" + docname + "'>" + cutString(docname, 14) + "</a></li><li><span>" + username + "</span></li><li>" + minutesTip + "</li></ul>";
                 $("#lst-dym").append(row);
             });
         }
@@ -247,6 +276,8 @@ $(function () {
     bindResouDoc();
     appendDitHtml();
     appendTagHtml();
+    appendUserSearchHtml();
+    appendHotSearchHtml();
     $("#upload").click(function () {
         parent.appendDitHtml();
         $(window.parent.document).find(".bodyMask").fadeIn();
@@ -313,14 +344,7 @@ $(function () {
         if (tagtypevalue != 0) {
             data = data + "&tagname=" + tagtypevalue;
         }
-        var doctypevalue = "";
-        $("#con-value .check").each(function () {
-            if (doctypevalue==""){
-                doctypevalue = $(this).html();
-            }else {
-                doctypevalue = doctypevalue +","+$(this).html();
-            }
-        })
+        var doctypevalue = $("#serachType .acheck").attr("format");
         if (doctypevalue != "" && doctypevalue != null) {
             data = data + "&format=" + doctypevalue;
         }

@@ -2,6 +2,7 @@ var totalRows = 0;
 var currPage = 0;
 var docstatus =  1;
     function loadData(pageindex) {
+
         $("#tblist-body").children().remove();    
         var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?1=1';
 
@@ -205,7 +206,7 @@ function docDelAjax(rowid){
         $("#docDone").click(function () {
             $("#btnaudit").hide();
             $("#btnreback").hide();
-            docstatus=2;
+            docstatus="2&f=audit";
             loadData(0);
              parent.iframeLoad();
         });

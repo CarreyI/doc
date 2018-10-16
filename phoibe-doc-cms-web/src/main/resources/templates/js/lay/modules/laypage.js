@@ -50,7 +50,7 @@ layui.define(function(exports){
     config.limits = typeof config.limits === 'object'
       ? config.limits
     : [10, 20, 30, 40, 50];
-    config.limit = (config.limit|0) || 10; //默认条数
+    config.limit = (config.limit|0) || 4; //默认条数
     
     //总页数
     config.pages = Math.ceil(config.count/config.limit) || 1;

@@ -535,10 +535,10 @@ function delMenuAjax(dirId) {
 
         // 新建文件目录
         $("#btnnewfolder").click(function () {
-            $(".export_bodyMask").fadeIn();
+            $(".file_bodyMask").fadeIn();
         });
         $(".file_closed").click(function () {
-            $(".export_bodyMask").hide();
+            $(".file_bodyMask").hide();
         });
         // 移动到文件目录
         $("#btnmove").click(function () {

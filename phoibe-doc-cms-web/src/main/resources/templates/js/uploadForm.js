@@ -56,7 +56,6 @@ function formSubmit(filemd5,filename,fileext,filesize){
     }
     var select_tag = "";
     $(".tag-li-in").each(function () {
-        var tagid = $(this).attr("tagid");
         var tag_html = $(this).html();
         select_tag = select_tag +tag_html+",";
     })
@@ -110,7 +109,7 @@ function getTag() {
         var id = val["id"];
         ;
         var name = val["name"];//"标签名称";
-        rowhtml = rowhtml + "<li class='tag-li' tagID='" + id + "'>#" + name + "#</li>";
+        rowhtml = rowhtml + "<li class='tag-li' tagID='" + id + "'>" + name + "</li>";
     });
     $(".tag-ul").html(rowhtml);
 }

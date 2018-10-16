@@ -8,172 +8,177 @@
     <script src="js/percenter.js"></script>
     <script src="js/layui.js"></script>
     <link rel="stylesheet" href="css/management.css"/>
-     <link rel="stylesheet" href="css/layui.css">
-<script src="js/management.js"></script>
+    <link rel="stylesheet" href="css/layui.css">
+    <script src="js/management.js"></script>
 </head>
 <body>
-    <div id="percenter">
-     <div class="main box_border ">
-            <div class="container box_border r-content">
-                <div class="box_border">
-                 <div class="bg_whiteSD box_border top inputblock">
+<div id="percenter">
+    <div class="main box_border ">
+        <div class="container box_border r-content">
+            <div class="box_border">
+                <div class="bg_whiteSD box_border top inputblock">
                     <div class="plateHeader i-percener"></div>
-        
-                     <div class="sidebar">
 
-	<div class="widget widget-tab">
+                    <div class="sidebar">
 
-		<!--<input type="radio" name="widget-tab" value="1" id="new"style="display:none;"/>-->
-		<input type="radio" name="widget-tab" value="2" id="hot"  checked="checked" style="display:none;"/>
-        <input type="radio" name="widget-tab" value="3" id="random" style="display:none;"/>
-        <input type="radio" name="widget-tab" value="4" id="attention" style="display:none;"/>
-		<div class="widget-title inline-ul">
-			<ul>
-				<!--<li class="new">-->
-					<!--<label for="new">文档动态</label>-->
-				<!--</li>-->
+                        <div class="widget widget-tab">
 
-				<li class="hot">
-					<label for="hot">最近浏览</label>
-                </li >
-                <li class="random">
-                    <label for="random">我的收藏</label>
-                </li></li >
-                <li class="attention">
-                    <label for="attention">我的订阅</label>
-                </li>
-       
-			</ul>
-		</div>
-		<div class="widget-box">
-            <!--<ul class="new-list">-->
-				<!--<li id="docdym"></li>-->
-			<!--</ul>-->
-			<ul class="hot-list">
+                            <!--<input type="radio" name="widget-tab" value="1" id="new"style="display:none;"/>-->
+                            <input type="radio" name="widget-tab" value="2" id="hot" checked="checked"
+                                   style="display:none;"/>
+                            <input type="radio" name="widget-tab" value="3" id="random" style="display:none;"/>
+                            <input type="radio" name="widget-tab" value="4" id="attention" style="display:none;"/>
+                            <div class="widget-title inline-ul">
+                                <ul>
+                                    <!--<li class="new">-->
+                                    <!--<label for="new">文档动态</label>-->
+                                    <!--</li>-->
 
-				<li id="nearread"></li>
-			</ul>
-            <ul class="random-list">
+                                    <li class="hot">
+                                        <label for="hot">最近浏览</label>
+                                    </li>
+                                    <li class="random">
+                                        <label for="random">我的收藏</label>
+                                    </li>
+                                    </li >
+                                    <li class="attention">
+                                        <label for="attention">我的订阅</label>
+                                    </li>
 
-                <li id="random_li"></li>
-            </ul>
-            <ul class="attention-list">
+                                </ul>
+                            </div>
+                            <div class="widget-box">
+                                <!--<ul class="new-list">-->
+                                <!--<li id="docdym"></li>-->
+                                <!--</ul>-->
+                                <ul class="hot-list">
 
-                <li id="attention_li"></li>
-            </ul>
+                                    <li id="nearread"></li>
+                                </ul>
+                                <ul class="random-list">
 
-		</div>
-	</div>
+                                    <li id="random_li"></li>
+                                </ul>
+                                <ul class="attention-list">
 
-</div>
-               </div>
-               <div class="content box_border inputblock top bg_whiteSD">
-                         <div class="box_border">
-                              <div class="btn-cmd-list">
-					    <a id="btnnewfolder">新建目录</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmove">移动</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btndel">删除</a> &nbsp;&nbsp;&nbsp;&nbsp;<div id="uploadfile"></div></div>
+                                    <li id="attention_li"></li>
+                                </ul>
 
-                                <!--<a id="newfolder"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="">移动</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="del">删除</a> &nbsp;&nbsp;&nbsp;&nbsp;-->
-                               
-<!--                  文档状态：<select	style="margin-left:100px;" id="wartype">
-							<option value="0">全部</option>
-							<option value="101">上传中</option>
-							<option value="2 ">待审核</option>
-							<option value="3">审核通过</option>
-							<option value="4 ">审核未通过</option>
-							</select>  -->
-                                                       
-                           <br />
-                             <div class="file_wrap">
-                                 <div class="file_divleft">
-                                     <div class="file_menu"><span>文件目录</span></div>
-                                     <!--目录树-->
-                                     <ul class="file_list">
-                                     </ul>
-                                 </div>
-                                 <div class="file_divright">
-                                     <table class="tblist" border="0">
-                                         <tr class='tblist-header'>
-                                             <th style="width:50px"></th>
-                                             <th>文档名称</th>
-                                             <th>大小(kb)</th>
-                                             <th>文件类型</th>
-                                            <!-- <th>文档标签</th>
-                                             <th>来源</th>-->
-                                             <th>创建时间</th>
-                                             <th>审批时间</th>
-                                             <th>状态</th>
-                                             <th>操作</th>
-                                         </tr>
-                                         <tbody id="tblist-body"></tbody>
-                                     </table>
+                            </div>
+                        </div>
 
-                                     <div id="notice_pages"></div>
-                                 </div>
-                             </div>
-                         </div>
-                  
+                    </div>
                 </div>
-            </div> 
+                <div class="line"></div>
+                <div class="content box_border inputblock top bg_whiteSD">
+                    <div class="box_border">
+                        <div class="btn-cmd-list">
+                            <a id="btnnewfolder">新建目录</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmove">移动</a>&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                id="btndel">删除</a> &nbsp;&nbsp;&nbsp;&nbsp;<div id="uploadfile"></div>
+                        </div>
 
-           </div>       
+                        <!--<a id="newfolder"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="">移动</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="del">删除</a> &nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                        <!--                  文档状态：<select	style="margin-left:100px;" id="wartype">
+                                                    <option value="0">全部</option>
+                                                    <option value="101">上传中</option>
+                                                    <option value="2 ">待审核</option>
+                                                    <option value="3">审核通过</option>
+                                                    <option value="4 ">审核未通过</option>
+                                                    </select>  -->
+
+                        <br/>
+                        <div class="file_wrap">
+                            <div class="file_divleft">
+                                <div class="file_menu"><span>文件目录</span></div>
+                                <!--目录树-->
+                                <ul class="file_list">
+                                </ul>
+                            </div>
+                            <div class="file_divright">
+                                <table class="tblist" border="0">
+                                    <tr class='tblist-header'>
+                                        <th style="width:50px"></th>
+                                        <th>文档名称</th>
+                                        <th>大小(kb)</th>
+                                        <th>文件类型</th>
+                                        <!-- <th>文档标签</th>
+                                         <th>来源</th>-->
+                                        <th>创建时间</th>
+                                        <th>审批时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    <tbody id="tblist-body"></tbody>
+                                </table>
+
+                                <div id="notice_pages"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
-    <!--新建文件目录-->
-    <div class="file_bodyMask">
-        <div class="mask">
-            <span class="fullScreen"></span>
-            <div class="popup">
-                <div class="model-title fl">文件目录</div>
-                <i class="file_closed closed fr"></i>
-                <div class="clearfix"></div>
-                <hr/>
-                　
-                <form action="phoibe/directory/save" method="post" id="file_ajaxform">
+</div>
+<!--新建文件目录-->
+<div class="file_bodyMask">
+    <div class="mask">
+        <span class="fullScreen"></span>
+        <div class="popup">
+            <div class="model-title fl">文件目录</div>
+            <i class="file_closed closed fr"></i>
+            <div class="clearfix"></div>
+            <hr/>
+            　
+            <form action="phoibe/directory/save" method="post" id="file_ajaxform">
 
-                    <div class="tbl-row">
-                        <div class="lable">*文件目录名称:</div>
-                        <div class="ctrl">
-                            <input type="text" id="dirName" name="dirName" class="inputBox"/>
-                        </div>
+                <div class="tbl-row">
+                    <div class="lable">*文件目录名称:</div>
+                    <div class="ctrl">
+                        <input type="text" id="dirName" name="dirName" class="inputBox"/>
                     </div>
-                    <input type="hidden" class="fileId" name="fileId">
-                    <div class="tbl-row">
-                        <div class="ctrl">
-                            <div id="file_submit" class="file_submit"></div>
-                        </div>
+                </div>
+                <input type="hidden" class="fileId" name="fileId">
+                <div class="tbl-row">
+                    <div class="ctrl">
+                        <div id="file_submit" class="file_submit"></div>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div> <!--移动文件目录-->
-    <div class="filelist_bodyMask">
-        <div class="mask">
-            <span class="fullScreen"></span>
-            <div class="popup">
-                <div class="model-title fl">文件目录</div>
-                <i class="filelist_closed closed fr"></i>
-                <div class="clearfix"></div>
-                <hr/>
-                　
-                <form action="phoibe/directory/move" method="post" id="filelist_ajaxform">
-
-                    <div class="tbl-row">
-                        <div class="lable">*文件目录名称:</div>
-                        <div class="ctrl">
-                            <ul class="file_selectlist">
-                            </ul>
-                        </div>
-                    </div>
-                    <input type="hidden" class="documentId" name="documentId" value="">
-                    <div class="tbl-row">
-                        <div class="ctrl">
-                            <div id="filelist_submit" class="filelist_submit"></div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
+</div> <!--移动文件目录-->
+<div class="filelist_bodyMask">
+    <div class="mask">
+        <span class="fullScreen"></span>
+        <div class="popup">
+            <div class="model-title fl">文件目录</div>
+            <i class="filelist_closed closed fr"></i>
+            <div class="clearfix"></div>
+            <hr/>
+            　
+            <form action="phoibe/directory/move" method="post" id="filelist_ajaxform">
+
+                <div class="tbl-row">
+                    <div class="lable">*文件目录名称:</div>
+                    <div class="ctrl">
+                        <ul class="file_selectlist">
+                        </ul>
+                    </div>
+                </div>
+                <input type="hidden" class="documentId" name="documentId" value="">
+                <div class="tbl-row">
+                    <div class="ctrl">
+                        <div id="filelist_submit" class="filelist_submit"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
-    <script></script>
+<script></script>
 </html>

@@ -64,18 +64,11 @@ function loadData(type,pageindex) {
             url = 'phoibe/document/list/'+queryFlag+"/" + pageindex + '/10?1=1';
         }
     }
-    var doctypevalue = "";
-    $("#con-value .check").each(function () {
-        if (doctypevalue==""){
-            doctypevalue = $(this).html();
-        }else {
-            doctypevalue = doctypevalue +","+$(this).html();
-        }
-    })
+    var doctypevalue = $("#serachType .acheck").attr("format");
     if (doctypevalue != "" && doctypevalue != null) {
         data = data + "&format=" + doctypevalue.toLowerCase();
     }
-    data = url + data + "&isstock=1";
+    data = url + data + "&auditStatus=2&&isstock=1";
     $.ajax({
              type: 'GET',
              url: GAL_URL + data,
@@ -190,7 +183,6 @@ function appendDitHtml(){
         if ($(this).hasClass('tag-li-in')) {
             $(this).removeClass('tag-li-in');
         } else {
-            $("#wartype .tag-li-in").removeClass('tag-li-in');
             $(this).addClass('tag-li-in');
         }
         loadData(1, 0);
@@ -199,7 +191,6 @@ function appendDitHtml(){
         if ($(this).hasClass('tag-li-in')) {
             $(this).removeClass('tag-li-in');
         } else {
-            $("#armtype .tag-li-in").removeClass('tag-li-in');
             $(this).addClass('tag-li-in');
         }
         loadData(1, 0);
@@ -216,9 +207,44 @@ function appendTagHtml() {
     });
     $("#tagtype").html(rowhtml);
 }
+
+function appendHotSearchHtml(){
+    var resultData = parent.hotsearchLoadAjax();
+    var rowhtml = "<li class=''>热搜：</li>";
+    $.each(resultData, function (i, val) {
+        rowhtml +="<a class='line-li' href='#'>" + val + "</a>";
+    });
+    $("#hotSerach").html(rowhtml);
+
+    $("#hotSerach a").click(function () {
+        var hotChar = $(this).text();
+        $("#search-key").val(hotChar);
+        $("#btnSearch").click();
+    })
+    $("#serachType a").click(function () {
+        $(this).addClass("acheck");
+        $("#btnSearch").click();
+    })
+    $("#serachType .acheck").click(function () {
+        $(this).removeClass("acheck");
+        $("#btnSearch").click();
+    })
+
+}
+function appendUserSearchHtml(){
+    var resultData = parent.hotsearchLoadAjax();
+    var rowhtml = "";
+    $.each(resultData, function (i, val) {
+        rowhtml +="<option value='"  + val + "' />";
+    });
+    $("#userSearchList").html(rowhtml);
+}
      $(function () {
          appendDitHtml();
          appendTagHtml();
+         appendHotSearchHtml();
+         appendUserSearchHtml();
+
          //当首页跳转到查询页时，遍历取首页查询参数
          $("#condwhere").find("input").each(function () {
              var input_id = $(this).attr("id");
@@ -246,15 +272,14 @@ function appendTagHtml() {
          }
          var format = getUrlString("format");
 
-            $(".checkList").find("li").each(function () {
-                var check_val = $(this).html();
-                if(format!=""&&format!=null){
-                    if (format.indexOf(check_val)>-1){
-                        $(this).addClass("check");
-                        $(this).attr("checked","checked");
-                    }
-                }
-            })
+         if (format != "" && format != null) {
+             $("#serachType").find("a").each(function () {
+                 var check_val = $(this).attr("format");
+                 if (format.indexOf(check_val) > -1) {
+                     $(this).addClass("acheck");
+                 }
+             })
+         }
          loadData(0,0);
 
          $("#condif").click(function () {

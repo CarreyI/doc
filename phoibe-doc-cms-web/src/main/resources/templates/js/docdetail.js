@@ -12,30 +12,44 @@ function getInfo() {
         dataType: 'json',
         success: function (result) {
             if (result.code = "SUCCESS") {
-                userid= result.data.userId
+                userid= result.data.userId;
+
                 var suffx = result.data.format.replace(".","");
                 if (suffx == "pdf"||suffx == "doc"||suffx == "docx") {
                     // var hrefurl = "openword.html?filePath="+result.data.filePath+"&docId="+tid;
                     var hrefurl = "phoibe/document/previewDoc/"+tid;
                     hrefurl = GAL_URL+hrefurl;
-                    $(".perview").attr("href",hrefurl);
+                    $("#preview").attr("href",hrefurl);
                     $("#icontitle").attr("class", "pdf");
                 }else{
-                	$(".perview").remove();
+                	$("#preview").remove();
                 }
                 var collection= result.data.isCollection;
                 if (collection){
-                    $("#favorite").addClass("favorite_ok");
+                    $("#favorite").html("已收藏");
                     $("#favorite").attr("status",1)
                 }
+                var filePath = result.data.filePath;
+                if (filePath!=null&&filePath!=""){
+                    filePath = filePath.substring(filePath.lastIndexOf("/")+1,filePath.length);
+                }
+                $("#format").html(filePath+"&nbsp;&nbsp;("+result.data.fileSize+"kb)");
                 $("#attention").attr("status",result.data.subscribe);
                 $("#date").html(result.data.createTime);
-                $("#format").html(result.data.format);
-                $("#size").html(result.data.fileSize);
-                $("#owner").html(result.data.userRealName);
-                $("#tag").html(result.data.tag);
+                $(".owner").html(result.data.userRealName);
+                var tagArray = result.data.tag.split(",");
+                var taglinkHtml ="";
+                for (var i=0;i<tagArray.length;i++){
+                    var tag = tagArray[i]
+                    taglinkHtml +="<a class='tag-link' href='' target='_blank'>"+tag+"</a>";
+                }
+                $(".tags-box").append(taglinkHtml);
                 $("#doctitle").html(result.data.name);
-                $("#score").html(result.data.score);
+                var scoreStr="评分：";
+                for(var l=0;l<result.data.score;l++){
+                    scoreStr= scoreStr+ "<i class='i-star'></i>";
+                }
+                $("#score").html(scoreStr);
                 var description = result.data.description;
 
                 if(description!="undefined" && description!=""){
@@ -47,11 +61,91 @@ function getInfo() {
         }
     });
 }
+function newwestDoc() {
+    $.ajax({
+        type: 'GET',
+        url: GAL_URL + 'phoibe/document/list/0/10?f=storage&isstock=1',
+        //url: 'http://199.139.199.154:8090/phoibe/document/selectDoucumentList',
+        dataType: 'json',
+        success: function (result) {
 
+            $.each(result.data.dataList, function (i, val) {
+                var docname = val["name"];
+                var tid = val["id"];
+                var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
+                var row = '<li class="clearfix"><a href="'+hrefUrl+'" target="_blank">' + docname + '</a></li>';
+                $("#asideNewArticle ul").append(row);
+            })
+        }
+    })
+}
+function userMenu() {
+    $.ajax({
+        type: 'GET',
+        url: GAL_URL + 'phoibe/document/list/0/10?f=storage&isstock=1',
+        //url: 'http://199.139.199.154:8090/phoibe/document/selectDoucumentList',
+        dataType: 'json',
+        success: function (result) {
+
+            $.each(result.data.dataList, function (i, val) {
+                var docname = val["name"];
+                var tid = val["id"];
+                var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
+                var row = "<li><a class='clearfix'href='"+hrefUrl+"'>"+
+                    "<span class='title oneline'>目录"+i+"</span>"+
+                    "<span class='count float-right'>"+(i+2)+"篇</span></a></li>";
+                $("#asideCategory ul").append(row);
+            })
+        }
+    })
+}
+function hotArticle() {
+    var url = GAL_URL + 'phoibe/document/list/0/19?f=handpick&isstock=1';
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        success: function (result) {//<div class='font22 title'>中国战法</div>
+            var viewNum=984;
+            $.each(result.data.dataList, function (i, val) {
+                var docname = val["name"];
+                var tid = val["id"];
+                var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
+                var row="<li><a href='"+hrefUrl+"'target='_blank'>"+docname+"</a><p class='read'>阅读量：<span>"+(viewNum-=135)+"</span></p></li>";
+                $("#asideHotArticle ul").append(row);
+            });
+        }
+    });
+}
+function correlationArticle() {
+    var url = GAL_URL + 'phoibe/document/list/0/19?f=handpick&isstock=1';
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        success: function (result) {//<div class='font22 title'>中国战法</div>
+            var viewNum=984;
+            $.each(result.data.dataList, function (i, val) {
+                var docname = val["name"];
+                var tid = val["id"];
+                var description=val["description"];
+                var createTime=val["createTime"];
+                var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
+                var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
+                "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+docname+
+                "</h5><span class='time'>"+createTime.substring("5","10")+"</span><span class='read'> 1182 </span></div>"+
+                "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
+                "</a></li>";
+                $(".recommend-fixed-box").append(row);
+            });
+        }
+    });
+}
 function loadData(pageindex) {
     $("#comm-content").children().remove();
     var docid = getUrlString("tid");
-    var url = GAL_URL+"phoibe/comment/list/"+docid+"/"+pageindex+"/10";
+    var url = GAL_URL+"phoibe/comment/list/"+docid+"/"+pageindex+"/6";
+    $(".comment-list-box").html("");
 	//alert(url);
             $.ajax({
                 type: 'GET',
@@ -59,25 +153,29 @@ function loadData(pageindex) {
                 async: false,
                 dataType: 'json',
                 success: function (result) {
-                    var total_rows = result.data.totalCount;
-                    totalRows = total_rows;
-                 $("#comment").html(total_rows);
+                     totalRows = result.data.totalCount;
+                 $("#comment").html(totalRows+"&nbsp;条评论");
                     $.each(result.data.dataList, function (i, val) {
                         var content = val["commentContent"];
                         var createTime = val["createTime"];
                         var title = $("#doctitle").html();
-                        var name = val["nickname"];
+                        var name = val["userName"];
                         var step = 0;
                         var row = "";
-                        var row = "<div class='row'><div class='imghead'><img src='images/head.png' /></div><span class='name'>" + name + "</span><span class='com-date'>"+createTime+"</span><br /><span class='doctitle'>《" + title + "》</span><span id='commconten'>"+content+"</span></div>";
-                        //alert(row);
-                        $("#comm-content").append(row);
+                        var row = "<span class='doctitle'>《" + title + "》</span><span id='commconten'>"+content+"</span></div>";
+                        row="<ul class='comment-list'><li class='comment-line-box'>" +
+                            "<a target='_blank' href=''><img src='images/head.png' style='float: left;'/></a>" +
+                            "<div class='right-box '><div class='info-box'>" +
+                            "<a target='_blank' href=''><span class='name '>" + name + "：</span></a>" +
+                            "<span class='comment'>"+content+"</span>" +
+                            "<span class='date' title='"+createTime+"'>"+createTime+"</span>" +
+                            "</div></div></li></ul>";
+                        $(".comment-list-box").append(row);
                         parent.iframeLoad();
                     })
                 }
             });
-
-            layui.use(['laypage', 'layer'], function () {
+     layui.use(['laypage', 'layer'], function () {
                 var laypage = layui.laypage
                 , layer = layui.layer;
                 laypage.render({
@@ -99,8 +197,10 @@ function loadData(pageindex) {
 }
 
 function initstar() {
-    var num = finalnum = tempnum = 0;
-    var lis = document.getElementsByTagName("li");
+    var num = 5;
+    finalnum = 5;
+    tempnum = 1;
+    var lis = $("#com-score ul li");
     //num:传入点亮星星的个数
     //finalnum:最终点亮星星的个数
     //tempnum:一个中间值
@@ -121,7 +221,7 @@ function initstar() {
         }
         lis[i - 1].onclick = function () { //鼠标点击,同时会调用onmouseout,改变tempnum值点亮星星
             tempnum = this.index;
-            $("#comentscore").val(((tempnum-2)/2));
+            $("#comentscore").val(tempnum);
         }
     }
 }
@@ -134,7 +234,7 @@ function isAttention(){
         dataType: 'json',
         success: function (result) {
             if(result.data){
-                $("#attention").addClass("attention_ok");
+                $("#attention").html("已订阅");
                 $("#attention").attr("status",1)
             }
         }
@@ -158,12 +258,10 @@ function attentionAjax(){
         success: function (result) {
             if(result.code=="SUCCESS"){
                 if (status==0){
-                    $("#attention").addClass("attention_ok");
-                    $("#attention").removeClass("attention");
+                    $("#attention").html("已订阅");
                     $("#attention").attr("status",1)
                 }else{
-                    $("#attention").addClass("attention");
-                    $("#attention").removeClass("attention_ok");
+                    $("#attention").html("订阅");
                     $("#attention").attr("status",0)
                 }
             }
@@ -188,12 +286,10 @@ function favoriteAjax(){
         success: function (result) {
             if(result.code=="SUCCESS"){
                 if (status==0){
-                    $("#favorite").addClass("favorite_ok");
-                    $("#favorite").removeClass("favorite");
+                    $("#favorite").html("已收藏");
                     $("#favorite").attr("status",1)
                 }else{
-                    $("#favorite").addClass("favorite");
-                    $("#favorite").removeClass("favorite_ok");
+                    $("#favorite").html("收藏文章");
                     $("#favorite").attr("status",0)
                 }
             }
@@ -222,14 +318,19 @@ $(function () {
     initstar();
         getInfo();
         loadData(0);
+    newwestDoc();
+    userMenu();
+    hotArticle();
+    correlationArticle();
+
     isAttention();
-    $(".attention").click(function () {
+    $("#attention").click(function () {
         attentionAjax(tid);
     });
-    $(".favorite").click(function () {
+    $("#favorite").click(function () {
         favoriteAjax(tid);
     });
-    $(".download").click(function () {
+    $("#download").click(function () {
         downloadAjax(tid);
     });
         $("#submit").click(function () {
@@ -245,6 +346,7 @@ $(function () {
                 userId = userObject.id;
             }
             var formdata = {
+
                 commentContent: $("#comment-content").val(),
                 score: parseInt($("#comentscore").val()),
                 documentId: parseInt(tid),

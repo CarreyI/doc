@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("phoibe/dict")
@@ -42,10 +43,14 @@ public class DictController {
 
     }
 
-    @DeleteMapping("/remove/{id}")
-    public String remove(@PathVariable Long id, HttpServletRequest request){
-        phoibeDictService.removeDict(id);
-        LogUtil.writeLog("删除了id为{"+id+"}字典数据记录", LogUtil.OPER_TYPE_DEL,"数据字典", DictController.class,request);
+    @DeleteMapping("remove")
+    public String remove(@RequestParam String idstr,  HttpServletRequest request){
+
+        String [] ids = idstr.split(",");
+        for(String id : ids){
+            phoibeDictService.removeDict(Long.valueOf(id));
+        }
+        LogUtil.writeLog("删除了id为{"+idstr+"}字典数据记录", LogUtil.OPER_TYPE_DEL,"数据字典", DictController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
     @DeleteMapping("/removekey")
@@ -56,6 +61,7 @@ public class DictController {
     }
     @PostMapping("/add")
     public String add(@RequestBody PhoibeDict phoibeDict, HttpServletRequest request){
+        phoibeDict.setDictKey(UUID.randomUUID().toString().substring(0,10));
         phoibeDictService.addDict(phoibeDict);
         LogUtil.writeLog("标示为{"+phoibeDict.getGroupKey()+"}字段新增了名为：{"+phoibeDict.getDictName()+"}的子项", LogUtil.OPER_TYPE_ADD,"数据字典", DictController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));

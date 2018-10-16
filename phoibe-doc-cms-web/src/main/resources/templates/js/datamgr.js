@@ -51,7 +51,7 @@ function loadData(pageindex) {
             });
             $(".doc-del").click(function () {
                 var tid = $(this).attr("tid");
-                    tagSonDelAjax(tid);
+                tagSonDelAjax(tid);
 
             });
         }
@@ -101,24 +101,6 @@ function tagSonDelAjax(tid){
     }
 }
 
-function groupKeyDelAjax(groupkey){
-    if (confirm("确认删除此项字段吗？")) {
-        $.ajax({
-            url: GAL_URL + "phoibe/dict/removekey?groupKey=" + groupkey,
-            type: "DELETE",
-            dataType: "json",
-            async: false,
-            contentType: "application/json;charset=UTF-8",
-            success: function (data) {
-                if (data.code = "SUCCESS") {
-                    groupKey = "";
-                    loadData(0);
-                    loadDataMenu();
-                }
-            }
-        });
-    }
-}
 function loadDataMenu(){
 
     $.ajax({
@@ -136,8 +118,7 @@ function loadDataMenu(){
                     var groupName = roleObj[i].groupName;
 
                     datalist=datalist + "<li>+ <a href=\"#\" class=\"menu-a\" groupKey='"+groupKey+"'>"+groupName+"</a>" +
-                        "&nbsp;&nbsp;&nbsp;<a href=\"#\" class=\"menu-add menu-btn\" groupKey='"+groupKey+"'>新增属性</a>" +
-                        "&nbsp;&nbsp;&nbsp;<a href=\"#\" class=\"menu-del menu-btn\" groupKey='"+groupKey+"'>删除</a></li>";
+                        "&nbsp;&nbsp;&nbsp;<a href=\"#\" class=\"menu-add menu-btn\" groupKey='"+groupKey+"'>新增属性</a></li>";
 
                 }$(".data_list").html(datalist);
             }
@@ -153,11 +134,6 @@ function loadDataMenu(){
         $(this).find(".menu-btn").fadeIn();
     },function () {
         $(this).find(".menu-btn").hide();
-    });
-    // 删除字段
-    $(".menu-del").click(function(){
-            groupKey = $(this).attr("groupKey");
-            groupKeyDelAjax(groupKey);
     });
     // 新增属性
     $(".menu-add").click(function(){
@@ -223,8 +199,7 @@ $(function () {
             var value = form.serializeArray()[i].value;
             formdata[key] = value;
         }
-        formdata.status=formdata.sequence;
-
+        formdata.status=1;
         $.ajax({
             url: GAL_URL + form.attr("action"),
             type: form.attr("method"),
@@ -236,6 +211,7 @@ $(function () {
             success: function (data) {
                 if (data.code="success") {
                     alert("提交成功");
+                    $("#son_ajaxform")[0].reset();
                     $(".son_bodyMask").hide();
                     loadData(0);
                 }else{

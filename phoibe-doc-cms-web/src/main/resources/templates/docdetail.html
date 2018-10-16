@@ -17,68 +17,169 @@
         <div class="container box_border r-content">
 
             <div class="bg_whiteSD box_border top inputblock">
-                <br/>
-                <div class="plateHeader i-docmgr"></div>
-                <div class="line"></div>
-                <div class="left" style="width:60%;">
-                    <div class="row" style="border-bottom:0px;" id="doc-property">
-                        <i id="icontitle" ></i><span class="doc-title" id="doctitle"></span>
-                        <ul><li>上传时间:<span id="date"></span></li><li >格式:<span id="format"></span></li>
-                            <li><span id="comment"></span>条评论</li>
-                            <li>评分:<span id="score"></span></li>
-                            <li>大小:<span id="size">102</span>kb</li>
-                            <li>标签:<span id="tag"></span></li>
-                            <li>文档拥有者:<span id="owner"></span></li></ul>
+                <div class="info_div">
+                    <div class="info_divleft">
+                        <div id="asideProfile" class="aside-box">
+                            <h3 class="aside-title">个人资料</h3>
+                            <div class="profile-intro d-flex">
+                                <div class="avatar-box ">
+                                    <a href="#">
+                                        <img src='images/head.png'/>
+                                    </a>
+                                </div>
+                                <div class="user-info">
+                                    <p>
+                                        <a href="#" target="_blank" class="owner"></a>
+                                    </p>
+                                </div>
+                                <div class="opt-box">
+            <span>
+                <a class="btn-attention btn attention" id="attention" target="_blank" status=0>订阅</a>
+            </span>
+                                </div>
+                            </div>
+                            <div class="data-info d-flex item-tiling">
+                                <dl class="text-center" title="12">
+                                    <dt><a href="https://blog.csdn.net/jsonchumpklutz?t=1">原创</a></dt>
+                                    <dd><a href="https://blog.csdn.net/jsonchumpklutz?t=1"><span class="count">12</span></a>
+                                    </dd>
+                                </dl>
+                                <dl class="text-center" id="fanBox" title="103">
+                                    <dt>粉丝</dt>
+                                    <dd><span class="count" id="fan">103</span></dd>
+                                </dl>
+                                <dl class="text-center" title="58">
+                                    <dt>分数</dt>
+                                    <dd><span class="count">58</span></dd>
+                                </dl>
+                                <dl class="text-center" title="76">
+                                    <dt>评论</dt>
+                                    <dd><span class="count">76</span></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div id="asideNewArticle" class="aside-box">
+                            <h3 class="aside-title">最新文章</h3>
+                            <div class="aside-content">
+                                <ul>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="asideCategory" class="aside-box flexible-box">
+                            <h3 class="aside-title">个人分类</h3>
+                            <div class="aside-content">
+                                <ul>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="asideHotArticle" class="aside-box">
+                            <h3 class="aside-title">热门文章</h3>
+                            <div class="aside-content">
+                                <ul class="hotArticle-list">
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="right" style="width:36%">
-                    <a class="perview" id="preview" title="查看" target="_blank"></a>
-                    <a class="attention" id="attention" href="#" status=0 title="订阅"></a>
-                    <a class="favorite" id="favorite" href="#" status=0 title="收藏"></a>
-                    <a class="download" title="下载"></a>
-                </div>
+                    <div class="content_divcontent">
 
-                <div class="d-content clearfix">
-                    <!-- <div class="left">
-                         <div class="dtitle">目录</div>
-                     </div>
-                     <div class="right" id="doc-content"></div>-->
-                    <div id="doc-content">
+                        <div class="content_div">
+                        <div class="blog-content-box">
+                            <div class="article-header-box">
+                                <div class="article-header">
+                                    <div class="article-title-box">
+                                        <h1 class="title-article" id="doctitle"></h1>
 
+
+                                    </div>
+                                    <div class="article-info-box">
+                                        <div class="article-bar-top" style="height: auto;">
+                                            <span id="date"></span>
+                                            <a class="follow-nickName owner" href="" target="_blank"></a>
+                                            <span id="read-count">阅读数：539</span>
+                                            <span id="comment"></span>
+                                            <span id="score"></span>
+                                            <span>
+                                            <a class="btn-favorite btn" id="favorite" target="_blank" status=0>收藏文章</a>
+                                        </span>
+                                            <div class="tags-box space">
+                                                <span class="label">个人分类：</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="operating">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="article_content" class="article_content">
+                                <div id="doc-content">
+                                </div>
+
+                                <span>
+                                    <a id="format"></a>
+                                    <a class="btn-preview btn" id="preview">查看</a>
+                                    <a class="btn-download btn" id="download">下载</a>
+                                </span>
+                            </div>
+                            <script>
+                                $(function () {
+                                    function setArticleH(btnReadmore, posi) {
+                                        var winH = $(window).height();
+                                        var articleBox = $("div.article_content");
+                                        var artH = articleBox.height();
+                                        if (artH > winH * posi) {
+                                            articleBox.css({
+                                                'height': winH * posi + 'px',
+                                                'overflow': 'hidden'
+                                            })
+                                            btnReadmore.click(function () {
+                                                articleBox.removeAttr("style");
+                                                $(this).parent().remove();
+                                            })
+                                        } else {
+                                            btnReadmore.parent().remove();
+                                        }
+                                    }
+
+                                })
+                            </script>
+                        </div>
                     </div>
+                    <div class="comment_div">
+                        <div class="comment-list-box" style="max-height: none;">
 
+                        </div>
+                        <div id="notice_pages"></div>
+                    </div>
+                        <div class="commentinput_div">
+                            <div id="com-score">
+                                <label>评分：</label>
+                                <span class="scoreremark">
+                                    <ul>
+                                    <li class="light"><a href="javascript:;">1</a></li>
+                                    <li><a href="javascript:;">2</a></li>
+                                    <li><a href="javascript:;">3</a></li>
+                                    <li><a href="javascript:;">4</a></li>
+                                    <li><a href="javascript:;">5</a></li>
+                                    </ul>
+                                    </span>
+                                <span>
+                                    <a class="btn-submit btn" id="submit">提交</a>
+                                </span>
+                            </div>
+                            <textarea rows="5" placeholder="输入您的评论" id="comment-content"
+                                      name="comment-content"></textarea>
+                            <input type="hidden" id="comentscore" value="1"/>
+                        </div>
                 </div>
+                    <div class="recommend-right">
+                        <h3 class="aside-title">相关文章</h3>
+                        <ul class="recommend-fixed-box" style="top: 48px;">
 
-                <div id="comm">
-                    <!-- <div class="tab-bc">
-
-                     </div>-->
-                    <div id="comm-title" class="font16 title i-sign">评论列表</div>
-                    <div id="comm-content"></div>
-
-                    <div id="notice_pages"></div>
-                    <textarea  rows="5" placeholder="输入您的评论" id="comment-content" name="comment-content"></textarea>
-                    <input type="hidden" id="comentscore"/>
-                    <div id="com-score">
-                        <label>评分：</label>
-                        <span class="scoreremark">
-                        <ul>
-                            <li class="light"><a href="javascript:;">1</a></li>
-                            <li><a href="javascript:;">2</a></li>
-                            <li><a href="javascript:;">3</a></li>
-                            <li><a href="javascript:;">4</a></li>
-                            <li><a href="javascript:;">5</a></li>
                         </ul>
-                    </span>  <div class="submit fr" id="submit"></div>
-
                     </div>
-
-                </div>
-
             </div>
-
         </div>
     </div>
-</div>
 </body>
 </html>
