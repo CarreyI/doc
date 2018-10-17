@@ -1888,8 +1888,12 @@ width:40% !important;
 .per-15 {
 width:15% !important;
 }
+#zgzhanfa{
+	height:100px;
+}
 #zgzhanfa li a {
 padding-left:4px;
+
 }
 #curtime {
 font-size:18px;
@@ -2234,7 +2238,7 @@ font-size:16px;
 }
 .scoreremark{
 	float:left;
-	margin-top:8px;
+	margin-top:2px;
 }
 #com-score label{float:left;}
 #com-score .submit{margin-top:8px;}
