@@ -183,8 +183,5 @@ public class LoggingController {
             ex.printStackTrace();
         }
         return null;
-    } @GetMapping("toJsonLogType")
-    public String toJsonLogType() {
-       return LogUtil.toJsonLogType();
     }
 }

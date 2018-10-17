@@ -27,8 +27,6 @@ public interface PhoibeUserService {
 
     List<DPhoibeUser> fetchUserByScore();
 
-    List<DPhoibeUser> fetchUserByBrowse();
-
     boolean checkSubscribe(PhoibeSubscribe phoibeSubscribe);
 
     void cancelSubscribe(PhoibeSubscribe phoibeSubscribe);

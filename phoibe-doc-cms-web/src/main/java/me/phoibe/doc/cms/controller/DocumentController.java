@@ -91,15 +91,15 @@ public class DocumentController {
 				case "audit": {
 					orderBy = "AUDIT_TIME";
 					sort = "DESC nulls last";
-					LogUtil.writeLog("查看了待审核的文档", LogUtil.OPER_TYPE_LOOK,"文档查询", DocumentController.class,request);
 					break;
 				}
 				case "storage": {
 					orderBy = "STOCK_TIME";
 					sort = "DESC nulls last";
-					LogUtil.writeLog("查看了已入库的文档", LogUtil.OPER_TYPE_LOOK,"文档查询", DocumentController.class,request);
 					break;
 				}
+
+
 			}
 		}
 		Long userId = getUserId(request);
@@ -133,33 +133,10 @@ public class DocumentController {
 
 		PageList<DPhoebeDocument> pageList = phoibeDocumentService.fetchDocumentByPageList(pageParam);
 
+		LogUtil.writeLog("查询浏览了文档记录", LogUtil.OPER_TYPE_LOOK,"文档查询", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, pageList));
 	}
-	@GetMapping("relevantList/{index}/{limit}")
-	public String relevantDoucument(@PathVariable Integer index, @PathVariable Integer limit,
-								@RequestParam(required = false) String f, @ModelAttribute DPhoebeDocument param,HttpServletRequest request) {
 
-		Long userId = getUserId(request);
-		if (!StringUtils.isEmpty(param.getQueryFlag())) {
-			param.setQueryUserId(userId);
-		}
-		if (param.getTag() != null) {
-			String[] tagArray = param.getTag().split(",");
-			param.setTagArray(tagArray);
-			param.setTag(null);
-		}
-
-		PageParam<DPhoebeDocument> pageParam = new PageParam<>();
-		pageParam.setStart(index);
-		pageParam.setLimit(limit);
-		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
-		pageParam.setOrderBy("SCORE");
-		pageParam.setSort("DESC");
-
-		PageList<DPhoebeDocument> pageList = phoibeDocumentService.fetchRelevantDocumentByPageList(pageParam);
-
-		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, pageList));
-	}
 	@GetMapping("list/browse/{index}/{limit}")
 	public String listBrowse(@PathVariable Integer index, @PathVariable Integer limit,@ModelAttribute DPhoebeDocument param,HttpServletRequest request) {
 		String orderBy = "b.CREATE_TIME";
@@ -188,7 +165,7 @@ public class DocumentController {
 
 		PageList<DPhoebeDocument> pageList = phoibeDocumentService.fetchJoinDocumentByPageList(pageParam);
 
-		LogUtil.writeLog("查看了文档浏览记录", LogUtil.OPER_TYPE_LOOK,"文档查询", DocumentController.class,request);
+		LogUtil.writeLog("浏览了文档浏览记录", LogUtil.OPER_TYPE_LOOK,"文档查询", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, pageList));
 	}
 
@@ -220,7 +197,7 @@ public class DocumentController {
 
 		PageList<DPhoebeDocument> pageList = phoibeDocumentService.fetchJoinDocumentByPageList(pageParam);
 
-		LogUtil.writeLog("查看了收藏的文档", LogUtil.OPER_TYPE_LOOK,"文档查询", DocumentController.class,request);
+		LogUtil.writeLog("浏览了收藏的文档记录", LogUtil.OPER_TYPE_LOOK,"文档查询", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, pageList));
 	}
 
@@ -233,9 +210,9 @@ public class DocumentController {
 		pageParam.setLimit(limit);
 		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
 
-		PageList<DPhoebeDocument> list = phoibeDocumentService.fetchDocumentUserList(pageParam);
+		List<DPhoebeDocument> list = phoibeDocumentService.fetchDocumentUserList(pageParam);
 		LogUtil.writeLog("浏览了个人文档", LogUtil.OPER_TYPE_LOOK,"个人文档", DocumentController.class,request);
-		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, list));
+		return JsonUtils.toJson(new Result<List<DPhoebeDocument>>(Code.SUCCESS, list));
 	}
 
 	@GetMapping("fetch/{id}")
@@ -503,20 +480,21 @@ public class DocumentController {
 
 	@GetMapping("hot")
 	public String hot(HttpServletRequest request){
-		List<DPhoibeUser> phoibeUsers = phoibeUserService.fetchUserByBrowse();
+		List<DPhoibeUser> phoibeUsers = phoibeUserService.fetchUserByScore();
 		for(DPhoibeUser dPhoibeUser:phoibeUsers){
 			dPhoibeUser.setAvgScore(phoibeDocumentService.fetchAvgScore(dPhoibeUser.getId()));
 			dPhoibeUser.setPhoibeDocuments(phoibeDocumentService.fetchHotUserDocument(dPhoibeUser.getId()));
 		}
-		for(int i = 0;i < phoibeUsers.size();i++){
-			for(int j = 0; j < phoibeUsers.size();j++){
-				if(phoibeUsers.get(i).getAvgScore() > phoibeUsers.get(j).getAvgScore()){
-					DPhoibeUser phoibeUser = phoibeUsers.get(i);
-					phoibeUsers.set(i,phoibeUsers.get(j));
+		for(int i = 0;i < phoibeUsers.size() -1;i++){
+			for(int j = 0; j < phoibeUsers.size() - i -1;j++){
+				if(phoibeUsers.get(j).getAvgScore() < phoibeUsers.get(j+1).getAvgScore()){
+					DPhoibeUser phoibeUser = phoibeUsers.get(j);
 					phoibeUsers.set(j,phoibeUser);
+					phoibeUsers.set(j+1,phoibeUser);
 				}
 			}
 		}
+		LogUtil.writeLog("浏览了首页热搜", LogUtil.OPER_TYPE_LOOK,"首页热搜", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<List<DPhoibeUser>>(Code.SUCCESS, phoibeUsers));
 	}
 
@@ -544,7 +522,7 @@ public class DocumentController {
 		phoibeBrowse.setDocumentId(id);
 		phoibeBrowse.setUserId(getUserId(request));
 		phoibeDocumentService.cancelBrowse(phoibeBrowse);
-		LogUtil.writeLog("用户清除了Id为{"+id+"}的文档浏览", LogUtil.OPER_TYPE_DEL,"个人文档", DocumentController.class,request);
+		LogUtil.writeLog("用户清除了Id为{"+id+"}的文档浏览记录", LogUtil.OPER_TYPE_DEL,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
 	}
 

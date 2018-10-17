@@ -77,7 +77,7 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
     @Transactional
     public Integer update_v2(PhoibeDocument phoibeDocument) {
         int i = phoibeDocumentMapper.updateByPrimaryKeySelective(phoibeDocument);
-        DPhoebeDocument model = phoibeDocumentMapper.selectByPrimaryKey(phoibeDocument.getId());
+        PhoibeDocument model = phoibeDocumentMapper.selectByPrimaryKey(phoibeDocument.getId());
         String finalDirPath="";
         if(status.equals("1")) {
             finalDirPath = window;
@@ -118,22 +118,8 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
     }
 
     @Override
-    public PageList<DPhoebeDocument> fetchRelevantDocumentByPageList(PageParam<DPhoebeDocument> pageParam) {
-        List<DPhoebeDocument> dlist = new ArrayList<>();
-        List<PhoibeDocument> list = phoibeDocumentMapper.selectRelevantByPage(pageParam);
-        for (PhoibeDocument model:list){
-            DPhoebeDocument dmodel = new DPhoebeDocument();
-            BeanUtils.copyProperties(model,dmodel);
-            dmodel.settings();
-            dlist.add(dmodel);
-        }
-        return PageList.createPage(pageParam,phoibeDocumentMapper.selectRelevantCountByPage(pageParam),dlist);
-    }
-
-    @Override
-    public PageList<DPhoebeDocument> fetchDocumentUserList(PageParam<DPhoebeDocument> pageParam) {
-        List<DPhoebeDocument> dlist =  phoibeDocumentMapper.selectDocumentUser(pageParam);
-        return PageList.createPage(pageParam,phoibeDocumentMapper.selectCountByPage(pageParam),dlist);
+    public List<DPhoebeDocument> fetchDocumentUserList(PageParam<DPhoebeDocument> pageParam) {
+        return phoibeDocumentMapper.selectDocumentUser(pageParam);
     }
 
     @Override
@@ -157,10 +143,12 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
         if(null == id){
             return null;
         }
-        DPhoebeDocument dmodel = phoibeDocumentMapper.selectByPrimaryKey(id);
-        if(null == dmodel){
+        DPhoebeDocument dmodel = new DPhoebeDocument();
+        PhoibeDocument model = phoibeDocumentMapper.selectByPrimaryKey(id);
+        if(null == model){
             return null;
         }
+        BeanUtils.copyProperties(model,dmodel);
         dmodel.settings();
         return dmodel;
     }

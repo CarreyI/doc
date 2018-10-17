@@ -24,9 +24,7 @@ public interface PhoibeDocumentService {
 
     PageList<DPhoebeDocument> fetchDocumentByPageList(PageParam<DPhoebeDocument> pageParam);
 
-    PageList<DPhoebeDocument> fetchRelevantDocumentByPageList(PageParam<DPhoebeDocument> pageParam);
-
-    PageList<DPhoebeDocument> fetchDocumentUserList(PageParam<DPhoebeDocument> pageParam);
+    List<DPhoebeDocument> fetchDocumentUserList(PageParam<DPhoebeDocument> pageParam);
 
     List<PhoibeDocument> fetchHotUserDocument(Long userId);
 

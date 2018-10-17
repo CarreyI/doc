@@ -46,7 +46,7 @@ function appendHotSearchHtml(){
 
 }
 function appendUserSearchHtml(){
-    var resultData = parent.usersearchLoadAjax();
+    var resultData = parent.hotsearchLoadAjax();
     var rowhtml = "";
     $.each(resultData, function (i, val) {
         rowhtml +="<option value='"  + val + "' />";
@@ -293,7 +293,7 @@ $(function () {
    
     $(".btnSearch").click(function () {
 
-        var url = 'searchadv.html?';
+        var url = 'searchadv.html?s=1';
         var data="";
 
         var searchKey = $("#search-key").val();

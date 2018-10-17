@@ -117,7 +117,7 @@ function loadData(type,pageindex) {
                          auditstatustyle = "f-red";
                      }
                      var row = "<div class='row'><div class='doc-row'><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><div class='desc' title='"+desc+"'>摘要："+cutString(desc,200)+"</div><ul><li>上传时间:"+createtime+
-                         "</li><li class='' format='"+format+"'>格式:"+format+"</li><li>评分:"+score+"</li><li>大小:"+filesize+"kb</li><li class='owner_btn a_btn' owner='"+owner+"'>文档拥有者:" + owner + "</li></ul></div></div>";
+                         "</li><li class='format_btn a_btn' format='"+format+"'>格式:"+format+"</li><li>评分:"+score+"</li><li>大小:"+filesize+"kb</li><li class='owner_btn a_btn' owner='"+owner+"'>文档拥有者:" + owner + "</li></ul></div></div>";
                      $("#docmgr-content").append(row);
                      parent.iframeLoad();
                  }
@@ -232,7 +232,7 @@ function appendHotSearchHtml(){
 
 }
 function appendUserSearchHtml(){
-    var resultData = parent.usersearchLoadAjax();
+    var resultData = parent.hotsearchLoadAjax();
     var rowhtml = "";
     $.each(resultData, function (i, val) {
         rowhtml +="<option value='"  + val + "' />";

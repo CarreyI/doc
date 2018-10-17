@@ -45,11 +45,12 @@ layui.define(function(exports){
     
     config.count = config.count|0; //数据总数
     config.curr = (config.curr|0) || 1; //当前页
+
     //每页条数的选择项
     config.limits = typeof config.limits === 'object'
       ? config.limits
     : [10, 20, 30, 40, 50];
-    config.limit = (config.limit|0) || 10; //默认条数
+    config.limit = (config.limit|0) || 4; //默认条数
     
     //总页数
     config.pages = Math.ceil(config.count/config.limit) || 1;

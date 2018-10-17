@@ -4,7 +4,7 @@ var docstatus =  1;
     function loadData(pageindex) {
 
         $("#tblist-body").children().remove();    
-        var data = GAL_URL+'phoibe/document/list/user/'+pageindex+'/10?1=1';
+        var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?1=1';
 
 
         var docname = $("#docname").val();
@@ -31,25 +31,23 @@ var docstatus =  1;
             url: data,
             dataType: 'json',
             async:false,
-            success: function (result) {
+            success: function (result) {//<div class='font22 title'>中国战法</div>
                 var total_rows = result.data.totalCount;
                 totalRows = total_rows;
-
                 if (total_rows < 1) currPage = 1;
+                var step = 0;
+                var row = "";
                 $.each(result.data.dataList, function (i, val) {
                     var title = val["name"];
                     var id = val["id"];
                     var pagecount = val["pagecount"];
                     var filesize = val["fileSize"];
                     var auditstatus = val["auditStatus"];
-                    var owner = val["nickname"];
-                    var auditdate = val["auditTime"];
-
-                    if(val["auditTime"]=='undefined' || val['auditTime']==null){
-                        auditdate = '';
-                    }
+                    var owner = "admin";
+                    var auditdate = "2018-08-26";
+                    var auditor = "admin";
+                    var tag = "";
                     var auditstatustyle = "f-blue";
-
                     if (auditstatus == 1) {
                         auditstatustyle = "f-red";
                         auditstatus="待审核";
@@ -65,10 +63,8 @@ var docstatus =  1;
                     if (docstatus==1){
                         opertionHtml="<a class='list-del doc-del' tid='"+id+"'>驳回</a>";
                     }
-                    var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id
-                        + "'/></td><td title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>"
-                        + filesize + "</td><td>" + owner + "</td><td>" + auditdate
-                        + "</td><td class='"+auditstatustyle + "'>" + auditstatus + "</td><td>"+opertionHtml+"</td></tr>";
+                    var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>" + filesize + "</td><td>" + owner + "</td><td>" + tag + "</td><td>" + auditdate + "</td><td class='" + auditstatustyle + "'>" + auditstatus + "</td><td>" + auditor + "</td>" +
+                        "<td>"+opertionHtml+"</td></tr>";
 
                     //alert(row);
                     $("#tblist-body").append(row);

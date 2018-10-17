@@ -38,6 +38,12 @@
                                 <ul class="check-list done-list search-con">
                                     <li> 文档名称:<input type="text" id="docname"/></li>
                                     <li>上传人:<input type="text" id="owner" style="width:90px"/></li>
+                                    <li>文档状态:
+                                        <select style="width:60px;" id="doctype">
+                                            <option value="">所有</option>
+                                            <option value="0">待入库</option>
+                                            <option value="1">已入库</option>
+                                        </select></li>
                                     <li>入库时间:<input type="text" id="startdate" style="width:90px" data-value=""/>-<input
                                             id="enddate" type="text" style="width:90px" data-value=""/></li>
                                     <li><span class="btnSearch" id="btnSearch"></span></li>
@@ -63,6 +69,7 @@
                             <th>审批时间</th>
                             <th>入库时间</th>
                             <th>文档状态</th>
+                            <th>审批人</th>
                             <th>操作</th>
                         </tr>
                         <tbody id="tblist-body"></tbody>

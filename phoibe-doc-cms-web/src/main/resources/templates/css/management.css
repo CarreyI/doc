@@ -1917,7 +1917,7 @@ font-size:18px;
     margin-top:50px;
 }
 .info_div{
-
+	overflow:hidden;/*父元素清除浮动*/
 }
 .info_divleft{
 	float: left;
@@ -1982,11 +1982,6 @@ font-size:18px;
 	margin: 5px 20px 0px ;
 	float: right;
 }
-
-.main-box{
-	height: 990px;
-	width: 1624px;
-}
 .data-info {
 	padding: 10px 10px;
 	height: 40px;
@@ -2026,7 +2021,7 @@ div.aside-box div.aside-content {
 }
 .content_divcontent{
 	float: left;
-	width: 1310px;
+	width: 1020px;
 }
 .content_div{
 	margin-bottom: 8px;
@@ -2121,7 +2116,6 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 .recommend-right {
 	float: left;
 	width: 265px;
-	height: 955px;
 	margin-left: 8px;
 	background-color: #fff;
 }
@@ -2140,7 +2134,6 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	padding: 4px 8px;
 	overflow: hidden;
 	word-wrap: break-word;
-	height: 56px;
 }
 .recommend-right .right-item .right-item-desc {
 	font-size: 12px;
@@ -2255,4 +2248,4 @@ font-size:16px;
 .main .navLeft li span.logLabel{background-image: url("../images/logLabel.png");}
 #docmgr-content .row ul li.owner_btn:hover{color:#00a2d4;}
 #docmgr-content .row ul li.format_btn:hover{color:#00a2d4;}
-.noInfo{color: #999}
+

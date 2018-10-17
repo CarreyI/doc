@@ -16,7 +16,7 @@ public interface PhoibeDocumentMapper {
 
     int insertSelective(PhoibeDocument record);
 
-    DPhoebeDocument selectByPrimaryKey(Long id);
+    PhoibeDocument selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(PhoibeDocument record);
 
@@ -27,10 +27,6 @@ public interface PhoibeDocumentMapper {
     List<PhoibeDocument> selectByPage(PageParam<DPhoebeDocument> pageParam);
 
     Long selectCountByPage(PageParam<DPhoebeDocument> pageParam);
-
-    List<PhoibeDocument> selectRelevantByPage(PageParam<DPhoebeDocument> pageParam);
-
-    Long selectRelevantCountByPage(PageParam<DPhoebeDocument> pageParam);
 
     List<DPhoebeDocument> selectDocumentUser(PageParam<DPhoebeDocument> pageParam);
 
