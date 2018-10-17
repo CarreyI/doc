@@ -69,7 +69,7 @@ function bindZhanfa() {
             var total_rows = result.data.totalCount;
             var step = 0;
             var row = "";
-            $.each(result.data, function (i, val) {
+            $.each(result.data.dataList, function (i, val) {
                 var title = val["name"];
                 var isstock = val["isstock"];
                 var auditStatus = val["auditStatus"];
@@ -88,7 +88,6 @@ function bindZhanfa() {
                 }
                 var row = "<li class='per-60'><i class='i-star'></i><a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a></li><li class='per-30'>" + statusStr + "</li>";
                 $("#zgzhanfa").append(row);
-
             });
         }
     });
