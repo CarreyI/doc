@@ -134,6 +134,10 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
     public List<DPhoibeUser> fetchUserByScore() {
         return phoibeUserMapper.selectUserByScore();
     }
+    @Override
+    public List<DPhoibeUser> fetchUserByBrowse() {
+        return phoibeUserMapper.selectUserByBrowse();
+    }
 
     @Override
     public boolean checkSubscribe(PhoibeSubscribe phoibeSubscribe) {

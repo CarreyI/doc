@@ -245,4 +245,16 @@
     where t.rno &lt;
     7)
   </select>
+
+  <select id="selectUserByBrowse" resultType="me.phoibe.doc.cms.domain.dto.DPhoibeUser">
+    select *
+    from PHOIBE_USER
+    where ID in (select t.USER_ID
+    from (select USER_ID, ROWNUM rno
+    from (select d.USER_ID,count(c.ID) c from PHOIBE_DOCUMENT d join PHOIBE_BROWSE c on d.ID = c.DOCUMENT_ID
+    where d.ISSTOCK =1
+    group by d.USER_ID order by c desc)) t
+    where t.rno &lt;
+    9)
+  </select>
 </mapper>

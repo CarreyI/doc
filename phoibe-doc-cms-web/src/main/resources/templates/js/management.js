@@ -33,7 +33,21 @@ function usersearchLoadAjax(){
         }
     });
     return resultData;
+}function logOptionTypeLoadAjax(){
+    var data = GAL_URL+"phoibe/logging/toJsonLogType";
+    var dataOption={};
+    $.ajax({
+        type: 'GET',
+        url: data,
+        async:false,
+        dataType: 'json',
+        success: function (result) {
+            dataOption = result;
+        }
+    });
+    return dataOption;
 }
+
 function dataDictLoadAjax(){
     var data = GAL_URL+"phoibe/dict/list/0/10/0?dictType=1";
     var dataDict={};

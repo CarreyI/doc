@@ -7,7 +7,7 @@ var docstatus=0;
             currPage = pageindex;
             $("#tblist-body").children().remove();
 
-            var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?f=audit';
+            var data = GAL_URL+'phoibe/document/list/user/'+pageindex+'/10?f=audit';
 
             var docname = $("#docname").val();
             if (docname!=""&&docname != null){
@@ -42,28 +42,20 @@ var docstatus=0;
                 success: function (result) {
                     var total_rows = result.data.totalCount;
                     totalRows = total_rows;
-                    var step = 0;
-                    var row = "";
+
+                    if (total_rows < 1) currPage = 1;
                     $.each(result.data.dataList, function (i, val) {
+
+                        //alert(JSON.stringify(val))
                         var title = val["name"];
                         var id = val["id"];
                         var pagecount = val["pagecount"];
                         var filesize = val["fileSize"];
-                        var status = val["status"];
-                        var stockTime = val["stockTime"];
                         var isstock = val["isstock"];
-                        var owner = "admin";
-                        var auditdate = "2018-08-26";
-                        var auditor = "admin";
-                        var tag = "";
-                        var docstatus = "";
+                        var owner = val["nickname"];
+                        var auditTime = val["auditTime"];
+                        var stockTime = val["stockTime"];
                         var auditstatustyle = "f-blue";
-                        if (status == 1) {
-                            docstatus = "上传中";
-                        }
-                        else if (status == 2) {
-                            docstatus = "上传完成";
-                        }
 						if(val["stockTime"]=='undefined' || val['stockTime']==null){
 						   stockTime = '';
 						}
@@ -78,8 +70,10 @@ var docstatus=0;
                             docstockstatus= "未入库";
                             docstockstyle = "f-red";
                         }
-                        var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='" + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>" + owner + "</td><td>" + auditdate + "</td><td class='" + auditstatustyle + "'>" + stockTime + "</td><td class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td><td>" + auditor + "</td>" +
-
+                        var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='"
+                            + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>"
+                            +owner+"</td><td>" + auditTime  + "</td><td>"
+                            + stockTime+ "</td><td  class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td>" +
                             "<td><a class='list-del doc-add' tid='"+id+"'>入库</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
                         $("#tblist-body").append(row);
                         parent.iframeLoad();
