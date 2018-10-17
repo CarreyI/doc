@@ -45,6 +45,15 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     private String nickname;
 
+    private String[] tagArray;
+
+    public String[] getTagArray() {
+        return tagArray;
+    }
+
+    public void setTagArray(String[] tagArray) {
+        this.tagArray = tagArray;
+    }
 
     public void settings(){
         if(!StringUtils.isEmpty(getContent())){
@@ -204,4 +213,7 @@ public class DPhoebeDocument extends PhoibeDocument {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+
+
 }

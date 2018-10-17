@@ -35,10 +35,14 @@
     <result column="WARSTATE" jdbcType="VARCHAR" property="warstate" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="me.phoibe.doc.cms.domain.po.PhoibeDocument">
-    <result column="CONTENT" jdbcType="BLOB" property="content" />
+      <result column="CONTENT" jdbcType="BLOB" property="content" />
   </resultMap>
+    <resultMap extends="ResultMapWithBLOBs" id="ResultMapUser" type="me.phoibe.doc.cms.domain.dto.DPhoebeDocument">
+        <result column="REALNAME" jdbcType="VARCHAR" property="realname" />
+        <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
+    </resultMap>
   <sql id="Base_Column_List">
-    ID, NAME, FORMAT, USER_ID, SCORE, FILE_PATH, FILE_SIZE, COMBAT_TYPE, ARMS, STATUS, 
+    ID, NAME, FORMAT, USER_ID, SCORE, FILE_PATH, FILE_SIZE, COMBAT_TYPE , ARMS, STATUS,
     AUDIT_STATUS, AUDIT_USER_ID, PROGRESS, TAG, DESCRIPTION, CREATE_TIME, UPDATE_TIME, 
     PAGECOUNT, HITCOUNT, RECORDER, AUDIT_TIME, ISSTOCK, STOCK_TIME, STOCKER, USER_REAL_NAME, 
     WARADDR, WARTIME, WINNER, LOSER, WARNUM, WARSTATE
@@ -46,13 +50,13 @@
   <sql id="Blob_Column_List">
     CONTENT
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from PHOIBE_DOCUMENT
-    where ID = #{id,jdbcType=DECIMAL}
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long"  resultMap="ResultMapUser">
+    select d.ID,d.NAME,d.FORMAT,d.USER_ID,d.SCORE,d.FILE_PATH,d.FILE_SIZE,d.COMBAT_TYPE,d.ARMS,
+      d.STATUS,d.AUDIT_STATUS,d.AUDIT_USER_ID,d.PROGRESS,d.TAG,d.DESCRIPTION,d.CREATE_TIME,d.UPDATE_TIME,
+      d.PAGECOUNT,d.HITCOUNT,d.RECORDER,d.AUDIT_TIME,d.ISSTOCK,d.STOCK_TIME,d.STOCKER,d.USER_REAL_NAME,d.WARADDR,d.WARTIME,d.WINNER,d.LOSER,d.WARNUM,d.WARSTATE,d.CONTENT,
+      u.REALNAME,u.NICKNAME
+    from PHOIBE_DOCUMENT d JOIN PHOIBE_USER u ON d.USER_ID = u.ID
+    where d.ID = #{id,jdbcType=DECIMAL}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from PHOIBE_DOCUMENT
@@ -543,6 +547,48 @@
     <include refid="selectByPage_Condition_Sql"/>
   </select>
 
+  <select id="selectRelevantByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">
+    select * from (SELECT a.*,rownum rno FROM (
+    select
+    <include refid="Base_Column_List"/>
+    from PHOIBE_DOCUMENT
+      <where>
+          1=1
+          <if test="param.tagArray != null">
+              <foreach collection="param.tagArray" index="index" item="item" open="OR" separator="OR" >
+                  TAG LIKE '%'||#{item}||'%'
+              </foreach>
+          </if>
+          <if test="param.combatType != null and param.arms != ''">
+              OR COMBAT_TYPE = #{param.combatType,jdbcType=DECIMAL}
+          </if>
+          <if test="param.arms != null and param.arms != ''">
+              OR ARMS = #{param.arms,jdbcType=DECIMAL}
+          </if>
+      </where>
+      ORDER BY ${orderBy} ${sort}) a
+    ) t WHERE t.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
+  </select>
+
+  <select id="selectRelevantCountByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
+    select
+    COUNT(*)
+    from PHOIBE_DOCUMENT
+      <where>
+          1=1
+          <if test="param.tagArray != null">
+              <foreach collection="param.tagArray" index="index" item="item" open="OR" separator="OR" >
+                  TAG LIKE '%'||#{item}||'%'
+              </foreach>
+          </if>
+          <if test="param.combatType != null and param.arms != ''">
+              OR COMBAT_TYPE = #{param.combatType,jdbcType=DECIMAL}
+          </if>
+          <if test="param.arms != null and param.arms != ''">
+              OR ARMS = #{param.arms,jdbcType=DECIMAL}
+          </if>
+      </where>
+  </select>
   <sql id="selectJoinByPage_Condition_Sql">
     <where>
       1=1

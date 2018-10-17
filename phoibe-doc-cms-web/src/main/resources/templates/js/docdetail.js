@@ -3,6 +3,7 @@ var totalRows = 0;
 var currPage = 0;
 var tid = getUrlString("tid");
 var userid=0;
+var article_tag,article_armtype,article_wartype;
 function getInfo() {
     var url = GAL_URL+"phoibe/document/fetch/" + tid;
     $.ajax({
@@ -13,6 +14,10 @@ function getInfo() {
         success: function (result) {
             if (result.code = "SUCCESS") {
                 userid= result.data.userId;
+
+                article_tag=result.data.tag;
+                article_armtype=result.data.arms;
+                article_wartype=result.data.combatType;
 
                 var suffx = result.data.format.replace(".","");
                 if (suffx == "pdf"||suffx == "doc"||suffx == "docx") {
@@ -36,12 +41,15 @@ function getInfo() {
                 $("#format").html(filePath+"&nbsp;&nbsp;("+result.data.fileSize+"kb)");
                 $("#attention").attr("status",result.data.subscribe);
                 $("#date").html(result.data.createTime);
-                $(".owner").html(result.data.userRealName);
+                $(".owner").html(result.data.nickname);
+                var url_owner = GAL_URL+"searchadv.html?&owner="+result.data.userRealName;
+                $(".owner").attr("href",url_owner)
                 var tagArray = result.data.tag.split(",");
                 var taglinkHtml ="";
                 for (var i=0;i<tagArray.length;i++){
                     var tag = tagArray[i]
-                    taglinkHtml +="<a class='tag-link' href='' target='_blank'>"+tag+"</a>";
+                    var url_tag = GAL_URL+"searchadv.html?&tag="+tag;
+                    taglinkHtml +="<a class='tag-link' href='"+url_tag+"' target='_self'>"+tag+"</a>";
                 }
                 $(".tags-box").append(taglinkHtml);
                 $("#doctitle").html(result.data.name);
@@ -118,7 +126,17 @@ function hotArticle() {
     });
 }
 function correlationArticle() {
-    var url = GAL_URL + 'phoibe/document/list/0/19?f=handpick&isstock=1';
+    var url = GAL_URL + 'phoibe/document/relevantList/0/14?isstock=1';
+    if (article_tag!=null){
+        url+="&tag="+article_tag;
+    }
+    if (article_armtype!=null){
+        url+="&arms="+article_armtype;
+    }
+    if (article_wartype!=null){
+        url+="&combatType="+article_wartype;
+    }
+
     $.ajax({
         type: 'GET',
         url: url,
@@ -132,8 +150,8 @@ function correlationArticle() {
                 var createTime=val["createTime"];
                 var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
                 var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
-                "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+docname+
-                "</h5><span class='time'>"+createTime.substring("5","10")+"</span><span class='read'> 1182 </span></div>"+
+                "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,24)+
+                "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime.substring("5","10")+"</span></h5></div>"+
                 "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
                 "</a></li>";
                 $(".recommend-fixed-box").append(row);
@@ -145,7 +163,7 @@ function loadData(pageindex) {
     $("#comm-content").children().remove();
     var docid = getUrlString("tid");
     var url = GAL_URL+"phoibe/comment/list/"+docid+"/"+pageindex+"/6";
-    $(".comment-list-box").html("");
+
 	//alert(url);
             $.ajax({
                 type: 'GET',
@@ -154,6 +172,12 @@ function loadData(pageindex) {
                 dataType: 'json',
                 success: function (result) {
                      totalRows = result.data.totalCount;
+
+                    if(totalRows==0){
+                        $("#notice_pages").hide();
+                    }else{
+                        $(".comment-list-box").html("");
+                    }
                  $("#comment").html(totalRows+"&nbsp;条评论");
                     $.each(result.data.dataList, function (i, val) {
                         var content = val["commentContent"];
@@ -175,25 +199,26 @@ function loadData(pageindex) {
                     })
                 }
             });
-     layui.use(['laypage', 'layer'], function () {
-                var laypage = layui.laypage
-                , layer = layui.layer;
-                laypage.render({
-                    elem: 'notice_pages'
-                  , count: totalRows
-                  , curr: currPage//当前页,
-                  , first: '首页'
-                  , last: '尾页'
-                  , prev: '<em>←</em>'
-                  , next: '<em>→</em>'
-                   , jump: function (obj, first) { //触发分页后的回调
-                       if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
-                           currPage = obj.curr;
-                           loadData(obj.curr-1);
-                       }
-                   }
-                });
-            });
+    layui.use(['laypage', 'layer'], function () {
+        var laypage = layui.laypage
+            , layer = layui.layer;
+        laypage.render({
+            elem: 'notice_pages'
+            , count: totalRows
+            , limit: 6
+            , curr: currPage//当前页,
+            , first: '首页'
+            , last: '尾页'
+            , prev: '<em>←</em>'
+            , next: '<em>→</em>'
+            , jump: function (obj, first) { //触发分页后的回调
+                if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
+                    currPage = obj.curr;
+                    loadData(obj.curr - 1);
+                }
+            }
+        });
+    });
 }
 
 function initstar() {
@@ -318,9 +343,9 @@ $(function () {
     initstar();
         getInfo();
         loadData(0);
-    newwestDoc();
-    userMenu();
-    hotArticle();
+    // newwestDoc();
+    // userMenu();
+    // hotArticle();
     correlationArticle();
 
     isAttention();

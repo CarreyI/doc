@@ -1,6 +1,6 @@
 var totalRows = 0;
 var currPage = 0;
-
+var logOption={};
 function loadData(pageindex) {
     $("#tblist-body").children().remove();
 
@@ -37,7 +37,7 @@ function loadData(pageindex) {
 
                 var row="<tr><td style='width:50px'><input type='checkbox' data-value='" + id + "' name='chksel'/>" +
                     "<td>"+modulename+"</td>"
-                    +"<td>"+opertype+"</td>"
+                    +"<td>"+logOption[opertype]+"</td>"
                     +"<td>"+message+"</td>"
                     +"<td>"+username+"</td>"
                     +"<td>"+ipAddr+"</td>"
@@ -95,6 +95,7 @@ function logDelAjax(lid){
 
 
 $(function () {
+   logOption = parent.logOptionTypeLoadAjax();
     /*  
             js由毫秒数得到年月日  
             使用： (new Date(data[i].creationTime)).Format("yyyy-MM-dd hh:mm:ss.S")  

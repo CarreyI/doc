@@ -1,8 +1,10 @@
 package me.phoibe.doc.cms.config;
 
+import com.alibaba.fastjson.JSONObject;
 import me.phoibe.doc.cms.domain.dto.UserInfo;
 import me.phoibe.doc.cms.security.JwtUtil;
 import me.phoibe.doc.cms.service.PhoibeUserService;
+import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,51 +12,52 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @Component
 public class LogUtil {
     /**
-     * 登录操作
+     * 登录
      */
     public static final int OPER_TYPE_LOGIN = 1;
     /**
-     * 退出操作
+     * 退出
      */
     public static final int OPER_TYPE_LOGOFF = 2;
     /**
-     * 新增操作
+     * 新增
      */
     public static final int OPER_TYPE_ADD = 3;
     /**
-     * 修改操作
+     * 修改
      */
     public static final int OPER_TYPE_EDIT = 4;
     /**
-     * 删除操作
+     * 删除
      */
     public static final int OPER_TYPE_DEL = 5;
     /**
-     * 查看操作
+     * 查看
      */
     public static final int OPER_TYPE_LOOK = 6;
     /**
-     * 上传操作
+     * 上传
      */
     public static final int OPER_TYPE_UPLOAD = 7;
     /**
-     * 其他操作
+     * 其他
      */
     public static final int OPER_TYPE_OTHER = 8;
     /**
-     * 下载操作
+     * 下载
      */
     public static final int OPER_TYPE_DOWN = 9;
     /**
-     * 入库操作
+     * 入库
      */
     public static final int OPER_TYPE_INSTORAGE = 10;
     /**
-     * 审批操作
+     * 审批
      */
     public static final int OPER_TYPE_CHECKPASS = 11;
 
@@ -70,7 +73,7 @@ public class LogUtil {
 
     /**
      * @param msg      日志信息 例：浏览了{moduleName}下id为{id}的文档
-     * @param operType 操作类型
+     * @param operType 类型
      * @param element  {name}Controller.class
      * @param request
      */
@@ -132,45 +135,61 @@ public class LogUtil {
         }
         return ip;
     }
+    public static  String toJsonLogType(){
+        Map<String, String> map = new HashedMap();
+        map.put(OPER_TYPE_LOGIN+"", "登录");
+        map.put(OPER_TYPE_LOGOFF+"", "退出");
+        map.put(OPER_TYPE_ADD+"", "新增");
+        map.put(OPER_TYPE_EDIT+"", "修改");
+        map.put(OPER_TYPE_DEL+"", "删除");
+        map.put(OPER_TYPE_LOOK+"", "查看");
+        map.put(OPER_TYPE_UPLOAD+"", "上传");
+        map.put(OPER_TYPE_OTHER+"", "其它");
+        map.put(OPER_TYPE_DOWN+"", "下载");
+        map.put(OPER_TYPE_INSTORAGE+"", "入库");
+        map.put(OPER_TYPE_CHECKPASS+"", "审批");
 
+        return JSONObject.toJSONString(map);
+    }
     public static  String convertorLogType(int type) {
 
         String typeName = "";
         switch (type) {
             case OPER_TYPE_LOGIN:
-                typeName = "登录操作";
+                typeName = "登录";
                 break;
             case OPER_TYPE_LOGOFF:
-                typeName = "退出操作";
+                typeName = "退出";
                 break;
             case OPER_TYPE_ADD:
-                typeName = "新增操作";
+                typeName = "新增";
                 break;
             case OPER_TYPE_EDIT:
-                typeName = "修改操作";
+                typeName = "修改";
                 break;
             case OPER_TYPE_DEL:
-                typeName = "删除操作";
+                typeName = "删除";
                 break;
             case OPER_TYPE_LOOK:
-                typeName = "查看操作";
+                typeName = "查看";
                 break;
             case OPER_TYPE_UPLOAD:
-                typeName = "上传操作";
+                typeName = "上传";
                 break;
             case OPER_TYPE_OTHER:
-                typeName = "其它操作";
+                typeName = "其它";
                 break;
             case OPER_TYPE_DOWN:
-                typeName = "下载操作";
+                typeName = "下载";
                 break;
             case OPER_TYPE_INSTORAGE:
-                typeName = "入库操作";
+                typeName = "入库";
                 break;
             case OPER_TYPE_CHECKPASS:
-                typeName = "审批操作";
+                typeName = "审批";
                 break;
         }
         return typeName;
     }
+
 }
