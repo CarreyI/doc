@@ -40,12 +40,22 @@ public class PhoibeDirectoryServiceImpl implements PhoibeDirectoryService {
         phoibeDocDirMapper.deleteByDirId(dirId);
 
     }
+    @Override
+    @Transactional
+    public void removeDocDirById(Long docid) {
+        phoibeDocDirMapper.deleteByDocId(docid);
+    }
 
     @Override
     @Transactional
-    public void moveDirectory(PhoibeDocDir phoibeDocDir) {
-        phoibeDocDirMapper.deleteByDocId(phoibeDocDir.getDocumentId());
-        phoibeDocDirMapper.insertSelective(phoibeDocDir);
+    public void moveDirectory(long[] docidstr, Long directoryid) {
+        phoibeDocDirMapper.deleteByDocIdArray(docidstr);
+        for (long docid:docidstr) {
+            PhoibeDocDir phoibeDocDir =new PhoibeDocDir();
+            phoibeDocDir.setDocumentId(docid);
+            phoibeDocDir.setDirectoryId(directoryid);
+            phoibeDocDirMapper.insertSelective(phoibeDocDir);
+        }
     }
 
     @Override

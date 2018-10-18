@@ -11,6 +11,16 @@ public class PhoibeTag {
 
     private Short status;
 
+    private Short orderby;
+
+    public Short getOrderby() {
+        return orderby;
+    }
+
+    public void setOrderby(Short orderby) {
+        this.orderby = orderby;
+    }
+
     public Short getId() {
         return id;
     }

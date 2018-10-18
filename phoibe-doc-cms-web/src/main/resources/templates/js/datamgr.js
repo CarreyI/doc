@@ -90,7 +90,7 @@ function tagSonDelAjax(tid){
             async: false,
             contentType: "application/json;charset=UTF-8",
             success: function (data) {
-                if (data.code = "success") {
+                if (data.code == "SUCCESS") {
                     loadData(0);
                     alert("删除成功");
                 } else {
@@ -222,24 +222,3 @@ $(function () {
     })
 
 });
-
-function getTag(Id){
-
-    $.ajax({
-        url: GAL_URL + "phoibe/dict/fetch/"+Id,
-        type: "GET",
-        dataType: "json",
-        async: false,
-        contentType: "application/json;charset=UTF-8",
-        success: function (data) {
-            if (data.code="success") {
-                var tagObj = data.data;
-                $("#name").val(tagObj.name);
-                $("#sequence").val(tagObj.status);
-                $("#tagId").val(tagObj.id);
-                $(".bodyMask").fadeIn();
-            }
-        }
-    });
-
-}

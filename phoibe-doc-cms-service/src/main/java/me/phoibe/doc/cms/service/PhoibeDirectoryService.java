@@ -1,7 +1,6 @@
 package me.phoibe.doc.cms.service;
 
 import me.phoibe.doc.cms.domain.po.PhoibeDirectory;
-import me.phoibe.doc.cms.domain.po.PhoibeDocDir;
 
 import java.util.List;
 
@@ -13,7 +12,9 @@ public interface PhoibeDirectoryService {
 
     void removeDirectory(Long dirId);
 
-    void moveDirectory(PhoibeDocDir phoibeDocDir);
+    void removeDocDirById(Long docid);
 
     List<PhoibeDirectory> fetchPhoibeDirectoryList(Long userId);
+
+    void moveDirectory(long[] docidstr, Long directoryid);
 }

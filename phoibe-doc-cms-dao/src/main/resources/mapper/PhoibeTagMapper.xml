@@ -6,9 +6,10 @@
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="ORDER_BY" jdbcType="DECIMAL" property="orderby" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, NAME, CREATE_TIME, STATUS
+    ID, NAME, CREATE_TIME, STATUS,ORDER_BY
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
     select 
@@ -30,6 +31,7 @@
     <include refid="Base_Column_List" />
     from PHOIBE_TAG
     <include refid="selectByPageList_Condition_Sql"/>
+    ORDER BY ${orderBy} ${sort}
     ) a
     ) t WHERE t.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
   </select>
@@ -44,9 +46,9 @@
   </delete>
   <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.PhoibeTag">
     insert into PHOIBE_TAG (ID, NAME, CREATE_TIME, 
-      STATUS)
+      STATUS,ORDER_BY)
     values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=DECIMAL})
+      #{status,jdbcType=DECIMAL},#{orderby,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeTag">
     insert into PHOIBE_TAG
@@ -63,6 +65,9 @@
       <if test="status != null">
         STATUS,
       </if>
+      <if test="orderby != null">
+        ORDER_BY,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -76,6 +81,9 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="orderby != null">
+        #{orderby,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -91,6 +99,9 @@
       <if test="status != null">
         STATUS = #{status,jdbcType=DECIMAL},
       </if>
+      <if test="orderby != null">
+        ORDER_BY = #{orderby,jdbcType=DECIMAL},
+      </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
@@ -98,7 +109,8 @@
     update PHOIBE_TAG
     set NAME = #{name,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      STATUS = #{status,jdbcType=DECIMAL}
+      STATUS = #{status,jdbcType=DECIMAL},
+      ORDER_BY = #{orderby,jdbcType=DECIMAL}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
 </mapper>

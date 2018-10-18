@@ -3,6 +3,13 @@ var totalRows = 0;
 var currPage = 0;
 var wartype = "";
 var dirId="";
+
+var userStr = getCookie("userObject");
+var userId =1;
+if (null!=userStr&&""!=userStr) {
+    userObject = JSON.parse(userStr);
+    userId = userObject.id;
+}
 //最新动态
 function docdymListLoad() {
     $.ajax({
@@ -181,7 +188,7 @@ function randomListLoad() {
 }
 //我的订阅
 function attentionListLoad() {
-    var data = GAL_URL+'phoibe/document/list/0/9?queryFlag=subscribe&isstock=1'
+    var data = GAL_URL+'phoibe/document/list/user/0/9?queryFlag=subscribe&isstock=1&queryUserId='+userId
     $.ajax({
         type: 'GET',
         url: data,
@@ -197,7 +204,7 @@ function attentionListLoad() {
                 var format = val["format"];
                 var createtime = val["createTime"];
                 var tid=val["id"];
-                var userRealName=val["userRealName"];
+                var nickname=val["nickname"];
                 var userId=val["userId"];
                 var icon = "";
                 if (format == "pdf") {
@@ -210,7 +217,7 @@ function attentionListLoad() {
                     icon = "<i class='exls'></i>";//
                 }
 
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title,16) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' title='"+userRealName+"'>"+cutString(userRealName,14)+"&nbsp;&nbsp;<a class='list-del attention-del' userId='"+userId+"'>取消</a></b></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title,16) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' title='"+nickname+"'>"+nickname+"&nbsp;&nbsp;<a class='list-del attention-del' userId='"+userId+"'>取消</a></b></li>";
                 // alert(row);
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
@@ -298,7 +305,7 @@ function docDelAjax(tid){
             dataType: "json",
             async: false,
             success: function (data) {
-                if (data.code = "success") {
+                if (data.code == "SUCCESS") {
                     loadData(0);
                     alert("删除成功");
                 } else {
@@ -311,12 +318,6 @@ function docDelAjax(tid){
 function loadData(pageindex) {
 
     $("#tblist-body").children().remove();
-    var userStr = getCookie("userObject");
-    var userId =1;
-    if (null!=userStr&&""!=userStr) {
-        userObject = JSON.parse(userStr);
-        userId = userObject.id;
-    }
     var data = GAL_URL+'phoibe/document/list/' + pageindex + '/10?1=1';
     data = data +"&userId="+userId;
     if (dirId!=""){
@@ -376,8 +377,8 @@ function loadData(pageindex) {
                     }
 
                    
-                    var row = "<tr><td style='width:30px'><input type='checkbox' data-value='" + id + "' name='chksel'/></td>" +
-                        "<td><a href='docdetail.html?tid="+id+"' title='"+title+"'>" + cutString(title,18) + "</a></td>" +
+                    var row = "<tr><td><input type='checkbox' data-value='" + id + "' name='chksel'/></td>" +
+                        "<td><a href='docdetail.html?tid="+id+"' title='"+title+"'>" + cutString(title,32) + "</a></td>" +
                         "<td>" + filesize + "</td>" +
                         "<td>" + format + "</td>" +
                         "<td>" + createtime + "</td>" +
@@ -497,7 +498,7 @@ function delMenuAjax(dirId) {
             async: false,
             contentType: "application/json;charset=UTF-8",
             success: function (data) {
-                if (data.code = "SUCCESS") {
+                if (data.code == "SUCCESS") {
                     loadFileMenu();
                 }
             }
@@ -543,13 +544,13 @@ function delMenuAjax(dirId) {
         // 移动到文件目录
         $("#btnmove").click(function () {
             var sel = $("#tblist-body input[type=checkbox]:checked");
-            if(sel.length > 1){
-                alert("一次只能选中一条");
-                return;
-            }
-            var Id = $(sel).attr("data-value");
-            if (Id!=null){
-                $(".documentId").val(Id);
+            var idstr = "";
+            $.each(sel,function (index,obj) {
+                idstr += $(obj).attr("data-value")+",";
+            })
+            idstr = idstr.substring(0,idstr.length-1)
+            if (idstr!=null){
+                $(".documentId").val(idstr);
                 $(".filelist_bodyMask").fadeIn();
             }
         });
@@ -588,6 +589,7 @@ function delMenuAjax(dirId) {
                 contentType: "application/json;charset=UTF-8",
                 success: function (data) {
                     if (data.code="success") {
+                        $("#file_ajaxform")[0].reset();
                         alert("提交成功");
                         $(".file_bodyMask").hide();
                         loadFileMenu();
@@ -600,17 +602,15 @@ function delMenuAjax(dirId) {
         // 移动文件目录提交
         $('#filelist_submit').click(function () {
 
-            var form = $("#filelist_ajaxform");
-
-            var formdata ={
-                directoryId : $(".file_selectlist  input[type='radio']:checked").val(),
-                 documentId : $(".documentId").val()
-            };
-
+            var directoryid =$(".file_selectlist  input[type='radio']:checked").val();
+            var docids =$(".documentId").val().split();
+            var docidstr="";
+            for(var i=0;i<docids.length;i++){
+                docidstr += "&docids="+docids[i];
+            }
             $.ajax({
-                url: GAL_URL + form.attr("action"),
-                type: form.attr("method"),
-                data: JSON.stringify(formdata),
+                url: GAL_URL + "phoibe/directory/move?directoryid="+directoryid+docidstr,
+                type: "GET",
                 dataType: "json",
                 async: false,
                 contentType: "application/json;charset=UTF-8",

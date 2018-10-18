@@ -21,7 +21,7 @@
                         </ul>
                     </div>
                <div class="line"></div>
-               <div class="content box_border top bg_whiteSD">
+               <div class="list-content">
                        <div class="box_border">
 					    <div class="btn-cmd-list">
 					        <a id="btnexport">导出</a>&nbsp;&nbsp;
@@ -31,7 +31,7 @@
 
                              <table class="tblist" border="0">
                                  <tr class="tblist-header">
-                                     <th style="width:50px"></th>
+                                     <th style="width: 30px;"><input class="checkAll" name="checkAll" type="checkbox"></th>
                                      <th>功能模块</th>
                                      <th>操作类型</th>
                                      <th>日志信息</th>
@@ -56,20 +56,24 @@
                 <i class="export_closed closed fr"></i>
                 <div class="clearfix"></div>
                 <hr/>
-                <div class="tbl-row">
-                    <div class="lable">*选择时间范围:</div>
-                    <div class="ctrl">
-                        开始时间：<input type="text" id="sDatatime" style="width:90px" data-value="" class="inputBox"/>&nbsp;&nbsp;-&nbsp;&nbsp;
-                        结束时间：<input type="text" id="eDatatime" style="width:90px" data-value="" class="inputBox" />&nbsp;&nbsp;
+                　
+                <form action="#" method="POST" id="ajaxform">
+                    <div class="tbl-row">
+                        <div class="lable">*选择时间范围:</div>
+                        <div class="ctrl">
+                            开始时间：<input type="text" id="sDatatime" style="width:90px" data-value="" class="inputBox"/>&nbsp;&nbsp;-&nbsp;&nbsp;
+                            结束时间：<input type="text" id="eDatatime" style="width:90px" data-value="" class="inputBox"/>&nbsp;&nbsp;
+                        </div>
                     </div>
-                </div>
-                <div class="tbl-row">
-                    <div class="ctrl">
-                        <div id="export_submit" class="filelist_submit"></div>
+                    <div class="tbl-row">
+                        <div class="ctrl">
+                            <div id="down_submit" class="filelist_submit"></div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
+
 </body>
 </html>

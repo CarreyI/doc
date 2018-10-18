@@ -3,7 +3,7 @@ var currPage = 1;
 function loadData(type,pageindex) {
     $("#docmgr-content").children().remove()
 
-    var url = 'phoibe/document/list/' + pageindex + '/7?1=1';
+    var url = 'phoibe/document/list/user/' + pageindex + '/7?1=1';
     var data="";
 
     var searchKey = $("#search-key").val();
@@ -14,9 +14,13 @@ function loadData(type,pageindex) {
     if (docname!=""&&docname!=null){
         data = data + "&docname=" + docname+ "&name=" + docname;
     }
+    var ownerId = $("#userId").val();
+    if (ownerId != "") {
+        data = data + "&userId=" + ownerId;
+    }
     var owner = $("#owner").val();
     if (owner != "") {
-        data = data + "&owner=" + owner;
+        data = data + "&nickname=" + owner;
     }
     var warstate = $("#warstate").val();
     if (warstate != "") {
@@ -42,14 +46,16 @@ function loadData(type,pageindex) {
     if (warnum != "") {
         data = data + "&warnum=" + warnum;
     }
-    var wartypevalue = $("#wartype .tag-li-in").attr("dictKey");
-    if (wartypevalue != ""&&wartypevalue!=null) {
-        data = data + "&combatType=" + wartypevalue;
-    }
-    var armtypevalue = $("#armtype .tag-li-in").attr("dictKey");
-    if (armtypevalue != ""&&armtypevalue!=null) {
-        data = data + "&arms=" + armtypevalue;
-    }
+    var wartypevalue = "";
+    $("#wartype .tag-li-in").each(function () {
+        wartypevalue = $(this).attr("dictKey");
+        data = data + "&combatArray=" + wartypevalue;
+    })
+    var armtypevalue = "";
+    $("#armtype .tag-li-in").each(function () {
+        armtypevalue = $(this).attr("dictKey");
+        data = data + "&armsArray=" + armtypevalue;
+    })
     var tagtypevalue = $("#tagtype").val()
     if(0<tagtypevalue){
         var tagtypevalue= $("#tagtype").find("option:selected").text();
@@ -90,7 +96,7 @@ function loadData(type,pageindex) {
                      var status = val["status"];
                      var auditstatus = val["auditStatus"];
                      var createtime = val["createTime"];
-                     var owner = "admin";
+                     var owner = val["nickname"];
                      var auditdate = "2018-08-26";
                      var auditor = "admin";
                      var tag = "";
@@ -197,7 +203,7 @@ function appendDitHtml(){
     });
 }
 function appendTagHtml() {
-    var dataList = parent.tagLoadAjax();
+    var dataList = parent.tagLoadAjax(10000);
     var rowhtml = "<option value=''>全部</option>";
     $.each(dataList, function (i, val) {
         var id = val["id"];

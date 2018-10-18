@@ -12,6 +12,7 @@ import me.phoibe.doc.cms.service.LoggingEventService;
 import me.phoibe.doc.cms.utils.DateUtils;
 import me.phoibe.doc.cms.utils.ExcelUtil;
 import me.phoibe.doc.cms.utils.JsonUtils;
+import me.phoibe.doc.cms.utils.PlatDateTimeUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,13 +39,13 @@ public class LoggingController {
     private String exportlog;
 
     @PostMapping("/save")
-    public String save(@RequestBody LoggingEvent loggingEvent){
+    public String save(@RequestBody LoggingEvent loggingEvent) {
         loggingEventService.addLogingEvent(loggingEvent);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
 
     @RequestMapping("list/{index}/{limit}")
-    public String list(@ModelAttribute DLoggingEvent param,@PathVariable Integer index, @PathVariable Integer limit, HttpServletRequest request){
+    public String list(@ModelAttribute DLoggingEvent param, @PathVariable Integer index, @PathVariable Integer limit, HttpServletRequest request) {
         PageParam<DLoggingEvent> pageParam = new PageParam<>();
         pageParam.setStart(index);
         pageParam.setLimit(limit);
@@ -52,25 +53,27 @@ public class LoggingController {
         pageParam.setSort("DESC");
         pageParam.setParam(param);
         PageList<DLoggingEvent> pageList = loggingEventService.fetchLoggingEventByPageList(pageParam);
-        LogUtil.writeLog("浏览了日志列表", LogUtil.OPER_TYPE_LOOK,"日志管理", LoginContorller.class,request);
+        LogUtil.writeLog("浏览了日志列表", LogUtil.OPER_TYPE_LOOK, "日志管理", LoginContorller.class, request);
         return JsonUtils.toJson(new Result<PageList<DLoggingEvent>>(Code.SUCCESS, pageList));
     }
+
     @DeleteMapping("delete")
-    public String removeDocument(@RequestParam String idstr,HttpServletRequest request) {
+    public String removeDocument(@RequestParam String idstr, HttpServletRequest request) {
         try {
-            String [] ids = idstr.split(",");
-            for(String id : ids) {
+            String[] ids = idstr.split(",");
+            for (String id : ids) {
                 loggingEventService.deleteByPrimaryKey(Long.parseLong(id));
             }
-            LogUtil.writeLog("删除了Id为{"+idstr+"}的日志记录", LogUtil.OPER_TYPE_DEL,"日志管理", LoginContorller.class,request);
+            LogUtil.writeLog("删除了Id为{" + idstr + "}的日志记录", LogUtil.OPER_TYPE_DEL, "日志管理", LoginContorller.class, request);
         } catch (Exception e) {
             JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
         }
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
+
     @RequestMapping("/backups")
-    public String backupsSql(@ModelAttribute DLoggingEvent loggingEvent, HttpServletRequest request, HttpServletResponse response){
-        String excelFIleName="back.sql";
+    public String backupsSql(@ModelAttribute DLoggingEvent loggingEvent, HttpServletRequest request, HttpServletResponse response) {
+        String excelFIleName = "操作日志数据备份" + System.currentTimeMillis() + ".sql";
         try {
             PageParam<DLoggingEvent> pageParam = new PageParam<>();
             pageParam.setStart(0);
@@ -79,21 +82,26 @@ public class LoggingController {
             pageParam.setSort("DESC");
             pageParam.setParam(loggingEvent);
             PageList<DLoggingEvent> pageList = loggingEventService.fetchLoggingEventByPageList(pageParam);
-            StringBuilder logsub =new StringBuilder();
+            if (pageList.getDataList().size() == 0) {
+                return JsonUtils.toJson(new Result<>(Code.FAILED,"选择的时间范围内没有操作日志"));
+            }
+            StringBuilder logsub = new StringBuilder();
             logsub.append("/*");
             logsub.append("\r\n File Create Time：");
-            logsub.append(DateUtils.formatDate(new Date(),"yyyy-MM-dd HH:mm:ss"));
-            logsub.append("\r\n Log Start Time："+loggingEvent.getsDatatime());
-            logsub.append("\r\n Log End Time："+loggingEvent.geteDatatime());
-            logsub.append("\r\n */");
-            for (DLoggingEvent dLoggingEvent :pageList.getDataList()){
-                logsub.append("INSERT INTO LOGGING_EVENT(FORMATTED_MESSAGE, ARG0, ARG1,ARG2, ARG3,TIMESTMP)VALUES(");
-                logsub.append("'"+dLoggingEvent.getFormattedMessage()+"',");
-                logsub.append("'"+dLoggingEvent.getArg0()+"',");
-                logsub.append("'"+dLoggingEvent.getArg1()+"',");
-                logsub.append("'"+dLoggingEvent.getArg2()+"',");
-                logsub.append("'"+dLoggingEvent.getArg3()+"',");
-                logsub.append(dLoggingEvent.getTimestmp()+");");
+            logsub.append(DateUtils.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss"));
+            logsub.append("\r\n Log Start Time：");
+            logsub.append(loggingEvent.getsDatatime());
+            logsub.append("\r\n Log End Time：");
+            logsub.append(loggingEvent.geteDatatime());
+            logsub.append("\r\n */\n");
+            for (DLoggingEvent dLoggingEvent : pageList.getDataList()) {
+                logsub.append("INSERT INTO LOGGING_EVENT(TIMESTMP,FORMATTED_MESSAGE, ARG0, ARG1,ARG2, ARG3)VALUES(");
+                logsub.append(dLoggingEvent.getTimestmp() + ",");
+                logsub.append("'" + dLoggingEvent.getFormattedMessage() + "',");
+                logsub.append("'" + dLoggingEvent.getArg0() + "',");
+                logsub.append("'" + dLoggingEvent.getArg1() + "',");
+                logsub.append("'" + dLoggingEvent.getArg2() + "',");
+                logsub.append("'" + dLoggingEvent.getArg3() + "');");
                 logsub.append(System.getProperty("line.separator"));
 
             }
@@ -101,24 +109,23 @@ public class LoggingController {
             if (!filedir.exists()) {
                 filedir.mkdirs();
             }
-            File file = new File(exportlog,excelFIleName);
+            File file = new File(exportlog, excelFIleName);
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(logsub.toString());
             fileWriter.close();
 
-            LogUtil.writeLog("导出了{"+loggingEvent.getsDatatime()+" -- "+loggingEvent.geteDatatime()+"}范围内的日志记录", LogUtil.OPER_TYPE_ADD,"日志管理", LoggingController.class,request);
-        }catch (Exception e) {
+            LogUtil.writeLog("备份了{" + PlatDateTimeUtil.formatDate(new Date(Long.parseLong(loggingEvent.getsDatatime())), "yyyy-MM-dd") + " -- " + PlatDateTimeUtil.formatDate(new Date(Long.parseLong(loggingEvent.geteDatatime())), "yyyy-MM-dd") + "}范围内的日志记录", LogUtil.OPER_TYPE_DOWN, "日志管理", LoggingController.class, request);
+        } catch (Exception e) {
             e.printStackTrace();
             JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
         }
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, excelFIleName));
     }
+
     @RequestMapping("/export")
-    public String exportLogExcel(@ModelAttribute DLoggingEvent loggingEvent, HttpServletRequest request, HttpServletResponse response){
-        String excelFIleName="";
+    public String exportLogExcel(@ModelAttribute DLoggingEvent loggingEvent, HttpServletRequest request, HttpServletResponse response) {
+        String excelFIleName = "";
         try {
-            String sDatatime="";
-            String eDatatime="";
             PageParam<DLoggingEvent> pageParam = new PageParam<>();
             pageParam.setStart(0);
             pageParam.setLimit(1000000000);
@@ -126,21 +133,19 @@ public class LoggingController {
             pageParam.setSort("DESC");
             pageParam.setParam(loggingEvent);
             PageList<DLoggingEvent> pageList = loggingEventService.fetchLoggingEventByPageList(pageParam);
-            List<List<String>> rowList =new ArrayList<>();
-            for (DLoggingEvent dLoggingEvent :pageList.getDataList()){
+            if (pageList.getDataList().size() == 0) {
+                return JsonUtils.toJson(new Result<>(Code.FAILED,"选择的时间范围内没有操作日志"));
+            }
+            List<List<String>> rowList = new ArrayList<>();
+            for (DLoggingEvent dLoggingEvent : pageList.getDataList()) {
                 List<String> stringList = new ArrayList<>();
                 stringList.add(dLoggingEvent.getFormattedMessage());
                 stringList.add(dLoggingEvent.getArg0());
                 stringList.add(LogUtil.convertorLogType(Integer.parseInt(dLoggingEvent.getArg1())));
                 stringList.add(dLoggingEvent.getArg2());
                 stringList.add(dLoggingEvent.getArg3());
-                stringList.add(dLoggingEvent.getTimestmp()+"");
+                stringList.add(dLoggingEvent.getTimestmp() + "");
                 rowList.add(stringList);
-
-                if (sDatatime==""){
-                    sDatatime = DateUtils.formatDate(new Date(dLoggingEvent.getEventId()),"yyyy-MM-dd");
-                }
-                eDatatime = DateUtils.formatDate(new Date(dLoggingEvent.getEventId()),"yyyy-MM-dd");
             }
             List<String> listTitle = new ArrayList<>();
             listTitle.add("日志内容");
@@ -149,41 +154,44 @@ public class LoggingController {
             listTitle.add("用户名-昵称-真实姓名");
             listTitle.add("功能模块");
             listTitle.add("记录时间");
-            excelFIleName= "日志信息记录表"+System.currentTimeMillis()+".xls";
-            HSSFWorkbook wb =  ExcelUtil.getHSSFWorkbook(excelFIleName,listTitle,rowList,null);
+            excelFIleName = "日志信息记录表" + System.currentTimeMillis() + ".xls";
+            HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(excelFIleName, listTitle, rowList, null);
 
             File filedir = new File(exportlog);
             if (!filedir.exists()) {
                 filedir.mkdirs();
             }
-            File file = new File(exportlog,excelFIleName);
+            File file = new File(exportlog, excelFIleName);
             wb.write(file);
-            LogUtil.writeLog("导出了{"+sDatatime+" -- "+eDatatime+"}范围内的日志记录", LogUtil.OPER_TYPE_ADD,"日志管理", LoggingController.class,request);
-        }catch (Exception e) {
+            LogUtil.writeLog("导出了{" + PlatDateTimeUtil.formatDate(new Date(Long.parseLong(loggingEvent.getsDatatime())), "yyyy-MM-dd") + " -- " + PlatDateTimeUtil.formatDate(new Date(Long.parseLong(loggingEvent.geteDatatime())), "yyyy-MM-dd") + "}范围内的日志记录", LogUtil.OPER_TYPE_DOWN, "日志管理", LoggingController.class, request);
+        } catch (Exception e) {
             e.printStackTrace();
             JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
         }
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, excelFIleName));
     }
-    @RequestMapping("/exportDownload/{fileName}")
-    public byte[] exportDownload(HttpServletResponse response,@PathVariable String fileName) {
+
+    @RequestMapping("exportDownload")
+    public byte[] exportDownload(HttpServletResponse response, @RequestParam String fileName) {
         try {
-            fileName = URLDecoder.decode(fileName,"UTF-8");
-            String fileAbosultePath = exportlog + "/"+fileName+".xls";
+            fileName = URLDecoder.decode(fileName, "UTF-8");
+            String fileAbosultePath = exportlog + "/" + fileName;
 
             File file = new File(fileAbosultePath);
             String filename = file.getName();
 
-            byte[]bytes=DocumentController.getContent(fileAbosultePath);
+            byte[] bytes = DocumentController.getContent(fileAbosultePath);
             response.setContentType("multipart/form-data");
-            response.addHeader("Content-Disposition", "attachment;fileName="+new String(filename.getBytes("gbk"),"ISO8859-1"));
+            response.addHeader("Content-Disposition", "attachment;fileName=" + new String(filename.getBytes("gbk"), "ISO8859-1"));
             return bytes;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return null;
-    } @GetMapping("toJsonLogType")
+    }
+
+    @GetMapping("toJsonLogType")
     public String toJsonLogType() {
-       return LogUtil.toJsonLogType();
+        return LogUtil.toJsonLogType();
     }
 }

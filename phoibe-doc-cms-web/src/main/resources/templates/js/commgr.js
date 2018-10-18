@@ -36,7 +36,7 @@ function loadData(pageindex) {
                 var create_time = val["createTime"];//"创建时间";
 
 
-                var row="<tr><td class='chksel'><input type='checkbox' name='chksel' data-value='" + id + "'</td>" +
+                var row="<tr><td><input type='checkbox' name='chksel' data-value='" + id + "'</td>" +
                     "<td>"+username+"</td>"
                     +"<td>"+realname+"</td>"
                     +"<td>"+nickname+"</td>"
@@ -89,7 +89,7 @@ function commgrDelAjax(Id){
             dataType: "json",
             async: false,
             success: function (data) {
-                if (data.code = "success") {
+                if (data.code == "SUCCESS") {
                     alert("删除成功");
 
                     loadData(0);

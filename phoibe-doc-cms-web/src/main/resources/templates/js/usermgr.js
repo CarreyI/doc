@@ -125,7 +125,7 @@ function userDelAjax(Id){
             dataType: "json",
             async: false,
             success: function (data) {
-                if (data.code = "success") {
+                if (data.code == "SUCCESS") {
                     alert("删除成功");
                     loadData(0);
                 } else {
@@ -196,6 +196,7 @@ $(function () {
             contentType: "application/json;charset=UTF-8",
             success: function (data) {
                 if (data.code="success") {
+                    $("#ajaxform")[0].reset();
                     alert("提交成功");
                     $(".bodyMask").hide();
                     loadData(0);

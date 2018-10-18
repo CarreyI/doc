@@ -2,6 +2,7 @@ package me.phoibe.doc.cms.dao;
 
 import me.phoibe.doc.cms.domain.po.PhoibeDocDir;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface PhoibeDocDirMapper {
@@ -19,5 +20,7 @@ public interface PhoibeDocDirMapper {
 
     int deleteByDirId(Long dirId);
 
-    int deleteByDocId(Long docId);
+    int deleteByDocId(Long id);
+
+    int deleteByDocIdArray(@Param("ids")long[] ids);
 }

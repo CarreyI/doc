@@ -190,7 +190,7 @@ body, html {
 .w1920 {
 	width: 100%;
 	max-width: 1920px;
-	min-width: 1190px;
+	min-width: 1280px;
 	margin: 0 auto;
 }
 
@@ -435,9 +435,8 @@ body, html {
     background:#ffffff;
 }
 .main .container .search {
-	min-width: 900px;
 	text-align: center;
-	padding: 20px;
+	padding: 15px 20px;
 	/*padding-top: 32px;
 	max-width: 1500px;*/
 }
@@ -478,9 +477,10 @@ body, html {
 .main .container .inputblock {
 	text-align: left;
 }
-
+.r-content .list-content{
+	padding: 15px 20px;
+}
 .main .container .inputblock input, select {
-	width: 120px;
 	height: 32px;
 	line-height: 34px;
 	display: inline-block;
@@ -559,13 +559,15 @@ body, html {
 
 .main .container .content {
 	width: 100%;
-	min-width: 860px;
-	/*max-width: 1500px;*/
-	padding-right: 340px;
-	padding-top: 12px;
+	padding: 15px 0px;
 	position: relative;
 }
 
+.main .container .content .left {
+	width:-webkit-calc(100% - 335px);
+	width:-moz-calc(100% - 335px);
+	width:calc(100% - 335px);
+}
 .main .container .content .rightAb {
 	position: absolute;
 	top: 0;
@@ -838,7 +840,6 @@ color:#000;
 
 .main .container .top {
 	min-width: 900px;
-	padding: 20px;
 	/*padding-top: 32px;
 	max-width: 1500px;*/
 }
@@ -1547,6 +1548,7 @@ ul.search-con li
 {
 	float:left;
 	margin-bottom:10px;
+	margin-left: 10px;
 }
 
 ul.search-con li .btnSearch{
@@ -1587,6 +1589,7 @@ ul.search-con li .btnSearch{
 
 .btn-cmd-list {
 	/*margin-left: 16px;*/
+	height: 40px;
 }
 
 .btn-cmd-list a {
@@ -1902,6 +1905,7 @@ font-size:18px;
 .main .r-content {
     background:#d9e2ea;
 	height:990px;
+	padding: 10px 15px;
 }
 #condif {
     width:100px;
@@ -1985,7 +1989,6 @@ font-size:18px;
 
 .main-box{
 	height: 990px;
-	width: 1624px;
 }
 .data-info {
 	padding: 10px 10px;
@@ -2026,7 +2029,9 @@ div.aside-box div.aside-content {
 }
 .content_divcontent{
 	float: left;
-	width: 1310px;
+	width:-webkit-calc(100% - 273px);
+	width:-moz-calc(100% - 273px);
+	width:calc(100% - 273px);
 }
 .content_div{
 	margin-bottom: 8px;
@@ -2249,7 +2254,7 @@ font-size:16px;
 }
 #com-score label{float:left;}
 #com-score .submit{margin-top:8px;}
-.frs{margin-top:-10px;margin-right:4px;}
+.frs{margin-top: -8px;margin-left: -13px;}
 #resou-doc .col3, #recom-doc .col3{width:24%;margin-left:10px;}
 .main .navLeft li span.dicLabel{background-image: url("../images/dicLabel.png");}
 .main .navLeft li span.logLabel{background-image: url("../images/logLabel.png");}

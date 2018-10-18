@@ -49,21 +49,19 @@ var docstatus =  1;
                         auditdate = '';
                     }
                     var auditstatustyle = "f-blue";
+                    var opertionHtml="<a class='list-del doc-add' tid='"+id+"'>审核</a>&nbsp;&nbsp;<a class='list-del doc-del' tid='"+id+"'>驳回</a>";
 
                     if (auditstatus == 1) {
                         auditstatustyle = "f-red";
                         auditstatus="待审核";
                     }
                     else if(auditstatus==2){
-                        auditstatus="审核通过"; 
+                        auditstatus="审核通过";
+                        opertionHtml="<a class='list-del doc-del' tid='"+id+"'>驳回</a>";
                     }
                     else if(auditstatus==3){
                         auditstatus = "审核不通过";
                         auditstatustyle = "f-red";
-                    }
-                    var opertionHtml="<a class='list-del doc-add' tid='"+id+"'>审核</a>&nbsp;&nbsp;<a class='list-del doc-del' tid='"+id+"'>驳回</a>";
-                    if (docstatus==1){
-                        opertionHtml="<a class='list-del doc-del' tid='"+id+"'>驳回</a>";
                     }
                     var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id
                         + "'/></td><td title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>"

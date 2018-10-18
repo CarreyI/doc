@@ -42,7 +42,7 @@ function getInfo() {
                 $("#attention").attr("status",result.data.subscribe);
                 $("#date").html(result.data.createTime);
                 $(".owner").html(result.data.nickname);
-                var url_owner = GAL_URL+"searchadv.html?&owner="+result.data.userRealName;
+                var url_owner = GAL_URL+"searchadv.html?&owner="+result.data.nickname;
                 $(".owner").attr("href",url_owner)
                 var tagArray = result.data.tag.split(",");
                 var taglinkHtml ="";

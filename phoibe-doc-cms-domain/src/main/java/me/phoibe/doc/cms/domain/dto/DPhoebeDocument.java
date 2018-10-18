@@ -47,6 +47,26 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     private String[] tagArray;
 
+    private String[] armsArray;
+
+    private String[] combatArray;
+
+
+    public String[] getArmsArray() {
+        return armsArray;
+    }
+
+    public void setArmsArray(String[] armsArray) {
+        this.armsArray = armsArray;
+    }
+
+    public String[] getCombatArray() {
+        return combatArray;
+    }
+
+    public void setCombatArray(String[] combatArray) {
+        this.combatArray = combatArray;
+    }
     public String[] getTagArray() {
         return tagArray;
     }

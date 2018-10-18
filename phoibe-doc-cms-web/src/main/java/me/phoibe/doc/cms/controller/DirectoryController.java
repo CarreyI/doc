@@ -2,7 +2,6 @@ package me.phoibe.doc.cms.controller;
 
 import me.phoibe.doc.cms.config.LogUtil;
 import me.phoibe.doc.cms.domain.po.PhoibeDirectory;
-import me.phoibe.doc.cms.domain.po.PhoibeDocDir;
 import me.phoibe.doc.cms.entity.Code;
 import me.phoibe.doc.cms.entity.Result;
 import me.phoibe.doc.cms.service.PhoibeDirectoryService;
@@ -51,10 +50,10 @@ public class DirectoryController {
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
 
-    @PostMapping("/move")
-    public String move(@RequestBody PhoibeDocDir phoibeDocDir, HttpServletRequest request){
-        phoibeDirectoryService.moveDirectory(phoibeDocDir);
-        LogUtil.writeLog("移动了文档id为{"+phoibeDocDir.getDocumentId()+"}到个人目录", LogUtil.OPER_TYPE_EDIT,"个人目录", DictController.class,request);
+    @GetMapping("move")
+    public String move(@RequestParam long[] docids, @RequestParam Long directoryid, HttpServletRequest request){
+        phoibeDirectoryService.moveDirectory(docids,directoryid);
+        LogUtil.writeLog("移动了文档id为{"+docids.toString()+"}到id为{"+directoryid+"}个人目录", LogUtil.OPER_TYPE_EDIT,"个人目录", DictController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
 

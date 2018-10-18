@@ -77,8 +77,8 @@ function dataDictLoadAjax(){
     return dataDict;
 }
 
-function tagLoadAjax(){
-    var data = GAL_URL+"phoibe/tag/list/0/10?1=1";
+function tagLoadAjax(num){
+    var data = GAL_URL+"phoibe/tag/list/0/"+num+"?1=1";
     var dataList;
     $.ajax({
         url: data,
@@ -218,7 +218,7 @@ function userAuthController(){
             }
         })
         if (roleobj_path==","){
-            $("#main-content").css("padding-left", "30px");
+            $("#main-content").css("padding-left", "20px");
             $(this).remove();
         }
     }

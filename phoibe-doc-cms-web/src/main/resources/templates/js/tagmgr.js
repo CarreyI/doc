@@ -29,11 +29,12 @@ function loadData(pageindex) {
                 var id = val["id"];;
                 var name =  val["name"];//"标签名称";
                 var createtime =  val["createTime"];//"创建时间";
-                var status =  val["status"];//"排序";--新增排序字段后修改
+                var status =  val["status"];//"排序";
+                var orderby =  val["orderby"];//"排序";
 
 
-                var row = "<tr><td class='chksel'><input type='checkbox' name='chksel' data-value='" + id + "'/></td><td>"
-                    + name + "</td><td>" + createtime + "</td><td>"+status+"</td><td class='f-blue'>启用</td>" +
+                var row = "<tr><td><input type='checkbox' name='chksel' data-value='" + id + "'/></td><td>"
+                    + name + "</td><td>" + createtime + "</td><td>"+orderby+"</td>" +
                     "<td><a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
                 $("#tblist-body").append(row);
             });
@@ -78,7 +79,7 @@ function tagDelAjax(tid){
             dataType: "json",
             async: false,
             success: function (data) {
-                if (data.code = "success") {
+                if (data.code == "SUCCESS") {
                     loadData(0);
                     alert("删除成功");
                 } else {
@@ -102,7 +103,7 @@ $(function () {
         $("#editBtn").show();
         var sel = $("#tblist-body input[type=checkbox]:checked");
         if(sel.length > 1){
-            alert("一次只能选中一条");
+            alert("只能选中一条");
             return;
         }
         var Id = $(sel).attr("data-value");
@@ -144,7 +145,6 @@ $(function () {
             var value = form.serializeArray()[i].value;
             formdata[key] = value;
         }
-        formdata.status=formdata.sequence;
 
         $.ajax({
             url: GAL_URL + form.attr("action"),
@@ -157,6 +157,7 @@ $(function () {
             success: function (data) {
                 if (data.code="success") {
                     alert("提交成功");
+                    $("#ajaxform")[0].reset();
                     $(".bodyMask").hide();
                     loadData(0);
                 }else{
@@ -174,7 +175,6 @@ $(function () {
             var value = form.serializeArray()[i].value;
             formdata[key] = value;
         }
-        formdata.status=formdata.sequence;
         formdata.id=formdata.tagId;
         var action ="phoibe/tag/update";
         $.ajax({
@@ -187,6 +187,7 @@ $(function () {
             contentType: "application/json;charset=UTF-8",
             success: function (data) {
                 if (data.code="success") {
+                    $("#ajaxform")[0].reset();
                     alert("提交成功");
                     $(".bodyMask").hide();
                     loadData(0);
@@ -210,7 +211,7 @@ function getTag(Id){
             if (data.code="success") {
                 var tagObj = data.data;
                 $("#name").val(tagObj.name);
-                $("#sequence").val(tagObj.status);
+                $("#orderBy").val(tagObj.orderby);
                 $("#tagId").val(tagObj.id);
                 $(".bodyMask").fadeIn();
             }

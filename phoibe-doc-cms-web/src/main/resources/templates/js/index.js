@@ -16,7 +16,7 @@ function appendDitHtml(){
     $("#armtype").html(arms);
 }
 function appendTagHtml() {
-    var dataList = parent.tagLoadAjax();
+    var dataList = parent.tagLoadAjax(10000);
     var rowhtml = "<option value=''>全部</option>";
     $.each(dataList, function (i, val) {
         var id = val["id"];
@@ -243,6 +243,8 @@ function getUserDocNum() {
         success: function (result) {
             if (result.code == "SUCCESS");
             //alert(result.data);
+            var url_tag = GAL_URL+"percenter.html";
+            $("#userdocnum").attr("href",url_tag);
             $("#userdocnum").html(result.data);
         }
     });
@@ -280,6 +282,7 @@ $(function () {
     $("#upload").click(function () {
         parent.appendDitHtml();
         $(window.parent.document).find(".bodyMask").fadeIn();
+        parent.getTag();
     });
 
     $("#condif").click(function () {

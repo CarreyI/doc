@@ -103,7 +103,7 @@ function emptyformw(){
 }
 
 function getTag() {
-    var dataList = parent.tagLoadAjax();
+    var dataList = parent.tagLoadAjax(5);
     var rowhtml = "";
     $.each(dataList, function (i, val) {
         var id = val["id"];
@@ -114,7 +114,6 @@ function getTag() {
     $(".tag-ul").html(rowhtml);
 }
 $(function() {
-    getTag();
 
     $(".closed").click(function () {
         $(".bodyMask").hide();

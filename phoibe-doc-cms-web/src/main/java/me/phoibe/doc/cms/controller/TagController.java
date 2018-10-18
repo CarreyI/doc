@@ -22,8 +22,8 @@ public class TagController {
 
     @GetMapping("/list/{index}/{limit}")
     public String list(@PathVariable Integer index, @PathVariable Integer limit, @ModelAttribute PhoibeTag param,HttpServletRequest request){
-        String orderBy = "CREATE_TIME";
-        String sort = "DESC";
+        String orderBy = "ORDER_BY";
+        String sort = "ASC";
         PageParam<PhoibeTag> pageParam = new PageParam<>();
         pageParam.setStart(index);
         pageParam.setLimit(limit);

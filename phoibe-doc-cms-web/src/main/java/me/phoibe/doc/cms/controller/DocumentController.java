@@ -234,7 +234,7 @@ public class DocumentController {
 		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
 
 		PageList<DPhoebeDocument> list = phoibeDocumentService.fetchDocumentUserList(pageParam);
-		LogUtil.writeLog("浏览了个人文档", LogUtil.OPER_TYPE_LOOK,"个人文档", DocumentController.class,request);
+		LogUtil.writeLog("浏览了文档", LogUtil.OPER_TYPE_LOOK,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, list));
 	}
 
