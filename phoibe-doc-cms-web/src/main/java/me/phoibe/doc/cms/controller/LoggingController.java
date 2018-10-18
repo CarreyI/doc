@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,10 +70,8 @@ public class LoggingController {
     }
     @RequestMapping("/backups")
     public String backupsSql(@ModelAttribute DLoggingEvent loggingEvent, HttpServletRequest request, HttpServletResponse response){
-        String excelFIleName="";
+        String excelFIleName="back.sql";
         try {
-            String sDatatime="";
-            String eDatatime="";
             PageParam<DLoggingEvent> pageParam = new PageParam<>();
             pageParam.setStart(0);
             pageParam.setLimit(1000000000);
@@ -84,30 +83,30 @@ public class LoggingController {
             logsub.append("/*");
             logsub.append("\r\n File Create Time：");
             logsub.append(DateUtils.formatDate(new Date(),"yyyy-MM-dd HH:mm:ss"));
-            logsub.append("\r\n Log Start Time：");
-            logsub.append("\r\n Log End Time：");
+            logsub.append("\r\n Log Start Time："+loggingEvent.getsDatatime());
+            logsub.append("\r\n Log End Time："+loggingEvent.geteDatatime());
             logsub.append("\r\n */");
-            logsub.append("\r\n INSERT INTO \"LOGGING_EVENT\"");
             for (DLoggingEvent dLoggingEvent :pageList.getDataList()){
-                logsub.append(dLoggingEvent.getFormattedMessage());
-                logsub.append(dLoggingEvent.getArg0());
-                logsub.append(LogUtil.convertorLogType(Integer.parseInt(dLoggingEvent.getArg1())));
-                logsub.append(dLoggingEvent.getArg2());
-                logsub.append(dLoggingEvent.getArg3());
-                logsub.append(dLoggingEvent.getTimestmp()+"");
+                logsub.append("INSERT INTO LOGGING_EVENT(FORMATTED_MESSAGE, ARG0, ARG1,ARG2, ARG3,TIMESTMP)VALUES(");
+                logsub.append("'"+dLoggingEvent.getFormattedMessage()+"',");
+                logsub.append("'"+dLoggingEvent.getArg0()+"',");
+                logsub.append("'"+dLoggingEvent.getArg1()+"',");
+                logsub.append("'"+dLoggingEvent.getArg2()+"',");
+                logsub.append("'"+dLoggingEvent.getArg3()+"',");
+                logsub.append(dLoggingEvent.getTimestmp()+");");
+                logsub.append(System.getProperty("line.separator"));
 
-                if (sDatatime==""){
-                    sDatatime = DateUtils.formatDate(new Date(dLoggingEvent.getEventId()),"yyyy-MM-dd");
-                }
-                eDatatime = DateUtils.formatDate(new Date(dLoggingEvent.getEventId()),"yyyy-MM-dd");
             }
             File filedir = new File(exportlog);
             if (!filedir.exists()) {
                 filedir.mkdirs();
             }
             File file = new File(exportlog,excelFIleName);
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(logsub.toString());
+            fileWriter.close();
 
-            LogUtil.writeLog("导出了{"+sDatatime+" -- "+eDatatime+"}范围内的日志记录", LogUtil.OPER_TYPE_ADD,"日志管理", LoggingController.class,request);
+            LogUtil.writeLog("导出了{"+loggingEvent.getsDatatime()+" -- "+loggingEvent.geteDatatime()+"}范围内的日志记录", LogUtil.OPER_TYPE_ADD,"日志管理", LoggingController.class,request);
         }catch (Exception e) {
             e.printStackTrace();
             JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
