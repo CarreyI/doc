@@ -30,6 +30,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private boolean isProtectedUrl(HttpServletRequest request) {
+        String servletPath = request.getServletPath();
+        if (servletPath.equals("")){
+            return true;
+        }
         return pathMatcher.match("/phoibe/**", request.getServletPath());
     }
 

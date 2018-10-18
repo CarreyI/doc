@@ -97,7 +97,7 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
     public void addUser(DPhoibeUser dPhoibeUser) throws UnsupportedEncodingException {
         PhoibeUser user = new PhoibeUser();
         BeanUtils.copyProperties(dPhoibeUser,user);
-        user.setPassword(DigestUtils.md5Hex("123456"));
+        user.setPassword(DigestUtils.md5Hex(user.getPassword()));
         phoibeUserMapper.insertSelective(user);
         for(Long roleId : dPhoibeUser.getRoleId()){
             PhoibeUserRole phoibeUserRole = new PhoibeUserRole();

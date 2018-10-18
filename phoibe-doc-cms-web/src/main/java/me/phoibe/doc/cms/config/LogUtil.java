@@ -81,24 +81,20 @@ public class LogUtil {
         Logger logger = LoggerFactory.getLogger(element);
         String token = JwtUtil.getCookieValueByName(request, JwtUtil.HEADER_STRING);
         UserInfo userInfo = new UserInfo();
-        if (token != null) {
+        if (JwtUtil.extractInfo(token) != null) {
             Long userId = Long.parseLong(JwtUtil.extractInfo(token).get(JwtUtil.USER_NAME).toString());
             userInfo = logUtil.phoibeUserService.fetchUserInfoByUserId(userId);
-        } else {
-            userInfo = (UserInfo) request.getAttribute("userInfo");
+            String logUserName = "";
+            String ipAddr = getIpAddr(request);
+            if (userInfo != null) {
+                String userName = userInfo.getUserName();
+                String nicknam = userInfo.getNickname();
+                String realname = userInfo.getRealname();
+                logUserName = userName + "-" + realname + "-" + nicknam;
+            }
+            Object[] objects = {ipAddr, operType, logUserName, moduleName};
+            logger.info(msg, objects);
         }
-
-
-        String logUserName = "";
-        String ipAddr = getIpAddr(request);
-        if (userInfo != null) {
-            String userName = userInfo.getUserName();
-            String nicknam = userInfo.getNickname();
-            String realname = userInfo.getRealname();
-            logUserName = userName + "-" + realname + "-" + nicknam;
-        }
-        Object[] objects = {ipAddr, operType, logUserName, moduleName};
-        logger.info(msg, objects);
     }
 
     /**

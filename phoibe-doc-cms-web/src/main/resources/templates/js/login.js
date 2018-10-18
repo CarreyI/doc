@@ -40,6 +40,9 @@ $(function () {
         });
     });
     $('#submit').click(function () {
+        if (!userCheckAjax()){
+            return
+        }
         checkUserForm();
         var form = $("#ajaxform");
         var formdata ={};
@@ -61,8 +64,10 @@ $(function () {
             async: false,
             contentType: "application/json;charset=UTF-8",
             success: function (data) {
-                if (data.code="success") {
+                if (data.code="SUCCESS") {
                     alert("注册成功");
+                    $("#userName").val(formdata.userName);
+                    $("#nickname").val(formdata.nickname);
                     $(".bodyMask").hide();
                     loadData(0);
                 }else{
@@ -79,6 +84,41 @@ $(function () {
         }
     });
 });
+function userCheckAjax(){
+    var pd = true;
+    var msg="";
+    $("#ajaxform input").each(function () {
+        if (!$(this).val()){
+            msg+=$(this).attr("title")+"不能为空！";
+            pd =false;
+        }
+    });
+    if (pd){
+        var userName = $("#userName").val();
+        var nickname = $("#nickname").val();
+        $.ajax({
+            url: GAL_URL + "/phoibe/user/list/0/10?userName="+userName+"&nickname="+nickname,
+            type: "GET",
+            dataType: "json",
+            async: false,
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+                if (data.code="SUCCESS") {
+                    if (data.data.dataList.length>0){
+                        pd= false;
+                        alert("用户名或昵称已存在")
+                    }
+                }else{
+                    alert("注册出错，请联系管理员")
+                    pd= false;
+                }
+            }
+        });
+    }else {
+        alert(msg)
+    }
+    return pd
+}
 function checkUserForm(){
     var regpassword = $("#regpassword").val();
     var repassword = $("#repassword").val();
