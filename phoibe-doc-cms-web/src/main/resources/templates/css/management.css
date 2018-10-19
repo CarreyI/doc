@@ -816,7 +816,7 @@ color:#000;
     margin-top:10px;
 	height: 100%;
 	/*margin-bottom: 10px;*/
-	border-bottom:1px solid #5e90ca;
+	border-bottom:1px dashed #e0e0e0;/*1px solid #5e90ca;*/
 	overflow: hidden;
 }
 
