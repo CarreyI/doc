@@ -816,7 +816,7 @@ color:#000;
     margin-top:10px;
 	height: 100%;
 	/*margin-bottom: 10px;*/
-	border-bottom:1px dashed #e0e0e0;/*1px solid #5e90ca;*/
+	border-bottom:1px solid #e0e0e0;/*1px solid #5e90ca;*/
 	overflow: hidden;
 }
 
@@ -2008,10 +2008,10 @@ font-size:18px;
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
 }
 div.aside-box h3.aside-title {
-	font-size: 12px;
+	font-size: 14px;
 	color: #3d3d3d;
 	background: #f5f5f5;
-	padding: 0 16px;
+	padding: 0 12px;
 	height: 38px;
 	line-height: 38px;
 }
@@ -2134,10 +2134,10 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	padding: 6px;
 }
 .recommend-right .aside-title{
-	font-size: 12px;
+	font-size: 14px;
 	color: #3d3d3d;
 	background: #f5f5f5;
-	padding: 0 16px;
+	padding: 0 12px;
 	height: 38px;
 	line-height: 38px;
 }
@@ -2148,6 +2148,8 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	height: 56px;
 	border-bottom: 1px dashed #e0e0e0;
 }
+.right-item a{color:#226c97;}
+
 .recommend-right .right-item .right-item-desc {
 	font-size: 12px;
 	color: #999;
