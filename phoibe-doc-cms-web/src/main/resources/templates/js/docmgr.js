@@ -13,7 +13,7 @@ function loadData(pageindex) {
     var warnum = $("#warnum").val();
     var owner = $("#owner").val();
     
-    var data = GAL_URL+'phoibe/document/list/'+pageindex+'/10?1=1';
+    var data = GAL_URL+'phoibe/document/list/'+pageindex+'/20?1=1';
 
     if (name != null && name != "") {
         data = data + "&name=" + name;
@@ -117,7 +117,8 @@ function loadData(pageindex) {
              laypage.render({
                  elem: 'notice_pages'
                , count: totalRows
-               , curr: currPage//当前页,
+               , curr: currPage//当前页
+                 ,limit:20
                , first: '首页'
                , last: '尾页'
                , prev: '<em>←</em>'

@@ -126,7 +126,7 @@ function hotArticle() {
     });
 }
 function correlationArticle() {
-    var url = GAL_URL + 'phoibe/document/relevantList/0/14?isstock=1';
+    var url = GAL_URL + 'phoibe/document/relevantList/0/12?isstock=1';
     if (article_tag!=null){
         url+="&tag="+article_tag;
     }

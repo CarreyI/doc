@@ -7,7 +7,7 @@ var docstatus=0;
             currPage = pageindex;
             $("#tblist-body").children().remove();
 
-            var data = GAL_URL+'phoibe/document/list/user/'+pageindex+'/10?f=audit';
+            var data = GAL_URL+'phoibe/document/list/user/'+pageindex+'/20?f=audit';
 
             var docname = $("#docname").val();
             if (docname!=""&&docname != null){
@@ -99,6 +99,7 @@ var docstatus=0;
              elem: 'notice_pages'
            , count: totalRows
            ,curr:currPage
+             ,limit:20
            , first: '首页'
            , last: '尾页'
            , prev: '<em>←</em>'

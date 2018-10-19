@@ -1,9 +1,10 @@
 var totalRows = 0;
 var currPage = 1;
+var pageSize =7;
 function loadData(type,pageindex) {
     $("#docmgr-content").children().remove()
 
-    var url = 'phoibe/document/list/user/' + pageindex + '/7?1=1';
+    var url = 'phoibe/document/list/user/' + pageindex + '/'+pageSize+'?1=1';
     var data="";
 
     var searchKey = $("#search-key").val();

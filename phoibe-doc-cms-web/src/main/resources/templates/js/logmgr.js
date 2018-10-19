@@ -4,7 +4,7 @@ var logOption={};
 function loadData(pageindex) {
     $("#tblist-body").children().remove();
 
-    var data = GAL_URL+"phoibe/logging/list/"+pageindex+"/10?1=1";
+    var data = GAL_URL+"phoibe/logging/list/"+pageindex+"/20?1=1";
     var sDatatime=$("#startdate").val();
     var eDatatime=$("#enddate").val();
 
@@ -60,6 +60,7 @@ function loadData(pageindex) {
             elem: 'notice_pages'
           , count: totalRows
           , curr: currPage
+            ,limit:20
           , first: '首页'
           , last: '尾页'
           , prev: '<em>←</em>'

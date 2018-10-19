@@ -1,4 +1,4 @@
-var totalRows = 10;
+var totalRows = 20;
 var currPage = 0;
 
 function loadData(pageindex) {
@@ -10,7 +10,7 @@ function loadData(pageindex) {
     var realname_value = $("#tag_realname").val();
     var type_value = $("#tag_type").val();
 
-    var data = GAL_URL+"/phoibe/user/list/"+pageindex+"/10?1=1";
+    var data = GAL_URL+"/phoibe/user/list/"+pageindex+"/20?1=1";
 
     if (username_value != "undefined" && username_value != null && username_value != "") {
         data = data + "&userName=" + username_value.toLowerCase();
@@ -32,6 +32,7 @@ function loadData(pageindex) {
         success: function (result) {//<div class='font22 title'>中国战法</div>
             var total_rows = result.data.totalCount;
             totalRows = total_rows;
+          //  alert(total_rows);
             $.each(result.data.dataList, function (i, val) {
                 var id = val["id"];
                 var username = val["userName"];//"用户名";
@@ -91,8 +92,6 @@ function loadData(pageindex) {
         }
     });
 
-
-
     layui.use(['laypage', 'layer'], function () {
         var laypage = layui.laypage
             , layer = layui.layer;
@@ -100,6 +99,7 @@ function loadData(pageindex) {
             elem: 'notice_pages'
             , count: totalRows
             , curr: currPage//当前页,
+            ,limit:20
             , first: '首页'
             , last: '尾页'
             , prev: '<em>←</em>'

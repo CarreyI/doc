@@ -1,10 +1,11 @@
 var totalRows = 0;
 var currPage = 0;
 var docstatus =  1;
+var pageSize=20;
     function loadData(pageindex) {
 
         $("#tblist-body").children().remove();    
-        var data = GAL_URL+'phoibe/document/list/user/'+pageindex+'/10?1=1';
+        var data = GAL_URL+'phoibe/document/list/user/'+pageindex+'/'+pageSize+'?1=1';
 
 
         var docname = $("#docname").val();
@@ -94,6 +95,7 @@ var docstatus =  1;
                 elem: 'notice_pages'
               , count: totalRows
               ,curr:currPage
+                ,limit:pageSize
               , first: '首页'
               , last: '尾页'
               , prev: '<em>←</em>'

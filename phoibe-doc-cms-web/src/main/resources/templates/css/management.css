@@ -2142,10 +2142,11 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	line-height: 38px;
 }
 .recommend-right .right-item {
-	padding: 4px 8px;
+	padding: 8px 8px 10px 8px;
 	overflow: hidden;
 	word-wrap: break-word;
 	height: 56px;
+	border-bottom: 1px dashed #e0e0e0;
 }
 .recommend-right .right-item .right-item-desc {
 	font-size: 12px;
@@ -2250,7 +2251,7 @@ font-size:16px;
 }
 .scoreremark{
 	float:left;
-	margin-top:2px;
+	margin-top:8px;
 }
 #com-score label{float:left;}
 #com-score .submit{margin-top:8px;}

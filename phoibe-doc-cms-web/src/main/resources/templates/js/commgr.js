@@ -1,4 +1,4 @@
-var totalRows = 10;
+var totalRows = 0;
 var currPage = 0;
 
 function loadData(pageindex) {
@@ -8,7 +8,7 @@ function loadData(pageindex) {
     var username_value = $("#username").val();
     var title_value = $("#title").val();
 
-    var data = GAL_URL+"phoibe/comment/list/"+pageindex+"/10?1=1";
+    var data = GAL_URL+"phoibe/comment/list/"+pageindex+"/20?1=1";
 
     if (username_value != "" && username_value != null) {
         data = data + "&username=" + username_value.toLowerCase();
@@ -63,6 +63,7 @@ function loadData(pageindex) {
             elem: 'notice_pages'
             , count: totalRows
             , curr: currPage//当前页,
+            ,limit:20
             , first: '首页'
             , last: '尾页'
             , prev: '<em>←</em>'

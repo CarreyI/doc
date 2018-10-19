@@ -2,6 +2,7 @@
 var totalRows = 0;
 var currPage = 0;
 var wartype = "";
+var pageSize=20;
 var dirId="";
 
 var userStr = getCookie("userObject");
@@ -318,7 +319,7 @@ function docDelAjax(tid){
 function loadData(pageindex) {
 
     $("#tblist-body").children().remove();
-    var data = GAL_URL+'phoibe/document/list/' + pageindex + '/10?1=1';
+    var data = GAL_URL+'phoibe/document/list/' + pageindex + '/'+pageSize+'?1=1';
     data = data +"&userId="+userId;
     if (dirId!=""){
         data = data +"&dirId="+dirId;
@@ -409,6 +410,7 @@ function loadData(pageindex) {
                 elem: 'notice_pages'
               , count: totalRows
               , curr:currPage
+                ,limit:pageSize
               , first: '首页'
               , last: '尾页'
               , prev: '<em>←</em>'
