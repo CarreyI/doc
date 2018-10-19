@@ -71,9 +71,12 @@ function loadData(type,pageindex) {
             url = 'phoibe/document/list/'+queryFlag+"/" + pageindex + '/10?1=1';
         }
     }
-    var doctypevalue = $("#serachType .acheck").attr("format");
+    var doctypevalue = "";
+    $("#serachType .acheck").each(function () {
+        doctypevalue += $(this).attr("format");
+    })
     if (doctypevalue != "" && doctypevalue != null) {
-        data = data + "&format=" + doctypevalue.toLowerCase();
+        data = data + "&formatArray=" + doctypevalue.toLowerCase();
     }
     data = url + data + "&auditStatus=2&&isstock=1";
     $.ajax({

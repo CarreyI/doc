@@ -466,7 +466,7 @@
         and USER_ID = #{param.userId,jdbcType=DECIMAL}
       </if>
       <if test="param.format != null and param.format != ''">
-        and FORMAT in ${param.format}
+        and FORMAT = #{param.format,jdbcType=VARCHAR}
       </if>
       <if test="param.userRealName != null and param.userRealName != ''">
         and USER_REAL_NAME Like '%'||#{param.userRealName,jdbcType=VARCHAR}||'%'
@@ -537,6 +537,12 @@
       <if test="param.combatArray != null">
         and COMBAT_TYPE in
         <foreach collection="param.combatArray" index="index" item="item" open="(" separator="," close=")"  >
+          #{item}
+        </foreach>
+      </if>
+      <if test="param.formatArray != null">
+        and FORMAT in
+        <foreach collection="param.formatArray" index="index" item="item" open="(" separator="," close=")"  >
           #{item}
         </foreach>
       </if>

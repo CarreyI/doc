@@ -51,6 +51,15 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     private String[] combatArray;
 
+    private String[] formatArray;
+
+    public String[] getFormatArray() {
+        return formatArray;
+    }
+
+    public void setFormatArray(String[] formatArray) {
+        this.formatArray = formatArray;
+    }
 
     public String[] getArmsArray() {
         return armsArray;
