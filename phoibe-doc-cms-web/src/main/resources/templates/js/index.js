@@ -28,13 +28,14 @@ function appendTagHtml() {
 }
 function appendHotSearchHtml(){
     var resultData = parent.hotsearchLoadAjax();
-    var rowhtml = "<li class=''>热搜：</li>";
+    var rowhtml = "<li><a href='#'>热搜：</a>";
     $.each(resultData, function (i, val) {
         rowhtml +="<a class='line-li' href='#'>" + val + "</a>";
     });
-    $("#hotSerach").html(rowhtml);
+    rowhtml=rowhtml+"</li>";
+    $("#hotSearch").html(rowhtml);
 
-    $("#hotSerach a").click(function () {
+    $("#hotSearch a").click(function () {
         var hotChar = $(this).text();
         $("#search-key").val(hotChar);
        $("#btnSearch").click();

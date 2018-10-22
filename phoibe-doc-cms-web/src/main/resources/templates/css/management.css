@@ -453,10 +453,16 @@ body, html {
 	margin-top: 2px;
 	color: #248EFF;
 }
-.line-li{float: left;
+.line-li{
+	/*float: left;*/
 	margin-right: 5px;
 	text-decoration: underline;color: #248EFF;padding: 0 5px;}
-.acheck{background-color:#248EFF;color: white; }
+.line-li a{color:#248EFF;
+
+}
+.line-li .acheck {
+	background-color:#248EFF;color: white;
+}
 .main .container .search .inputBox input {
 	float: left;
 	border: 1px solid #aaaaaa;
@@ -2306,4 +2312,7 @@ font-size:16px;
 	color: #999;
 	letter-spacing: 0;
 	line-height: 20px;
+}
+.line_two_li{
+	font-size:14px;
 }
