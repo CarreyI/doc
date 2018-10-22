@@ -15,6 +15,10 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     private String auditStatusDesc;
 
+    private Date wartimeBegin;
+
+    private Date wartimeEnd;
+
     private Date auditTimeBegin;
 
     private Date auditTimeEnd;
@@ -53,6 +57,22 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     private String[] formatArray;
 
+    public Date getWartimeBegin() {
+        return wartimeBegin;
+    }
+
+    public void setWartimeBegin(Date wartimeBegin) {
+        this.wartimeBegin = wartimeBegin;
+    }
+
+    public Date getWartimeEnd() {
+        return wartimeEnd;
+    }
+
+    public void setWartimeEnd(Date wartimeEnd) {
+        this.wartimeEnd = wartimeEnd;
+    }
+
     public String[] getFormatArray() {
         return formatArray;
     }
@@ -76,6 +96,7 @@ public class DPhoebeDocument extends PhoibeDocument {
     public void setCombatArray(String[] combatArray) {
         this.combatArray = combatArray;
     }
+
     public String[] getTagArray() {
         return tagArray;
     }
@@ -84,9 +105,9 @@ public class DPhoebeDocument extends PhoibeDocument {
         this.tagArray = tagArray;
     }
 
-    public void settings(){
-        if(!StringUtils.isEmpty(getContent())){
-            this.contentStr =new String(getContent());
+    public void settings() {
+        if (!StringUtils.isEmpty(getContent())) {
+            this.contentStr = new String(getContent());
             setContent(null);
         }
     }
@@ -242,7 +263,6 @@ public class DPhoebeDocument extends PhoibeDocument {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-
 
 
 }

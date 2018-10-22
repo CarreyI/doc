@@ -31,9 +31,13 @@ function loadData(type,pageindex) {
     if (waraddr != "") {
         data = data + "&waraddr=" + waraddr;
     }
-    var wartime = $("#wartime").val();
-    if (null!=wartime&&wartime != "") {
-        data = data + "&wartime=" + wartime;
+    var wartime_start = $("#wartime_start").val();
+    if (null!=wartime_start&&wartime_start != "") {
+        data = data + "&wartimeBegin=" + wartime_start;
+    }
+    var wartime_end = $("#wartime_end").val();
+    if (null!=wartime_end&&wartime_end != "") {
+        data = data + "&wartimeEnd=" + wartime_end;
     }
     var winner = $("#winner").val();
     if (winner != "") {
