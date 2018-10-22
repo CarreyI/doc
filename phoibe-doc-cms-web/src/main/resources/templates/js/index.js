@@ -237,7 +237,7 @@ function getDocNum() {
         userObject = JSON.parse(userStr);
         userId = userObject.id;
     }
-     //SOLDIERS
+     //SOLDIERS3223423
     $.ajax({
         type: 'GET',
         url: GAL_URL + 'phoibe/document/statistical/COMBAT',
