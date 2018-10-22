@@ -224,10 +224,11 @@ function appendTagHtml() {
 
 function appendHotSearchHtml(){
     var resultData = parent.hotsearchLoadAjax();
-    var rowhtml = "<li class=''>热搜：</li>";
+    var rowhtml = "<li class=''><a href='#'>热搜：</a>";
     $.each(resultData, function (i, val) {
         rowhtml +="<a class='line-li' href='#'>" + val + "</a>";
     });
+    rowhtml=rowhtml+"</li>";
     $("#hotSerach").html(rowhtml);
 
     $("#hotSerach a").click(function () {

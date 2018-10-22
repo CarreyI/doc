@@ -457,8 +457,10 @@ body, html {
 	/*float: left;*/
 	margin-right: 5px;
 	text-decoration: underline;color: #248EFF;padding: 0 5px;}
-.line-li a{color:#248EFF;
-
+.line-li a{
+	color:#248EFF;
+	line-height:30px;
+	padding:2px;
 }
 .line-li .acheck {
 	background-color:#248EFF;color: white;
