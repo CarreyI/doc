@@ -93,6 +93,7 @@ function loadData(type,pageindex) {
                  totalRows = total_rows;
                  var step = 0;
                  var row = "";
+
                  for(var i in result.data.dataList){
                      var val = result.data.dataList[i];
                      var score = val["score"];
@@ -224,11 +225,10 @@ function appendTagHtml() {
 
 function appendHotSearchHtml(){
     var resultData = parent.hotsearchLoadAjax();
-    var rowhtml = "<li class=''><a href='#'>热搜：</a>";
+    var rowhtml = "<li class=''>热搜：</li>";
     $.each(resultData, function (i, val) {
         rowhtml +="<a class='line-li' href='#'>" + val + "</a>";
     });
-    rowhtml=rowhtml+"</li>";
     $("#hotSerach").html(rowhtml);
 
     $("#hotSerach a").click(function () {
@@ -237,11 +237,12 @@ function appendHotSearchHtml(){
         $("#btnSearch").click();
     })
     $("#serachType a").click(function () {
-        $(this).addClass("acheck");
-        $("#btnSearch").click();
-    })
-    $("#serachType .acheck").click(function () {
-        $(this).removeClass("acheck");
+        if ($(this).attr("class").indexOf("acheck")>-1){
+            $(this).removeClass("acheck");
+        } else {
+            $("#serachType a").removeClass("acheck");
+            $(this).addClass("acheck");
+        }
         $("#btnSearch").click();
     })
 
@@ -307,6 +308,7 @@ function appendUserSearchHtml(){
          $(".btnSearch").click(function () {
              currPage = 0;
              totalRows = 0;
-             loadData(1,0);
+             loadData(currPage,totalRows);
+             $("#condwhere").fadeOut();
          });
      });

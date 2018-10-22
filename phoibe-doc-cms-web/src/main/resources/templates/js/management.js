@@ -199,7 +199,7 @@ function userAuthController(){
         }
 
         $(".userName").html(nickname);
-        $(".userIdentity").html(userObject.roleName);
+        $(".userIdentity").html(userType);
 
         $("#nav_left").hide();
         $(".fl").find("li").hide();

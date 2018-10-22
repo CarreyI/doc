@@ -28,14 +28,13 @@ function appendTagHtml() {
 }
 function appendHotSearchHtml(){
     var resultData = parent.hotsearchLoadAjax();
-    var rowhtml = "<li><a href='#'>热搜：</a>";
+    var rowhtml = "<li class=''>热搜：</li>";
     $.each(resultData, function (i, val) {
         rowhtml +="<a class='line-li' href='#'>" + val + "</a>";
     });
-    rowhtml=rowhtml+"</li>";
-    $("#hotSearch").html(rowhtml);
+    $("#hotSerach").html(rowhtml);
 
-    $("#hotSearch a").click(function () {
+    $("#hotSerach a").click(function () {
         var hotChar = $(this).text();
         $("#search-key").val(hotChar);
        $("#btnSearch").click();
@@ -74,8 +73,10 @@ function bindZhanfa() {
                 var title = val["name"];
                 var isstock = val["isstock"];
                 var auditStatus = val["auditStatus"];
+                var status = val["status"];
                 var tid = val["id"];
                 var statusStr="";
+                var url="href='docdetail.html?tid=" + tid + "'";
                 if (isstock==1){
                     if (auditStatus==1){
                         statusStr="审核中";
@@ -87,7 +88,11 @@ function bindZhanfa() {
                 } else if (isstock==2&&auditStatus==2) {
                     statusStr="已发布"
                 }
-                var row = "<li class='per-60'><i class='i-star'></i><a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a></li><li class='per-30'>" + statusStr + "</li>";
+                if (status==101){
+                    statusStr="上传中断";
+                    var url=" style='color:#666;cursor: pointer;' onClick=editDocFun("+tid+")";
+                }
+                var row = "<li class='per-60'><i class='i-star'></i><a title='" + title + "' "+url+" >" + cutString(title, 20) + "</a></li><li class='per-30'>" + statusStr + "</li>";
                 $("#zgzhanfa").append(row);
             });
         }
@@ -262,6 +267,11 @@ function getDocNum() {
         }
     });
 }
+
+function editDocFun(docId){
+    $("#upload").click();
+    parent.getDocObjecLoad(docId);
+}
 $(function () {
     getUserDocNum();
     getDocNum();
@@ -274,11 +284,21 @@ $(function () {
     appendUserSearchHtml();
     appendHotSearchHtml();
     $("#upload").click(function () {
-        parent.appendDitHtml();
-        $(window.parent.document).find(".bodyMask").fadeIn();
-        parent.getTag();
+        var itemlength = $(window.parent.document).find("#thelist").find(".item").length;
+        if (itemlength>0){
+            alert("有未上传完成的任务，请先上传");
+            $(window.parent.document).find(".uplaodTaskBox").click();
+        }else{
+            parent.emptyformw();
+            $(window.parent.document).find(".bodyMask").fadeIn();
+            parent.appendDitHtml();
+            parent.getTag();
+        }
     });
-
+    $(window.parent.document).find("#clear-btn").click(function () {
+        parent.emptyformw();
+        window.location.reload();
+    });
     $("#condif").click(function () {
         $("#condwhere").fadeIn();
     });

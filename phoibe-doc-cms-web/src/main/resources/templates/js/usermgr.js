@@ -175,7 +175,6 @@ $(function () {
     });
 
     $('#submit').click(function () {
-
         var form = $("#ajaxform");
         var formdata ={};
         for (var i = 0; i < form.serializeArray().length; i++) {

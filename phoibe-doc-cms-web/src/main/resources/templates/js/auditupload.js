@@ -5,9 +5,7 @@ var pageSize=20;
     function loadData(pageindex) {
 
         $("#tblist-body").children().remove();    
-        var data = GAL_URL+'phoibe/document/list/user/'+pageindex+'/'+pageSize+'?1=1';
-
-
+        var data = GAL_URL+'phoibe/document/list/user/'+pageindex+'/'+pageSize+'?status=100';
         var docname = $("#docname").val();
 
         if (docname != ""&&docname != null){
