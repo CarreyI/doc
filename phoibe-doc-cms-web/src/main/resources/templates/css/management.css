@@ -619,15 +619,14 @@ background-image: url("../images/i-sign.png");
 
 .main .container .content .dataword {
 	width: 319px;
-	height: 183px;
+	height: 180px;
     background:#ffffff;
 	/*background: url("../images/datawordBg.png");*/
-    border:1px solid #aaaaaa;
-	margin: 12px 0;
+	border: 1px solid #aaaaaa;
+	margin: 14px 0;
 	text-align: center;
 	padding-top: 12px;
-    padding-bottom:16px;
-	
+	padding-bottom: 14px;
 }
 
 .font22 {
