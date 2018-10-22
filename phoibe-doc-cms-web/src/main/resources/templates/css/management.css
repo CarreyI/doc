@@ -611,6 +611,7 @@ background-image: url("../images/i-sign.png");
 
 .main .container .content .dataword {
 	width: 319px;
+	height: 183px;
     background:#ffffff;
 	/*background: url("../images/datawordBg.png");*/
     border:1px solid #aaaaaa;
@@ -1629,17 +1630,22 @@ ul.search-con li .btnSearch{
 	margin-left: 4px
 }
 
-#docnum {
-    font-size: 34px;
-    color: #fc6433;
-    margin-top: 14px;
-    line-height: 80px;
-    margin-bottom: 20px;
-}
 .dw-bk {
 /*background:url("../images/dw_bak.png");*/
-height:80px;
 width:100%;
+	padding: 14px;
+}
+.dw-bk li{
+	width: 100px;
+	line-height: 23px;
+	padding: 5px 10px;
+	font-size: 16px;
+	margin: 0px 12px;
+	float: left;
+}
+.dw-bk li a{
+	color: #226c97;
+	cursor: pointer;
 }
 .ul-header-docnum {
 	color:#226c97; /*#226c97;*/
@@ -1896,7 +1902,7 @@ width:15% !important;
 }
 #zgzhanfa li a {
 padding-left:4px;
-
+	color: #226c97;
 }
 #curtime {
 font-size:18px;
@@ -2148,7 +2154,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	height: 56px;
 	border-bottom: 1px dashed #e0e0e0;
 }
-.right-item a{color:#226c97;}
+.recommend-right .right-item a{color:#226c97;}
 
 .recommend-right .right-item .right-item-desc {
 	font-size: 12px;
@@ -2264,3 +2270,40 @@ font-size:16px;
 #docmgr-content .row ul li.owner_btn:hover{color:#00a2d4;}
 #docmgr-content .row ul li.format_btn:hover{color:#00a2d4;}
 .noInfo{color: #999}
+#lst-dym {
+	width: 295px;
+	height: 955px;
+	margin-left: 8px;
+	background-color: #fff;
+}
+#lst-dym .aside-title{
+	font-size: 14px;
+	color: #3d3d3d;
+	background: #f5f5f5;
+	padding: 0 12px;
+	height: 38px;
+	line-height: 38px;
+}
+#lst-dym .right-item {
+	padding: 8px 8px 10px 8px;
+	overflow: hidden;
+	word-wrap: break-word;
+	height: 56px;
+	border-bottom: 1px dashed #e0e0e0;
+}
+#lst-dym .right-item a{color:#226c97;}
+
+#lst-dym .right-item .right-item-desc {
+	font-size: 12px;
+	color: #999;
+}
+#lst-dym .right-item .right-item-content {
+	margin-bottom: 4px;
+}
+#lst-dym .right-item .right-item-content span {
+	margin-right: 8px;
+	font-size: 12px;
+	color: #999;
+	letter-spacing: 0;
+	line-height: 20px;
+}

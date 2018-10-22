@@ -75,7 +75,7 @@ function bindZhanfa() {
                 var auditStatus = val["auditStatus"];
                 var tid = val["id"];
                 var statusStr="";
-                if (isstock==0){
+                if (isstock==1){
                     if (auditStatus==1){
                         statusStr="审核中";
                     }else if(auditStatus==2) {
@@ -83,7 +83,7 @@ function bindZhanfa() {
                     }else if(auditStatus==3) {
                         statusStr="审核未通过";
                     }
-                } else if (isstock==1&&auditStatus==2) {
+                } else if (isstock==2&&auditStatus==2) {
                     statusStr="已发布"
                 }
                 var row = "<li class='per-60'><i class='i-star'></i><a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 20) + "</a></li><li class='per-30'>" + statusStr + "</li>";
@@ -143,7 +143,7 @@ function bindResouDoc() {
 
 function bindRecommDoc() {
     $("#zgzhanfa").children().remove();
-    var url = GAL_URL + 'phoibe/document/list/0/19?f=handpick&isstock=1';
+    var url = GAL_URL + 'phoibe/document/list/0/19?f=handpick&isstock=2';
     //alert(url);
     $.ajax({
         type: 'GET',
@@ -188,41 +188,21 @@ function bindRecommDoc() {
 function bindDym() {
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/0/10?f=storage&isstock=1',
+        url: GAL_URL + 'phoibe/document/list/0/20?f=storage&isstock=2',
         //url: 'http://199.139.199.154:8090/phoibe/document/selectDoucumentList',
         dataType: 'json',
         success: function (result) {
-
             $.each(result.data.dataList, function (i, val) {
                 var docname = val["name"];
                 var createTime = val["stockTime"];
                 var tid = val["id"];
-                var d = new Date();
-                var curTime = d.getTime();
-                var username = val["userRealName"];
-
-                var date3 = curTime - Date.parse(createTime);  //时间差的毫秒数
-
-                //计算出相差天数
-                var days = Math.floor(date3 / (24 * 3600 * 1000));
-                var leave2 = leave1 % (3600 * 1000);        //计算小时数后剩余的毫秒数
-                var minutes = Math.floor(leave2 / (60 * 1000));
-
-                var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
-                var hours = Math.floor(leave1 / (3600 * 1000))
-                //计算相差分钟数
-                var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
-                var minutes = Math.floor(leave2 / (60 * 1000))
-                //计算相差秒数
-                var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
-                var seconds = Math.round(leave3 / 1000)
-                var minutesTip = "";
-                if (seconds > 0) minutesTip = seconds + " 秒前发布";
-                if (minutes > 0) minutesTip = minutes + "分钟" + minutesTip;
-                if (hours > 0) minutesTip = hours + "小时" + minutesTip;
-                if (days > 0) minutesTip = days + "天" + minutesTip;
-
-                var row = "<ul class='list3'><li><a href='docdetail.html?tid=" + tid + "' title='" + docname + "'>" + cutString(docname, 14) + "</a></li><li><span>" + username + "</span></li><li>" + minutesTip + "</li></ul>";
+                var description=val["description"];
+                var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
+                var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
+                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,24)+
+                    "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime.substring("5","10")+"</span></h5></div>"+
+                    "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
+                    "</a></li>";
                 $("#lst-dym").append(row);
             });
         }
@@ -257,14 +237,27 @@ function getDocNum() {
         userObject = JSON.parse(userStr);
         userId = userObject.id;
     }
+     //SOLDIERS
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/count?f=storage',
+        url: GAL_URL + 'phoibe/document/statistical/COMBAT',
         dataType: 'json',
         success: function (result) {
-            if (result.code == "SUCCESS");
-            //alert(result.data);
-            $("#docnum").html(result.data);
+
+            if (result.code == "SUCCESS"){
+                $.each(result.data,function (i,val) {
+                    if (i<6){
+                    var name = val.name;
+                    var count = val.count;
+                    var wartype=val.id;
+                        var hrefUrl= "searchadv.html?wartype="+wartype;
+                    var row="<li><span>"+name+"：<a href='"+hrefUrl+"'target='_self'>"+count+"</a></span></li>";
+
+                    $(".dw-bk ul").append(row);
+                    }
+                })
+            }
+
         }
     });
 }

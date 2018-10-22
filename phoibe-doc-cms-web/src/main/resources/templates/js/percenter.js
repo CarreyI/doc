@@ -15,7 +15,7 @@ if (null!=userStr&&""!=userStr) {
 function docdymListLoad() {
     $.ajax({
         type: 'GET',
-        url: GAL_URL+'phoibe/document/list/0/9?isstock=1',
+        url: GAL_URL+'phoibe/document/list/0/9?isstock=2',
         dataType: 'json',
         success: function (result) {
             var total_rows = result.data.totalCount;
@@ -71,7 +71,7 @@ function docdymListLoad() {
 }
 //最近浏览
 function nearreadListLoad() {
-    var data = GAL_URL+'phoibe/document/list/browse/0/9?queryFlag=browse&isstock=1'
+    var data = GAL_URL+'phoibe/document/list/browse/0/9?queryFlag=browse&isstock=2'
     $.ajax({
         type: 'GET',
         url: data,
@@ -129,7 +129,7 @@ function nearreadListLoad() {
 
 //我的收藏
 function randomListLoad() {
-    var data = GAL_URL+'phoibe/document/list/collection/0/9?queryFlag=collection&isstock=1'
+    var data = GAL_URL+'phoibe/document/list/collection/0/9?queryFlag=collection&isstock=2'
     $.ajax({
         type: 'GET',
         url: data,
@@ -189,7 +189,7 @@ function randomListLoad() {
 }
 //我的订阅
 function attentionListLoad() {
-    var data = GAL_URL+'phoibe/document/list/user/0/9?queryFlag=subscribe&isstock=1&queryUserId='+userId
+    var data = GAL_URL+'phoibe/document/list/user/0/9?queryFlag=subscribe&isstock=2&queryUserId='+userId
     $.ajax({
         type: 'GET',
         url: data,

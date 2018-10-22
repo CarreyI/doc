@@ -8,6 +8,7 @@
     <script src="js/data.js"></script>
     <script src="js/auditupload.js"></script>
     <script src="js/layui.js"></script>
+    <script language="javascript" type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
     <link rel="stylesheet" href="css/management.css"/>
     <link rel="stylesheet" href="css/layui.css">
 </head>
@@ -38,10 +39,11 @@
                                 <ul class="check-list done-list search-con">
 
                                     <li>文档名称:<input type="text" id="docname"/></li>&nbsp;&nbsp;<li>
-                                    上传人:<input type="text"
-                                               id="owner"/>&nbsp;&nbsp;审核时间:<input
-                                        type="text" id="auditstartdate" style="width:90px" data-value=""/>-<input
-                                        id="auditenddate" style="width:90px" type="text" data-value=""/>&nbsp;&nbsp;
+                                    上传人:<input type="text"id="owner"/>&nbsp;&nbsp;
+                                    审核时间:
+                                    <input id="auditstartdate" type="text" onClick="WdatePicker()" style="width:90px" data-value="">
+                                    -
+                                    <input id="auditenddate" type="text" onClick="WdatePicker()" style="width:90px" data-value="">
                                     <span class="btnSearch"></span></li>
                                 </ul>
                             </div>

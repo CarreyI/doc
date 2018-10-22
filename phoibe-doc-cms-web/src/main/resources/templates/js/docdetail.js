@@ -41,15 +41,17 @@ function getInfo() {
                 $("#format").html(filePath+"&nbsp;&nbsp;("+result.data.fileSize+"kb)");
                 $("#attention").attr("status",result.data.subscribe);
                 $("#date").html(result.data.createTime);
-                $(".owner").html(result.data.nickname);
                 var url_owner = GAL_URL+"searchadv.html?&owner="+result.data.nickname;
                 $(".owner").attr("href",url_owner)
-                var tagArray = result.data.tag.split(",");
-                var taglinkHtml ="";
-                for (var i=0;i<tagArray.length;i++){
-                    var tag = tagArray[i]
-                    var url_tag = GAL_URL+"searchadv.html?&tag="+tag;
-                    taglinkHtml +="<a class='tag-link' href='"+url_tag+"' target='_self'>"+tag+"</a>";
+                $(".owner").html(result.data.nickname);
+                if (result.data.tag != null && result.data.tag != "") {
+                    var tagArray = result.data.tag.split(",");
+                    var taglinkHtml = "";
+                    for (var i = 0; i < tagArray.length; i++) {
+                        var tag = tagArray[i]
+                        var url_tag = GAL_URL + "searchadv.html?&tag=" + tag;
+                        taglinkHtml += "<a class='tag-link' href='" + url_tag + "' target='_self'>" + tag + "</a>";
+                    }
                 }
                 $(".tags-box").append(taglinkHtml);
                 $("#doctitle").html(result.data.name);
@@ -72,7 +74,7 @@ function getInfo() {
 function newwestDoc() {
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/0/10?f=storage&isstock=1',
+        url: GAL_URL + 'phoibe/document/list/0/10?f=storage&isstock=2',
         //url: 'http://199.139.199.154:8090/phoibe/document/selectDoucumentList',
         dataType: 'json',
         success: function (result) {
@@ -90,7 +92,7 @@ function newwestDoc() {
 function userMenu() {
     $.ajax({
         type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/0/10?f=storage&isstock=1',
+        url: GAL_URL + 'phoibe/document/list/0/10?f=storage&isstock=2',
         //url: 'http://199.139.199.154:8090/phoibe/document/selectDoucumentList',
         dataType: 'json',
         success: function (result) {
@@ -108,7 +110,7 @@ function userMenu() {
     })
 }
 function hotArticle() {
-    var url = GAL_URL + 'phoibe/document/list/0/19?f=handpick&isstock=1';
+    var url = GAL_URL + 'phoibe/document/list/0/19?f=handpick&isstock=2';
     $.ajax({
         type: 'GET',
         url: url,
@@ -126,7 +128,7 @@ function hotArticle() {
     });
 }
 function correlationArticle() {
-    var url = GAL_URL + 'phoibe/document/relevantList/0/12?isstock=1';
+    var url = GAL_URL + 'phoibe/document/relevantList/0/12?isstock=2';
     if (article_tag!=null){
         url+="&tag="+article_tag;
     }

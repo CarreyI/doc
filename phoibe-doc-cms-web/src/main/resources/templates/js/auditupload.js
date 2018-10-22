@@ -17,16 +17,16 @@ var pageSize=20;
         if (owner != ""&&owner != null) {
             data = data + "&userRealName=" + owner;
         }
-        var auditTimeBegin =$("#waitstartdate").val();
+        var auditTimeBegin =$("#auditstartdate").val();
         if (auditTimeBegin != ""&&auditTimeBegin != null) {
             data = data + "&auditTimeBegin=" + auditTimeBegin;
         }
-        var auditTimeEnd = $("#waitenddate").val();
+        var auditTimeEnd = $("#auditenddate").val();
         if (auditTimeEnd != ""&&auditTimeEnd != null) {
             data = data + "&auditTimeEnd=" + auditTimeEnd;
         }
 
-        data = data + "isstock=0&auditStatus=" + docstatus;
+        data = data + "&auditStatus=" + docstatus;
         $.ajax({
             type: 'GET',
             url: data,
@@ -145,33 +145,6 @@ function docDelAjax(rowid){
     });
 }
     $(function () {
-
-        laydate.render({
-            elem: '#auditstartdate'
-         , done: function (value, date, endDate) {
-             $("#auditstartdate").attr("data-value", value);
-         }
-        });
-        laydate.render({
-            elem: '#auditenddate'
-             , done: function (value, date, endDate) {
-                 $("#auditenddate").attr("data-value", value);
-             }
-        });
-
-        laydate.render({
-            elem: '#waitstartdate'
-             , done: function (value, date, endDate) {
-                 $("#waitstartdate").attr("data-value", value);
-             }
-        });
-        laydate.render({
-            elem: '#waitenddate'
-              , done: function (value, date, endDate) {
-                  $("#waitenddate").attr("data-value", value);
-              }
-        });
-
         loadData(0);
         $("#btnaudit").click(function () {
             var sel = $("#tblist-body tr td input[type='radio']:checked");

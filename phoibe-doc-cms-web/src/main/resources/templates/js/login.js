@@ -66,8 +66,7 @@ $(function () {
             success: function (data) {
                 if (data.code="SUCCESS") {
                     alert("注册成功");
-                    $("#userName").val(formdata.userName);
-                    $("#nickname").val(formdata.nickname);
+                    $("#username").val(formdata.userName);
                     $(".bodyMask").hide();
                     loadData(0);
                 }else{

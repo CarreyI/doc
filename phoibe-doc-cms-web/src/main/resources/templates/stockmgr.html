@@ -8,6 +8,7 @@
     <script src="js/data.js"></script>
     <script src="js/stockmgr.js"></script>
     <script src="js/layui.js"></script>
+    <script language="javascript" type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
     <link rel="stylesheet" href="css/management.css"/>
     <link rel="stylesheet" href="css/layui.css">
 </head>
@@ -38,8 +39,11 @@
                                 <ul class="check-list done-list search-con">
                                     <li>文档名称:<input type="text" id="docname"/></li>
                                     <li>上传人:<input type="text" id="owner" style="width:90px"/></li>
-                                    <li>入库时间:<input type="text" id="startdate" style="width:90px" data-value=""/>-<input
-                                            id="enddate" type="text" style="width:90px" data-value=""/></li>
+                                    <li>入库时间:
+                                        <input id="startdate" type="text" onClick="WdatePicker()" style="width:90px" data-value="">
+                                        -
+                                        <input id="enddate" type="text" onClick="WdatePicker()" style="width:90px" data-value="">
+                                    </li>
                                     <li><span class="btnSearch" id="btnSearch"></span></li>
                                 </ul>
                             </div>

@@ -1,13 +1,13 @@
 
 var totalRows = 0;
 var currPage = 0;
-var docstatus=0;
+var docstatus="1&f=audit";
 
         function loadData(pageindex) {
             currPage = pageindex;
             $("#tblist-body").children().remove();
 
-            var data = GAL_URL+'phoibe/document/list/user/'+pageindex+'/20?f=audit';
+            var data = GAL_URL+'phoibe/document/list/user/'+pageindex+'/20?1=1';
 
             var docname = $("#docname").val();
             if (docname!=""&&docname != null){
@@ -33,7 +33,7 @@ var docstatus=0;
             if (stockTimeEnd != "" && stockTimeEnd != null) {
                 data = data + "&stockTimeEnd=" + stockTimeEnd;
             }
-            data = data + "&auditStatus=2&&isstock=" + docstatus;
+            data = data + "&auditStatus=2&isstock=" + docstatus;
             $.ajax({
                 type: 'GET',
                 url: data,
@@ -62,11 +62,11 @@ var docstatus=0;
 
                         var docstockstyle="";
 						var docstockstatus="";
-                        if (isstock == 1) {
+                        if (isstock == 2) {
                             docstockstatus = "已入库";
                             docstockstyle = "f-blue";
                         }
-                        else if(isstock == 0){
+                        else if(isstock == 1){
                             docstockstatus= "未入库";
                             docstockstyle = "f-red";
                         }
@@ -150,19 +150,6 @@ function docDelAjax(rowid){
     }
 }
         $(function () {
-            laydate.render({
-                elem: '#startdate'
-                    , done: function (value, date, endDate) {
-                        $("#startdate").attr("date-value", value);
-                    }
-
-            });
-            laydate.render({
-                elem: '#enddate'
-                        , done: function (value, date, endDate) {
-                            $("#enddate").attr("date-value", value);
-                        }
-            });
 
             loadData(0);
 
@@ -194,7 +181,7 @@ function docDelAjax(rowid){
             $("#docCheck").click(function () {
                 $("#btnaudit").show();
                 $("#btnreback").show();
-                docstatus=0;
+                docstatus="1&f=audit";
                 loadData(0);
                 parent.iframeLoad();
             });
@@ -202,7 +189,7 @@ function docDelAjax(rowid){
             $("#docDone").click(function () {
                 $("#btnaudit").hide();
                 $("#btnreback").hide();
-                docstatus="1&f=storage";
+                docstatus="2&f=storage";
                 loadData(0);
                 parent.iframeLoad();
             });

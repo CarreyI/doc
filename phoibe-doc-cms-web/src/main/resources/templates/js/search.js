@@ -78,7 +78,7 @@ function loadData(type,pageindex) {
     if (doctypevalue != "" && doctypevalue != null) {
         data = data + "&formatArray=" + doctypevalue.toLowerCase();
     }
-    data = url + data + "&auditStatus=2&&isstock=1";
+    data = url + data + "&auditStatus=2&&isstock=2";
     $.ajax({
              type: 'GET',
              url: GAL_URL + data,

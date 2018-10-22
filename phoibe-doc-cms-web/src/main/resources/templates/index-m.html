@@ -8,6 +8,7 @@
 <script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/data.js"></script>
 <script src="js/index.js"></script>
+	<script language="javascript" type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 	<div id="index-m">
@@ -23,7 +24,7 @@
 							<ul class="line_two_li">
 								<li>
 									<ul id="serachType" class="line-li"><li>类别：</li>
-										<a class='line-li' href='#' format="doc,docx,pdf,txt">文章</a>
+										<a class='line-li' href='#' format="doc,docx,pdf,txt">文本</a>
 										<a class='line-li' href='#' format="rmvb,avi,mp4,3gp,wav,mp3">音频</a>
 									</ul>
 									<ul id="hotSerach" class="line-li">热搜：</ul>
@@ -47,14 +48,14 @@
 						</div>
 						<div class="box_border rightAb">
 							<div class="dataword box_border">
-                                <div class="font18 i-sign">战法数据文档</div>
-                                <br />
-                                <div class="bkline"></div>
-                                <div class="dw-bk">
-                                <div id="docnum"></div>
-                                    </div>
+								<div class="font18 i-sign">战法数据文档</div>
+								<div class="bkline"></div>
+								<div class="dw-bk">
+									<ul>
 
-                            </div>
+									</ul>
+								</div>
+							</div>
                             <div class="bg_whiteSD idx_box_list">
                                 <!--<div class="index-head-bg">
                                     <img class="index-head" src="images/index-head.png"/><span class="userName">李明,你好</span>
@@ -69,10 +70,10 @@
                             </div>
                             <div class="bg_whiteSD idx_box_list">
                                 <div class="font16 title i-sign">最新动态</div>
-                                   <marquee id="affiche" align="left" behavior="scroll" direction="up" height="380px" width="100%" loop="-1" scrollamount="10" scrolldelay="300" onMouseOut="this.start()" onMouseOver="this.stop()">
-                                    <div id="lst-dym">
-                                    </div>
-                                   </marquee>
+								<marquee id="affiche" align="left" behavior="scroll" direction="up" height="380px" width="100%" loop="-1" scrollamount="10" scrolldelay="300" onMouseOut="this.start()" onMouseOver="this.stop()">
+									<div id="lst-dym">
+									</div>
+								</marquee>
                             </div>
 						</div>
 					</div>
@@ -102,8 +103,12 @@
 						<li class="label">文档作者：</li><li><input type="text" id="owner" /></li>
 						<li class="label">参战国家：</li><li><input type="text" id="warstate" /> </li>
 						<li class="label">参战地点：</li><li><input type="text" id="waraddr" /> </li>
-						<li class="label">参战开始时间：</li><li><input type="text" id="wartime_start" />  </li>
-						<li class="label">参战结束时间：</li><li><input type="text" id="wartime_end" /> </li>
+						<li class="label">参战开始时间：</li><li>
+								<input id="wartime_start" type="text" onClick="WdatePicker()" >
+							</li>
+						<li class="label">参战结束时间：</li><li>
+								<input id="wartime_end" type="text" onClick="WdatePicker()">
+							</li>
 						<li class="label">胜利方：</li><li><input	type="text" id="winner" /></li>
 						<li class="label">失败方：</li><li><input type="text" id="loser" /></li>
 						<li class="label">伤亡人数:</li><li><input type="text" id="warnum" /></li>

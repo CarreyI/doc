@@ -10,6 +10,7 @@
 	<script src="js/layui.js"></script>
     <script src="js/data.js"></script>
     <script src="js/logmgr.js"></script>
+    <script language="javascript" type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
     <div id="tagmgr">
@@ -17,7 +18,11 @@
             <div class="container box_border r-content">
                     <div class="bg_whiteSD box_border search inputblock">
                     <div class="plateHeader i-logmgr"></div>
-                        <ul class="search-con"><li>开始时间：<input type="text" id="startdate" style="width:90px" data-value=""/>&nbsp;&nbsp;&nbsp;&nbsp;结束时间：<input id="enddate" type="text" style="width:90px" data-value=""/></li><li>    <span class="btnSearch" id="btnSearch"></span></li>
+                        <ul class="search-con"><li>开始时间：
+                            <input id="startdate" type="text" onClick="WdatePicker()" style="width:90px" data-value="">
+                            &nbsp;&nbsp;&nbsp;&nbsp;结束时间：
+                            <input id="enddate" type="text" onClick="WdatePicker()" style="width:90px" data-value="">
+                        </li><li>    <span class="btnSearch" id="btnSearch"></span></li>
                         </ul>
                     </div>
                <div class="line"></div>
@@ -61,8 +66,11 @@
                     <div class="tbl-row">
                         <div class="lable">*选择时间范围:</div>
                         <div class="ctrl">
-                            开始时间：<input type="text" id="sDatatime" style="width:90px" data-value="" class="inputBox"/>&nbsp;&nbsp;-&nbsp;&nbsp;
-                            结束时间：<input type="text" id="eDatatime" style="width:90px" data-value="" class="inputBox"/>&nbsp;&nbsp;
+                            开始时间：
+                            <input id="sDatatime" type="text" onClick="WdatePicker()"  class="inputBox">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            结束时间：
+                            <input id="eDatatime" type="text" onClick="WdatePicker()"  class="inputBox">
                         </div>
                     </div>
                     <div class="tbl-row">

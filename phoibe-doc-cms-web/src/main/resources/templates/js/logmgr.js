@@ -116,33 +116,6 @@ $(function () {
             if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         return fmt;
     };
-
-        laydate.render({
-            elem: '#startdate'
-         , done: function (value, date, endDate) {
-             $("#startdate").attr("data-value", value);
-         }
-        });
-        laydate.render({
-            elem: '#enddate'
-             , done: function (value, date, endDate) {
-                 $("#enddate").attr("data-value", value);
-             }
-        });
-
-        laydate.render({
-            elem: '#sDatatime'
-            , done: function (value, date, endDate) {
-                $("#sDatatime").attr("data-value", value);
-            }
-        });
-        laydate.render({
-            elem: '#eDatatime'
-            , done: function (value, date, endDate) {
-                $("#eDatatime").attr("data-value", value);
-            }
-        });
-
         loadData(0);
         
         $(".btnSearch").click(function () {

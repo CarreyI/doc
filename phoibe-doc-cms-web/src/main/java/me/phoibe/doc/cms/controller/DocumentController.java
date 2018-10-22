@@ -397,15 +397,16 @@ public class DocumentController {
 			PhoibeDocument phoibeDocument = new PhoibeDocument();
 			phoibeDocument.setId(id.longValue());
 			if ("instorage".equals(f)) {
-				phoibeDocument.setIsstock(Short.valueOf("1"));
+				phoibeDocument.setIsstock(Short.valueOf("2"));
 				phoibeDocument.setStockTime(new Date());
 				phoibeDocument.setStocker(userInfo.getRealname());
 				LogUtil.writeLog("将Id为{"+id+"}的文档添加入库", LogUtil.OPER_TYPE_INSTORAGE,"文档管理", DocumentController.class,request);
 			} else if ("outstorage".equals(f)) {
-				phoibeDocument.setIsstock(Short.valueOf("0"));
+				phoibeDocument.setIsstock(Short.valueOf("1"));
 				LogUtil.writeLog("从库中移除了Id为{"+id+"}的文档", LogUtil.OPER_TYPE_DEL,"文档管理", DocumentController.class,request);
 			} else if ("checkpass".equals(f)) {
 				phoibeDocument.setAuditStatus(Short.valueOf("2"));
+				phoibeDocument.setIsstock(Short.valueOf("1"));
 				phoibeDocument.setAuditTime(new Date());
 				phoibeDocument.setAuditUserId(userInfo.getId());
 				LogUtil.writeLog("Id为{"+id+"}的文档审批通过", LogUtil.OPER_TYPE_CHECKPASS,"文档管理", DocumentController.class,request);
