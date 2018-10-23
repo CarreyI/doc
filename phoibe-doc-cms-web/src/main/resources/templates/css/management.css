@@ -1648,9 +1648,9 @@ ul.search-con li .btnSearch{
 }
 
 .dw-bk {
-/*background:url("../images/dw_bak.png");*/
 width:100%;
-	padding: 14px;
+	padding: 12px;
+	padding-top:20px;
 }
 .dw-bk li{
 	width: 100px;
