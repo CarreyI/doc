@@ -34,14 +34,16 @@ function loadData(pageindex) {
                 var title = val["title"];//"标题";
                 var comment_content = val["commentContent"];//"评论内容";
                 var create_time = val["createTime"];//"创建时间";
+                var documentId = val["documentId"];
 
+                var hrefUrl= "docdetail.html?tid=" + documentId + "' title='" + title + "'";
 
                 var row="<tr><td><input type='checkbox' name='chksel' data-value='" + id + "'</td>" +
                     "<td>"+username+"</td>"
                     +"<td>"+realname+"</td>"
                     +"<td>"+nickname+"</td>"
-                    +"<td>"+title+"</td>"
-                    +"<td>"+comment_content+"</td>"
+                    +"<td><a href='"+hrefUrl+"'target='_blank'>"+title+"</a></td>"
+                    +"<td>"+cutString(comment_content,100)+"</td>"
                     +"<td>"+create_time+"</td>"
                     +"<td><a  class='list-del doc-del' cid='"+id+"'>删除</a></td></tr>";
                 $("#tblist-body").append(row);

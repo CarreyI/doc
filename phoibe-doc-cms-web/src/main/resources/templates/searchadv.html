@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿﻿﻿<!DOCTYPE html>
 <html>
 <head lang="en">
 	<meta charset="UTF-8">
@@ -7,7 +7,6 @@
 	<script src="js/data.js"></script>
 	<script src="js/search.js"></script>
 	<script src="js/layui.js"></script>
-	<script language="javascript" type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" href="css/layui.css">
 	<link rel="stylesheet" href="css/management.css" />
 </head>
@@ -24,11 +23,10 @@
 						<span class="btnSearch" id="btnSearch"></span><span id="condif">高级查询</span>
 						<ul class="line_two_li">
 							<li>
-								<ul id="serachType" class="line-li"><li><a href="#">类别：</a>	<a class='line-li' href='#' format="doc,docx,pdf,txt">文本</a>
-									<a class='line-li' href='#' format="rmvb,avi,mp4,3gp,wav,mp3">音频</a></li>
-
+								<ul id="serachType" class="line-li"><li>类别：</li>
+									<a class='line-li' href='#' format="doc,docx,pdf,txt">文本</a><a class='line-li' href='#' format="rmvb,avi,mp4,3gp,wav,mp3">音频</a>
 								</ul>
-								<ul id="hotSerach" class="line-li"></ul>
+								<ul id="hotSerach" class="line-li">热搜：</ul>
 							</li>
 						</ul>
 					</div>
@@ -68,12 +66,8 @@
 						<li class="label">文档作者：</li><li><input type="text" id="owner" /></li>
 						<li class="label">参战国家：</li><li><input type="text" id="warstate" /> </li>
 						<li class="label">参战地点：</li><li><input type="text" id="waraddr" /> </li>
-						<li class="label">参战开始时间：</li><li>
-						<input id="wartime_start" type="text" onClick="WdatePicker()" >
-					</li>
-						<li class="label">参战结束时间：</li><li>
-						<input id="wartime_end" type="text" onClick="WdatePicker()">
-					</li>
+						<li class="label">参战开始时间：</li><li><input type="text" id="wartime_start" />  </li>
+						<li class="label">参战结束时间：</li><li><input type="text" id="wartime_end" /> </li>
 						<li class="label">胜利方：</li><li><input	type="text" id="winner" /></li>
 						<li class="label">失败方：</li><li><input type="text" id="loser" /></li>
 						<li class="label">伤亡人数:</li><li><input type="text" id="warnum" /></li>

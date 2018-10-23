@@ -316,6 +316,10 @@ function docDelAjax(tid){
         });
     }
 }
+function editDocFun(docId){
+    $("#uploadfile").click();
+    parent.getDocObjecLoad(docId);
+}
 function loadData(pageindex) {
 
     $("#tblist-body").children().remove();
@@ -376,10 +380,15 @@ function loadData(pageindex) {
                         auditstatus = "审核不通过";
                         auditstatustyle = "f-red";
                     }
-
+                    var url="href='docdetail.html?tid=" + tid + "'";
+                    if (status==101){
+                        auditstatus="上传中断";
+                        auditstatustyle = "f-red";
+                        var url=" style='color:#666;cursor: pointer;' onClick=editDocFun("+tid+")";
+                    }
                    
                     var row = "<tr><td><input type='checkbox' data-value='" + id + "' name='chksel'/></td>" +
-                        "<td><a href='docdetail.html?tid="+id+"' title='"+title+"'>" + cutString(title,32) + "</a></td>" +
+                        "<td><a "+url+" title='"+title+"'>" + cutString(title,32) + "</a></td>" +
                         "<td>" + filesize + "</td>" +
                         "<td>" + format + "</td>" +
                         "<td>" + createtime + "</td>" +
@@ -558,8 +567,16 @@ function delMenuAjax(dirId) {
         });
 
         $("#uploadfile").click(function () {
-            parent.appendDitHtml();
-            $(window.parent.document).find(".bodyMask").fadeIn();
+            var itemlength = $(window.parent.document).find("#thelist").find(".item").length;
+            if (itemlength>0){
+                alert("有未上传完成的任务，请先上传");
+                $(window.parent.document).find(".uplaodTaskBox").click();
+            }else{
+                parent.emptyformw();
+                $(window.parent.document).find(".bodyMask").fadeIn();
+                parent.appendDitHtml();
+                parent.getTag();
+            }
         });
 
         $(".filelist_closed").click(function () {

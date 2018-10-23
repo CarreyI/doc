@@ -25,9 +25,15 @@ function uploadCompleteUpdate(dId,filemd5,filename){
         dataType: "json",
         contentType:"application/json;charset=UTF-8",
         success: function (data) {
-            alert("提交成功");
-            emptyformw();//清空表单
-            window.location.reload();
+            if (data.success) {
+                alert("提交成功");
+                emptyformw();//清空表单
+                window.location.reload();
+            } else {
+                alert("附件上传失败，请重试");
+                $("#thelist").html("");
+                window.frames["frm-main"].window.editDocFun(dId);
+            }
         }
     });
 }
@@ -36,7 +42,7 @@ function checkSubmit(){
     var form = $("#ajaxform");
 
     if($("#formthelist").find(".item").length==0){
-        alert("请上传文档");
+        alert("请上传附件");
         return
     }
     if(""==$("#name").val()){
@@ -53,7 +59,9 @@ function formSubmit(filemd5,filename,fileext,filesize){
         var key = form.serializeArray()[i].name;
         var value = form.serializeArray()[i].value;
         formdata[key] = value;
-    }
+     }
+     var docId = $("#docId").val();
+    formdata.docId = docId;
     var select_tag = "";
     $(".tag-li-in").each(function () {
         var tag_html = $(this).html();
@@ -65,7 +73,7 @@ function formSubmit(filemd5,filename,fileext,filesize){
         formdata.filename = filename;
         formdata.fileext = fileext;
         formdata.filesize = filesize;
-        formdata.div_file_id = $(this).attr("id").replace("form_","");
+        formdata.div_file_id = $(this).attr("id");
     });
     var userStr = getCookie("userObject");
     if (null!=userStr&&""!=userStr) {
@@ -76,7 +84,7 @@ function formSubmit(filemd5,filename,fileext,filesize){
         formdata.nickname = userObject.nickname;
     }
     $.ajax({
-        url: GAL_URL + "phoibe/document/save",
+        url: GAL_URL + $("#ajaxform").attr("action"),
         type: form.attr("method"),
         data: JSON.stringify(formdata),
         dataType: "json",
@@ -88,13 +96,18 @@ function formSubmit(filemd5,filename,fileext,filesize){
                 $("#"+data.div_file_id).attr("did",data.dId);
                 //$("#submit").hide();
                 //alert("提交成功");
+            }else {
+                alert("提交失败");
+                $("#thelist").html("");
+                window.frames["frm-main"].window.editDocFun(docId);
             }
         }
     });
 }
 function emptyformw(){
-    $("#ajaxform")[0].reset();
 
+    $("#ajaxform")[0].reset();
+    $("#docId").val("");
     $("#formthelist").html("");
     $("#thelist").html("");
     $("#submit").show();
@@ -112,6 +125,52 @@ function getTag() {
         rowhtml = rowhtml + "<li class='tag-li' tagID='" + id + "'>" + name + "</li>";
     });
     $(".tag-ul").html(rowhtml);
+
+    $(".tag-li").click(function() {
+
+        if ($(this).hasClass('tag-li-in')) {
+            $(this).removeClass('tag-li-in');
+        } else {
+            $(this).addClass('tag-li-in');
+        }
+    });
+}
+function getDocObjecLoad(Id){
+
+    $.ajax({
+        url: GAL_URL + "phoibe/document/fetch/"+Id,
+        type: "GET",
+        dataType: "json",
+        async: false,
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            var docObj = data.data;
+            $("#name").val(docObj.name);
+            $("#warcountry").val(docObj.warstate);
+            $("#wartime").val(docObj.wartime);
+            $("#combat_type").val(docObj.combatType);
+            $("#arms").val(docObj.arms);
+            $("#waraddr").val(docObj.waraddr);
+            $("#winner").val(docObj.winner);
+            $("#loser").val(docObj.loser);
+            $("#warnum").val(docObj.warnum);
+            $("#description").val(docObj.description);
+            var select_tag = docObj.tag;
+            $(".tag-li").each(function () {
+                var tag_html = $(this).html();
+                if (select_tag.indexOf(tag_html) > -1) {
+                    $(this).addClass("tag-li-in");
+                }
+            })
+            var filepath = docObj.filePath;
+            var index = filepath .lastIndexOf("\/");
+            filepath  = filepath .substring(index + 1, filepath.length);
+            $("#formthelist").html('<div>' + '<h4 class="info">' + filepath + '</h4>'
+                + '<div><p class="state">请重新选择文件！</p><div>'
+                + '</div>');
+            $("#docId").val(Id);
+        }
+    });
 }
 $(function() {
 
@@ -121,13 +180,6 @@ $(function() {
     });
     $(".uplaodTaskBox").click(function () {
         $(".uploadTaskListBox").fadeIn();
-    });
-    $(".tag-li").click(function() {
-        if ($(this).hasClass('tag-li-in')) {
-            $(this).removeClass('tag-li-in');
-        } else {
-            $(this).addClass('tag-li-in');
-        }
     });
     $("#submit").click(function() {
         //没用
@@ -156,14 +208,17 @@ $(function() {
                 console.log('计算md5进度:', percentage);
                 getProgressBar(file, percentage, "MD5", "MD5");
                 $('#' + file.id).find('p.state').text("文件解析中...");
-                $('#form_' + file.id).find('p.state').text("文件解析中...");
 
             }).then(function(val) { // 完成
                 console.log('md5 result:', val);
                 file.md5 = val;
 
                 formSubmit(file.md5,file.name,file.ext,file.size);
-
+                $thelist.html('<div id="' + file.id + '"  size="'+file.size+'" filename="' + file.name
+                    + '" class="item">' + '<h4 class="info">' + file.name + '</h4>'
+                    + '<div><progress max="100"  value="0" id="' + file.id
+                    + '-progress"></progress><p class="state">等待上传...</p><div>'
+                    + '</div>');
                 // 模拟用户id
                 // file.uid = new Date().getTime() + "_" + Math.random() * 100;
                 file.uid = WebUploader.Base.guid();
@@ -248,16 +303,10 @@ $(function() {
     // 当有文件被添加进队列的时候
     uploader.on('fileQueued', function(file) {
         console.log("fileQueued");
-
-        $thelist.html('<div id="' + file.id + '"  size="'+file.size+'" filename="' + file.name
-            + '" class="item">' + '<h4 class="info">' + file.name + '</h4>'
-            + '<div><progress max="100"  value="0" id="' + file.id
-            + '-progress"></progress><p class="state">等待上传...</p><div>'
-            + '</div>');
         $formthelist.html('<div id="form_' + file.id + '"  filesize="'+file.size+'" fileext="'+file.ext+'" filename="' + file.name
             + '" class="item">' + '<h4 class="info">' + file.name + '</h4>'
             + '<div><progress max="100"  value="0" id="form_' + file.id
-            + '-progress"></progress><p class="state"></p><div>'
+            + '-progress"></progress><p class="state">等待上传...</p><div>'
             + '</div>');
 
         $($stopBtn).hide();
@@ -276,6 +325,7 @@ $(function() {
     uploader.on('uploadProgress', function(file, percentage) {
         getProgressBar(file, percentage, "FILE", "上传进度");
         var progressPercentage = percentage * 100;
+        progressPercentage = parseInt(progressPercentage);
         $('#' + file.id).find('p.state').text("文件上传中..."+progressPercentage+"%");
         $('#form_' + file.id).find('p.state').text("文件上传中..."+progressPercentage+"%");
     });
@@ -283,7 +333,7 @@ $(function() {
     uploader.on('uploadSuccess', function(file) {
         var text = '已上传';
         if (file.pass) {
-            text = "文件妙传功能，文件已上传。"
+            text = "文件秒传功能，文件已上传。"
         }
         $('#' + file.id).find('p.state').text(text);
         $('#form_' + file.id).find('p.state').text(text);
@@ -292,7 +342,7 @@ $(function() {
         $($stopBtn).hide();
         $($continueBtn).hide();
 
-        var dId = $('#' + file.id).attr("did");
+        var dId = $('#form_' + file.id).attr("did");
         uploadCompleteUpdate(dId,file.md5,file.name);
     });
     uploader.on('uploadError', function(file) {

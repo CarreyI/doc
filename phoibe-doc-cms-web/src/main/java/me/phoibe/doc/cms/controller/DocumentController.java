@@ -319,6 +319,7 @@ public class DocumentController {
 			phoibeDocument.setDescription((String) rb.get("description"));
 			phoibeDocument.setAuditStatus((short) (1));
 			phoibeDocument.setAuditUserId(1l);
+			phoibeDocument.setIsstock((short) 1);
 
 			phoibeDocument.setFileSize(new BigDecimal(fileSize));
 			phoibeDocument.setFilePath(filemd5+"/"+filename);
@@ -334,8 +335,14 @@ public class DocumentController {
 			phoibeDocument.setCreateTime(new Date());
 			short pc = (short) (1 + Math.random() * (10 - 1 + 1));
 			phoibeDocument.setPagecount(pc);
-
-			int result = phoibeDocumentService.save_v2(phoibeDocument);
+			String docId = (String) rb.get("docId");
+			int result=0;
+			if (docId!=null&&!docId.equals("")){
+				phoibeDocument.setId(Long.valueOf(docId));
+				result = phoibeDocumentService.update(phoibeDocument);
+			}else{
+				result = phoibeDocumentService.save_v2(phoibeDocument);
+			}
 
 			BeanUtils.copyProperties(request, phoibeDocument);
 			if (result > 0) {

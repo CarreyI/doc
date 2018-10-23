@@ -97,7 +97,9 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
         stringBuilder.append(model.getLoser()+"#");
         stringBuilder.append(model.getWarstate()+"#");
         stringBuilder.append(model.getWartime()+"#");
-        stringBuilder.append(FileUtil.readAttachText(fileAbosultePath));
+        if (("doc").equals(phoibeDocument.getFormat())){
+            stringBuilder.append(FileUtil.readAttachText(fileAbosultePath));
+        }
         phoibeAttachContent.setAttachContent(stringBuilder.toString());
         phoibeAttachContent.setDocumentId(phoibeDocument.getId());
         phoibeAttachContentMapper.updateByDocumentId(phoibeAttachContent);

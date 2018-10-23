@@ -447,6 +447,9 @@ body, html {
 	height: 54px;
 	line-height: 34px;
 }
+.line_two_li{
+	margin-top: 5px;
+}
 .line_two_li li,.line_two_li ul{
 	float: left;
 	line-height: 19px;
@@ -619,14 +622,15 @@ background-image: url("../images/i-sign.png");
 
 .main .container .content .dataword {
 	width: 319px;
-	height: 180px;
+	height: 183px;
     background:#ffffff;
 	/*background: url("../images/datawordBg.png");*/
-	border: 1px solid #aaaaaa;
-	margin: 14px 0;
+    border:1px solid #aaaaaa;
+	margin: 12px 0;
 	text-align: center;
 	padding-top: 12px;
-	padding-bottom: 14px;
+    padding-bottom:16px;
+	
 }
 
 .font22 {

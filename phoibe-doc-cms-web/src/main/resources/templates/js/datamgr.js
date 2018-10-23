@@ -138,6 +138,7 @@ function loadDataMenu(){
     });
     // 新增属性
     $(".menu-add").click(function(){
+        $("#son_bodyMask")[0].reset();
         var groupkey_value= $(this).attr("groupKey");
         $("#parent_groupKey").val(groupkey_value);
         $(".son_bodyMask").fadeIn();

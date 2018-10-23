@@ -62,8 +62,10 @@ function getInfo() {
                 $("#score").html(scoreStr);
                 var description = result.data.description;
 
-                if(description!="undefined" && description!=""){
+                if(description!="undefined" && description!="" && description!=null){
                     $("#doc-content").html("<p>"+description+"</p>");
+                }else {
+                    $("#doc-content").html("<h4>当前没有摘要内容，请查看附件...</h4>");
                 }
 
                 parent.iframeLoad();
@@ -186,14 +188,18 @@ function loadData(pageindex) {
                         var createTime = val["createTime"];
                         var title = $("#doctitle").html();
                         var name = val["userName"];
-                        var step = 0;
-                        var row = "";
+                        var score = val["score"];
+                        var scoreStr="";
+                        for(var l=0;l<score;l++){
+                            scoreStr= scoreStr+ "<i class='i-star'></i>";
+                        }
                         var row = "<span class='doctitle'>《" + title + "》</span><span id='commconten'>"+content+"</span></div>";
                         row="<ul class='comment-list'><li class='comment-line-box'>" +
                             "<a target='_blank' href=''><img src='images/head.png' style='float: left;'/></a>" +
                             "<div class='right-box '><div class='info-box'>" +
                             "<a target='_blank' href=''><span class='name '>" + name + "：</span></a>" +
                             "<span class='comment'>"+content+"</span>" +
+                            "<span class='score'>"+scoreStr+"</span>" +
                             "<span class='date' title='"+createTime+"'>"+createTime+"</span>" +
                             "</div></div></li></ul>";
                         $(".comment-list-box").append(row);
@@ -351,6 +357,9 @@ $(function () {
     correlationArticle();
 
     isAttention();
+    $("#back").click(function () {
+        history.back();
+    });
     $("#attention").click(function () {
         attentionAjax(tid);
     });

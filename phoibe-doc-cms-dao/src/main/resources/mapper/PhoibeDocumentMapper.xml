@@ -59,7 +59,7 @@
     where d.ID = #{id,jdbcType=DECIMAL}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from PHOIBE_DOCUMENT
+    delete from PHOIBE_DOCUMENT d
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.PhoibeDocument" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
@@ -481,7 +481,7 @@
         and ARMS = #{param.arms,jdbcType=DECIMAL}
       </if>
       <if test="param.status != null and param.status != ''">
-        and STATUS = #{param.status,jdbcType=DECIMAL}
+        and d.STATUS = #{param.status,jdbcType=DECIMAL}
       </if>
       <if test="param.auditStatus != null and param.auditStatus != ''">
         and AUDIT_STATUS = #{param.auditStatus,jdbcType=DECIMAL}
@@ -558,7 +558,7 @@
     select * from (SELECT a.*,rownum rno FROM (
     select
     <include refid="Base_Column_List"/>
-    from PHOIBE_DOCUMENT
+    from PHOIBE_DOCUMENT d
     <include refid="selectByPage_Condition_Sql"/>
     ORDER BY ${orderBy} ${sort}) a
     ) t WHERE t.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
@@ -567,7 +567,7 @@
   <select id="selectCountByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
     select
     COUNT(*)
-    from PHOIBE_DOCUMENT
+    from PHOIBE_DOCUMENT d
     <include refid="selectByPage_Condition_Sql"/>
   </select>
 
@@ -575,7 +575,7 @@
     select * from (SELECT a.*,rownum rno FROM (
     select
     <include refid="Base_Column_List"/>
-    from PHOIBE_DOCUMENT
+    from PHOIBE_DOCUMENT d
       <where>
             COMBAT_TYPE = #{param.combatType,jdbcType=DECIMAL}
             OR ARMS = #{param.arms,jdbcType=DECIMAL}
@@ -590,7 +590,7 @@
   <select id="selectRelevantCountByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
     select
     COUNT(*)
-    from PHOIBE_DOCUMENT
+    from PHOIBE_DOCUMENT d
       <where>
         COMBAT_TYPE = #{param.combatType,jdbcType=DECIMAL}
         OR ARMS = #{param.arms,jdbcType=DECIMAL}
@@ -733,7 +733,7 @@
   </update>
 
   <select id="selectAvgScore" parameterType="long" resultType="double">
-    select avg(SCORE) from PHOIBE_DOCUMENT where USER_ID = #{userId,jdbcType=DECIMAL}
+    select avg(SCORE) from PHOIBE_DOCUMENT d where USER_ID = #{userId,jdbcType=DECIMAL}
   </select>
   <select id="selectStatisticalByParam" parameterType="string" resultType="me.phoibe.doc.cms.domain.dto.DStatistical">
     select di.id id,di.DICT_NAME name,count(d.ID) count from PHOIBE_DOCUMENT d
