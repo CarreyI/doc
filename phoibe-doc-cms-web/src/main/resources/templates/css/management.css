@@ -447,8 +447,9 @@ body, html {
 	height: 54px;
 	line-height: 34px;
 }
-.line_two_li{
-	margin-top: 5px;
+.popup .title{
+    background:#cccccc;
+    overflow: hidden;
 }
 .line_two_li li,.line_two_li ul{
 	float: left;
@@ -1494,6 +1495,7 @@ ol.list1 {
 .tbl-row .lable {
 	width: 30%;
 	float: left;
+    font-size:14px;
 }
 
 .tbl-row .ctrl {
