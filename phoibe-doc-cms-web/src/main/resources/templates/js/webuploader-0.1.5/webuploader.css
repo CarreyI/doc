@@ -11,8 +11,9 @@
 	display: inline-block;
 	cursor: pointer;
 	background: #00b7ee;
-	width:70px;
-	height:34px;
+	width:140px;
+	height: 32px;
+	line-height: 32px;
 	color: #fff;
 	text-align: center;
 	border-radius: 3px;

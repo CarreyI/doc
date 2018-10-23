@@ -526,8 +526,7 @@ body, html {
 }
 
 .u-con-list {
-	/*min-width: 860px;*/
-	max-width:960px;
+	width:940px;
     font-size:14px;
 }
 
@@ -538,22 +537,42 @@ body, html {
 	color:#999999;/*#c9c9c9;*/
 }
 
-.u-con-list li {
+.u-con-list li{
 	float: left;
-	width: 24%;
+	width: 430px;
 	line-height: 30px;
 	padding: 4px;
 }
 
 .u-con-list li input,select{
 	line-height: 28px;
-	border:1px solid #cccccc;
-    background:#ffffff;
-    width:100%;
-    margin:0;
-    padding:0;
+	border: 1px solid #cccccc;
+	background: #ffffff;
+	margin: 0;
+	padding: 0;
+	float: left;
+	width: 255px;
 }
-
+.u-con-list .one-line{
+	width: 100%;
+	line-height: 24px;
+}
+.u-con-list .one-line .label {
+	float: left;
+	width: 140px;
+	line-height: 30px;
+	color: #999999;
+	text-align: right;
+	padding-right: 10px;
+}
+.u-con-list .one-line .tag-ul li{
+	width: 75px;
+	padding: 1px;
+	line-height: 21px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	height: 21px;
+}
 .main .container .search .checkList li {
 	
 	font-size: 14px;
@@ -1447,9 +1466,9 @@ ol.list1 {
 .mask .popup {
 	display: inline-block;
 	background-color: #fff;
-	padding-bottom: 30px;
+	padding-bottom: 20px;
 	vertical-align: middle;
-	width: 600px;
+	min-width: 600px;
 }
 
 .role_bodyMask .popup{
@@ -1474,7 +1493,7 @@ ol.list1 {
 #tblist-body tr:hover a{ color:#ffffff;}
 
 .mask span.fullScreen {
-	height: 100%;
+	height: 70%;
 	vertical-align: middle;
 	display: inline-block;
 }

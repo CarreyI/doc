@@ -123,108 +123,81 @@
 				<i class="closed fr"></i>
 				</div>
 				<div class="clearfix"></div>
-				<hr />
-				<br/>
-				<div class="tbl-row">
-					<div id="picker"class="lable">选择文件</div>
-					<div class="ctrl">
+				<ul class="u-con-list">
+					<li class="one-line"><span id="picker" class="label">选择文件</span>
 						<div id="uploader" class="wu-example">
 							<div class="wu-example">
 								<div id="formthelist" class="uploader-list"></div>
 								<div id="filebtn">
-									<span class="stopBtn" style="cursor: pointer;" >暂停</span>
-									<span class="continueBtn"style="cursor: pointer;" >继续</span>
+									<span class="stopBtn" style="cursor: pointer;">暂停</span>
+									<span class="continueBtn" style="cursor: pointer;">继续</span>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<form action="phoibe/document/save" method="post" id="ajaxform">
-					<input type="hidden" id="docId">
-					<div class="tbl-row">
-						<div class="lable">标题:</div>
-						<div class="ctrl">
-							<input type="text" id="name" name="name" class="inputBox" />
-						</div>
-					</div>
+					</li>
+					<form action="phoibe/document/save" method="post" id="ajaxform">
+						<input type="hidden" id="docId">
 
-					<div class="tbl-row">
-						<div class="lable">参战国家:</div>
-						<div class="ctrl">
-							<input type="text" id="warcountry" name="warcountry"
-								   class="inputBox" />
-						</div>
-					</div>
-					<div class="tbl-row">
-						<div class="lable">战例类型:</div>
-						<div class="ctrl">
-							<select id="combat_type" name="combat_type">
-							</select>
-						</div>
-					</div>
-
-					<div class="tbl-row">
-						<div class="lable">参战兵种:</div>
-						<div class="ctrl">
-							<select id="arms" name="arms">
-							</select>
-						</div>
-					</div>
-					<div class="tbl-row">
-						<div class="lable">参战地址:</div>
-						<div class="ctrl">
-							<input type="text" id="waraddr" name="waraddr" class="inputBox" />
-						</div>
-					</div>
-					<div class="tbl-row">
-						<div class="lable">参战时间:</div>
-						<div class="ctrl">
-							<input id="wartime" name="wartime" class="inputBox"  type="text" onClick="WdatePicker()">
-						</div>
-					</div>
-					<div class="tbl-row">
-						<div class="lable">胜利方:</div>
-						<div class="ctrl">
-							<input type="text" id="winner" name="winner" class="inputBox" />
-						</div>
-					</div>
-					<div class="tbl-row">
-						<div class="lable">失败方:</div>
-						<div class="ctrl">
-							<input type="text" id="loser" name="loser" class="inputBox" />
-						</div>
-					</div>
-
-					<div class="tbl-row">
-						<div class="lable">伤亡人数:</div>
-						<div class="ctrl">
-							<input type="text" id="warnum" name="warnum" class="inputBox" />
-						</div>
-					</div>
-					<div class="tbl-row">
-						<div class="lable">标签:</div>
-						<div class="ctrl">
-							<ul class='tag-ul'>
+						<li class="one-line"><span class="label">标题：</span>
+									<input type="text" id="name" name="name" style="width: 695px;margin-left: 3px;"/>
+						</li>
+						<li class="one-line">
+							<ul>
+								<li><span class="label">参战国家：</span>
+									<input type="text" id="warcountry" name="warcountry"/>
+								</li>
+								<li><span class="label">参战地址：</span>
+									<input type="text" id="waraddr" name="waraddr" class="inputBox"/>
+								</li>
 							</ul>
-						</div>
-					</div>
-					<div class="tbl-row">
-						<div class="lable">摘要:</div>
-						<div class="ctrl">
-							<textarea rows="10" cols="50"
-									  style="width: 79%; border: 1px solid #cccccc;" id="description"
-									  name="description"></textarea>
-						</div>
-					</div>
-				</form>
+						</li>
+						<li class="one-line">
+							<ul>
+								<li><span class="label">战例类型：</span>
+									<select id="combat_type" name="combat_type">
+									</select>
+								</li>
+								<li><span class="label">参战兵种：</span>
+									<select id="arms" name="arms">
+									</select>
+								</li>
+							</ul>
+						</li>
+						<li class="one-line">
+							<ul>
+								<li><span class="label">胜利方：</span>
+									<input type="text" id="winner" name="winner"/>
+								</li>
+								<li><span class="label">失败方：</span>
+									<input type="text" id="loser" name="loser"/>
+								</li>
+							</ul>
+						</li>
+						<li class="one-line">
+							<ul>
+								<li><span class="label">参战时间：</span>
+									<input id="wartime" name="wartime" type="text" onClick="WdatePicker()">
+								</li>
+								<li><span class="label">伤亡人数：</span>
+									<input type="text" id="warnum" name="warnum"/>
+								</li>
+							</ul>
+						</li>
+						<li class="one-line"><span class="label">标签：</span>
+							<ul class='tag-ul'></ul>
+						</li>
+
+						<li class="one-line"><span class="label">摘要：</span>
+							<textarea rows="10" cols="50" style="width: 695px;border: 1px solid #cccccc;margin-left: -90px;"
+									  id="description" name="description"></textarea>
+						</li>
+					</form>
 
 
-				<div class="tbl-row">
-					<div class="lable"></div>
-					<div class="ctrl">
-						<div id=submit class="submit ctlBtn"></div>
-					</div>
-				</div>
+					<li class="one-line">
+						<div id=submit  class="submit ctlBtn" style="margin-right: 90px;float: right;"></div>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>

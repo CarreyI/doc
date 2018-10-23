@@ -116,7 +116,7 @@ function emptyformw(){
 }
 
 function getTag() {
-    var dataList = parent.tagLoadAjax(5);
+    var dataList = parent.tagLoadAjax(10000);
     var rowhtml = "";
     $.each(dataList, function (i, val) {
         var id = val["id"];

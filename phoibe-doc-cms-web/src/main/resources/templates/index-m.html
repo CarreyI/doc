@@ -84,42 +84,77 @@
 
     <div class="bodyMask" id="condwhere">
      <div class="mask" >
-		  <div class="popup">
-			  <div class="title">
-			   <div class="model-title fl">查询条件</div>
-				    <i class="closed fr"></i>
-			  </div>
-				    <div class="clearfix"></div>
-				    <hr />
-	                <br/>	
-					<div class="bg_whiteSD box_border">
-						<div class="clearfix">
-						    <ul class="u-con-list">
-						<li class="label">战例类型：</li><li><select	id="wartype">
-						</select></li>
-						<li class="label">作战兵种：</li><li><select id="armtype">
-						</select></li>
-						<li class="label">文档名称：</li><li><input type="text" id="docname" /></li>
-						<li class="label">文档作者：</li><li><input type="text" id="owner" /></li>
-						<li class="label">参战国家：</li><li><input type="text" id="warstate" /> </li>
-						<li class="label">参战地点：</li><li><input type="text" id="waraddr" /> </li>
-						<li class="label">参战开始时间：</li><li><input type="text" id="wartime_start" />  </li>
-						<li class="label">参战结束时间：</li><li><input type="text" id="wartime_end" /> </li>
-						<li class="label">胜利方：</li><li><input	type="text" id="winner" /></li>
-						<li class="label">失败方：</li><li><input type="text" id="loser" /></li>
-						<li class="label">伤亡人数:</li><li><input type="text" id="warnum" /></li>
-						<li class="label">标签：</li><li><select id="tagtype">
-						</select></li>
-						</ul>
+		 <div class="popup">
+			 <div class="title">
+				 <div class="model-title fl">查询条件</div>
+				 <i class="closed fr"></i>
+			 </div>
+			 <div class="clearfix"></div>
+			 <hr />
+			 <br/>
+			 <div class="bg_whiteSD box_border">
+				 <div class="clearfix">
+					 <ul class="u-con-list">
+						 <li class="one-line">
+							 <ul>
+								 <li><span class="label">文档名称：</span>
+									 <input type="text" id="docname"/></li>
+								 <li><span class="label">文档作者：</span>
+									 <input type="text" id="owner"/></li>
+							 </ul>
+						 </li>
+						 <li class="one-line">
+							 <ul>
+								 <li><span class="label">参战国家：</span>
+									 <input type="text" id="warstate"/></li>
+								 <li><span class="label">参战地点：</span>
+									 <input type="text" id="waraddr"/></li>
+							 </ul>
+						 </li>
+						 <li class="one-line">
+							 <ul>
+								 <li><span class="label">参战开始时间：</span>
+									 <input type="text" id="wartime_start"/></li>
+								 <li><span class="label">参战结束时间：</span>
+									 <input type="text" id="wartime_end"/></li>
+							 </ul>
+						 </li>
+						 <li class="one-line">
+							 <ul>
+								 <li><span class="label">胜利方：</span>
+									 <input type="text" id="winner"/></li>
+								 <li><span class="label">失败方：</span>
+									 <input type="text" id="loser"/></li>
+							 </ul>
+						 </li>
+						 <li class="one-line">
+							 <ul>
+								 <li><span class="label">伤亡人数:</span>
+									 <input type="text" id="warnum"/></li>
+								 <li><span class="label">伤亡人数:</span>
+									 <input type="text" id="warnum1"/></li>
+							 </ul>
+						 </li>
+						 <li class="one-line"><span class="label">战例类型：</span>
+							 <ul class="wartype tag-ul"></ul>
+						 </li>
+						 <li class="one-line"><span class="label">兵种类型：</span>
+							 <ul class="armtype tag-ul"></ul>
+						 </li>
+						 <li class="one-line"><span class="label">标签：</span>
+							 <ul class="tagtype tag-ul"></ul>
+						 </li>
+						 <li class="one-line"><input type="hidden" id="userId"/></li>
+					 </ul>
 
-						</div>
+				 </div>
 
-						<div class="pop-btn">
-							<span href="#" target="_blank" class="btnSearch" style="margin-right: 70px;"></span>
-						</div>
-					</div>
+				 <div class="pop-btn">
+					 <span  class="btnSearch" style="margin-right: 50px;"></span>
+				 </div>
+			 </div>
 
-               </div>
+		 </div>
           </div>
 </div>
 

@@ -52,20 +52,20 @@ function loadData(type,pageindex) {
         data = data + "&warnum=" + warnum;
     }
     var wartypevalue = "";
-    $("#wartype .tag-li-in").each(function () {
+    $(".wartype .tag-li-in").each(function () {
         wartypevalue = $(this).attr("dictKey");
         data = data + "&combatArray=" + wartypevalue;
     })
     var armtypevalue = "";
-    $("#armtype .tag-li-in").each(function () {
+    $(".armtype .tag-li-in").each(function () {
         armtypevalue = $(this).attr("dictKey");
         data = data + "&armsArray=" + armtypevalue;
     })
-    var tagtypevalue = $("#tagtype").val()
-    if(0<tagtypevalue){
-        var tagtypevalue= $("#tagtype").find("option:selected").text();
-        data = data + "&tag=" + tagtypevalue;
-    }
+    var tagtypevalue = "";
+    $(".tagtype .tag-li-in").each(function () {
+        tagtypevalue = $(this).attr("dictKey");
+        data = data + "&tagArray=" + tagtypevalue;
+    })
     var queryFlag = $("#queryFlag").val();
 
     if (queryFlag != "undefined"&&queryFlag!=""&&queryFlag!=null) {
@@ -192,35 +192,49 @@ function appendDitHtml(){
     $.each(dataDict.SOLDIERS,function (i,val) {
         armtype +="<li class='tag-li' dictKey="+val["id"]+">"+val["dictName"]+"</li>";
     })
-    $("#wartype").html(wartype);
-    $("#armtype").html(armtype);
-    $("#wartype .tag-li").click(function() {
+    $(".wartype").html(wartype);
+    $(".armtype").html(armtype);
+    $(".wartype .tag-li").click(function() {
+        var index = $(this).index();
         if ($(this).hasClass('tag-li-in')) {
             $(this).removeClass('tag-li-in');
+            $(".u-con-list .wartype .tag-li:eq("+index+")").removeClass('tag-li-in');
         } else {
             $(this).addClass('tag-li-in');
+            $(".u-con-list .wartype .tag-li:eq("+index+")").addClass('tag-li-in');
         }
-        loadData(1, 0);
     });
-    $("#armtype .tag-li").click(function() {
+    $(".armtype .tag-li").click(function() {
+        var index = $(this).index();
         if ($(this).hasClass('tag-li-in')) {
             $(this).removeClass('tag-li-in');
+            $(".u-con-list .armtype .tag-li:eq("+index+")").removeClass('tag-li-in');
         } else {
             $(this).addClass('tag-li-in');
+            $(".u-con-list .armtype .tag-li:eq("+index+")").addClass('tag-li-in');
         }
-        loadData(1, 0);
     });
+    $(".search-cond  .tag-li").click(function() {
+        loadData(1, 0);
+    })
 }
 function appendTagHtml() {
     var dataList = parent.tagLoadAjax(10000);
-    var rowhtml = "<option value=''>全部</option>";
+    var rowhtml = "";
     $.each(dataList, function (i, val) {
         var id = val["id"];
-        ;
         var name = val["name"];//"标签名称";
-        rowhtml +="<option value='" + id + "'>" + name + "</option>";
+        rowhtml +="<li class='tag-li' dictkey='"+id+"'>"+name+"</li>";
     });
-    $("#tagtype").html(rowhtml);
+    $(".tagtype").html(rowhtml);
+
+    $(".tagtype .tag-li").click(function() {
+        if ($(this).hasClass('tag-li-in')) {
+            $(this).removeClass('tag-li-in');
+        } else {
+            $(this).addClass('tag-li-in');
+        }
+    });
 }
 
 function appendHotSearchHtml(){
@@ -274,13 +288,17 @@ function appendUserSearchHtml(){
          if(null!=search_key&&search_key!=""){
              $("#search-key").val(decodeURI(search_key));
          }
-         var armtype = getUrlString("armtype");
+         var armtype = getUrlString("armsArray");
          if(null!=armtype&&armtype!=""){
-            $("#armtype .tag-li[dictKey='"+armtype+"']").addClass('tag-li-in');
+            $(".armtype .tag-li[dictKey='"+armtype+"']").addClass('tag-li-in');
          }
-         var wartype = getUrlString("wartype");
+         var wartype = getUrlString("combatArray");
          if(null!=wartype&&wartype!=""){
-             $("#wartype .tag-li[dictKey='"+wartype+"']").addClass('tag-li-in');
+             $(".wartype .tag-li[dictKey='"+wartype+"']").addClass('tag-li-in');
+         }
+         var tagtype = getUrlString("tagArray");
+         if(null!=tagtype&&tagtype!=""){
+             $(".tagtype .tag-li[dictKey='"+tagtype+"']").addClass('tag-li-in');
          }
 
          var tagtype = getUrlString("tagname");
@@ -310,6 +328,11 @@ function appendUserSearchHtml(){
              currPage = 0;
              totalRows = 0;
              loadData(currPage,totalRows);
+             $(".search-cond .tag-li").removeClass("tag-li-in");
+             $(".u-con-list .tag-li-in").each(function () {
+                 var dictKey = $(this).attr("dictKey");
+                 $(".search-cond .tag-li[dictKey='"+dictKey+"']").addClass('tag-li-in');
+             })
              $("#condwhere").fadeOut();
          });
      });
