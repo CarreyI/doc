@@ -448,8 +448,13 @@ body, html {
 	line-height: 34px;
 }
 .popup .title{
-    background:#cccccc;
+    background:#0d4d81;
     overflow: hidden;
+	color:#ffffff;
+}
+.pop-btn{
+	width:100%;
+	margin-top:10px;
 }
 .line_two_li li,.line_two_li ul{
 	float: left;
@@ -623,11 +628,11 @@ background-image: url("../images/i-sign.png");
 
 .main .container .content .dataword {
 	width: 319px;
-	height: 183px;
+	height: 176px;
     background:#ffffff;
 	/*background: url("../images/datawordBg.png");*/
     border:1px solid #aaaaaa;
-	margin: 12px 0;
+	margin: 15px 0;
 	text-align: center;
 	padding-top: 12px;
     padding-bottom:16px;
@@ -827,8 +832,8 @@ color:#000;
 	clear: both;
 	line-height: 40px;
     margin-top:10px;
-	height: 100%;
-	/*margin-bottom: 10px;*/
+	/*height: 100%;
+	margin-bottom: 10px;*/
 	border-bottom:1px solid #e0e0e0;/*1px solid #5e90ca;*/
 	overflow: hidden;
 }
@@ -1442,7 +1447,7 @@ ol.list1 {
 .mask .popup {
 	display: inline-block;
 	background-color: #fff;
-	padding-bottom: 50px;
+	padding-bottom: 30px;
 	vertical-align: middle;
 	width: 600px;
 }
@@ -1475,11 +1480,10 @@ ol.list1 {
 }
 
 .model-title {
-
 	font-size: 18px;
 	padding: 10px;
 	text-align: left;
-	padding-left: 30px;
+	padding-left: 20px;
 }
 
 .tbl-row {

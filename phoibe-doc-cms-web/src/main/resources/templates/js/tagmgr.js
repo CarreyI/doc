@@ -90,10 +90,10 @@ function tagDelAjax(tid){
     }
 }
 $(function () {
-
     loadData(0);
     $("#btnadd").click(function () {
         $(".bodyMask").fadeIn();
+        $(".model-title").html("添加标签");
         $("#editBtn").hide();
         $("#submit").show();
     });

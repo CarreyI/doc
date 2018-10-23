@@ -84,7 +84,7 @@ function loadData(pageindex) {
             $(".user-edit").click(function () {
                 var uid = $(this).attr("uid");
                 $("#ajaxform")[0].reset();
-                $(".model-title").html("修改标签");
+                $(".model-title").html("修改用户");
                 $("#submit").hide();
                 $("#editBtn").show();
                 getUser(uid);
@@ -142,6 +142,7 @@ $(function () {
     $("#btnadd").click(function () {
         $("#ajaxform")[0].reset();
         $(".bodyMask").fadeIn();
+        $(".model-title").html("添加用户");
         $("#editBtn").hide();
         $("#submit").show();
     });
@@ -149,7 +150,7 @@ $(function () {
         var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
         if (Id!=null){
             $("#ajaxform")[0].reset();
-            $(".model-title").html("修改标签");
+            $(".model-title").html("修改用户");
             $("#submit").hide();
             $("#editBtn").show();
             getUser(Id);
