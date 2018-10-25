@@ -532,7 +532,7 @@
         and USER_ID in (select SUB_USER_ID from PHOIBE_SUBSCRIBE where USER_ID = #{param.queryUserId,jdbcType=DECIMAL})
       </if>
       <if test="param.queryFlag != null and param.queryFlag == 'handpick'">
-        and ID in (select t.DOCUMENT_ID from (select DOCUMENT_ID,ROWNUM rno from (select DOCUMENT_ID,count(DOCUMENT_ID) c from PHOIBE_COLLECTION group by DOCUMENT_ID order by c desc)) t where t.rno &lt; 21)
+        and ID in (select t.DOCUMENT_ID from (select DOCUMENT_ID,ROWNUM rno from (select DOCUMENT_ID,count(DOCUMENT_ID) c from PHOIBE_COLLECTION group by DOCUMENT_ID order by c desc)) t)
       </if>
       <if test="param.armsArray!= null">
         and ARMS in

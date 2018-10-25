@@ -1719,7 +1719,12 @@ width:100%;
 	float: left;
 	margin-top: 30px;
 }
-
+.btn-back{
+    color: #ca0c16 !important;
+    border: 1px solid #ca0c16 !important;
+    float: right;
+    margin: 10px;
+}
 .btn-default {
 	background: #00a2d4;
 	line-height: 24px;

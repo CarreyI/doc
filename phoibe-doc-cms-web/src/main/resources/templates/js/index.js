@@ -171,7 +171,7 @@ function bindResouDoc() {
 
 function bindRecommDoc() {
     $("#zgzhanfa").children().remove();
-    var url = GAL_URL + 'phoibe/document/list/0/19?f=handpick&isstock=2';
+    var url = GAL_URL + 'phoibe/document/list/0/48?f=handpick&isstock=2';
     //alert(url);
     $.ajax({
         type: 'GET',
