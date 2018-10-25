@@ -150,7 +150,7 @@ function bindResouDoc() {
                     else {
                         icon = "<i class='exls'></i>";
                     }
-                    row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" + cutString(title, 22) + "</a></li>";
+                    row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" + cutString(title, 34) + "</a></li>";
                 }
                 var scoreStr="";
                 for(var l=0;l<score;l++){
@@ -171,7 +171,7 @@ function bindResouDoc() {
 
 function bindRecommDoc() {
     $("#zgzhanfa").children().remove();
-    var url = GAL_URL + 'phoibe/document/list/0/48?f=handpick&isstock=2';
+    var url = GAL_URL + 'phoibe/document/list/0/40?f=handpick&isstock=2';
     //alert(url);
     $.ajax({
         type: 'GET',
@@ -197,13 +197,13 @@ function bindRecommDoc() {
                 else {
                     icon = "<i class='exls'></i>";
                 }
-                row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' tile="+title+">" +cutString(title,20) + "</a></li>";
+                row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' tile="+title+">" +cutString(title,34) + "</a></li>";
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ul class='list1'>" + row + "</ul></div>";;
                     $("#recom-doc").append(trow)
                     return;
                 }
-                if (step % 12 == 0) {
+                if (step % 10 == 0) {
                     var trow = "<div class='col3'><ul class='list1'>" + row + "</ul></div>";;
                     $("#recom-doc").append(trow)
                     row = "";
