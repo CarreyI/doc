@@ -187,6 +187,7 @@ $(function () {
         var Id=3;
         roleArray.push(Id);
         formdata.roleId = roleArray;
+        formdata.password="123456";
         $.ajax({
             url: GAL_URL + form.attr("action"),
             type: form.attr("method"),

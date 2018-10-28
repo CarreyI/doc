@@ -197,7 +197,7 @@ function bindRecommDoc() {
                 else {
                     icon = "<i class='exls'></i>";
                 }
-                row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' tile="+title+">" +cutString(title,34) + "</a></li>";
+                row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" +cutString(title,34) + "</a></li>";
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ul class='list1'>" + row + "</ul></div>";;
                     $("#recom-doc").append(trow)
@@ -278,7 +278,7 @@ function getDocNum() {
                     var name = val.name;
                     var count = val.count;
                     var wartype=val.id;
-                        var hrefUrl= "searchadv.html?wartype="+wartype;
+                        var hrefUrl= "searchadv.html?combatArray="+wartype;
                     var row="<li><span>"+name+"：<a href='"+hrefUrl+"'target='_self'>"+count+"</a></span></li>";
 
                     $(".dw-bk ul").append(row);
