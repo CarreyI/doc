@@ -2221,7 +2221,8 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	float:left;
 	width:200px;
 	border: 1px solid #baaaaa;
-	height: 370px;
+	min-height: 370px;
+	max-height:676px;
 }
 .file_divright{
 	margin-left: 210px;
@@ -2260,6 +2261,11 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
     width:100px;
     /*color:#ffffff;*/
 }
+.file-scroll{
+	overflow: auto;
+	height: 635px;
+}
+
 .file_list{
 	margin-top:8px;
 	margin-top:8px;

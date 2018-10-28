@@ -458,7 +458,7 @@ function loadData(pageindex) {
                         var dirId = roleObj[i].id;
                         var dirName = roleObj[i].dirName;
 
-                         filelist=filelist + "<li>+ <a href=\"#\" class=\"menu-a\" dirId='"+dirId+"'>"+dirName+"</a>&nbsp;&nbsp;&nbsp;<a href=\"#\" class=\"menu-del menu-btn\" dirId='"+dirId+"'>删除</a></li>";
+                         filelist=filelist + "<li>- <a href=\"#\" class=\"menu-a\" dirId='"+dirId+"'>"+dirName+"</a>&nbsp;&nbsp;&nbsp;<a href=\"#\" class=\"menu-del menu-btn\" dirId='"+dirId+"'>删除</a></li>";
                          selectlist_html=selectlist_html + "<li><input type='radio' data-value='' name='chksel' value='"+dirId+"'/><a href=\"#\">"+dirName+"</a></li>";
 
                     }

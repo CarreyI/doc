@@ -161,6 +161,7 @@ function loadData(type,pageindex) {
         loadData(1, 0);
 
     });
+
          layui.use(['laypage', 'layer'], function () {
              var laypage = layui.laypage
              , layer = layui.layer;
@@ -169,6 +170,7 @@ function loadData(type,pageindex) {
                  elem: 'notice_pages'
                , count: totalRows
                , curr: currPage
+                 ,limit:pageSize
                , first: '首页'
                , last: '尾页'
                , prev: '<em>←</em>'
