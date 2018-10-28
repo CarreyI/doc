@@ -441,6 +441,7 @@ body, html {
 	max-width: 1500px;*/
 }
 
+#docmgr .search{background:#ffffff;}
 .main .container .search .inputBox {
 	width: 710px;
 	margin: 0 auto;
@@ -711,10 +712,13 @@ border:1px solid #5e90ca;/*#fffdfe;;*/
 }
 
 #index-m .main, #docdetail .main, #tagmgr .main, #sysmgr .main,
-	#stockmgr .main, #percenter .main, #docmgr .main, #auditupload .main {
+	#stockmgr .main, #percenter .main,#docmgr .main, #auditupload .main {
 	padding-left: 0px;
-	padding-top: 18px;
+	padding-top: 20px;
 	padding-right: 20px;
+}
+#docmgr .main{
+	padding-top:4px;
 }
 
 ul.list3 {
@@ -1156,9 +1160,8 @@ border:1px solid #5e90ca;
 }
 
 .widget-tab .widget-box {
-	/*margin: 0 20px 20px;*/
 	background: #ffffff;
-	padding: 10px;
+	padding:10px;
 	border: 1px solid #aaaaaa;
 	padding-left:0px;
 }
@@ -1304,6 +1307,11 @@ padding-left:4px;
 #docmgr-content .row .title {
     color:#226c97 !important;
 }
+#docmgr-content .row:hover{
+cursor:pointer;
+	/*background:#cccccc;
+	padding:0px;*/
+ }
 #docmgr-content .row ul li {
     color:#000;
     padding-bottom:0px;
@@ -2282,9 +2290,10 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	font-size:12px;
 }
 .search-cond{
-	background:#ffffff;
+	/*background:#ffffff;
 	border:1px solid #eeeeee;
-	padding:10px;
+	padding:10px;*/
+	clear:both;
 }
 .search-cond ul li{
 	line-height:28px;

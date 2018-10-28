@@ -48,7 +48,7 @@ function docdymListLoad() {
                 else{
                     icon = "<i class='exls'></i>";//
                 }
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title,12) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;'>" + docstatus + "</b></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title,34) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;'>" + docstatus + "</b></li>";
 
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
@@ -57,7 +57,7 @@ function docdymListLoad() {
                 }
                 if (step % 3 == 0) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";;
-                    $("#docdym").append(trow)
+                    $("#docdym").append(trow);
                     row = "";
                 }
             });
@@ -99,7 +99,7 @@ function nearreadListLoad() {
                 else{
                     icon = "<i class='exls'></i>";//
                 }
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 12) + "</a>&nbsp;&nbsp;&nbsp;" + createtime.substring(0,16) + "<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del nearread-del' tid='"+tid+"'>清除</a></b></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 34) + "</a>&nbsp;&nbsp;&nbsp;" + createtime.substring(0,16) + "<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del nearread-del' tid='"+tid+"'>清除</a></b></li>";
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
                     $("#nearread").append(trow)
@@ -157,7 +157,7 @@ function randomListLoad() {
                 else{
                     icon = "<i class='exls'></i>";//
                 }
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 14) + "</a>&nbsp;&nbsp;&nbsp;" + createtime.substring(0,10) + "<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del random-del' tid='"+tid+"'>取消</a></b></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 34) + "</a>&nbsp;&nbsp;&nbsp;" + createtime.substring(0,10) + "<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del random-del' tid='"+tid+"'>取消</a></b></li>";
 
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
@@ -218,7 +218,7 @@ function attentionListLoad() {
                     icon = "<i class='exls'></i>";//
                 }
 
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title,16) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' title='"+nickname+"'>"+nickname+"&nbsp;&nbsp;<a class='list-del attention-del' userId='"+userId+"'>取消</a></b></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title,36) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' title='"+nickname+"'>"+nickname+"&nbsp;&nbsp;<a class='list-del attention-del' userId='"+userId+"'>取消</a></b></li>";
                 // alert(row);
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
@@ -428,7 +428,6 @@ function loadData(pageindex) {
                    if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
                        currPage = obj.curr;
                        loadData(obj.curr - 1);
-                     
                    }
                }
             });
@@ -517,15 +516,12 @@ function delMenuAjax(dirId) {
     }
 }
     $(function () {
-
        // docdymListLoad();
         nearreadListLoad();
         randomListLoad();
         attentionListLoad();
-
         loadData(0);
         loadFileMenu();
-
         $("#btndel").click(function () {
             var sel = $("#tblist-body tr td input[type='checkbox']:checked");
             if(sel.length == 0){
