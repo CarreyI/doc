@@ -2,7 +2,13 @@ package me.phoibe.doc.cms.utils;
 
 import me.phoibe.doc.cms.exception.BusinessException;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.POIXMLDocument;
+import org.apache.poi.POIXMLTextExtractor;
 import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.xmlbeans.XmlException;
 
 import java.io.*;
 
@@ -39,6 +45,48 @@ public class FileUtil {
                 text = wordExtractor.getText();
             }
         }catch (Exception e){
+            e.printStackTrace();
+        }
+        return text;
+    }
+    public static String readFileText(String path){
+        String text = "";
+        try{
+            if(StringUtils.isEmpty(path)){
+                throw new BusinessException("文档路径为空！");
+            }
+            File file = new File(path);
+            if(!file.exists()){
+                throw new BusinessException("文件不存在");
+            }
+            String prefix = path.substring(path.lastIndexOf(".")+1);
+            if("txt".toUpperCase().contains(prefix.toUpperCase())){
+                BufferedReader buf=new BufferedReader(new FileReader(path));
+                StringBuffer sbuf=new StringBuffer();
+                String line=null;
+                while((line=buf.readLine())!=null){
+                    sbuf.append(buf.readLine());
+                }
+                buf.close();
+                text = buf.toString();
+            }
+            if("doc".toUpperCase().contains(prefix.toUpperCase())){
+                InputStream is = new FileInputStream(new File(path));
+                WordExtractor ex = new WordExtractor(is);
+                text = ex.getText();
+            }
+            if("docx".toUpperCase().contains(prefix.toUpperCase())){
+                OPCPackage opcPackage = POIXMLDocument.openPackage(path);
+                POIXMLTextExtractor extractor = new XWPFWordExtractor(opcPackage);
+                text = extractor.getText();
+            }
+        } catch (org.apache.poi.UnsupportedFileFormatException | XmlException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (OpenXML4JException e) {
             e.printStackTrace();
         }
         return text;

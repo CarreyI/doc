@@ -391,7 +391,6 @@ public class DocumentController {
 			e.printStackTrace();
 			resultMap.put("success", false);
 		}
-		LOGGER.info(JsonUtils.toJson(resultMap));
 		return JsonUtils.toJson(resultMap);
 	}
 	

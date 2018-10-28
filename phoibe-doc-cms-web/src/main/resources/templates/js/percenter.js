@@ -71,7 +71,7 @@ function docdymListLoad() {
 }
 //最近浏览
 function nearreadListLoad() {
-    var data = GAL_URL+'phoibe/document/list/browse/0/9?queryFlag=browse&isstock=2'
+    var data = GAL_URL+'phoibe/document/list/browse/0/18?queryFlag=browse&isstock=2'
     $.ajax({
         type: 'GET',
         url: data,
@@ -111,10 +111,10 @@ function nearreadListLoad() {
                     row = "";
                 }
             });
-            if (step==9){
-                var frs ="<a class=\"frs\" style=\"position: absolute;\" href=\"searchadv.html?queryFlag=browse\">更多</a>";
-                $("#nearread").append(frs);
-            }
+            // if (step==9){
+            //     var frs ="<a class=\"frs\" style=\"position: absolute;\" href=\"searchadv.html?queryFlag=browse\">更多</a>";
+            //     $("#nearread").append(frs);
+            // }
             if (result.data.dataList==null){
              var nullStr = "<ol class=\"list1\"><li><div>最近未浏览任何文档</div></li></ol>";
                 $("#nearread").append(nullStr)
@@ -129,7 +129,7 @@ function nearreadListLoad() {
 
 //我的收藏
 function randomListLoad() {
-    var data = GAL_URL+'phoibe/document/list/collection/0/9?queryFlag=collection&isstock=2'
+    var data = GAL_URL+'phoibe/document/list/collection/0/100000?queryFlag=collection&isstock=2'
     $.ajax({
         type: 'GET',
         url: data,
@@ -170,10 +170,10 @@ function randomListLoad() {
                     row = "";
                 }
             });
-            if (step==9){
-                var frs ="<a class=\"frs\" style=\"position: absolute;\"  href=\"searchadv.html?queryFlag=collection\">更多</a>";
-                $("#random_li").append(frs);
-            }
+            // if (step==9){
+            //     var frs ="<a class=\"frs\" style=\"position: absolute;\"  href=\"searchadv.html?queryFlag=collection\">更多</a>";
+            //     $("#random_li").append(frs);
+            // }
 
             if (result.data.dataList==null){
                 var nullStr = "<ol class=\"list1\"><li><div>未收藏任何文档</div></li></ol>";
@@ -189,7 +189,7 @@ function randomListLoad() {
 }
 //我的订阅
 function attentionListLoad() {
-    var data = GAL_URL+'phoibe/document/list/user/0/9?queryFlag=subscribe&isstock=2&queryUserId='+userId
+    var data = GAL_URL+'phoibe/document/list/user/0/100?queryFlag=subscribe&isstock=2&queryUserId='+userId
     $.ajax({
         type: 'GET',
         url: data,
@@ -231,10 +231,10 @@ function attentionListLoad() {
                     row = "";
                 }
             });
-            if (step==9){
-                var frs ="<a class=\"frs\" style=\"position: absolute;\"  href=\"searchadv.html?queryFlag=subscribe\">更多</a>";
-                $("#attention_li").append(frs);
-            }
+            // if (step==9){
+            //     var frs ="<a class=\"frs\" style=\"position: absolute;\"  href=\"searchadv.html?queryFlag=subscribe\">更多</a>";
+            //     $("#attention_li").append(frs);
+            // }
             if (result.data.dataList==null){
                 var nullStr = "<ol class=\"list1\"><li><div>未订阅任何文档</div></li></ol>";
                 $("#attention_li").append(nullStr)
@@ -515,6 +515,22 @@ function delMenuAjax(dirId) {
         });
     }
 }
+function checkfileNameAjax(filename,userId){
+    var pd=false;
+    $.ajax({
+        url: GAL_URL + "phoibe/directory/check?dirName=" + filename+"&userId="+userId,
+        type: "GET",
+        dataType: "json",
+        async: false,
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            if (data.code == "SUCCESS") {
+                pd=true;
+            }
+        }
+    });
+    return pd;
+}
     $(function () {
        // docdymListLoad();
         nearreadListLoad();
@@ -580,7 +596,6 @@ function delMenuAjax(dirId) {
         });
         // 新建目录提交
         $('#file_submit').click(function () {
-
             var form = $("#file_ajaxform");
             var formdata ={};
             for (var i = 0; i < form.serializeArray().length; i++) {
@@ -595,24 +610,29 @@ function delMenuAjax(dirId) {
                 userId = userObject.id;
             }
             formdata.creator = userId;
-            $.ajax({
-                url: GAL_URL + form.attr("action"),
-                type: form.attr("method"),
-                data: JSON.stringify(formdata),
-                dataType: "json",
-                async: false,
-                contentType: "application/json;charset=UTF-8",
-                success: function (data) {
-                    if (data.code="success") {
-                        $("#file_ajaxform")[0].reset();
-                        alert("提交成功");
-                        $(".file_bodyMask").hide();
-                        loadFileMenu();
-                    }else{
-                        alert("提交失败");
+            var pd = checkfileNameAjax(formdata.dirName,userId);
+            if(pd){
+                $.ajax({
+                    url: GAL_URL + form.attr("action"),
+                    type: form.attr("method"),
+                    data: JSON.stringify(formdata),
+                    dataType: "json",
+                    async: false,
+                    contentType: "application/json;charset=UTF-8",
+                    success: function (data) {
+                        if (data.code="success") {
+                            $("#file_ajaxform")[0].reset();
+                            alert("提交成功");
+                            $(".file_bodyMask").hide();
+                            loadFileMenu();
+                        }else{
+                            alert("提交失败");
+                        }
                     }
-                }
-            });
+                });
+            }else{
+                alert("目录名已存在")
+            }
         })
         // 移动文件目录提交
         $('#filelist_submit').click(function () {

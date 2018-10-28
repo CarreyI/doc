@@ -2,6 +2,7 @@ package me.phoibe.doc.cms.dao;
 
 import me.phoibe.doc.cms.domain.po.PhoibeDirectory;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface PhoibeDirectoryMapper {
     int insertSelective(PhoibeDirectory record);
 
     PhoibeDirectory selectByPrimaryKey(Long id);
+
+    PhoibeDirectory selectByDirName(@Param("dirName") String dirName,@Param("userId") Long userId);
 
     int updateByPrimaryKeySelective(PhoibeDirectory record);
 

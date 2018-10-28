@@ -42,12 +42,19 @@ function checkSubmit(){
     var form = $("#ajaxform");
 
     if($("#formthelist").find(".item").length==0){
-        alert("请上传附件");
-        return
+        alert("请上传附件！");
+        return false;
     }
     if(""==$("#name").val()){
-        alert("请输入标题");
-        return
+        alert("请输入标题!");
+        return false;
+    }else if ($("#name").val().length>50) {
+        alert("文章标题不允许超过50个字！");
+        return false;
+    }
+    if(isNaN($("#warnum").val())){
+        alert("请确认伤亡人数填写的是数字!")
+        return false;
     }
     return true;
 }

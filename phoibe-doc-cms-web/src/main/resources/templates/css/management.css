@@ -613,7 +613,7 @@ body, html {
 }
 
 .main .container .content .left .bg_whiteSD {
-	padding: 20px;
+	padding: 10px 20px 20px;
 	margin-bottom: 12px;
 	overflow: hidden;
 }
@@ -1215,6 +1215,12 @@ border:1px solid #5e90ca;
 	height: 90px;
 
 }
+.random-list,.attention-list,.hot-list{
+	overflow-y: auto;
+}
+.random-list .list1,.attention-list .list1,.hot-list .list1{
+	line-height: 28px;
+ }
 #done:checked ~ .widget-box .done-list, #check:checked ~ .widget-box .check-list{
 	display: block;
 	height: 40px;
@@ -1678,11 +1684,11 @@ width:100%;
 	padding-top:10px;
 }
 .dw-bk li{
-	width: 100px;
+	width: 140px;
 	line-height: 23px;
-	padding: 5px 10px;
+	padding: 5px 5px;
 	font-size: 16px;
-	margin: 0px 12px;
+	margin: 0px 0px;
 	float: left;
 }
 .dw-bk li a{
@@ -2324,6 +2330,29 @@ font-size:16px;
 #com-score .submit{margin-top:8px;}
 .frs{margin-top: -8px;margin-left: -13px;}
 #resou-doc .col3, #recom-doc .col3{width:24%;margin-left:10px;}
+#recom-doc .col3 .list1{
+	line-height: 22px;
+}
+#recom-doc .right-item {
+	padding: 10px 8px 13px 8px;
+	overflow: hidden;
+	word-wrap: break-word;
+	height: 60px;
+	border-bottom: 1px dashed #e0e0e0;
+}
+#recom-doc.right-item a{color:#226c97;}
+
+#recom-doc .right-item .right-item-desc {
+	font-size: 12px;
+	color: #999;
+}
+#recom-doc .right-item .right-item-content span {
+	margin-right: 8px;
+	font-size: 12px;
+	color: #999;
+	letter-spacing: 0;
+	line-height: 20px;
+}
 .main .navLeft li span.dicLabel{background-image: url("../images/dicLabel.png");}
 .main .navLeft li span.logLabel{background-image: url("../images/logLabel.png");}
 #docmgr-content .row ul li.owner_btn:hover{color:#00a2d4;}

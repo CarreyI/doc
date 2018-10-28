@@ -23,8 +23,14 @@
     <include refid="Base_Column_List" />
     from PHOIBE_DIRECTORY
     where CREATOR = #{userId,jdbcType=DECIMAL}
+    order by CREATE_TIME desc
   </select>
-
+  <select id="selectByDirName" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from PHOIBE_DIRECTORY
+    where DIR_NAME = #{dirName,jdbcType=VARCHAR} and CREATOR = #{userId,jdbcType=DECIMAL}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from PHOIBE_DIRECTORY
     where ID = #{id,jdbcType=DECIMAL}

@@ -16,5 +16,7 @@ public interface PhoibeDirectoryService {
 
     List<PhoibeDirectory> fetchPhoibeDirectoryList(Long userId);
 
+    PhoibeDirectory selectByDirName(String dirName, Long userId);
+
     void moveDirectory(long[] docidstr, Long directoryid);
 }

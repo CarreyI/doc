@@ -28,6 +28,14 @@ public class DirectoryController {
         LogUtil.writeLog("浏览了个人目录记录", LogUtil.OPER_TYPE_LOOK,"个人目录", DictController.class,request);
         return JsonUtils.toJson(new Result<List<PhoibeDirectory>>(Code.SUCCESS, phoibeDirectories));
     }
+    @GetMapping("/check")
+    public String checkDirName(@RequestParam String dirName,@RequestParam Long userId){
+        PhoibeDirectory phoibeDirectories = phoibeDirectoryService.selectByDirName(dirName,userId);
+        if (null == phoibeDirectories){
+            return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+        }
+        return JsonUtils.toJson(new Result<>(Code.FAILED, ""));
+    }
 
     @DeleteMapping("/remove/{id}")
     public String remove(@PathVariable Long id,HttpServletRequest request){

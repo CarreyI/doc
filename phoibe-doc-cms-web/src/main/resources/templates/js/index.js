@@ -132,6 +132,7 @@ function bindResouDoc() {
                 step = step + 1;
                 var row="";
                 var realname = val["realname"];
+                var nickname = val["nickname"];
                 var docnum = val["phoibeDocuments"].length;
                 var phoibeDocuments = val["phoibeDocuments"];
                 var score=val["avgScore"];
@@ -156,14 +157,16 @@ function bindResouDoc() {
                 for(var l=0;l<score;l++){
                     scoreStr= scoreStr+ "<i class='i-star'></i>";
                 }
+                if (scoreStr==""){
+                    scoreStr="无";
+                }
                 var trow = "<div class='col3  clearfix'>" +
-                    "<div class='ul-header'><div class='ul-img fl'><img src='images/index-head.png'/></div><div class='ul-header-right fl'>" +
-                    "<div class='ul-header-name'>"+realname+"&nbsp;&nbsp;" +
+                    "<div class='ul-header'><div class='ul-img fl'><a href='searchadv.html?owner=" + nickname + "' title="+nickname+"><img src='images/index-head.png'/></a></div><div class='ul-header-right fl'>" +
+                    "<div class='ul-header-name'><a href='searchadv.html?owner=" + nickname + "' title="+nickname+">"+nickname+"</a>&nbsp;&nbsp;" +
                     "<span class='ul-header-docnum'>"+docnum+"</span>篇文档&nbsp;</div>"
                     +"<div class='scoreremark'>评分:" +scoreStr
                     +"</div></div></div><ul class='list1'>" + row + "</ul></div>";
                 $("#resou-doc").append(trow)
-
             });
         }
     });
@@ -171,7 +174,7 @@ function bindResouDoc() {
 
 function bindRecommDoc() {
     $("#zgzhanfa").children().remove();
-    var url = GAL_URL + 'phoibe/document/list/0/40?f=handpick&isstock=2';
+    var url = GAL_URL + 'phoibe/document/list/0/16?f=handpick&isstock=2';
     //alert(url);
     $.ajax({
         type: 'GET',
@@ -182,9 +185,7 @@ function bindRecommDoc() {
             var step = 0;
             var row = "";
             $.each(result.data.dataList, function (i, val) {
-                var title = val["name"];
                 var format = val["format"];
-                var tid = val["id"];
                 step = step + 1;
 
                 var icon = "";
@@ -197,13 +198,22 @@ function bindRecommDoc() {
                 else {
                     icon = "<i class='exls'></i>";
                 }
-                row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" +cutString(title,34) + "</a></li>";
+                var docname = val["name"];
+                var createTime = val["stockTime"];
+                var tid = val["id"];
+                var description=val["description"];
+                var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
+                row = row + "<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
+                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>" + icon +cutString(docname,28)+
+                    "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime.substring("5","10")+"</span></h5></div>"+
+                    "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
+                    "</a></li>";
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ul class='list1'>" + row + "</ul></div>";;
                     $("#recom-doc").append(trow)
                     return;
                 }
-                if (step % 10 == 0) {
+                if (step % 4 == 0) {
                     var trow = "<div class='col3'><ul class='list1'>" + row + "</ul></div>";;
                     $("#recom-doc").append(trow)
                     row = "";
@@ -279,7 +289,11 @@ function getDocNum() {
                     var count = val.count;
                     var wartype=val.id;
                         var hrefUrl= "searchadv.html?combatArray="+wartype;
-                    var row="<li><span>"+name+"：<a href='"+hrefUrl+"'target='_self'>"+count+"</a></span></li>";
+                        var countStr=""+count;
+                        if (count>10000){
+                            countStr = parseInt(count/10000) + "+&nbsp;万";
+                        }
+                    var row="<li><span>"+name+"：<a href='"+hrefUrl+"'target='_self'>"+countStr+"</a></span></li>";
 
                     $(".dw-bk ul").append(row);
                     }

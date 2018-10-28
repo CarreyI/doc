@@ -8,6 +8,7 @@
 <script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/data.js"></script>
 <script src="js/index.js"></script>
+	<script language="javascript" type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 	<div id="index-m">
@@ -23,7 +24,7 @@
 							<ul class="line_two_li">
 								<li>
 									<ul id="serachType" class="line-li"><li>类别：
-										<a class='line-li' href='#' format="doc,docx,pdf,txt">文本</a><a class='line-li' href='#' format="rmvb,avi,mp4,3gp,wav,mp3">音频</a></li>
+										<a class='line-li' href='#' format="doc,docx,pdf,txt,rmvb,avi,mp4,3gp,wav,mp3">全部</a><a class='line-li' href='#' format="doc,docx,pdf,txt">文本</a><a class='line-li' href='#' format="rmvb,avi,mp4,3gp,wav,mp3">音频</a></li>
 									</ul>
 									<ul id="hotSerach" class="line-li">热搜：</ul>
 								</li>
@@ -33,15 +34,15 @@
 					</div>
 					<div class="content box_border">
 						<div class="box_border left">
+							<div class="box_border bg_whiteSD" id="resou-block">
+								<div class="plateHeader resou font16 i-sign fl">热搜专区</div><a class="fr" href="searchadv.html">更多</a>
+								<div class="clearfix"></div>
+								<div id="resou-doc"></div>
+							</div>
 							<div class="box_border bg_whiteSD" id="rec-block">
 								<div class="plateHeader jingpin font16 i-sign fl">精品专区</div><a class="fr" href="searchadv.html">更多</a>
 								<div class="clearfix"></div>
 								<div id="recom-doc"></div>
-							</div>
-							<div class="box_border bg_whiteSD" id="resou-block">
-								<div class="plateHeader resou font16 i-sign">热搜专区</div>
-								<!--<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=1);margin: 8px;" width="90%" color=#4cb6d2 SIZE=3>-->
-								<div id="resou-doc"></div>
 							</div>
 						</div>
 						<div class="box_border rightAb">
@@ -60,7 +61,7 @@
                                 </div>-->
 								<div class="font16 title i-sign">我的文档（<a href="#" id="userdocnum" target='_self'></a>）</div>
                                 <ul class="list3" id="zgzhanfa">
-                                   
+
                                 </ul>
                                 <div class="clearfix"></div>
                                 <div id="upload"></div>
@@ -114,9 +115,9 @@
 						 <li class="one-line">
 							 <ul>
 								 <li><span class="label">参战开始时间：</span>
-									 <input type="text" id="wartime_start"/></li>
+									 <input id="wartime_start" type="text" onClick="WdatePicker()" data-value="">
 								 <li><span class="label">参战结束时间：</span>
-									 <input type="text" id="wartime_end"/></li>
+									 <input id="wartime_end" type="text" onClick="WdatePicker()" data-value="">
 							 </ul>
 						 </li>
 						 <li class="one-line">

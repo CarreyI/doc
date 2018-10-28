@@ -62,4 +62,8 @@ public class PhoibeDirectoryServiceImpl implements PhoibeDirectoryService {
     public List<PhoibeDirectory> fetchPhoibeDirectoryList(Long userId) {
         return phoibeDirectoryMapper.selectByList(userId);
     }
+    @Override
+    public PhoibeDirectory selectByDirName(String dirName,Long userId) {
+        return phoibeDirectoryMapper.selectByDirName(dirName,userId);
+    }
 }

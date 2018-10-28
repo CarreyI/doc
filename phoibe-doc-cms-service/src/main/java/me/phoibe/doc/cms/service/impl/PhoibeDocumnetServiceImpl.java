@@ -89,16 +89,27 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(model.getName()+"#");
-        stringBuilder.append(phoibeDictService.fetchById(model.getArms().longValue())+"#");
-        stringBuilder.append(phoibeDictService.fetchById(model.getCombatType().longValue())+"#");
+        stringBuilder.append(phoibeDictService.fetchById(model.getArms().longValue()).getDictName()+"#");
+        stringBuilder.append(phoibeDictService.fetchById(model.getCombatType().longValue()).getDictName()+"#");
         stringBuilder.append(model.getUserRealName()+"#");
         stringBuilder.append(model.getWaraddr()+"#");
         stringBuilder.append(model.getWinner()+"#");
         stringBuilder.append(model.getLoser()+"#");
         stringBuilder.append(model.getWarstate()+"#");
         stringBuilder.append(model.getWartime()+"#");
-        if (("doc").equals(phoibeDocument.getFormat())){
-            stringBuilder.append(FileUtil.readAttachText(fileAbosultePath));
+        if (("doc").equals(model.getFormat())||("docx").equals(model.getFormat())||("txt").equals(model.getFormat())){
+            String attachText =FileUtil.readFileText(fileAbosultePath);
+            stringBuilder.append(attachText);
+            if (("").equals(model.getDescription())||null==model.getDescription()){
+                PhoibeDocument phoibeDocument1 = new PhoibeDocument();
+                phoibeDocument1.setId(phoibeDocument.getId());
+                if (attachText.length()>500){
+                    phoibeDocument1.setDescription(attachText.substring(0,500)+"...");
+                }else{
+                    phoibeDocument1.setDescription(attachText);
+                }
+                i = phoibeDocumentMapper.updateByPrimaryKeySelective(phoibeDocument1);
+            }
         }
         phoibeAttachContent.setAttachContent(stringBuilder.toString());
         phoibeAttachContent.setDocumentId(phoibeDocument.getId());
