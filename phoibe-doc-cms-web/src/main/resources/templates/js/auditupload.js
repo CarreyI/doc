@@ -1,7 +1,7 @@
 var totalRows = 0;
 var currPage = 0;
 var docstatus =  1;
-var pageSize=20;
+var pageSize=18;
     function loadData(pageindex) {
 
         $("#tblist-body").children().remove();    

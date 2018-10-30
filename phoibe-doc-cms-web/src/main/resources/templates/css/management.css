@@ -1376,7 +1376,7 @@ background-image: url("../images/commgr.png");
 }
 #tblist-body tr td {
 	text-align:left;
-
+	font-size:14px;
 }
 #tblist-body tr td a {
 color:#000000;
@@ -2167,7 +2167,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	width: 96%;
 }
 .comment-list-box ul.comment-list li.comment-line-box div.right-box div.info-box {
-	line-height: 22px;
+	line-height: 34px;
 	margin-bottom: 4px;
 	word-wrap: break-word;
 	color: #999;
