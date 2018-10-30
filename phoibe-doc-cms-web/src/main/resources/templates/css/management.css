@@ -1672,6 +1672,7 @@ width:100%;
 	padding: 12px;
 	padding-top:10px;
 }
+
 .dw-bk li{
 	width: 140px;
 	line-height: 23px;
@@ -1679,10 +1680,12 @@ width:100%;
 	font-size: 16px;
 	margin: 0px 0px;
 	float: left;
+    text-align: left;
 }
 .dw-bk li a{
-	color: #226c97;
+	color:#FF4040;/*#226c97;*/
 	cursor: pointer;
+	text-align: right;
 }
 .ul-header-docnum {
 	color:#226c97; /*#226c97;*/
