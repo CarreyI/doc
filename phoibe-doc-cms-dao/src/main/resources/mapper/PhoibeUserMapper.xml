@@ -35,6 +35,20 @@
     where ID = #{id,jdbcType=DECIMAL}
   </select>
 
+  <select id="isExitUser" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUser"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from PHOIBE_USER
+    where
+    <if test="userName != null">
+      USER_NAME = #{userName,jdbcType=VARCHAR} OR NICKNAME = #{nickname,jdbcType=VARCHAR}
+    </if>
+
+    <if test="userName == null">
+      NICKNAME = #{nickname,jdbcType=VARCHAR}
+    </if>
+
+  </select>
   <sql id="selectByParam_Condition_Sql">
     <where>
       1=1

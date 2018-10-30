@@ -4,22 +4,105 @@
     <meta charset="UTF-8">
     <title>用户管理</title>
     <link rel="stylesheet" href="css/management.css"/>
-	<link rel="stylesheet" href="css/layui.css">
-	<script src="js/jquery-2.1.0.min.js"></script>
-	<script src="js/layui.js"></script>
+    <link rel="stylesheet" href="css/layui.css">
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/layui.js"></script>
     <script src="js/data.js"></script>
-	<script src="js/usermgr.js"></script>
+    <script src="js/usermgr.js"></script>
 
 </head>
 <body>
-    <div id="tagmgr">
-        <div class="main box_border">
-            <div class="container box_border r-content">
-                    <div class="bg_whiteSD box_border search inputblock">
-                    <div class="plateHeader i-usermgr"></div>
+<div id="tagmgr">
+    <div class="main box_border">
+        <div class="container box_border r-content">
+            <div class="bg_whiteSD box_border search inputblock">
+                <div class="plateHeader i-usermgr"></div>
 
-                        <ul class="search-con"><li>  用户名:<input type="text" id="tag_username"/></li><li> 姓名:<input type="text" id="tag_realname"/></li><li>昵称:<input type="text" id="tag_nickname"/></li><li><select	id="tag_type">
-                            <option value="0">全部</option>
+                <ul class="search-con">
+                    <li> 用户名:<input type="text" id="tag_username"/></li>
+                    <li> 姓名:<input type="text" id="tag_realname"/></li>
+                    <li>昵称:<input type="text" id="tag_nickname"/></li>
+                    <li><select id="tag_type">
+                        <option value="0">全部</option>
+                        <option value="1">军</option>
+                        <option value="2 ">师</option>
+                        <option value="3">旅</option>
+                        <option value="4 ">团</option>
+                        <option value="5">营</option>
+                        <option value="6 ">连</option>
+                        <option value="7">排</option>
+                        <option value="8 ">班</option>
+                        <option value="9">兵</option>
+                        <option value="10">参谋</option>
+                    </select></li>
+                    <li>
+                        <span class="btnSearch" id="btnSearch"></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="line"></div>
+            <div class="list-content">
+                <div class="box_border">
+                    <div class="btn-cmd-list">
+                        <a id="btnadd">添加</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmodify">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a
+                            id="btndel">删除</a></div>
+                    <br/>
+                    <table class="tblist" border="0">
+                        <tr>
+                            <th></th>
+                            <th>用户名</th>
+                            <th>姓名</th>
+                            <th>昵称</th>
+                            <th>类型</th>
+                            <th>操作</th>
+                        </tr>
+                        <tbody id="tblist-body"></tbody>
+                    </table>
+                    <div id="notice_pages"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="bodyMask">
+    <div class="mask">
+        <span class="fullScreen"></span>
+        <div class="popup">
+            <div class="title">
+                <div class="model-title fl">新增用户</div>
+                <i class="closed fr"></i>
+            </div>
+            <div class="clearfix"></div>
+            <hr/>
+            　
+            <form action="phoibe/user/save" method="POST" id="ajaxform">
+
+                <div class="tbl-row">
+                    <div class="lable">*用户名:</div>
+                    <div class="ctrl">
+                        <input type="text" id="userName" name="userName" class="inputBox" title="用户名"/>
+                    </div>
+                </div>
+                <div class="tbl-row">
+                    <div class="lable">*姓名:</div>
+                    <div class="ctrl">
+                        <input type="text" id="realname" name="realname" class="inputBox" title="姓名"/>
+                    </div>
+                </div>
+                <div class="tbl-row">
+                    <div class="lable">*昵称:</div>
+                    <div class="ctrl">
+                        <input type="text" id="nickname" name="nickname" class="inputBox" title="昵称"/>
+                    </div>
+                </div>
+                <div class="tbl-row">
+                    <div class="lable">类型:</div>
+                    <div class="ctrl">
+                        <select id="type" name="type" id="usertype">
                             <option value="1">军</option>
                             <option value="2 ">师</option>
                             <option value="3">旅</option>
@@ -30,97 +113,33 @@
                             <option value="8 ">班</option>
                             <option value="9">兵</option>
                             <option value="10">参谋</option>
-                        </select></li>
-                        <li>
-                            <span class="btnSearch" id="btnSearch"></span>
-                        </li></ul>
+                        </select>
                     </div>
-
-                <div class="line"></div>
-               <div class="list-content">
-                       <div class="box_border">
-					    <div class="btn-cmd-list">
-					    <a id="btnadd">添加</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmodify">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btndel">删除</a></div>
-<br/>
-                             <table class="tblist" border="0">
-                                 <tr><th ></th><th>用户名</th><th>姓名</th><th>昵称</th><th>类型</th>
-                                     <th>操作</th></tr>
-                                  <tbody id="tblist-body"></tbody>
-                             </table>
-							   <div id="notice_pages"></div>
-						</div>
-               </div>
-             </div>
-            </div>
+                </div>
+                <div class="tbl-row">
+                    <div class="lable">*默认密码:</div>
+                    <div class="ctrl">
+                        <input type="text" id="password" name="password" class="inputBox" title="密码" value="123456"/>
+                    </div>
+                </div>
+                <div class="tbl-row">
+                    <div class="lable">*角色:</div>
+                    <div class="ctrl">
+                        <ul class="roleCheckbox" id="con-value">
+                        </ul>
+                    </div>
+                </div>
+                <input type="hidden" class="userId" name="userId" id="userId">
+                <div class="tbl-row">
+                    <div class="lable"></div>
+                    <div class="ctrl">
+                        <div id="submit" class="submit"></div>
+                        <div id="editBtn" class="submit"></div>
+                    </div>
+                </div>
+            </form>
         </div>
-</div>
-
- 
- <div class="bodyMask">
-	<div class="mask">
-    <span class="fullScreen"></span>
-    <div class="popup">
-        <div class="title">
-        <div class="model-title fl">新增用户</div><i class="closed fr"></i>
-        </div>
-        <div class="clearfix"></div> 
-        <hr />
-       　 <form action="phoibe/user/save" method="POST" id="ajaxform">
-
-                    <div class="tbl-row">
-                        <div class="lable">*用户名:</div>
-                        <div class="ctrl">
-                            <input type="text" id="userName" name="userName" class="inputBox"/>
-                        </div>
-                    </div>
-                    <div class="tbl-row">
-                        <div class="lable">*姓名:</div>
-                        <div class="ctrl">
-                            <input type="text" id="realname" name="realname" class="inputBox"/>
-                        </div>
-                    </div>
-                    <div class="tbl-row">
-                        <div class="lable">*昵称:</div>
-                        <div class="ctrl">
-                            <input type="text" id="nickname" name="nickname" class="inputBox"/>
-                        </div>
-                    </div>
-
-					<div class="tbl-row">
-						<div class="lable">类型:</div>
-						<div class="ctrl">
-                            <select	id="type" name="type" id="usertype">
-                                <option value="1">军</option>
-                                <option value="2 ">师</option>
-                                <option value="3">旅</option>
-                                <option value="4 ">团</option>
-                                <option value="5">营</option>
-                                <option value="6 ">连</option>
-                                <option value="7">排</option>
-                                <option value="8 ">班</option>
-                                <option value="9">兵</option>
-                                <option value="10">参谋</option>
-                            </select>
-						</div>
-					</div>
-                    <div class="tbl-row">
-                        <div class="lable">角色:</div>
-                        <div class="ctrl">
-                            <ul class="roleCheckbox" id="con-value">
-                            </ul>
-                        </div>
-                    </div>
-                    <input type="hidden" class="userId" name="userId">
-					<div class="tbl-row">
-						<div class="lable"></div>
-						<div class="ctrl">
-                            <div id="submit" class="submit"></div>
-                            <div id="editBtn" class="submit"></div>
-						</div>
-					</div>
-				</form>
     </div>
-        </div>
 </div>
 </body>
 </html>

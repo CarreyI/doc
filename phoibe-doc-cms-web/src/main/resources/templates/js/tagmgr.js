@@ -89,6 +89,20 @@ function tagDelAjax(tid){
         });
     }
 }
+function checkForm(){
+    if (""==$("#name").val()||null==$("#name").val()){
+        alert("请输入标签名称！");
+        return false;
+    }
+    if (""!=$("#orderby").val()&&null!=$("#orderby").val()){
+        if(isNaN($("#orderby").val())){
+            alert("请确认输入的排序是数字!")
+            return false;
+        }
+    }
+
+    return true
+}
 $(function () {
     loadData(0);
     $("#btnadd").click(function () {
@@ -137,65 +151,68 @@ $(function () {
     });
 
     $('#submit').click(function () {
-
-        var form = $("#ajaxform");
-        var formdata ={};
-        for (var i = 0; i < form.serializeArray().length; i++) {
-            var key = form.serializeArray()[i].name;
-            var value = form.serializeArray()[i].value;
-            formdata[key] = value;
-        }
-
-        $.ajax({
-            url: GAL_URL + form.attr("action"),
-            type: form.attr("method"),
-            data: JSON.stringify(formdata),
-            dataType: "json",
-            async: false,
-            // contentType: "contentType: application/x-www-form-urlencoded",
-            contentType: "application/json;charset=UTF-8",
-            success: function (data) {
-                if (data.code="success") {
-                    alert("提交成功");
-                    $("#ajaxform")[0].reset();
-                    $(".bodyMask").hide();
-                    loadData(0);
-                }else{
-                    alert("提交失败");
-                }
+        if (checkForm()){
+            var form = $("#ajaxform");
+            var formdata ={};
+            for (var i = 0; i < form.serializeArray().length; i++) {
+                var key = form.serializeArray()[i].name;
+                var value = form.serializeArray()[i].value;
+                formdata[key] = value;
             }
-        });
+            $.ajax({
+                url: GAL_URL + form.attr("action"),
+                type: form.attr("method"),
+                data: JSON.stringify(formdata),
+                dataType: "json",
+                async: false,
+                // contentType: "contentType: application/x-www-form-urlencoded",
+                contentType: "application/json;charset=UTF-8",
+                success: function (data) {
+                    if (data.code="success") {
+                        alert("提交成功");
+                        $("#ajaxform")[0].reset();
+                        $(".bodyMask").hide();
+                        loadData(0);
+                    }else{
+                        alert("提交失败");
+                    }
+                }
+            });
+        }
     })
     $('#editBtn').click(function () {
 
-        var form = $("#ajaxform");
-        var formdata ={};
-        for (var i = 0; i < form.serializeArray().length; i++) {
-            var key = form.serializeArray()[i].name;
-            var value = form.serializeArray()[i].value;
-            formdata[key] = value;
-        }
-        formdata.id=formdata.tagId;
-        var action ="phoibe/tag/update";
-        $.ajax({
-            url: GAL_URL + action,
-            type: form.attr("method"),
-            data: JSON.stringify(formdata),
-            dataType: "json",
-            async: false,
-            // contentType: "contentType: application/x-www-form-urlencoded",
-            contentType: "application/json;charset=UTF-8",
-            success: function (data) {
-                if (data.code="success") {
-                    $("#ajaxform")[0].reset();
-                    alert("提交成功");
-                    $(".bodyMask").hide();
-                    loadData(0);
-                }else{
-                    alert("提交失败");
-                }
+        if (checkForm()){
+
+            var form = $("#ajaxform");
+            var formdata ={};
+            for (var i = 0; i < form.serializeArray().length; i++) {
+                var key = form.serializeArray()[i].name;
+                var value = form.serializeArray()[i].value;
+                formdata[key] = value;
             }
-        });
+            formdata.id=formdata.tagId;
+            var action ="phoibe/tag/update";
+            $.ajax({
+                url: GAL_URL + action,
+                type: form.attr("method"),
+                data: JSON.stringify(formdata),
+                dataType: "json",
+                async: false,
+                // contentType: "contentType: application/x-www-form-urlencoded",
+                contentType: "application/json;charset=UTF-8",
+                success: function (data) {
+                    if (data.code="success") {
+                        $("#ajaxform")[0].reset();
+                        alert("提交成功");
+                        $(".bodyMask").hide();
+                        loadData(0);
+                    }else{
+                        alert("提交失败");
+                    }
+                }
+            });
+        }
     })
 });
 
@@ -211,7 +228,7 @@ function getTag(Id){
             if (data.code="success") {
                 var tagObj = data.data;
                 $("#name").val(tagObj.name);
-                $("#orderBy").val(tagObj.orderby);
+                $("#orderby").val(tagObj.orderby);
                 $("#tagId").val(tagObj.id);
                 $(".bodyMask").fadeIn();
             }

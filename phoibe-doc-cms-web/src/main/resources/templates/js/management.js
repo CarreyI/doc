@@ -295,8 +295,10 @@ function authExit() {
 }
 function cutString(str, len) {
 
+    if (null==str||""==str){
+        return "";
+    }
     //length属性读出来的汉字长度为1
-
     if (str.length * 2 <= len) {
 
         return str;

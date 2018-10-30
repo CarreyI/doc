@@ -18,7 +18,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/phoibe/","/phoibe/login","/phoibe/userlogin","/phoibe/logout","/phoibe/uopload/docSaveUpload","/**/*.*","/phoibe/user/save","/phoibe/user/list/**");
+        web.ignoring().antMatchers("/phoibe/","/phoibe/login","/phoibe/userlogin","/phoibe/logout","/phoibe/uopload/docSaveUpload","/**/*.*","/phoibe/user/isExitUser","/phoibe/user/save","/phoibe/user/list/**");
     }
 
     @Override

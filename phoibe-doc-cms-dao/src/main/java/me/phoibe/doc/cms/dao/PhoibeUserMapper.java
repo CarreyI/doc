@@ -16,6 +16,8 @@ public interface PhoibeUserMapper {
 
     int insertSelective(PhoibeUser record);
 
+    List<PhoibeUser> isExitUser(PhoibeUser record);
+
     PhoibeUser selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(PhoibeUser record);

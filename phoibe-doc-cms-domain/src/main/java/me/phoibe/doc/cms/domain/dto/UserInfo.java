@@ -21,7 +21,18 @@ public class UserInfo {
 
     private String nickname;
 
+    private String password;
+
     private List<PhoibeRole> roles;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 
     public Short getStatus() {
         return status;

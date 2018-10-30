@@ -43,7 +43,6 @@ $(function () {
         if (!userCheckAjax()){
             return
         }
-        checkUserForm();
         var form = $("#ajaxform");
         var formdata ={};
         for (var i = 0; i < form.serializeArray().length; i++) {
@@ -89,21 +88,27 @@ function userCheckAjax(){
     $("#ajaxform input").each(function () {
         if (!$(this).val()){
             msg+=$(this).attr("title")+"不能为空！";
-            pd =false;
+           pd = false;
         }
     });
+    var regpassword = $("#regpassword").val();
+    var repassword = $("#repassword").val();
+    if(regpassword!=repassword){
+        alert("请确认密码两次输入一致！");
+        return false;
+    }
     if (pd){
         var userName = $("#userName").val();
         var nickname = $("#nickname").val();
         $.ajax({
-            url: GAL_URL + "/phoibe/user/list/0/10?userName="+userName+"&nickname="+nickname,
+            url: GAL_URL + "/phoibe/user/isExitUser?userName="+userName+"&nickname="+nickname,
             type: "GET",
             dataType: "json",
             async: false,
             contentType: "application/json;charset=UTF-8",
             success: function (data) {
                 if (data.code="SUCCESS") {
-                    if (data.data.dataList.length>0){
+                    if (data.data.length>0){
                         pd= false;
                         alert("用户名或昵称已存在")
                     }
@@ -117,12 +122,4 @@ function userCheckAjax(){
         alert(msg)
     }
     return pd
-}
-function checkUserForm(){
-    var regpassword = $("#regpassword").val();
-    var repassword = $("#repassword").val();
-    if(regpassword!=repassword){
-        alert("请确认密码两次输入一致！");
-        return
-    }
 }

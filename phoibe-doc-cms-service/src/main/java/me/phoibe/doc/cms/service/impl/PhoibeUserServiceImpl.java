@@ -113,6 +113,7 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
     public void modifyUser(DPhoibeUser dPhoibeUser) {
         PhoibeUser user = new PhoibeUser();
         BeanUtils.copyProperties(dPhoibeUser,user);
+        user.setPassword(DigestUtils.md5Hex(user.getPassword()));
         phoibeUserMapper.updateByPrimaryKeySelective(user);
         phoibeUserRoleMapper.deleteByUserId(user.getId());
         for(Long roleId : dPhoibeUser.getRoleId()) {
@@ -148,4 +149,9 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
     public void cancelSubscribe(PhoibeSubscribe phoibeSubscribe) {
         phoibeSubscribeMapper.deleteByParam(phoibeSubscribe);
     }
+    @Override
+    public List<PhoibeUser> isExitUser(DPhoibeUser userInfo) {
+        return phoibeUserMapper.isExitUser(userInfo);
+    }
+
 }
