@@ -88,7 +88,7 @@ var pageSize=20;
         layui.use(['laypage', 'layer'], function () {
             var laypage = layui.laypage
             , layer = layui.layer;
-
+//alert(currPage);
             laypage.render({
                 elem: 'notice_pages'
               , count: totalRows

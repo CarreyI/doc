@@ -1,13 +1,13 @@
 
 var totalRows = 0;
 var currPage = 0;
+var pageSize =18;
 var docstatus="1&f=audit";
 
         function loadData(pageindex) {
-            currPage = pageindex;
             $("#tblist-body").children().remove();
 
-            var data = GAL_URL+'phoibe/document/list/user/'+pageindex+'/20?1=1';
+            var data = GAL_URL+'phoibe/document/list/user/'+pageindex+'/'+pageSize+'?1=1';
 
             var docname = $("#docname").val();
             if (docname!=""&&docname != null){
@@ -34,6 +34,7 @@ var docstatus="1&f=audit";
                 data = data + "&stockTimeEnd=" + stockTimeEnd;
             }
             data = data + "&auditStatus=2&isstock=" + docstatus;
+           // alert(data);
             $.ajax({
                 type: 'GET',
                 url: data,
@@ -99,7 +100,7 @@ var docstatus="1&f=audit";
              elem: 'notice_pages'
            , count: totalRows
            ,curr:currPage
-             ,limit:20
+             ,limit:pageSize
            , first: '首页'
            , last: '尾页'
            , prev: '<em>←</em>'
@@ -151,7 +152,7 @@ function docDelAjax(rowid){
 }
         $(function () {
 
-            loadData(0);
+            loadData(currPage);
 
             $("#btnaddstock").click(function () {
                 var sel = $("#tblist-body tr td input[type='radio']:checked");
@@ -173,7 +174,7 @@ function docDelAjax(rowid){
             });
 
             $("#btnSearch").click(function () {
-                currPage = 1;
+                currPage = 0;
                 totalRows = 0;
                 loadData(0);
             });
