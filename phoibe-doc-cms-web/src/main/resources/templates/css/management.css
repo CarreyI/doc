@@ -711,13 +711,12 @@ border:1px solid #5e90ca;/*#fffdfe;;*/
 	padding:10px;*/
 }
 
-#index-m .main, #docdetail .main, #tagmgr .main, #sysmgr .main,
-	#stockmgr .main, #percenter .main,#docmgr .main, #auditupload .main {
+#index-m .main, #docdetail .main, #tagmgr .main, #sysmgr .main,#docmgr .main{
 	padding-left: 0px;
 	padding-top: 20px;
 	padding-right: 20px;
 }
-#docmgr .main{
+#docmgr .main,#stockmgr .main,#auditupload .main,#percenter .main{
 	padding-top:4px;
 }
 
