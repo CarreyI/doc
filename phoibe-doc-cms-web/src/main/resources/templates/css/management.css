@@ -198,6 +198,8 @@ body, html {
 	position: relative;
 	padding-top: 52px;
 	margin-right:20px;
+	max-width: 1920px;
+	min-width: 1580px;
 }
 
 .main .header {
@@ -1664,7 +1666,7 @@ ul.search-con li .btnSearch{
 
 .list1 {
 	width: 100%;
-	margin-left: 4px
+	margin-left: 4px;
 }
 
 .dw-bk {
