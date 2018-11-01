@@ -1681,9 +1681,10 @@ ul.search-con li .btnSearch{
 	font-size: 16px;
 	margin: 0px 0px;
 	float: left;
+	text-align: left;
 }
 .dw-bk li a{
-	color: #226c97;
+	color: #FF5722;
 	cursor: pointer;
 }
 .ul-header-docnum {
