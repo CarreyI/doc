@@ -151,7 +151,7 @@ function bindResouDoc() {
                     else {
                         icon = "<i class='exls'></i>";
                     }
-                    row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" + cutString(title, 34) + "</a></li>";
+                    row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" + cutString(title, 30) + "</a></li>";
                 }
                 var scoreStr="";
                 for(var l=0;l<score;l++){
@@ -204,9 +204,9 @@ function bindRecommDoc() {
                 var description=val["description"];
                 var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
                 row = row + "<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
-                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>" + icon +cutString(docname,28)+
+                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>" + icon +cutString(docname,24)+
                     "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime.substring("5","10")+"</span></h5></div>"+
-                    "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
+                    "<div class='right-item-desc'>"+cutString(description,74)+"</div>"+
                     "</a></li>";
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ul class='list1'>" + row + "</ul></div>";;
