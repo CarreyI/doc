@@ -235,6 +235,9 @@ function bindDym() {
                 var createTime = val["stockTime"];
                 var tid = val["id"];
                 var description=val["description"];
+                if (""==description||null==description){
+                    description="当前没有摘要内容，请查看附件...";
+                }
                 var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
                 var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
                     "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,24)+

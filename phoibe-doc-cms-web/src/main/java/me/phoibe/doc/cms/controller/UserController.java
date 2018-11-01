@@ -6,6 +6,7 @@ import me.phoibe.doc.cms.domain.dto.UserInfo;
 import me.phoibe.doc.cms.domain.po.PageList;
 import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeRole;
+import me.phoibe.doc.cms.domain.po.PhoibeUser;
 import me.phoibe.doc.cms.entity.Code;
 import me.phoibe.doc.cms.entity.Result;
 import me.phoibe.doc.cms.security.JwtUtil;
@@ -49,6 +50,13 @@ public class UserController {
         PageList<UserInfo> pageList = phoibeUserService.fetchUserPageList(pageParam);
         LogUtil.writeLog("浏览了用户管理信息", LogUtil.OPER_TYPE_LOOK,"用户管理",UserController.class,request);
         return JsonUtils.toJson(new Result<PageList<UserInfo>>(Code.SUCCESS, pageList));
+
+    }
+    @GetMapping("/isExitUser")
+    public String isExitUser(@ModelAttribute DPhoibeUser dPhoibeUser, HttpServletRequest request){
+
+        List<PhoibeUser> list = phoibeUserService.isExitUser(dPhoibeUser);
+        return JsonUtils.toJson(new Result<List<PhoibeUser>>(Code.SUCCESS, list));
 
     }
 

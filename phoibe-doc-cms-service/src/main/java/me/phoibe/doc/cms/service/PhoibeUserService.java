@@ -19,6 +19,8 @@ public interface PhoibeUserService {
 
     PageList<UserInfo> fetchUserPageList(PageParam<UserInfo> pageParam);
 
+    List<PhoibeUser> isExitUser(DPhoibeUser dPhoibeUser);
+
     void addUser(DPhoibeUser dPhoibeUser) throws UnsupportedEncodingException;
 
     void modifyUser(DPhoibeUser dPhoibeUser);

@@ -233,6 +233,14 @@ public class DocumentController {
 		pageParam.setLimit(limit);
 		pageParam.setParam(param == null ? new DPhoebeDocument() : param);
 
+		if(!StringUtils.isEmpty(param.getContentStr())){
+			Long userId = getUserId(request);
+			PhoibeSearch phoibeSearch = new PhoibeSearch();
+			phoibeSearch.setUserId(userId);
+			phoibeSearch.setSearchContent(param.getContentStr());
+			phoibeSearchService.addSearch(phoibeSearch);
+		}
+
 		PageList<DPhoebeDocument> list = phoibeDocumentService.fetchDocumentUserList(pageParam);
 		LogUtil.writeLog("浏览了文档", LogUtil.OPER_TYPE_LOOK,"个人文档", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, list));

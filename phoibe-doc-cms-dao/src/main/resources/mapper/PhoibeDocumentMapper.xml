@@ -523,16 +523,16 @@
         and WARNUM &lt;= #{param.warnumEnd,jdbcType=DECIMAL}
       </if>
       <if test="param.dirId != null">
-        and ID in (select DOCUMENT_ID from PHOIBE_DOC_DIR where DIRECTORY_ID = #{param.dirId,jdbcType=DECIMAL})
+        and d.ID in (select DOCUMENT_ID from PHOIBE_DOC_DIR where DIRECTORY_ID = #{param.dirId,jdbcType=DECIMAL})
       </if>
       <if test="param.contentStr != null and param.contentStr != ''">
-        and ID in (select DOCUMENT_ID from PHOIBE_ATTACH_CONTENT where ATTACH_CONTENT LIKE '%'||#{param.contentStr,jdbcType=VARCHAR}||'%')
+        and d.ID in (select DOCUMENT_ID from PHOIBE_ATTACH_CONTENT where ATTACH_CONTENT LIKE '%'||#{param.contentStr,jdbcType=VARCHAR}||'%')
       </if>
       <if test="param.queryFlag != null and param.queryFlag == 'subscribe'">
-        and USER_ID in (select SUB_USER_ID from PHOIBE_SUBSCRIBE where USER_ID = #{param.queryUserId,jdbcType=DECIMAL})
+        and d.USER_ID in (select SUB_USER_ID from PHOIBE_SUBSCRIBE where USER_ID = #{param.queryUserId,jdbcType=DECIMAL})
       </if>
       <if test="param.queryFlag != null and param.queryFlag == 'handpick'">
-        and ID in (select t.DOCUMENT_ID from (select DOCUMENT_ID,ROWNUM rno from (select DOCUMENT_ID,count(DOCUMENT_ID) c from PHOIBE_COLLECTION group by DOCUMENT_ID order by c desc)) t)
+        and d.ID in (select t.DOCUMENT_ID from (select DOCUMENT_ID,ROWNUM rno from (select DOCUMENT_ID,count(DOCUMENT_ID) c from PHOIBE_COLLECTION group by DOCUMENT_ID order by c desc)) t)
       </if>
       <if test="param.armsArray!= null">
         and ARMS in
@@ -667,10 +667,10 @@
         and WARNUM &lt;= #{param.warnumEnd,jdbcType=DECIMAL}
       </if>
       <if test="param.dirId != null">
-        and ID in (select DOCUMENT_ID from PHOIBE_DOC_DIR where DIRECTORY_ID = #{param.dirId,jdbcType=DECIMAL})
+        and d.ID in (select DOCUMENT_ID from PHOIBE_DOC_DIR where DIRECTORY_ID = #{param.dirId,jdbcType=DECIMAL})
       </if>
       <if test="param.contentStr != null and param.contentStr != ''">
-        and ID in (select DOCUMENT_ID from PHOIBE_ATTACH_CONTENT where ATTACH_CONTENT LIKE '%'||#{param.contentStr,jdbcType=VARCHAR}||'%')
+        and d.ID in (select DOCUMENT_ID from PHOIBE_ATTACH_CONTENT where ATTACH_CONTENT LIKE '%'||#{param.contentStr,jdbcType=VARCHAR}||'%')
       </if>
     </where>
   </sql>

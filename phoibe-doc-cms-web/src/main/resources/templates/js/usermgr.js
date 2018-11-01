@@ -143,6 +143,7 @@ $(function () {
         $("#ajaxform")[0].reset();
         $(".bodyMask").fadeIn();
         $(".model-title").html("添加用户");
+        $("#userName").removeAttr("disabled");
         $("#editBtn").hide();
         $("#submit").show();
     });
@@ -176,74 +177,134 @@ $(function () {
     });
 
     $('#submit').click(function () {
-        var form = $("#ajaxform");
-        var formdata ={};
-        for (var i = 0; i < form.serializeArray().length; i++) {
-            var key = form.serializeArray()[i].name;
-            var value = form.serializeArray()[i].value;
-            formdata[key] = value;
-        }
-        var roleArray=[];
-        var Id=3;
-        roleArray.push(Id);
-        formdata.roleId = roleArray;
-        formdata.password="123456";
-        $.ajax({
-            url: GAL_URL + form.attr("action"),
-            type: form.attr("method"),
-            data: JSON.stringify(formdata),
-            dataType: "json",
-            async: false,
-            contentType: "application/json;charset=UTF-8",
-            success: function (data) {
-                if (data.code="success") {
-                    $("#ajaxform")[0].reset();
-                    alert("提交成功");
-                    $(".bodyMask").hide();
-                    loadData(0);
-                }else{
-                    alert("提交失败");
-                }
+        if (checkForm()){
+            var form = $("#ajaxform");
+            var formdata ={};
+            for (var i = 0; i < form.serializeArray().length; i++) {
+                var key = form.serializeArray()[i].name;
+                var value = form.serializeArray()[i].value;
+                formdata[key] = value;
             }
-        });
+            var roleArray=[];
+            var Id=3;
+            roleArray.push(Id);
+            formdata.roleId = roleArray;
+            $.ajax({
+                url: GAL_URL + form.attr("action"),
+                type: form.attr("method"),
+                data: JSON.stringify(formdata),
+                dataType: "json",
+                async: false,
+                contentType: "application/json;charset=UTF-8",
+                success: function (data) {
+                    if (data.code="success") {
+                        $("#ajaxform")[0].reset();
+                        alert("提交成功");
+                        $(".bodyMask").hide();
+                        loadData(0);
+                    }else{
+                        alert("提交失败");
+                    }
+                }
+            });
+        }
     })
 
     $('#editBtn').click(function () {
-        var action = "phoibe/user/update";
-        var form = $("#ajaxform");
-        var formdata ={};
-        for (var i = 0; i < form.serializeArray().length; i++) {
-            var key = form.serializeArray()[i].name;
-            var value = form.serializeArray()[i].value;
-            formdata[key] = value;
-        }
-        var roleArray=[];
-        $("#ajaxform input[type=checkbox]:checked").each(function(){
-            var Id = $(this).attr("role_Id");
-            roleArray.push(Id);
-        });
-        formdata.roleId = roleArray;
-        formdata.id = formdata.userId;
-        $.ajax({
-            url: GAL_URL + action,
-            type: form.attr("method"),
-            data: JSON.stringify(formdata),
-            dataType: "json",
-            async: false,
-            contentType: "application/json;charset=UTF-8",
-            success: function (data) {
-                if (data.code="success") {
-                    alert("提交成功");
-                    $(".bodyMask").hide();
-                    loadData(0);
-                }else{
-                    alert("提交失败");
-                }
+        if (checkForm()){
+
+            var action = "phoibe/user/update";
+            var form = $("#ajaxform");
+            var formdata ={};
+            for (var i = 0; i < form.serializeArray().length; i++) {
+                var key = form.serializeArray()[i].name;
+                var value = form.serializeArray()[i].value;
+                formdata[key] = value;
             }
-        });
+            var roleArray=[];
+            $("#ajaxform input[type=checkbox]:checked").each(function(){
+                var Id = $(this).attr("role_Id");
+                roleArray.push(Id);
+            });
+            formdata.roleId = roleArray;
+            formdata.id = formdata.userId;
+            $.ajax({
+                url: GAL_URL + action,
+                type: form.attr("method"),
+                data: JSON.stringify(formdata),
+                dataType: "json",
+                async: false,
+                contentType: "application/json;charset=UTF-8",
+                success: function (data) {
+                    if (data.code="success") {
+                        alert("提交成功");
+                        $(".bodyMask").hide();
+                        loadData(0);
+                    }else{
+                        alert("提交失败");
+                    }
+                }
+            });
+        }
     })
 
 });
+
+function checkForm(){
+    var pd=true;
+    if (""==$("#userName").val()||null==$("#userName").val()){
+        alert("请输入用户名！");
+        return false;
+    }
+    if (""==$("#realname").val()||null==$("#realname").val()){
+        alert("请输入姓名！");
+        return false;
+    }
+    if (""==$("#nickname").val()||null==$("#nickname").val()){
+        alert("请输入昵称！");
+        return false;
+    }
+    if ($("#ajaxform input[type=checkbox]:checked").length==0){
+            alert("请选择至少一个角色")
+        return false;
+    }
+    var userName = $("#userName").val();
+    var nickname = $("#nickname").val();
+    var url="/phoibe/user/isExitUser?userName="+userName+"&nickname="+nickname;
+    if($("#userName").attr("disabled")=="disabled"){
+        url="/phoibe/user/isExitUser?nickname="+nickname;
+    }
+    $.ajax({
+        url: GAL_URL + url,
+        type: "GET",
+        dataType: "json",
+        async: false,
+        contentType: "application/json;charset=UTF-8",
+        success: function (data) {
+            if (data.code="SUCCESS") {
+                if (data.data.length>0){
+                    if (data.data.length==1){
+                        var userid = data.data[0].id;
+                        var h_userId = $("#userId").val();
+                        if (userid==h_userId){
+                            pd= true;
+                        }else {
+                            pd= false;
+                            alert("用户名或昵称已存在")
+                        }
+                    }else{
+                        pd= false;
+                        alert("用户名或昵称已存在")
+                    }
+                }
+            }else{
+                alert("注册出错，请联系管理员")
+                pd= false;
+            }
+        }
+    });
+    return pd;
+}
 function getRolelist(){
 
     $.ajax({
@@ -261,7 +322,11 @@ function getRolelist(){
                     var roleId = roleObj[i].roleId;
                     var roleType = roleObj[i].roleType;
                     var roleName = roleObj[i].roleName;
-                    rolelist_html = rolelist_html + "<li><input name=\"roleId\" type=\"checkBox\" role_Id="+roleId+" role_type="+roleType+">"+roleName+"</li>";
+                    var checkedHtml="";
+                    if (roleType==103){
+                        checkedHtml = "checked='checked'"
+                    }
+                    rolelist_html = rolelist_html + "<li><input name=\"roleId\" type=\"checkBox\" role_Id="+roleId+" role_type="+roleType+" "+checkedHtml+">"+roleName+"</li>";
                 }
                 $(".roleCheckbox").html(rolelist_html);
             }
@@ -293,7 +358,7 @@ function getUser(Id){
                     var roleType = roleObj[i].roleType;
                     $("#ajaxform input[role_type="+roleType+"]").prop("checked",true);
                 }
-
+                $("#userName").attr("disabled","disabled");
                 $(".bodyMask").fadeIn();
             }
         }

@@ -1,6 +1,7 @@
 var totalRows = 10;
 var currPage = 0;
 var groupKey="";
+var gourpMaxNum={};
 function loadData(pageindex) {
 
     $("#tblist-body").children().remove();
@@ -40,7 +41,6 @@ function loadData(pageindex) {
                 var dictName =  val["dictName"];
                 var groupKey =  val["groupKey"];
                 var orderBy =  val["orderBy"];
-
 
                 var row = "<tr><td>"
                     + dictName + "</td>" +
@@ -145,6 +145,21 @@ function loadDataMenu(){
     });
 
 }
+
+function checkForm(){
+    if (""==$("#dictName").val()||null==$("#dictName").val()){
+        alert("请输入属性名称！");
+        return false;
+    }
+    if (""!=$("#orderBy").val()&&null!=$("#orderBy").val()){
+        if(isNaN($("#orderBy").val())){
+            alert("请确认输入的排序是数字!")
+            return false;
+        }
+    }
+
+    return true
+}
 $(function () {
 
     loadData(0);
@@ -193,34 +208,35 @@ $(function () {
         });
     })
     $('#son_submit').click(function () {
-
-        var form = $("#son_ajaxform");
-        var formdata ={};
-        for (var i = 0; i < form.serializeArray().length; i++) {
-            var key = form.serializeArray()[i].name;
-            var value = form.serializeArray()[i].value;
-            formdata[key] = value;
-        }
-        formdata.status=1;
-        $.ajax({
-            url: GAL_URL + form.attr("action"),
-            type: form.attr("method"),
-            data: JSON.stringify(formdata),
-            dataType: "json",
-            async: false,
-            // contentType: "contentType: application/x-www-form-urlencoded",
-            contentType: "application/json;charset=UTF-8",
-            success: function (data) {
-                if (data.code="success") {
-                    alert("提交成功");
-                    $("#son_ajaxform")[0].reset();
-                    $(".son_bodyMask").hide();
-                    loadData(0);
-                }else{
-                    alert("提交失败");
-                }
+        if (checkForm()){
+            var form = $("#son_ajaxform");
+            var formdata ={};
+            for (var i = 0; i < form.serializeArray().length; i++) {
+                var key = form.serializeArray()[i].name;
+                var value = form.serializeArray()[i].value;
+                formdata[key] = value;
             }
-        });
+            formdata.status=1;
+            $.ajax({
+                url: GAL_URL + form.attr("action"),
+                type: form.attr("method"),
+                data: JSON.stringify(formdata),
+                dataType: "json",
+                async: false,
+                // contentType: "contentType: application/x-www-form-urlencoded",
+                contentType: "application/json;charset=UTF-8",
+                success: function (data) {
+                    if (data.code="success") {
+                        alert("提交成功");
+                        $("#son_ajaxform")[0].reset();
+                        $(".son_bodyMask").hide();
+                        loadData(0);
+                    }else{
+                        alert("提交失败");
+                    }
+                }
+            });
+        }
     })
 
 });
