@@ -245,6 +245,7 @@ function bindDym() {
                     "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
                     "</a></li>";
                 $("#lst-dym").append(row);
+                //alert(row);
             });
         }
     });
