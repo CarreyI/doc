@@ -2,6 +2,7 @@
 /*reset*/
 body {
 	font-size:14px;
+	overflow:scroll;
 }
 body, p, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, hr, blockquote,
 object, iframe, fieldset, input, legend, form, th, td {
@@ -200,6 +201,7 @@ body, html {
 	margin-right:20px;
 	max-width: 1920px;
 	min-width: 1580px;
+
 }
 
 .main .header {
