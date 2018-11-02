@@ -2,7 +2,7 @@
 /*reset*/
 body {
 	font-size:14px;
-	overflow:hidden;
+	/*overflow:auto;*/
 }
 body, p, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, hr, blockquote,
 object, iframe, fieldset, input, legend, form, th, td {
@@ -1450,6 +1450,10 @@ ol.list1 {
 }
 #doenlist{
 	display: none;
+}
+#index {
+	height:1080px;
+	overflow:hidden;
 }
 #index .mask {
 	height: auto;
