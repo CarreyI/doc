@@ -83,6 +83,13 @@
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.aspose.words</groupId>
+			<artifactId>aspose-words-14.9.0-jdk16</artifactId>
+			<version>14.9.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/aspose-words-14.9.0-jdk16.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<profiles>
@@ -123,6 +130,7 @@
 				<configuration>
 					<mainClass>me.phoibe.doc.cms.Application</mainClass>
 					<layout>ZIP</layout>
+					<includeSystemScope>true</includeSystemScope>
 				</configuration>
 				<executions>
 					<execution>
