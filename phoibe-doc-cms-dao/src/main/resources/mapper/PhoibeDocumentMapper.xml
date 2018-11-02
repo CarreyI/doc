@@ -571,6 +571,16 @@
     <include refid="selectByPage_Condition_Sql"/>
   </select>
 
+  <select id="selectDocumentUserCount" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
+    select
+    COUNT(*)
+    from PHOIBE_DOCUMENT d JOIN PHOIBE_USER u ON d.USER_ID = u.ID
+    <include refid="selectByPage_Condition_Sql"/>
+
+    <if test="param.nickname != null">
+      and u.NICKNAME LIKE '%'||#{param.nickname,jdbcType=VARCHAR}||'%'
+    </if>
+  </select>
   <select id="selectRelevantByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">
     select * from (SELECT a.*,rownum rno FROM (
     select

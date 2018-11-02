@@ -146,7 +146,7 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
     @Override
     public PageList<DPhoebeDocument> fetchDocumentUserList(PageParam<DPhoebeDocument> pageParam) {
         List<DPhoebeDocument> dlist =  phoibeDocumentMapper.selectDocumentUser(pageParam);
-        return PageList.createPage(pageParam,phoibeDocumentMapper.selectCountByPage(pageParam),dlist);
+        return PageList.createPage(pageParam,phoibeDocumentMapper.selectDocumentUserCount(pageParam),dlist);
     }
 
     @Override

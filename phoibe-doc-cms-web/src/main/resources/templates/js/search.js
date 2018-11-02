@@ -6,7 +6,6 @@ function loadData(type,pageindex) {
 
     var url = 'phoibe/document/list/user/' + pageindex + '/'+pageSize+'?1=1';
     var data="";
-
     var searchKey = $("#search-key").val();
     if (searchKey!=""&&searchKey!=null){
         data = data+ "&contentStr=" + searchKey;
