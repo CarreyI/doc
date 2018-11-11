@@ -37,8 +37,9 @@ public class DictController {
         pageParam.setParam(phoibeDict == null ? new PhoibeDict() : phoibeDict);
 
         PageList<PhoibeDict> pageList = phoibeDictService.fetchByPage(pageParam);
-
-        LogUtil.writeLog("浏览了数据字典记录", LogUtil.OPER_TYPE_LOOK,"数据字典", DictController.class,request);
+        if(phoibeDict.getDictType()==2){
+            LogUtil.writeLog("浏览了数据字典记录", LogUtil.OPER_TYPE_LOOK,"数据字典", DictController.class,request);
+        }
         return JsonUtils.toJson(new Result<PageList<PhoibeDict>>(Code.SUCCESS, pageList));
 
     }

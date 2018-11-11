@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <!--读取配置中心的属性-->
+    <springProperty scope="context" name="datasource.driverClassName" source="spring.datasource.driver-class-name"/>
+    <springProperty scope="context" name="datasource.url" source="spring.datasource.url"/>
+    <springProperty scope="context" name="datasource.username" source="spring.datasource.username"/>
+    <springProperty scope="context" name="datasource.password" source="spring.datasource.password"/>
 
     <!--打印到控制台-->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">   
@@ -18,10 +23,10 @@
     <appender name="DB-CLASSIC-ORACLE-POOL" class="ch.qos.logback.classic.db.DBAppender">
         <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
             <dataSource class="com.mchange.v2.c3p0.ComboPooledDataSource">
-                <driverClass>oracle.jdbc.driver.OracleDriver</driverClass>
-                <jdbcUrl>jdbc:oracle:thin:@101.201.220.162:1522:wemem</jdbcUrl>
-                <user>docsysadmin</user>
-                <password>Yhc5880908</password>
+                <driverClass>${datasource.driverClassName}</driverClass>
+                <jdbcUrl>${datasource.url}</jdbcUrl>
+                <user>${datasource.username}</user>
+                <password>${datasource.password}</password>
             </dataSource>
         </connectionSource>
     </appender>
