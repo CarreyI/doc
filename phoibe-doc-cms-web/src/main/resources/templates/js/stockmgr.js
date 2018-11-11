@@ -75,7 +75,7 @@ var docstatus="1&f=audit";
                             + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>"
                             +owner+"</td><td>" + auditTime  + "</td><td>"
                             + stockTime+ "</td><td  class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td>" +
-                            "<td><a class='list-del doc-add' tid='"+id+"'>入库</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
+                            "<td><a class='list-del doc-detail' tid='"+id+"'>详细</a>&nbsp;&nbsp;<a class='list-del doc-add' tid='"+id+"'>入库</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
                         $("#tblist-body").append(row);
                         parent.iframeLoad();
                     });
@@ -88,6 +88,10 @@ var docstatus="1&f=audit";
                         var tid = $(this).attr("tid");
                         docDelAjax(tid);
 
+                    });
+                    $(".doc-detail").click(function () {
+                        var tid = $(this).attr("tid");
+                        parent.docDetailOpenController(tid);
                     });
                 }
             });

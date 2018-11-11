@@ -79,9 +79,6 @@
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
-  <select id="selectHotSearch" resultType="java.lang.String" >
-    select SEARCH_CONTENT from (select SEARCH_CONTENT,ROWNUM rno from (select SEARCH_CONTENT from PHOIBE_SEARCH group by SEARCH_CONTENT order by count(SEARCH_CONTENT) desc)) where rno between 1 and 9
-  </select>
   <delete id="deleteOldByUserId" parameterType="long">
     delete from PHOIBE_SEARCH where ID in (select t.id from (SELECT a.ID id,rownum rno FROM (
     select
@@ -91,10 +88,22 @@
     ORDER BY CREATE_TIME desc ) a
     ) t WHERE t.rno > 10)
   </delete>
+  <select id="selectHotSearch" resultType="java.lang.String" >
+    select SEARCH_CONTENT from (select SEARCH_CONTENT,ROWNUM rno from (select SEARCH_CONTENT from PHOIBE_SEARCH group by SEARCH_CONTENT order by count(SEARCH_CONTENT) desc)) where rno between 1 and 6
+  </select>
   <select id="selectByUserId" parameterType="long" resultType="java.lang.String" >
-    select SEARCH_CONTENT from (select SEARCH_CONTENT,ROWNUM rno from PHOIBE_SEARCH where USER_ID = #{userId,jdbcType=DECIMAL} order by CREATE_TIME desc) where rno between 1 and 9
+    select SEARCH_CONTENT from (select SEARCH_CONTENT,ROWNUM rno from PHOIBE_SEARCH where USER_ID = #{userId,jdbcType=DECIMAL} order by CREATE_TIME desc) where rno between 1 and 6
   </select>
   <select id="selectCountByContent" parameterType="java.lang.String" resultType="java.lang.Integer">
-    select count(*) from PHOIBE_SEARCH where SEARCH_CONTENT = #{_parameter,jdbcType=VARCHAR}
+    select count(*) from PHOIBE_SEARCH where 1=1
+    <if test="searchContent != null">
+     and SEARCH_CONTENT = #{searchContent,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null">
+     and USER_ID = #{userId,jdbcType=DECIMAL}
+    </if>
+    <if test="createTime != null">
+    and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    </if>
   </select>
 </mapper>

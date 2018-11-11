@@ -332,7 +332,7 @@ function favoriteAjax(){
 //下载
 function downloadAjax(){
     url = GAL_URL + "phoibe/document/download?Id=" + tid;
-    window.location.href = url;
+    window.open(url);
     // $.ajax({
     //     type: 'GET',
     //     url: url,

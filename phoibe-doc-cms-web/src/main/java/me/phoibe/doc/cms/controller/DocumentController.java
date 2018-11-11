@@ -108,6 +108,12 @@ public class DocumentController {
 			phoibeSearch.setUserId(userId);
 			phoibeSearch.setSearchContent(param.getContentStr());
 			phoibeSearchService.addSearch(phoibeSearch);
+
+			String[] contentArray = param.getContentStr().split(" ");
+			if (contentArray.length>1){
+				param.setContentStr(null);
+				param.setContentArray(contentArray);
+			}
 		}
 
 		if(!StringUtils.isEmpty(param.getQueryFlag())){
@@ -239,6 +245,12 @@ public class DocumentController {
 			phoibeSearch.setUserId(userId);
 			phoibeSearch.setSearchContent(param.getContentStr());
 			phoibeSearchService.addSearch(phoibeSearch);
+
+			String[] contentArray = param.getContentStr().split(" ");
+			if (contentArray.length>1){
+                param.setContentStr(null);
+			    param.setContentArray(contentArray);
+            }
 		}
 
 		PageList<DPhoebeDocument> list = phoibeDocumentService.fetchDocumentUserList(pageParam);

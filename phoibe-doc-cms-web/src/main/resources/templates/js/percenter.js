@@ -380,11 +380,13 @@ function loadData(pageindex) {
                         auditstatus = "审核不通过";
                         auditstatustyle = "f-red";
                     }
+                    var docdetailHtml="<a class='list-del doc-detail' tid='"+id+"'>详细</a>&nbsp;&nbsp;";
                     var url="href='docdetail.html?tid=" + tid + "'";
                     if (status==101){
                         auditstatus="上传中断";
                         auditstatustyle = "f-red";
                         var url=" style='color:#666;cursor: pointer;' onClick=editDocFun("+tid+")";
+                        docdetailHtml="";
                     }
                    
                     var row = "<tr><td><input type='checkbox' data-value='" + id + "' name='chksel'/></td>" +
@@ -394,7 +396,7 @@ function loadData(pageindex) {
                         "<td>" + createtime + "</td>" +
                         "<td>" + auditdate + "</td>" +
                         "<td class='"+auditstatustyle+"'>"+auditstatus+"</td>" +
-                        "<td><a class='list-del doc-move' tid='"+id+"'>移动</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
+                        "<td>"+docdetailHtml+"<a class='list-del doc-move' tid='"+id+"'>移动</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
                     $("#tblist-body").append(row);//<td>" + tagId + "</td>
                     parent.iframeLoad();
                 });
@@ -407,6 +409,10 @@ function loadData(pageindex) {
                     var tid = $(this).attr("tid");
                         $(".documentId").val(tid);
                         $(".filelist_bodyMask").fadeIn();
+                });
+                $(".doc-detail").click(function () {
+                    var tid = $(this).attr("tid");
+                    parent.docDetailOpenController(tid);
                 });
             }
         });
@@ -579,6 +585,7 @@ function checkfileNameAjax(filename,userId){
         });
 
         $("#uploadfile").click(function () {
+            parent.docDetailRecoverController();
             var itemlength = $(window.parent.document).find("#thelist").find(".item").length;
             if (itemlength>0){
                 alert("有未上传完成的任务，请先上传");

@@ -25,5 +25,5 @@ public interface PhoibeSearchMapper {
 
     List<String> selectByUserId(Long userId);
 
-    int selectCountByContent(String content);
+    int selectCountByContent(PhoibeSearch record);
 }
