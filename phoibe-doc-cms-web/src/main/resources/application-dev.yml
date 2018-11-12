@@ -32,7 +32,7 @@ spring:
     auto: true # Add @EnableAspectJAutoProxy.
     proxy-target-class: false # Whether subclass-based (CGLIB) proxies are to be created (true) as opposed to standard Java interface-based proxies (false).
 logging:
-  config: classpath:logback-spring.xml
+  config: classpath:logback-custom.xml
   level:
     root: info
 server:

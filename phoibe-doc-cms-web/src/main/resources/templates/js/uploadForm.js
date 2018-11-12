@@ -143,7 +143,7 @@ function getTag() {
     });
 }
 function getDocObjecLoad(Id){
-
+    var docObj;
     $.ajax({
         url: GAL_URL + "phoibe/document/fetch/"+Id,
         type: "GET",
@@ -151,7 +151,7 @@ function getDocObjecLoad(Id){
         async: false,
         contentType: "application/json;charset=UTF-8",
         success: function (data) {
-            var docObj = data.data;
+            docObj = data.data;
             $("#name").val(docObj.name);
             $("#warcountry").val(docObj.warstate);
             $("#wartime").val(docObj.wartime);
@@ -165,8 +165,10 @@ function getDocObjecLoad(Id){
             var select_tag = docObj.tag;
             $(".tag-li").each(function () {
                 var tag_html = $(this).html();
-                if (select_tag.indexOf(tag_html) > -1) {
-                    $(this).addClass("tag-li-in");
+                if (""!=select_tag&&null!=select_tag){
+                    if (select_tag.indexOf(tag_html) > -1) {
+                        $(this).addClass("tag-li-in");
+                    }
                 }
             })
             var filepath = docObj.filePath;
@@ -178,6 +180,7 @@ function getDocObjecLoad(Id){
             $("#docId").val(Id);
         }
     });
+    return docObj;
 }
 $(function() {
 

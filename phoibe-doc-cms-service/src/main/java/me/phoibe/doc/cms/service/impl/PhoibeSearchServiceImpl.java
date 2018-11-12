@@ -17,7 +17,7 @@ public class PhoibeSearchServiceImpl implements PhoibeSearchService {
 
     @Override
     public void addSearch(PhoibeSearch phoibeSearch) {
-        if(phoibeSearchMapper.selectCountByContent(phoibeSearch.getSearchContent())==0) {
+        if(phoibeSearchMapper.selectCountByContent(phoibeSearch)==0) {
             phoibeSearch.setCreateTime(new Date());
             phoibeSearchMapper.insertSelective(phoibeSearch);
             phoibeSearchMapper.deleteOldByUserId(phoibeSearch.getUserId());

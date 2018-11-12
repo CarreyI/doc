@@ -57,6 +57,16 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     private String[] formatArray;
 
+    private String[] contentArray;
+
+    public String[] getContentArray() {
+        return contentArray;
+    }
+
+    public void setContentArray(String[] contentArray) {
+        this.contentArray = contentArray;
+    }
+
     public Date getWartimeBegin() {
         return wartimeBegin;
     }

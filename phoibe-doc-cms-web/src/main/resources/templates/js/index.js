@@ -51,7 +51,7 @@ function appendHotSearchHtml(){
     var resultData = parent.hotsearchLoadAjax();
     var rowhtml = "<li class=''>热搜：";
     $.each(resultData, function (i, val) {
-        rowhtml +="<a class='line-li' href='#'>" + val + "</a>";
+        rowhtml +="<a class='line-li' href='#'>" + cutString(val, 14) + "</a>";
     });
     rowhtml=rowhtml+"</li>";
     $("#hotSerach").html(rowhtml);
@@ -324,6 +324,7 @@ $(function () {
     appendUserSearchHtml();
     appendHotSearchHtml();
     $("#upload").click(function () {
+        parent.docDetailRecoverController();
         var itemlength = $(window.parent.document).find("#thelist").find(".item").length;
         if (itemlength>0){
             alert("有未上传完成的任务，请先上传");

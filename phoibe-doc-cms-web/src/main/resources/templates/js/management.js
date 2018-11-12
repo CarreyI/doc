@@ -6,6 +6,32 @@ $.ajaxSetup({
         }
     }
 });
+function docDetailOpenController(docId){
+    appendDitHtml();
+    getTag();
+    var docObj = getDocObjecLoad(docId);
+    $("#filebtn .preview").remove();
+    $("#filebtn .download").remove();
+    var suffx = docObj.format.replace(".","");
+    if (suffx == "pdf"||suffx == "doc"||suffx == "docx") {
+        // var hrefurl = "openword.html?filePath="+result.data.filePath+"&docId="+tid;
+        var hrefurl = "phoibe/document/previewDoc/"+docId;
+        hrefurl = GAL_URL+hrefurl;
+        $("#filebtn").append("<a target='_blank' href='"+hrefurl+"'><span class='preview' style='cursor: pointer; color: #666;'>查看</span></a>");
+    }
+    var downurl = GAL_URL + "phoibe/document/download?Id=" + docId;
+    $("#filebtn").append("&nbsp;&nbsp;<a target='_blank' href='"+downurl+"'><span class='download' style='cursor: pointer;color: #666; '>下载</span></a>");
+    $("#formthelist .state").remove();
+    $("#picker").hide();
+    $("#submit").hide();
+    $(".bodyMask").fadeIn();
+}
+function docDetailRecoverController(){
+    $("#filebtn .preview").remove();
+    $("#filebtn .download").remove();
+    $("#picker").show();
+    $(window.parent.document).find("#submit").show();
+}
 function hotsearchLoadAjax(){
     var data = GAL_URL+"phoibe/document/hotsearch";
     var resultData=[];

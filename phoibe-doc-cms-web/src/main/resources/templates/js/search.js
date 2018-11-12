@@ -6,7 +6,6 @@ function loadData(type,pageindex) {
 
     var url = 'phoibe/document/list/user/' + pageindex + '/'+pageSize+'?1=1';
     var data="";
-
     var searchKey = $("#search-key").val();
     if (searchKey!=""&&searchKey!=null){
         data = data+ "&contentStr=" + searchKey;
@@ -247,7 +246,7 @@ function appendHotSearchHtml(){
     var resultData = parent.hotsearchLoadAjax();
     var rowhtml = "<li class=''>热搜：";
     $.each(resultData, function (i, val) {
-        rowhtml +="<a class='line-li' href='#'>" + val + "</a>";
+        rowhtml +="<a class='line-li' href='#'>" + cutString(val, 14) + "</a>";
     });
     rowhtml=rowhtml+"</li>";
     $("#hotSerach").html(rowhtml);
@@ -282,6 +281,9 @@ function appendUserSearchHtml(){
          appendHotSearchHtml();
          appendUserSearchHtml();
 
+         $("#back").click(function () {
+             history.back();
+         });
          //当首页跳转到查询页时，遍历取首页查询参数
          $("#condwhere").find("input").each(function () {
              var input_id = $(this).attr("id");

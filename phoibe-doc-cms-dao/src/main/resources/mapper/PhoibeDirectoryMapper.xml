@@ -23,7 +23,7 @@
     <include refid="Base_Column_List" />
     from PHOIBE_DIRECTORY
     where CREATOR = #{userId,jdbcType=DECIMAL}
-    order by CREATE_TIME desc
+    order by CREATE_TIME asc
   </select>
   <select id="selectByDirName" resultMap="BaseResultMap" >
     select
