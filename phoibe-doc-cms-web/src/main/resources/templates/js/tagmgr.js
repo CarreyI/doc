@@ -94,6 +94,10 @@ function checkForm(){
         alert("请输入标签名称！");
         return false;
     }
+    if ($("#name").val().length>8||$("#name").length>8){
+        alert("标签名称请不要超过8个字！");
+        return false;
+    }
     if (""!=$("#orderby").val()&&null!=$("#orderby").val()){
         if(isNaN($("#orderby").val())){
             alert("请确认输入的排序是数字!")

@@ -63,6 +63,7 @@ var docstatus="1&f=audit";
 
                         var docstockstyle="";
 						var docstockstatus="";
+						var docstockBtnHtml="";
                         if (isstock == 2) {
                             docstockstatus = "已入库";
                             docstockstyle = "f-blue";
@@ -70,12 +71,13 @@ var docstatus="1&f=audit";
                         else if(isstock == 1){
                             docstockstatus= "未入库";
                             docstockstyle = "f-red";
+                            docstockBtnHtml = "<a class='list-del doc-add' tid='"+id+"'>入库</a>&nbsp;&nbsp;";
                         }
                         var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='"
                             + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>"
                             +owner+"</td><td>" + auditTime  + "</td><td>"
                             + stockTime+ "</td><td  class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td>" +
-                            "<td><a class='list-del doc-detail' tid='"+id+"'>详细</a>&nbsp;&nbsp;<a class='list-del doc-add' tid='"+id+"'>入库</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
+                            "<td><a class='list-del doc-detail' tid='"+id+"'>详细</a>&nbsp;&nbsp;"+docstockBtnHtml+"<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
                         $("#tblist-body").append(row);
                         parent.iframeLoad();
                     });

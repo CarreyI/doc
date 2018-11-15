@@ -151,6 +151,11 @@ function checkForm(){
         alert("请输入属性名称！");
         return false;
     }
+
+    if ($("#dictName").val().length>8||$("#dictName").length>8){
+        alert("属性名称请不要超过8个字！");
+        return false;
+    }
     if (""!=$("#orderBy").val()&&null!=$("#orderBy").val()){
         if(isNaN($("#orderBy").val())){
             alert("请确认输入的排序是数字!")

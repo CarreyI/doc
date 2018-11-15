@@ -157,7 +157,7 @@
         and c.STATUS = #{param.status,jdbcType=DECIMAL}
       </if>
       <if test="param.title != null">
-        and d.name = #{param.title,jdbcType=DECIMAL}
+        and d.name like '%'||#{param.title,jdbcType=DECIMAL}||'%'
       </if>
     </where>
   </sql>

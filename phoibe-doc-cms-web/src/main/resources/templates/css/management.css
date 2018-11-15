@@ -541,9 +541,9 @@ body, html {
 
 .u-con-list li{
 	float: left;
-	width: 430px;
-	line-height: 30px;
-	padding: 4px;
+	/*width: 430px;*/
+	/*line-height: 30px;*/
+	padding: 2px;
 }
 
 .u-con-list li input,select{
@@ -558,6 +558,7 @@ body, html {
 .u-con-list .one-line{
 	width: 100%;
 	line-height: 24px;
+	margin: 2px 4px;
 }
 .u-con-list .one-line .label {
 	float: left;
@@ -568,12 +569,13 @@ body, html {
 	padding-right: 10px;
 }
 .u-con-list .one-line .tag-ul li{
-	width: 75px;
-	padding: 1px;
+	width: auto;
+	padding: 1px 4px;
 	line-height: 21px;
-	margin-top: 2px;
-	margin-bottom: 2px;
+	/*margin-top: 2px;*/
+	/*margin-bottom: 2px;*/
 	height: 21px;
+	margin-top: 3px;
 }
 .main .container .search .checkList li {
 
@@ -1472,6 +1474,7 @@ ol.list1 {
 	padding-bottom: 20px;
 	vertical-align: middle;
 	min-width: 600px;
+	margin-top: 150px;
 }
 
 .role_bodyMask .popup{
@@ -1698,7 +1701,6 @@ ul.search-con li .btnSearch{
 
 .tag-li {
 	float: left;
-	margin-right: 10px;
 	width: auto;
 	height: 26px;
 	line-height: 26px;
@@ -1706,8 +1708,7 @@ ul.search-con li .btnSearch{
 	padding: 0px 8px;
 	border-radius: 6px;
 	cursor: pointer;
-	margin-top:4px;
-	margin-bottom:4px;
+	margin: 1px 4px;
 }
 
 .tag-li-in {
@@ -1969,7 +1970,7 @@ ul.search-con li .btnSearch{
 }
 
 #condwhere .mask .popup {
-	margin-top:50px;
+	margin-top:100px;
 }
 .info_div{
 
