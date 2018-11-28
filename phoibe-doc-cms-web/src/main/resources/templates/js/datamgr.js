@@ -152,8 +152,8 @@ function checkForm(){
         return false;
     }
 
-    if ($("#dictName").val().length>8||$("#dictName").length>8){
-        alert("属性名称请不要超过8个字！");
+    if ($("#dictName").val().length>6||$("#dictName").length>6){
+        alert("属性名称请不要超过6个字！");
         return false;
     }
     if (""!=$("#orderBy").val()&&null!=$("#orderBy").val()){
