@@ -589,7 +589,6 @@ public class DocumentController {
 	public String statistical(@PathVariable String group,HttpServletRequest request){
 		List<DStatistical> list = phoibeDocumentService.fetchStatisticalByParam(group);
 
-		LogUtil.writeLog("浏览了文档统计图", LogUtil.OPER_TYPE_DEL,"文档统计", DocumentController.class,request);
 		return JsonUtils.toJson(new Result<List<DStatistical>>(Code.SUCCESS, list));
 	}
 
