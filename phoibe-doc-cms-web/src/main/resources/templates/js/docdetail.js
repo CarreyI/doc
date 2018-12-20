@@ -67,6 +67,10 @@ function getInfo() {
                 }else {
                     $("#doc-content").html("<h4>当前没有摘要内容，请查看附件...</h4>");
                 }
+                if (suffx == "mp4"){
+                    filePath = "gendangzou3.mp4";
+                    $("#doc-content").append("<video id='videoControl' src='docword/video/"+filePath+"' height='220' controls='controls'></video>");
+                }
 
                 parent.iframeLoad();
             }
@@ -130,7 +134,7 @@ function hotArticle() {
     });
 }
 function correlationArticle() {
-    var url = GAL_URL + 'phoibe/document/relevantList/0/12?isstock=2';
+    var url = GAL_URL + 'phoibe/document/relevantList/0/8?isstock=2';
     if (article_tag!=null){
         url+="&tag="+article_tag;
     }
@@ -166,7 +170,7 @@ function correlationArticle() {
 function loadData(pageindex) {
     $("#comm-content").children().remove();
     var docid = getUrlString("tid");
-    var url = GAL_URL+"phoibe/comment/list/"+docid+"/"+pageindex+"/6";
+    var url = GAL_URL+"phoibe/comment/list/"+docid+"/"+pageindex+"/4";
 
 	//alert(url);
             $.ajax({
@@ -357,6 +361,7 @@ $(function () {
     correlationArticle();
 
     isAttention();
+
     $("#back").click(function () {
         history.back();
     });
