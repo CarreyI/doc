@@ -14,6 +14,7 @@ function loadData(pageindex) {
     }
     if (eDatatime!=""){
         eDatatime = new Date(eDatatime).getTime();
+        eDatatime = eDatatime + (24*60*60*1000);
         data = data +"&eDatatime="+eDatatime;
     }
     $.ajax({
@@ -162,6 +163,7 @@ $(function () {
         }
         if (eDatatime!=""){
             eDatatime = new Date(eDatatime).getTime();
+            eDatatime = eDatatime + (24*60*60*1000);
             url = url +"&eDatatime="+eDatatime;
         }else{
             alert("请选择截止时间");

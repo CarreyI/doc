@@ -543,9 +543,9 @@ body, html {
 
 .u-con-list li{
 	float: left;
-	width: 430px;
-	line-height: 30px;
-	padding: 4px;
+	/*width: 430px;*/
+	/*line-height: 30px;*/
+	padding: 2px;
 }
 
 .u-con-list li input,select{
@@ -560,6 +560,7 @@ body, html {
 .u-con-list .one-line{
 	width: 100%;
 	line-height: 24px;
+	margin: 2px 4px;
 }
 .u-con-list .one-line .label {
 	float: left;
@@ -570,12 +571,13 @@ body, html {
 	padding-right: 10px;
 }
 .u-con-list .one-line .tag-ul li{
-	width: 75px;
-	padding: 1px;
+	width: auto;
+	padding: 1px 4px;
 	line-height: 21px;
-	margin-top: 2px;
-	margin-bottom: 2px;
+	/*margin-top: 2px;*/
+	/*margin-bottom: 2px;*/
 	height: 21px;
+	margin-top: 3px;
 }
 .main .container .search .checkList li {
 
@@ -616,8 +618,8 @@ body, html {
 }
 
 .main .container .content .left .bg_whiteSD {
-	padding: 10px 20px 20px;
-	margin-bottom: 12px;
+	padding: 10px 20px;
+	margin-bottom: 10px;
 	overflow: hidden;
 }
 /*.main .container .content .left*/
@@ -1042,7 +1044,7 @@ ul.list3 li {
 }
 #comment-content {
 	width: 100%;
-	min-height: 100px;
+	height: 50px;
 	border: 1px solid #e0e0e0;
 	/*background: #142f47;*/
 }
@@ -1478,6 +1480,7 @@ ol.list1 {
 	padding-bottom: 20px;
 	vertical-align: middle;
 	min-width: 600px;
+	margin-top: 150px;
 }
 
 .role_bodyMask .popup{
@@ -1604,7 +1607,8 @@ ul.search-con li .btnSearch{
 #doc-content {
 	width: 100%;
 	background:#ffffff;
-	min-height:180px;
+	height:330px;
+	overflow-y: scroll;
 }
 
 #doc-content p {
@@ -1699,12 +1703,10 @@ ul.search-con li .btnSearch{
 
 #resou-doc .col3 {
 	height: 160px;
-	margin-top: 20px;
 }
 
 .tag-li {
 	float: left;
-	margin-right: 10px;
 	width: auto;
 	height: 26px;
 	line-height: 26px;
@@ -1712,8 +1714,7 @@ ul.search-con li .btnSearch{
 	padding: 0px 8px;
 	border-radius: 6px;
 	cursor: pointer;
-	margin-top:4px;
-	margin-bottom:4px;
+	margin: 1px 4px;
 }
 
 .tag-li-in {
@@ -1975,7 +1976,7 @@ ul.search-con li .btnSearch{
 }
 
 #condwhere .mask .popup {
-	margin-top:50px;
+	margin-top:100px;
 }
 .info_div{
 
@@ -2028,6 +2029,11 @@ ul.search-con li .btnSearch{
 	border: 1px solid #ca0c16 !important;
 }
 .btn-download{
+	color: #ca0c16 !important;
+	border: 1px solid #ca0c16 !important;
+	margin-left: 20px;
+}
+.btn-uploadpostil{
 	color: #ca0c16 !important;
 	border: 1px solid #ca0c16 !important;
 	margin-left: 20px;
@@ -2106,7 +2112,7 @@ div.aside-box div.aside-content {
 	background-color: #fff;
 	-webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
-	height: 407px;
+	height: 307px;
 	padding: 5px 25px 0px;
 }
 .commentinput_div{
@@ -2210,6 +2216,10 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	height: 56px;
 	border-bottom: 1px dashed #e0e0e0;
 }
+
+.postil-fixed-box .right-item{
+	height: 20px;
+}
 .recommend-right .right-item a{color:#226c97;}
 
 .recommend-right .right-item .right-item-desc {
@@ -2226,6 +2236,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	letter-spacing: 0;
 	line-height: 20px;
 }
+
 .file_wrap{
 	overflow:hidden;/*父元素清除浮动*/
 }
@@ -2310,12 +2321,14 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	cursor: pointer;
 	text-decoration: underline;
 }
-#rec-block{
-	min-height:420px;
+#head-block{
+	margin-bottom: 11px;
 }
 #resou-block{
-	min-height:420px;
-	height:420px;
+	height:210px;
+}
+#rec-block{
+	height:275px;
 }
 #docmgr-content .row{
 	line-height:32px;
@@ -2327,15 +2340,39 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 #com-score label{float:left;}
 #com-score .submit{margin-top:8px;}
 .frs{margin-top: -8px;margin-left: -13px;}
+#head-block .inline-ul{background: #ffffff;}
+#head-block .widget-title ul li{width: 10%;}
+#head-block .widget-title label{font-size: 22px;padding: 10px 1%;font-weight: initial;line-height: 45px;}
+#zhanli:checked ~ .widget-title .zhanli, #zhanfa:checked ~ .widget-title .zhanfa{
+	background: #0d4d81;
+	/*border-bottom: 1px solid #ffffff;*/
+	color: #ffffff;
+	font-weight: bold;
+}
+
+#zhanli:checked ~ .widget-box .zhanli-ul, #zhanfa:checked ~ .widget-box .zhanfa-ul{
+	display: block;
+	height: 275px;
+}
+#zhanli:checked ~ .widget-box .tag-ul, #zhanfa:checked ~ .widget-box .tag-ul{
+	display: block;
+}
+#head-block .u-con-list{
+	width: 95%;
+	margin-left: 1%;
+}
+#head-block .u-con-list .one-line{border-bottom: 1px dashed #e0e0e0;}
+#head-block .u-con-list .one-line .label{text-align: center;width: 120px;line-height: 45px;}
+#head-block .u-con-list .one-line .tag-li{border: 0px;height: 35px;line-height: 35px;margin-left: 15px;}
 #resou-doc .col3, #recom-doc .col3{width:24%;margin-left:10px;}
 #recom-doc .col3 .list1{
 	line-height: 22px;
 }
 #recom-doc .right-item {
-	padding: 10px 8px 13px 8px;
+	padding: 5px 8px 13px 8px;
 	overflow: hidden;
 	word-wrap: break-word;
-	height: 60px;
+	height: 55px;
 	border-bottom: 1px dashed #e0e0e0;
 }
 #recom-doc.right-item a{color:#226c97;}

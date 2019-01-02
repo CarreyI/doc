@@ -63,19 +63,23 @@ var docstatus="1&f=audit";
 
                         var docstockstyle="";
 						var docstockstatus="";
+                        var docstockBtnHtml="";
+                        var docdelBtnHtml="";
                         if (isstock == 2) {
                             docstockstatus = "已入库";
                             docstockstyle = "f-blue";
+                            docdelBtnHtml="<a  class='list-del doc-del' tid='"+id+"'>删除</a>";
                         }
                         else if(isstock == 1){
                             docstockstatus= "未入库";
                             docstockstyle = "f-red";
+                            docstockBtnHtml = "<a class='list-del doc-add' tid='"+id+"'>入库</a>&nbsp;&nbsp;";
                         }
                         var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='"
                             + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>"
                             +owner+"</td><td>" + auditTime  + "</td><td>"
                             + stockTime+ "</td><td  class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td>" +
-                            "<td><a class='list-del doc-detail' tid='"+id+"'>详细</a>&nbsp;&nbsp;<a class='list-del doc-add' tid='"+id+"'>入库</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
+                            "<td><a class='list-del doc-detail' tid='"+id+"'>详细</a>&nbsp;&nbsp;"+docstockBtnHtml+docdelBtnHtml+"</td></tr>";
                         $("#tblist-body").append(row);
                         parent.iframeLoad();
                     });
@@ -157,6 +161,7 @@ function docDelAjax(rowid){
         $(function () {
 
             loadData(currPage);
+            $("#btndelstock").hide();
 
             $("#btnaddstock").click(function () {
                 var sel = $("#tblist-body tr td input[type='radio']:checked");
@@ -189,6 +194,7 @@ function docDelAjax(rowid){
                 docstatus="1&f=audit";
                 loadData(0);
                 parent.iframeLoad();
+                $("#btndelstock").hide();
             });
 
             $("#docDone").click(function () {
@@ -197,5 +203,6 @@ function docDelAjax(rowid){
                 docstatus="2&f=storage";
                 loadData(0);
                 parent.iframeLoad();
+                $("#btndelstock").show();
             });
         });
