@@ -13,7 +13,7 @@
             
         <encoder>   
                   <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>   
-                
+                    <charset>UTF-8</charset>
         </encoder>
            
           
@@ -32,7 +32,7 @@
     </appender>
 
     <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
-    <springProfile name="test,dev">
+    <springProfile name="test,dev,prod">
         <logger name="org.springframework.web" level="INFO">
             <appender-ref ref="STDOUT"/>
         </logger>
