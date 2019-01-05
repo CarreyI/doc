@@ -2356,6 +2356,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	padding: 10px 1%;
 	font-weight: initial;
 	line-height: 40px;
+
 }
 
 #zhanli:checked ~ .widget-title .zhanli, #zhanfa:checked ~ .widget-title .zhanfa{
