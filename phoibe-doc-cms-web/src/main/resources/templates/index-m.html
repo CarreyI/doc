@@ -7,7 +7,8 @@
 <link rel="stylesheet" href="css/management.css" />
 <script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/data.js"></script>
-<script src="js/index.js"></script>
+	<script src="js/index.js"></script>
+	<script src="js/sonCunkLoad.js"></script>
 	<script language="javascript" type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
@@ -83,15 +84,45 @@
 													</li>
 												</ul>
 											</li>
-											<li class="sonChunk"><span class="label">作战年代</span>
-												<ul class="environment tag-ul">
-													<li class="tag-li" dictkey="89">远古时代</li>
-													<li>
-														<select id="" name="">
-															<option class="tag-li" value="89">美国</option>
-														</select>
-													</li>
-												</ul>
+											<li class="sonChunk">
+												<div class="chunk_title">
+													<span class="label">作战年代</span>
+												</div>
+												<div class="chunk_select">
+													<select  name="">
+														<option class="tag-li" value="89">美国</option>
+													</select>
+												</div>
+												<div class="chunk_content">
+													<div class="">
+														<ul style="display: block">
+															<li class=''>
+																<a href='' target='_blank'>
+																	<div class=''>
+																		<h5><span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;标题标题标题标题</span></h5>
+																	</div>
+																	<div class=''>内容内容内容内容内容内容内容内容内容内容内容内容内容内容</div>
+																</a>
+															</li>
+															<li class=''>
+																<a href='' target='_blank'>
+																	<div class=''>
+																		<h5><span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;标题标题标题标题</span></h5>
+																	</div>
+																	<div class=''>内容内容内容内容内容内容内容内容内容内容内容内容内容内容</div>
+																</a>
+															</li>
+															<li class=''>
+																<a href='' target='_blank'>
+																	<div class=''>
+																		<h5><span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;标题标题标题标题</span></h5>
+																	</div>
+																	<div class=''>内容内容内容内容内容内容内容内容内容内容内容内容内容内容</div>
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div>
 											</li>
 										</ul>
 										<ul class="zhanfa-ul main-son-list">
@@ -143,35 +174,61 @@
 						<div class="box_border rightAb">
 
 							<div class="bg_whiteSD idx_box_list">
-								<div class="font16 title i-sign">我的文档（<a href="#" id="userdocnum" target='_self'></a>）</div>
-								<ul class="list3" id="zgzhanfa">
+								<div class="font16 title">
+									<div style="width: 100px;float: left;padding: 10px 20px;">
+										我的文档</div>
+									<div id="upload"></div>
+								</div>
+								<div style="border-bottom: 1px dashed #2c6392;margin-top: 20px;width: 90%;margin-left: 10px;">
 
-								</ul>
-								<div class="clearfix"></div>
-								<div id="upload"></div>
-
+								</div>
+								<div class="list4">
+									<div id="borwse"><a></a></div>
+									<div id="doneUpload"><a></a></div>
+									<div id="myFavorite"><a></a></div>
+									<div id="pizhu"><a></a></div>
+								</div>
 							</div>
-							<div class="bg_whiteSD idx_box_list  widget-tab">
-								<input type="radio" name="widget-tab" value="3" id="rm-tab" style="display:none;"/>
-								<input type="radio" name="widget-tab" value="4" id="dym-tab" style="display:none;"/>
+							<div class="idx_box_list  widget-tab">
+								<input type="radio" name="list-tab" value="1" id="rm-tab" checked="checked" style="display:none;"/>
+								<input type="radio" name="list-tab" value="2" id="dym-tab" style="display:none;"/>
 								<div class="widget-title inline-ul">
 									<ul>
-										<li class="hot">
+										<li class="rm-tab">
 											<label for="rm-tab">热门专区</label>
 										</li>
-										<li class="random">
+										<li class="dym-tab">
 											<label for="dym-tab">最新动态</label>
 										</li>
 									</ul>
 								</div>
-								<marquee id="affiche" align="left" behavior="scroll" direction="up" height="580px" width="100%" loop="-1" scrollamount="10" scrolldelay="300" onMouseOut="this.start()" onMouseOver="this.stop()">
-									<div id="lst-rm" class="dynamiclist">
-									</div>
-								</marquee>
-								<!--<marquee id="affiche" align="left" behavior="scroll" direction="up" height="270px" width="100%" loop="-1" scrollamount="10" scrolldelay="300" onMouseOut="this.start()" onMouseOver="this.stop()">-->
-									<!--<div id="lst-dym" class="dynamiclist">-->
-									<!--</div>-->
-								<!--</marquee>-->
+								<div class="widget-box ">
+									<ul class="list-rm-div">
+										<li>
+											<marquee align="left" behavior="scroll" direction="up" height="540px"
+													 width="100%"
+													 loop="-1" scrollamount="10" scrolldelay="300"
+													 onMouseOut="this.start()"
+													 onMouseOver="this.stop()">
+												<div id="lst-rm" class="dynamiclist">
+												</div>
+											</marquee>
+										</li>
+									</ul>
+
+									<ul class="list-dym-div">
+										<li>
+											<marquee align="left" behavior="scroll" direction="up" height="540px"
+													 width="100%"
+													 loop="-1" scrollamount="10" scrolldelay="300"
+													 onMouseOut="this.start()"
+													 onMouseOver="this.stop()">
+												<div id="lst-dym" class="dynamiclist">
+												</div>
+											</marquee>
+										</li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>

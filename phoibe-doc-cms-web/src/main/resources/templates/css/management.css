@@ -468,7 +468,7 @@ body, html {
 	margin-right: 5px;
 	text-decoration: underline;color: #248EFF;padding: 0 5px;}
 .line-li a{
-	color:#248EFF;
+	color:#ffffff;
 	line-height:30px;
 	padding:2px;
 }
@@ -668,8 +668,8 @@ body, html {
 	line-height: 38px;
 }
 .font16 {
-	font-size: 16px;
-	/*color: #1D6B99;/*#00f0ff;*/
+	font-size: 20px;
+	color: #ffffff;
 	height: 38px;
 	line-height: 38px;
 }
@@ -730,6 +730,13 @@ ul.list3 li {
 	line-height: 24px;
 	padding-left: 6px;
 }
+.list4{
+	margin: 10px;
+}
+.list4 div{
+	float: left;
+	margin: 10px 5px;
+}
 
 .idx_box_list {
 	overflow: hidden;
@@ -737,16 +744,38 @@ ul.list3 li {
 }
 
 #upload {
-	width: 178px;
+	width: 138px;
 	height: 40px;
 	line-height: 40px;
 	cursor: pointer;
 	background: url("../images/fileupload.png") no-repeat;
-	text-align: center;
-	margin: 0 auto;
-	margin-top: 20px;
-	margin-bottom:20px;
+	float: right;
+	margin: 10px;
 }
+#borwse {
+	width: 138px;
+	height: 40px;
+	cursor: pointer;
+	background: url("../images/browse.png") no-repeat;
+}
+#doneUpload {
+	 width: 138px;
+	 height: 40px;
+	 cursor: pointer;
+	 background: url("../images/doneUpload.png") no-repeat;
+ }
+#myFavorite {
+	  width: 138px;
+	  height: 40px;
+	  cursor: pointer;
+	  background: url("../images/myFavorite.png") no-repeat;
+  }
+#pizhu {
+	   width: 138px;
+	   height: 40px;
+	   cursor: pointer;
+	   background: url("../images/pizhu.png") no-repeat;
+   }
 
 .idx_box_list .title {
 	padding-left:8px;
@@ -2418,7 +2447,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 #docmgr-content .row ul li.format_btn:hover{color:#00a2d4;}
 .noInfo{color: #999}
 
-#rm-tab:checked ~ .widget-title .list-dym-div, #dym-tab:checked ~ .widget-title .list-rm-div{
+#rm-tab:checked ~ .widget-title .rm-tab, #dym-tab:checked ~ .widget-title .dym-tab{
 	background: url("../images/tabChecked.png");
 	color: #ffffff;
 	font-weight: bold;
