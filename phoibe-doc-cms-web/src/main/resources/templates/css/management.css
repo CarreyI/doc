@@ -419,6 +419,8 @@ body, html {
 
 .main .container {
 	height: 100%;
+	border:1px solid #4cd7ff;
+	border-radius: 3px;
 	/*overflow: scroll;*/
 }
 
@@ -1955,7 +1957,7 @@ ul.search-con li .btnSearch{
 }
 
 .main .r-content {
-	background:#d9e2ea;
+	/*background:#d9e2ea;*/
 	height:990px;
 	padding: 10px 15px;
 }
