@@ -94,8 +94,8 @@ function checkForm(){
         alert("请输入标签名称！");
         return false;
     }
-    if ($("#name").val().length>6||$("#name").length>6){
-        alert("标签名称请不要超过6个字！");
+    if ($("#name").val().length>8||$("#name").length>8){
+        alert("标签名称请不要超过8个字！");
         return false;
     }
     if (""!=$("#orderby").val()&&null!=$("#orderby").val()){
