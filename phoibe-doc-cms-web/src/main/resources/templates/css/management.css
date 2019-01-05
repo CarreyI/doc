@@ -1,7 +1,7 @@
 ﻿﻿﻿@charset "utf-8";
 /*reset*/
 body {
-	font-size:14px;
+	font-size:16px;
 }
 body, p, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, hr, blockquote,
 object, iframe, fieldset, input, legend, form, th, td {
@@ -9,11 +9,11 @@ object, iframe, fieldset, input, legend, form, th, td {
 	padding: 0
 }
 
-body, input, textarea, keygen, select, button, isindex {
+input, textarea, keygen, select, button, isindex {
 	border: 0;
 	outline: none;
 	word-break: break-all;
-	font-size: 12px;
+	font-size: 14px;
 	color: #666;
 }
 
@@ -29,7 +29,7 @@ img {
 a {
 	text-decoration: none;
 	color:#000; /*#000;*/
-	font-size:14px;
+	font-size:16px;
 }
 
 a:hover {
@@ -1011,7 +1011,7 @@ ul.list3 li {
 .desc {
 	color:#000;
 	line-height:30px;
-	font-size:12px;
+	font-size:14px;
 }
 .d-content .right {
 	width: 800px;
@@ -1123,7 +1123,7 @@ ul.list3 li {
 }
 
 .inline-ul ul li {
-	font-size: 12px;
+	font-size: 14px;
 	letter-spacing: normal;
 	word-spacing: normal;
 	vertical-align: top;
@@ -1223,7 +1223,7 @@ color:#e9e9e9;
 	overflow-y: auto;
 }
 .random-list .list1,.attention-list .list1,.hot-list .list1{
-	line-height: 28px;
+	line-height: 30px;
 }
 #done:checked ~ .widget-box .done-list, #check:checked ~ .widget-box .check-list{
 	display: block;
@@ -1381,12 +1381,17 @@ color:#e9e9e9;
 	/*border:1px solid #3d7194;*/
 }
 #tblist-body tr td {
-	text-align:left;
-	font-size:14px;
+	text-align:center;
+	font-size:16px;
     color:#e7e7e7;
+}
+
+#tblist-body .d-title{
+	text-align: left;
 }
 #tblist-body tr td a {
 	color:#e7e7e7;
+	font-size:16px;
 }
 
 .f-blue {
@@ -1401,8 +1406,10 @@ color:#e9e9e9;
 .tblist tr th {
 	/*border: 1px solid #cccccc;
 	background: #1f4e75;*/
-	background:#0d4d81;
+	background:#121;
 	color:#fff;
+	font-size:18px;
+	line-height:46px;
 }
 
 /*.tblist tr:nth-child(even){background:#192229;}
@@ -1478,7 +1485,7 @@ ol.list1 {
 	overflow: hidden;
 	background-color: rgba(0, 0, 0, 0.6);
 	text-align: center;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .mask .popup {
@@ -1537,7 +1544,7 @@ ol.list1 {
 .tbl-row .lable {
 	width: 30%;
 	float: left;
-	font-size:14px;
+	font-size:16px;
 }
 
 .tbl-row .ctrl {
@@ -1594,10 +1601,10 @@ ol.list1 {
 
 #tblist-body tr td {
 	padding-left: 4px;
+	line-height:40px;
 }
 #tblist-body tr td:first-child>input  {
 	width: 18px;
-
 }
 
 ul.search-con li
@@ -1619,7 +1626,7 @@ ul.search-con li .btnSearch{
 }
 
 #doc-content p {
-	font-size: 14px;
+	font-size: 16px;
 	word-break: break-all;
 	text-align: left;
 	text-indent: 2em;
@@ -1629,7 +1636,7 @@ ul.search-con li .btnSearch{
 }
 
 #doc-property {
-	font-size: 14px;
+	font-size: 16px;
 	padding-top: 15px;
 }
 
@@ -1892,7 +1899,7 @@ ul.search-con li .btnSearch{
 	margin-top:20px;
 	background-color: #8C8585;
 	line-height: 30px;
-	font-size: 14px;
+	font-size: 16px;
 	color: white;
 	text-align: center;
 	margin-right:20px;
@@ -1975,7 +1982,7 @@ ul.search-con li .btnSearch{
 #condif {
 	width:100px;
 	/*color:#ffffff;*/
-	font-size:12px;
+	font-size:14px;
 	cursor:pointer;
 }
 #docmgr,#tagmgr {
@@ -2015,7 +2022,7 @@ ul.search-con li .btnSearch{
 .btn {
 	padding: 0 2px;
 	display: inline-block;
-	font-size: 14px;
+	font-size: 16px;
 	border-radius: 4px;
 	text-align: center;
 	border: none;
@@ -2083,7 +2090,7 @@ ul.search-con li .btnSearch{
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
 }
 div.aside-box h3.aside-title {
-	font-size: 14px;
+	font-size: 16px;
 	color: #3d3d3d;
 	background: #f5f5f5;
 	padding: 0 12px;
@@ -2186,7 +2193,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 .comment-list-box ul.comment-list li.comment-line-box div.right-box div.info-box .comment {
 	color: #4d4d4d;
-	font-size: 14px;
+	font-size: 16px;
 	margin-left: 0;
 }
 .comment-list-box ul.comment-list li.comment-line-box div.right-box div.info-box span {
@@ -2209,7 +2216,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	padding: 6px;
 }
 .recommend-right .aside-title{
-	font-size: 14px;
+	font-size: 16px;
 	color: #3d3d3d;
 	background: #f5f5f5;
 	padding: 0 12px;
@@ -2302,14 +2309,15 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 .file_list li{
 	padding-left:4px;
-	color:#226c97;
+	color:#e7e7e7;
+	line-height:32px;
 }
 .file_list li a{
-	color:#226c97;
+   color:#e7e7e7;
 }
 
 #lst-dym .list3 li a {
-	font-size:12px;
+	font-size:14px;
 }
 .search-cond{
 	/*background:#ffffff;
@@ -2407,7 +2415,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	background-color: #fff;
 }
 #lst-dym .aside-title{
-	font-size: 14px;
+	font-size: 16px;
 	color: #3d3d3d;
 	background: #f5f5f5;
 	padding: 0 12px;
@@ -2438,7 +2446,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	line-height: 20px;
 }
 .line_two_li{
-	font-size:14px;
+	font-size:16px;
 }
 #sDatatime,#eDatatime{
 	width:100px;
