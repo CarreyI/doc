@@ -2430,7 +2430,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 .main-son-list{width: 100%;}
 .sonChunk{
-	background: url("../images/sonChunk.png");
+	/*background: url("../images/sonChunk.png");*/
 	width: 600px;
 	height: 319px;
 	margin-left: 20px;
@@ -2563,4 +2563,31 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 .scrolls::-webkit-scrollbar-corner{
     background: #61B6EB;
+}
+
+
+.wid-border{
+	border:1px solid #336b9e;height:400px;margin-top:50px;margin-left:120px;width:500px;border-radius:5px;
+}
+.wid-cicle{
+	float:left;margin-left:-80px;margin-top:-60px;width:135px;height:146px;background:url('../images/icon-type.png')
+}
+.wid-title-bk{
+	width: 162px;
+	height: 32px;
+	background: url('../images/icon-type-line.png');
+	margin-top: -8px;
+}
+.wid-title{
+	z-index: 999;
+	font-size: 24px;
+	color: #ffc000;
+	margin-top: 50px;
+	margin-left: 22px;
+}
+.wid-num{
+	font-size: 18px;
+	color: #ff7800;
+	margin-left: 50px;
+	margin-top: 8px;
 }
