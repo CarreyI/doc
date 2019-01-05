@@ -151,19 +151,27 @@
 								<div id="upload"></div>
 
 							</div>
-							<div class="bg_whiteSD idx_box_list">
-								<div class="font16 title i-sign">热门专区</div>
-								<marquee id="affiche" align="left" behavior="scroll" direction="up" height="270px" width="100%" loop="-1" scrollamount="10" scrolldelay="300" onMouseOut="this.start()" onMouseOver="this.stop()">
+							<div class="bg_whiteSD idx_box_list  widget-tab">
+								<input type="radio" name="widget-tab" value="3" id="rm-tab" style="display:none;"/>
+								<input type="radio" name="widget-tab" value="4" id="dym-tab" style="display:none;"/>
+								<div class="widget-title inline-ul">
+									<ul>
+										<li class="hot">
+											<label for="rm-tab">热门专区</label>
+										</li>
+										<li class="random">
+											<label for="dym-tab">最新动态</label>
+										</li>
+									</ul>
+								</div>
+								<marquee id="affiche" align="left" behavior="scroll" direction="up" height="580px" width="100%" loop="-1" scrollamount="10" scrolldelay="300" onMouseOut="this.start()" onMouseOver="this.stop()">
 									<div id="lst-rm" class="dynamiclist">
 									</div>
 								</marquee>
-							</div>
-							<div class="bg_whiteSD idx_box_list">
-								<div class="font16 title i-sign">最新动态</div>
-								<marquee id="affiche" align="left" behavior="scroll" direction="up" height="270px" width="100%" loop="-1" scrollamount="10" scrolldelay="300" onMouseOut="this.start()" onMouseOver="this.stop()">
-									<div id="lst-dym" class="dynamiclist">
-									</div>
-								</marquee>
+								<!--<marquee id="affiche" align="left" behavior="scroll" direction="up" height="270px" width="100%" loop="-1" scrollamount="10" scrolldelay="300" onMouseOut="this.start()" onMouseOver="this.stop()">-->
+									<!--<div id="lst-dym" class="dynamiclist">-->
+									<!--</div>-->
+								<!--</marquee>-->
 							</div>
 						</div>
 					</div>
