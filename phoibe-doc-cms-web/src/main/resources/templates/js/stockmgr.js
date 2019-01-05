@@ -75,7 +75,7 @@ var docstatus="1&f=audit";
                             docstockstyle = "f-red";
                             docstockBtnHtml = "<a class='list-del doc-add' tid='"+id+"'>入库</a>&nbsp;&nbsp;";
                         }
-                        var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td title='"
+                        var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td class='d-title' title='"
                             + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>"
                             +owner+"</td><td>" + auditTime  + "</td><td>"
                             + stockTime+ "</td><td  class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td>" +
