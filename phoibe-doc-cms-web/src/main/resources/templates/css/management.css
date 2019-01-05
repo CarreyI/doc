@@ -1,4 +1,4 @@
-﻿﻿﻿@charset "utf-8";
+﻿﻿﻿﻿@charset "utf-8";
 /*reset*/
 body {
 	font-size:14px;
@@ -419,8 +419,6 @@ body, html {
 
 .main .container {
 	height: 100%;
-	border:1px solid #4cd7ff;
-	border-radius: 3px;
 	/*overflow: scroll;*/
 }
 
@@ -752,9 +750,6 @@ ul.list3 li {
 }
 
 .idx_box_list .title {
-	/*margin-left: 10px;
-    padding-left:12px;*/
-	background:#eeeeee;
 	padding-left:8px;
 }
 
@@ -2203,7 +2198,6 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	width: 265px;
 	height: 955px;
 	margin-left: 8px;
-	background-color: #fff;
 }
 .recommend-fixed-box {
 	padding: 6px;
@@ -2211,7 +2205,6 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 .recommend-right .aside-title{
 	font-size: 14px;
 	color: #3d3d3d;
-	background: #f5f5f5;
 	padding: 0 12px;
 	height: 38px;
 	line-height: 38px;
@@ -2308,7 +2301,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	color:#226c97;
 }
 
-#lst-dym .list3 li a {
+.dynamiclist .list3 li a {
 	font-size:12px;
 }
 .search-cond{
@@ -2347,11 +2340,26 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 #com-score label{float:left;}
 #com-score .submit{margin-top:8px;}
 .frs{margin-top: -8px;margin-left: -13px;}
-#head-block .inline-ul{background: #ffffff;}
-#head-block .widget-title ul li{width: 10%;}
-#head-block .widget-title label{font-size: 22px;padding: 10px 1%;font-weight: initial;line-height: 45px;}
+
+.main-son{
+	border: 1px solid #234f73;
+	height: 780px;
+	width: 1250px;
+	margin-left: 20px;
+}
+#head-block .inline-ul{}
+#head-block .widget-title ul li{margin-left: 10px;background: url("../images/tabSelect.png");}
+#head-block .widget-title label{
+	cursor: pointer;
+	width: 136px;
+	font-size: 18px;
+	padding: 10px 1%;
+	font-weight: initial;
+	line-height: 40px;
+}
+
 #zhanli:checked ~ .widget-title .zhanli, #zhanfa:checked ~ .widget-title .zhanfa{
-	background: #0d4d81;
+	background: url("../images/tabChecked.png");
 	/*border-bottom: 1px solid #ffffff;*/
 	color: #ffffff;
 	font-weight: bold;
@@ -2359,10 +2367,19 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 
 #zhanli:checked ~ .widget-box .zhanli-ul, #zhanfa:checked ~ .widget-box .zhanfa-ul{
 	display: block;
-	height: 275px;
 }
 #zhanli:checked ~ .widget-box .tag-ul, #zhanfa:checked ~ .widget-box .tag-ul{
 	display: block;
+}
+.main-son-list{width: 100%;}
+.sonChunk{
+	background: url("../images/sonChunk.png");
+	width: 600px;
+	height: 319px;
+	margin-left: 20px;
+	float: left;
+	margin-bottom: 20px;
+	background-size: contain;
 }
 #head-block .u-con-list{
 	width: 95%;
@@ -2400,37 +2417,45 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 #docmgr-content .row ul li.owner_btn:hover{color:#00a2d4;}
 #docmgr-content .row ul li.format_btn:hover{color:#00a2d4;}
 .noInfo{color: #999}
-#lst-dym {
+
+#rm-tab:checked ~ .widget-title .list-dym-div, #dym-tab:checked ~ .widget-title .list-rm-div{
+	background: url("../images/tabChecked.png");
+	color: #ffffff;
+	font-weight: bold;
+}
+
+#rm-tab:checked ~ .widget-box .list-rm-div, #dym-tab:checked ~ .widget-box .list-dym-div{
+	display: block;
+}
+.dynamiclist {
 	width: 295px;
 	height: 955px;
 	margin-left: 8px;
-	background-color: #fff;
 }
-#lst-dym .aside-title{
+.dynamiclist .aside-title{
 	font-size: 14px;
 	color: #3d3d3d;
-	background: #f5f5f5;
 	padding: 0 12px;
 	height: 38px;
 	line-height: 38px;
 }
-#lst-dym .right-item {
+.dynamiclist .right-item {
 	padding: 8px 8px 10px 8px;
 	overflow: hidden;
 	word-wrap: break-word;
 	height: 56px;
 	border-bottom: 1px dashed #e0e0e0;
 }
-#lst-dym .right-item a{color:#226c97;}
+.dynamiclist .right-item a{color:#226c97;}
 
-#lst-dym .right-item .right-item-desc {
+.dynamiclist .right-item .right-item-desc {
 	font-size: 12px;
 	color: #999;
 }
-#lst-dym .right-item .right-item-content {
+.dynamiclist .right-item .right-item-content {
 	margin-bottom: 4px;
 }
-#lst-dym .right-item .right-item-content span {
+.dynamiclist .right-item .right-item-content span {
 	margin-right: 8px;
 	font-size: 12px;
 	color: #999;
@@ -2447,37 +2472,4 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	border:1px solid #cccccc;
 	background:#cccccc;
 	margin-top:10px;
-}
-
-#nearread{
-    scrollbar-arrow-color: #f4ae21; /**//*三角箭头的颜色*/
-    scrollbar-face-color: #333; /**//*立体滚动条的颜色*/
-    scrollbar-3dlight-color: #666; /**//*立体滚动条亮边的颜色*/
-    scrollbar-highlight-color: #666; /**//*滚动条空白部分的颜色*/
-    scrollbar-shadow-color: #999; /**//*立体滚动条阴影的颜色*/
-    scrollbar-darkshadow-color: #666; /**//*立体滚动条强阴影的颜色*/
-    scrollbar-track-color: #666; /**//*立体滚动条背景颜色*/
-    scrollbar-base-color:#f8f8f8; /**//*滚动条的基本颜色*/
-
-    scrollBar-face-color:green;
-    scrollBar-hightLight-color:red;
-}
-.scrolls::-webkit-scrollbar{
-    width:8px;
-    height:8px;
-    background-color: #61B6EB;
-}
-.scrolls::-webkit-scrollbar-track{
-    background: #213147;
-    border-radius:2px;
-}
-.scrolls::-webkit-scrollbar-thumb{
-    background: #61B6EB;
-    border-radius:2px;
-}
-.scrolls::-webkit-scrollbar-thumb:hover{
-    background: #61B6EB;
-}
-.scrolls::-webkit-scrollbar-corner{
-    background: #61B6EB;
 }
