@@ -433,8 +433,7 @@ body, html {
 }
 
 #index-m .bg_whiteSD {
-	border: 1px solid #aaaaaa;
-	background:#ffffff;
+	border: 1px solid #3890ae;
 }
 .main .container .search {
 	text-align: center;
@@ -479,7 +478,7 @@ body, html {
 }
 .main .container .search .inputBox input {
 	float: left;
-	border: 1px solid #aaaaaa;
+	border: 1px solid #6ca5e7;
 	padding-left: 10px;
 	padding-right: 34px;
 	background: url("../images/iconSearch.png") no-repeat;
@@ -753,6 +752,7 @@ ul.list3 li {
 	width: 138px;
 	height: 40px;
 	cursor: pointer;
+	float:left;
 	background: url("../images/browse.png") no-repeat;
 }
 #doneUpload {
@@ -760,18 +760,21 @@ ul.list3 li {
 	 height: 40px;
 	 cursor: pointer;
 	 background: url("../images/doneUpload.png") no-repeat;
+	float: right;
  }
 #myFavorite {
 	  width: 138px;
 	  height: 40px;
 	  cursor: pointer;
 	  background: url("../images/myFavorite.png") no-repeat;
+	float:left;
   }
 #pizhu {
 	   width: 138px;
 	   height: 40px;
 	   cursor: pointer;
 	   background: url("../images/pizhu.png") no-repeat;
+	float:right
    }
 
 .idx_box_list .title {
@@ -2501,7 +2504,8 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	line-height: 20px;
 }
 .line_two_li{
-	font-size:14px;
+	font-size:16px;
+	width:800px;
 }
 #sDatatime,#eDatatime{
 	width:100px;
