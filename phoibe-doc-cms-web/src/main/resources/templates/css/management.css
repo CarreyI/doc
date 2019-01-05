@@ -2,6 +2,7 @@
 /*reset*/
 body {
 	font-size:16px;
+
 }
 body, p, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, hr, blockquote,
 object, iframe, fieldset, input, legend, form, th, td {
@@ -87,7 +88,6 @@ td {
 
 th {
 	font-weight: normal;
-	background: #e7f4fe;
 	height: 40px
 }
 
@@ -158,7 +158,7 @@ hr {
 body, html {
 	width: 100%;
 	height: 100%;
-	background-color: #122332;/*#ECF2EF*/
+	background:url("../images/bg.png");
 }
 
 .box_border {
@@ -200,6 +200,7 @@ body, html {
 	margin-right:20px;
 	max-width: 1920px;
 	min-width: 1580px;
+	background:url("../images/bg-2.png");
 }
 
 .main .header {
@@ -840,7 +841,7 @@ ul.list3 li {
 	width: 30%;
 	float: left;
 	min-height: 80px;
-	margin-left: 3%;
+	margin-left: 2%;
 }
 
 .row {
@@ -1216,7 +1217,7 @@ color:#e9e9e9;
 #new:checked ~ .widget-box .new-list, #hot:checked ~ .widget-box .hot-list,
 #random:checked ~ .widget-box .random-list,#attention:checked ~ .widget-box .attention-list {
 	display: block;
-	height: 90px;
+	height: 150px;
 
 }
 .random-list,.attention-list,.hot-list{
@@ -1404,9 +1405,6 @@ color:#e9e9e9;
 
 /*#auditupload */
 .tblist tr th {
-	/*border: 1px solid #cccccc;
-	background: #1f4e75;*/
-	background:#121;
 	color:#fff;
 	font-size:18px;
 	line-height:46px;
@@ -1441,6 +1439,7 @@ ol.list1 {
 
 .widget-box .col3 {
 	margin-top: 0px;
+	margin-bottom:12px;
 }
 
 .bodyMask {
@@ -1975,7 +1974,6 @@ ul.search-con li .btnSearch{
 }
 
 .main .r-content {
-	/*background:#d9e2ea;*/
 	height:990px;
 	padding: 10px 15px;
 }
@@ -2265,19 +2263,22 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	margin-left: 210px;
 }
 .file_menu{
-	background: #0d4d81;
+	/*background: #0d4d81;*/
 	color: #ffffff;
 	height: 40px;
-	font-size: 15px;
+	font-size: 18px;
 	text-align: center;
 	line-height:38px;
+	border-bottom: 1px solid #406587;
 }
 .menu-btn{
 	display: none;
 }
-.list-del{
-	color: red;
+.widget-box ul li .list-del{
+	/*color: red;*/
+	color:#9c9c9c;
 	cursor:pointer;
+	margin-left:4px;
 }
 #nav_arrow_right {
 	color: #ffffff;
@@ -2300,7 +2301,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 .file-scroll{
 	overflow: auto;
-	height: 615px;
+	height: 560px;
 }
 
 .file_list{
