@@ -83,7 +83,7 @@ function cunkListLoad(obj){
             description = cutString(description,76);
         }
         var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
-        var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
+        var row="<li class='right-item wid-item'><a href='"+hrefUrl+"'target='_blank'>"+
             "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,24)+
             "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+stockTime+"</span></h5></div>"+
             "<div class='right-item-desc'>"+cutString(description,68)+"</div>"+
