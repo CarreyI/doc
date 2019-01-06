@@ -738,6 +738,7 @@ textarea{
 	padding-top: 20px;
 	border: 1px solid #328ba9;
 	background: url("../images/bg-2.png");
+	height:1070px;
 }
 #docmgr .main,#stockmgr .main,#auditupload .main,#percenter .main, #docdetail .main{
 	padding-top:20px;
