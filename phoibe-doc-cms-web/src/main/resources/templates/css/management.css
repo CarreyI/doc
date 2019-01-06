@@ -635,9 +635,9 @@ textarea{
 	width:-moz-calc(100% - 335px);
 	width:calc(100% - 335px);
 }
-.main .container .content .rightAb {
+.rightAb {
 	position: absolute;
-	top: 0;
+	top: 192px;
 	right: 0;
 	width: 319px;
 }
@@ -2504,6 +2504,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 #docmgr-content .row ul li.format_btn:hover{color:#00a2d4;}
 .noInfo{color: #999}
 
+.docmgr
 #rm-tab:checked ~ .widget-title .rm-tab, #dym-tab:checked ~ .widget-title .dym-tab{
 	background: url("../images/tabChecked.png");
 	color: #ffffff;
