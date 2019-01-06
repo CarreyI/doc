@@ -7,13 +7,12 @@ import me.phoibe.doc.cms.service.PhoibeUserPostilService;
 import me.phoibe.doc.cms.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/phoibe/userPostil")
@@ -64,5 +63,11 @@ public class UserPostilController {
             return JsonUtils.toJson(new Result<>(Code.FAILED, "上传批注失败"));
         }
 
+    }
+
+    @GetMapping(value = {"getPostil/{userId}"})
+    public String getUserPostil(@PathVariable Integer userId){
+        List<PhoibeUserPostil> result = phoibeUserPostilService.selectUserPostil(userId);
+        return JsonUtils.toJson(new Result<List<PhoibeUserPostil>>(Code.SUCCESS, result));
     }
 }

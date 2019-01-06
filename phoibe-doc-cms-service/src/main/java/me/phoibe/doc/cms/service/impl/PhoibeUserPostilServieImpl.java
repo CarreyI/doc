@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class PhoibeUserPostilServieImpl implements PhoibeUserPostilService {
 
@@ -16,5 +18,10 @@ public class PhoibeUserPostilServieImpl implements PhoibeUserPostilService {
     @Override
     public boolean insertUserPostil(PhoibeUserPostil phoibeUserPostil) {
         return phoibeUserPostilMapper.insertUserPostil(phoibeUserPostil) > 0;
+    }
+
+    @Override
+    public List<PhoibeUserPostil> selectUserPostil(int userId) {
+        return phoibeUserPostilMapper.selectUserPostil(userId);
     }
 }
