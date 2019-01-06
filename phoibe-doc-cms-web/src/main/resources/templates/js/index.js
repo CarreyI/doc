@@ -235,7 +235,6 @@ $(function () {
             }
         })
         data = GAL_URL + url+ data;
-        alert(data)
         window.location.href = encodeURI(data);
     });
 });
