@@ -113,7 +113,17 @@ function dataDictLoadAjax(){
     });
     return dataDict;
 }
-
+function appendDitHtml(){
+    var dataDict = dataDictSelectHtml();
+    for (var obj in dataDict){
+        var fieldObj = selectfield(obj);
+        var fieldfn = fieldObj.fn;
+        var optionhtml="<option class='tag-li' value=''></option>";
+        if(""!=fieldfn){
+            $("#"+fieldfn).html(optionhtml+dataDict[obj]);
+        }
+    }
+}
 function selectfield(field){
     var fieldname="";//在映射类中的字段名，查询用
     var fieldtitle="";
@@ -175,42 +185,6 @@ function tagLoadAjax(num){
     });
     return dataList;
 }
-   $(function(){
-
-       userAuthController();
-
-       //加载查询框
-       var dataDict = dataDictSelectHtml();
-       for (var obj in dataDict){
-           var fieldObj = selectfield(obj);
-           var fieldfn = fieldObj.fn;
-           if(""!=fieldfn){
-               $("#"+fieldfn).html(dataDict[obj]);
-           }
-       }
-
-       //左侧页面导航切换
-       $('.main .navLeft li').on('click',function(){
-           $(this).addClass('active').siblings('.navList').removeClass('active')
-           var taggle = $(this).attr('data-toggle');
-           $("#frm-main").attr("src",taggle);
-           //var dataToggle='page'+;
-           //$('.main .container .page').removeClass('show')
-          // $('.main .container').find('.'+dataToggle).addClass('show')
-       });
-       //多选框
-       $('li.checkBox').on('click', function () {
-           var checked = $(this).attr("checked");
-           if(checked!=null&&checked == "checked"){
-               $(this).removeAttr('checked');
-           }else{
-               $(this).attr('checked','checked');
-           }
-           $(this).toggleClass('check')
-
-       })
-
-   })
 
 function roleAuthObject(roleType) {
 
@@ -439,3 +413,30 @@ function getUrlParam(paramStr,paramneme) {
     }
     return result[2];
 }
+
+$(function(){
+
+    userAuthController();
+    appendDitHtml();
+    //左侧页面导航切换
+    $('.main .navLeft li').on('click',function(){
+        $(this).addClass('active').siblings('.navList').removeClass('active')
+        var taggle = $(this).attr('data-toggle');
+        $("#frm-main").attr("src",taggle);
+        //var dataToggle='page'+;
+        //$('.main .container .page').removeClass('show')
+        // $('.main .container').find('.'+dataToggle).addClass('show')
+    });
+    //多选框
+    $('li.checkBox').on('click', function () {
+        var checked = $(this).attr("checked");
+        if(checked!=null&&checked == "checked"){
+            $(this).removeAttr('checked');
+        }else{
+            $(this).attr('checked','checked');
+        }
+        $(this).toggleClass('check')
+
+    })
+
+})

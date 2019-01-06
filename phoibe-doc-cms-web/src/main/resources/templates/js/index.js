@@ -1,13 +1,4 @@
-function appendDitHtml(){
-    var dataDict = parent.dataDictSelectHtml();
-    for (var obj in dataDict){
-        var fieldObj = parent.selectfield(obj);
-        var fieldfn = fieldObj.fn;
-        if(""!=fieldfn){
-            $("#"+fieldfn).html(dataDict[obj]);
-        }
-    }
-}
+
 function appendTagHtml() {
     var dataList = parent.tagLoadAjax(10000);
     var rowhtml = "";
@@ -223,22 +214,6 @@ $(function () {
         if (owner != "") {
             data = data + "&owner=" + owner;
         }
-        var warstate = $("#warstate").val();
-        if (warstate != "") {
-            data = data + "&warstate=" + warstate;
-        }
-        var waraddr = $("#waraddr").val();
-        if (waraddr != "") {
-            data = data + "&waraddr=" + waraddr;
-        }
-        var wartime_start = $("#wartime_start").val();
-        if (null!=wartime_start&&wartime_start != "") {
-            data = data + "&wartime_start=" + wartime_start;
-        }
-        var wartime_end = $("#wartime_end").val();
-        if (null!=wartime_end&&wartime_end != "") {
-            data = data + "&wartime_end=" + wartime_end;
-        }
         var winner = $("#winner").val();
         if (winner != "") {
             data = data + "&winner=" + winner;
@@ -247,31 +222,20 @@ $(function () {
         if (loser != "") {
             data = data + "&loser=" + loser;
         }
-        var warnum = $("#warnum").val();
-        if (warnum != "") {
-            data = data + "&warnum=" + warnum;
-        }
-        var wartypevalue = "";
-        $(".wartype .tag-li-in").each(function () {
-            wartypevalue = $(this).attr("dictKey");
-            data = data + "&combatArray=" + wartypevalue;
-        })
-        var armtypevalue = "";
-        $(".armtype .tag-li-in").each(function () {
-            armtypevalue = $(this).attr("dictKey");
-            data = data + "&armsArray=" + armtypevalue;
-        })
-        var tagtypevalue = "";
-        $(".tagtype .tag-li-in").each(function () {
-            tagtypevalue = $(this).attr("dictKey");
-            data = data + "&tagArray=" + tagtypevalue;
-        })
         var doctypevalue = $("#serachType .acheck").attr("format");
         if (doctypevalue != "" && doctypevalue != null) {
             data = data + "&format=" + doctypevalue;
         }
 
+        $("#condwhere").find("select option:checked").each(function (i,val) {
+            var input_id = $(this).parent().attr("id");
+            var filedft = $(this).val();
+            if (""!=filedft){
+                data = data + "&"+input_id+"=" + filedft;
+            }
+        })
         data = GAL_URL + url+ data;
+        alert(data)
         window.location.href = encodeURI(data);
     });
 });
