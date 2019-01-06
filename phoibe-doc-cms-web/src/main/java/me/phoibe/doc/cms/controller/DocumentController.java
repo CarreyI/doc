@@ -258,6 +258,11 @@ public class DocumentController {
 		return JsonUtils.toJson(new Result<PageList<DPhoebeDocument>>(Code.SUCCESS, list));
 	}
 
+	public String faceData(){
+
+		return null;
+	}
+
 	@GetMapping("fetch/{id}")
 	public String getDoucument(@PathVariable Long id,HttpServletRequest request) {
 

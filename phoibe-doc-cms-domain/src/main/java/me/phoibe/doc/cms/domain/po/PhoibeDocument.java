@@ -68,6 +68,20 @@ public class PhoibeDocument {
 
     private byte[] content;
 
+    private String warsType;
+
+    private String corpsType;
+
+    private String fightTime;
+
+    private String fightType;
+
+    private String fightTrait;
+
+    private String combatTypeString;
+
+    private int docType;
+
     public Long getId() {
         return id;
     }
@@ -322,5 +336,61 @@ public class PhoibeDocument {
 
     public void setContent(byte[] content) {
         this.content = content;
+    }
+
+    public String getWarsType() {
+        return warsType;
+    }
+
+    public void setWarsType(String warsType) {
+        this.warsType = warsType;
+    }
+
+    public String getCorpsType() {
+        return corpsType;
+    }
+
+    public void setCorpsType(String corpsType) {
+        this.corpsType = corpsType;
+    }
+
+    public String getFightTime() {
+        return fightTime;
+    }
+
+    public void setFightTime(String fightTime) {
+        this.fightTime = fightTime;
+    }
+
+    public String getFightType() {
+        return fightType;
+    }
+
+    public void setFightType(String fightType) {
+        this.fightType = fightType;
+    }
+
+    public String getFightTrait() {
+        return fightTrait;
+    }
+
+    public void setFightTrait(String fightTrait) {
+        this.fightTrait = fightTrait;
+    }
+
+    public String getCombatTypeString() {
+        return combatTypeString;
+    }
+
+    public void setCombatTypeString(String combatTypeString) {
+        this.combatTypeString = combatTypeString;
+    }
+
+    public int getDocType() {
+        return docType;
+    }
+
+    public void setDocType(int docType) {
+        this.docType = docType;
     }
 }
