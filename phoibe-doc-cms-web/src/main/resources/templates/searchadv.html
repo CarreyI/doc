@@ -31,11 +31,6 @@
 						</li>
 					</ul>
 				</div>
-
-			<div class="search-cond">	<br/>
-				<div  style="height: 40px;"><span style="float: left;line-height: 40px;">战例类型：</span><ul  class="wartype tag-ul"></ul></div>
-				<div  style="height: 40px;"><span style="float: left;line-height: 40px;">兵种类型：</span><ul  class="armtype tag-ul"></ul></div>
-			</div>
 			</div>
 
 			<div class="box_border bg_whiteSD">
@@ -66,6 +61,22 @@
 					<ul class="u-con-list">
 						<li class="one-line">
 							<ul>
+								<li><span class="label">文档类型：</span>
+									<div class="formradio"><label><input type="radio" style="width: 10px" name="doctype" value="1" >战例</label></div>
+									<div class="formradio"><label><input type="radio" style="width: 10px" name="doctype" value="2" >战法</label></div>
+								</li>
+							</ul>
+						</li>
+						<li class="one-line">
+							<ul>
+								<li><span class="label">文档名称：</span>
+									<input type="text" id="docname"/></li>
+								<li><span class="label">文档作者：</span>
+									<input type="text" id="owner"/></li>
+							</ul>
+						</li>
+						<li class="one-line">
+							<ul>
 								<li><span class="label">文档名称：</span>
 									<input type="text" id="docname"/></li>
 								<li><span class="label">文档作者：</span>
@@ -75,42 +86,68 @@
 						<li class="one-line">
 							<ul>
 								<li><span class="label">参战国家：</span>
-								<input type="text" id="warstate"/></li>
-								<li><span class="label">参战地点：</span>
-								<input type="text" id="waraddr"/></li>
+									<select id="warcountry" name="warcountry">
+									</select>
+								</li>
+								<li><span class="label">作战地域：</span>
+									<select id="waraddr" name="waraddr">
+									</select>
+								</li>
 							</ul>
 						</li>
 						<li class="one-line">
 							<ul>
-								<li><span class="label">参战开始时间：</span>
-								<input id="wartime_start" type="text" onClick="WdatePicker()" data-value="">
-								<li><span class="label">参战结束时间：</span>
-								<input id="wartime_end" type="text" onClick="WdatePicker()" data-value="">
+								<li><span class="label">战例类型：</span>
+									<select id="warstype" name="warstype">
+									</select>
+								</li>
+								<li><span class="label">参战兵种：</span>
+									<select id="corpstype" name="corpstype">
+									</select>
+								</li>
+							</ul>
+						</li>
+						<li class="one-line">
+							<ul>
+								<li><span class="label">参战年代：</span>
+									<select id="fighttime" name="fighttime">
+									</select>
+								</li>
+								<li><span class="label">伤亡人数：</span>
+									<select id="warnum" name="warnum">
+									</select>
+								</li>
+							</ul>
+						</li>
+						<li class="one-line">
+							<ul>
+								<li><span class="label">战法类别：</span>
+									<select id="fighttype" name="fighttime">
+									</select>
+								</li>
+								<li><span class="label">战斗种类：</span>
+									<select id="combattype" name="combattype">
+									</select>
+								</li>
+							</ul>
+						</li>
+						<li class="one-line">
+							<ul>
+								<li><span class="label">作战特点：</span>
+									<select id="fighttrait" name="fighttrait">
+									</select>
+								</li>
 							</ul>
 						</li>
 						<li class="one-line">
 							<ul>
 								<li><span class="label">胜利方：</span>
-								<input type="text" id="winner"/></li>
+									<input type="text" id="winner" name="winner"/>
+								</li>
 								<li><span class="label">失败方：</span>
-								<input type="text" id="loser"/></li>
+									<input type="text" id="loser" name="loser"/>
+								</li>
 							</ul>
-						</li>
-						<li class="one-line">
-							<ul>
-								<li><span class="label">伤亡人数:</span>
-								<input type="text" id="warnum"/></li>
-								<li><span class="label">伤亡人数:</span>
-								<input type="text" id="warnum1"/></li>
-							</ul>
-						</li>
-						<li class="one-line"><input type="hidden" id="userId"/></li>
-						<li class="one-line"><input type="hidden" id="queryFlag"/></li>
-						<li class="one-line"><span class="label">战例类型：</span>
-							<ul class="wartype tag-ul"></ul>
-						</li>
-						<li class="one-line"><span class="label">兵种类型：</span>
-							<ul class="armtype tag-ul"></ul>
 						</li>
 						<li class="one-line"><span class="label">标签：</span>
 							<ul class="tagtype tag-ul"></ul>
