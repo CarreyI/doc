@@ -29,6 +29,14 @@ function appendDitHtml(){
             $(this).addClass('tag-li-in');
         }
     });
+    var dataDict = parent.dataDictSelectHtml();
+    for (var obj in dataDict){
+        var fieldObj = parent.selectfield(obj);
+        var fieldfn = fieldObj.fn;
+        if(""!=fieldfn){
+            $("#"+fieldfn).html(dataDict[obj]);
+        }
+    }/**/
 }
 function appendTagHtml() {
     var dataList = parent.tagLoadAjax(10000);
