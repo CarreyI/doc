@@ -63,7 +63,7 @@ var pageSize=18;
                         auditstatustyle = "f-red";
                     }
                     var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id
-                        + "'/></td><td title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>"
+                        + "'/></td><td class='d-title' title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>"
                         + filesize + "</td><td>" + owner + "</td><td>" + auditdate
                         + "</td><td class='"+auditstatustyle + "'>" + auditstatus + "</td><td><a class='list-del doc-detail' tid='"+id+"'>详细</a>&nbsp;&nbsp;"+opertionHtml+"</td></tr>";
 

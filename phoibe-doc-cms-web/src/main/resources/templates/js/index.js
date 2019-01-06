@@ -1,5 +1,6 @@
 function appendDitHtml(){
     var dataDict = parent.dataDictLoadAjax();
+
     // {
     // "SOLDIERS":[{"dictKey":"PB","dictName":"炮兵"},[{"dictKey":"TXB","dictName":"通讯兵"}],[{"dictKey":"ZJB","dictName":"装甲兵"}],[{"dictKey":"BB","dictName":"步兵"}]],
     // "COMBAT":[{"dictKey":"BZ","dictName":"兵种战例"},[{"dictKey":"XF","dictName":"西方战例"}],[{"dictKey":"EJ","dictName":"俄军战例"}],[{"dictKey":"SJ","dictName":"苏军战例"}]]}
@@ -75,102 +76,7 @@ function appendUserSearchHtml(){
     });
     $("#userSearchList").html(rowhtml);
 }
-function bindZhanfa() {
-    $("#zgzhanfa").children().remove();
-    var userStr = getCookie("userObject");
-    var userId =1;
-    if (null!=userStr&&""!=userStr) {
-        userObject = JSON.parse(userStr);
-        userId = userObject.id;
-    }
-    $.ajax({
-        type: 'GET',
-        url: GAL_URL + 'phoibe/document/list/user/0/4?userId='+userId,
-        dataType: 'json',
-        success: function (result) {//<div class='font22 title'>中国战法</div>
-            var total_rows = result.data.totalCount;
-            var step = 0;
-            var row = "";
-            $.each(result.data.dataList, function (i, val) {
-                var title = val["name"];
-                var isstock = val["isstock"];
-                var auditStatus = val["auditStatus"];
-                var status = val["status"];
-                var tid = val["id"];
-                var statusStr="";
-                var url="href='docdetail.html?tid=" + tid + "'";
-                if (isstock==1){
-                    if (auditStatus==1){
-                        statusStr="审核中";
-                    }else if(auditStatus==2) {
-                        statusStr="发布中"
-                    }else if(auditStatus==3) {
-                        statusStr="审核未通过";
-                    }
-                } else if (isstock==2&&auditStatus==2) {
-                    statusStr="已发布"
-                }
-                if (status==101){
-                    statusStr="上传中断";
-                    var url=" style='color:#666;cursor: pointer;' onClick=editDocFun("+tid+")";
-                }
-                var row = "<li class='per-60'><i class='i-star'></i><a title='" + title + "' "+url+" >" + cutString(title, 20) + "</a></li><li class='per-30'>" + statusStr + "</li>";
-                $("#zgzhanfa").append(row);
-            });
-        }
-    });
-}
-function bindResouDoc() {
-    $(".resou-doc").children().remove();
-    $.ajax({
-        type: 'GET',
-        url: GAL_URL + 'phoibe/document/hot',
-        dataType: 'json',
-        success: function (result) {
-            var step = 0;
-            $.each(result.data, function (i, val) {
-                step = step + 1;
-                var row="";
-                var realname = val["realname"];
-                var nickname = val["nickname"];
-                var docnum = val["phoibeDocuments"].length;
-                var phoibeDocuments = val["phoibeDocuments"];
-                var score=val["avgScore"];
-                for (var i in phoibeDocuments){
-                    var docObj = phoibeDocuments[i];
-                    var title= docObj.name;
-                    var format = docObj.format;
-                    var tid = docObj.id;
-                    var icon = "";
-                    if (format == "pdf") {
-                        icon = "<i class='pdf'></i>";
-                    }
-                    else if (format == "doc" || format == "docx") {
-                        icon = "<i class='doc'></i>";
-                    }
-                    else {
-                        icon = "<i class='exls'></i>";
-                    }
-                    row = row + "<li>" + icon + "<a href='docdetail.html?tid=" + tid + "' title="+title+">" + cutString(title, 30) + "</a></li>";
-                }
-                var scoreStr="";
-                for(var l=0;l<score;l++){
-                    scoreStr= scoreStr+ "<i class='i-star'></i>";
-                }
-                if (scoreStr==""){
-                    scoreStr="无";
-                }
-                var trow = "<div class='col3  clearfix'>" +
-                    "<div class='ul-header'><div class='ul-img fl'><a href='searchadv.html?owner=" + nickname + "' title="+nickname+"><img src='images/index-head.png'/></a></div><div class='ul-header-right fl'>" +
-                    "<div class='ul-header-name'><a href='searchadv.html?owner=" + nickname + "' title="+nickname+">"+nickname+"</a>&nbsp;&nbsp;" +
-                    "<span class='ul-header-docnum'>"+docnum+"</span>篇文档&nbsp;</div>"
-                    +"<div class='scoreremark'>评分:" +scoreStr
-                    +"</div></div></div><ul class='list1'>" + row + "</ul></div>";
-                $("#resou-doc").append(trow)
-            });
-        }
-    });
-}
+
 
 function bindRecommDoc() {
     $("#zgzhanfa").children().remove();
@@ -180,44 +86,20 @@ function bindRecommDoc() {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (result) {//<div class='font22 title'>中国战法</div>
-            var total_rows = result.data.totalCount;
-            var step = 0;
-            var row = "";
+        success: function (result) {
             $.each(result.data.dataList, function (i, val) {
                 var format = val["format"];
-                step = step + 1;
-
-                var icon = "";
-                if (format == "pdf") {
-                    icon = "<i class='pdf'></i>";
-                }
-                else if (format == "doc" || format == "docx") {
-                    icon = "<i class='doc'></i>";
-                }
-                else {
-                    icon = "<i class='exls'></i>";
-                }
                 var docname = val["name"];
                 var createTime = val["stockTime"];
                 var tid = val["id"];
                 var description=val["description"];
                 var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
-                row = row + "<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
-                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>" + icon +cutString(docname,24)+
+                var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
+                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,24)+
                     "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime.substring("5","10")+"</span></h5></div>"+
-                    "<div class='right-item-desc'>"+cutString(description,74)+"</div>"+
+                    "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
                     "</a></li>";
-                if (step == total_rows) {
-                    var trow = "<div class='col3'><ul class='list1'>" + row + "</ul></div>";;
-                    $("#recom-doc").append(trow)
-                    return;
-                }
-                if (step % 4 == 0) {
-                    var trow = "<div class='col3'><ul class='list1'>" + row + "</ul></div>";;
-                    $("#recom-doc").append(trow)
-                    row = "";
-                }
+                $("#lst-rm").append(row);
 
             });
         }
@@ -265,6 +147,7 @@ function getUserDocNum() {
         success: function (result) {
             if (result.code == "SUCCESS");
             //alert(result.data);
+            var url_tag = GAL_URL+"percenter.html";
             var url_tag = GAL_URL+"percenter.html";
             $("#userdocnum").attr("href",url_tag);
             $("#userdocnum").html(result.data);
@@ -317,8 +200,6 @@ $(function () {
     getDocNum();
     bindRecommDoc();
     bindDym();
-    bindZhanfa();
-    bindResouDoc();
     appendDitHtml();
     appendTagHtml();
     appendUserSearchHtml();
@@ -349,7 +230,6 @@ $(function () {
 
    
     $(".btnSearch").click(function () {
-
         var url = 'searchadv.html?';
         var data="";
 

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head lang="en">
 	<meta charset="UTF-8">
@@ -109,7 +109,7 @@
 			</div>
 		</div>
 		<div class="container box_border" id="main-content">
-			<iframe id="frm-main" name="frm-main" src="index-m.html" style="height:1020px;width:100%;" scrolling="no"  frameborder="0" onload="iframeLoad()"></iframe>
+			<iframe id="frm-main" name="frm-main" src="index-m.html" style="height:1020px;width:100%;" scrolling="no"  frameborder="0" onload="iframeLoad()" allowfullscreen="true"  webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
 		</div>
 
 	</div>
@@ -139,26 +139,60 @@
 						<input type="hidden" id="docId">
 
 						<li class="one-line"><span class="label">标题：</span>
-									<input type="text" id="name" name="name" style="width: 695px;margin-left: 3px;"/>
+							<input type="text" id="name" name="name" style="width: 695px;margin-left: 3px;"/>
 						</li>
 						<li class="one-line">
 							<ul>
 								<li><span class="label">参战国家：</span>
-									<input type="text" id="warcountry" name="warcountry"/>
+									<select id="warcountry" name="warcountry">
+									</select>
 								</li>
-								<li><span class="label">参战地址：</span>
-									<input type="text" id="waraddr" name="waraddr" class="inputBox"/>
+								<li><span class="label">作战地域：</span>
+									<select id="waraddr" name="waraddr">
+									</select>
 								</li>
 							</ul>
 						</li>
 						<li class="one-line">
 							<ul>
 								<li><span class="label">战例类型：</span>
-									<select id="combat_type" name="combat_type">
+									<select id="warstype" name="warstype">
 									</select>
 								</li>
 								<li><span class="label">参战兵种：</span>
-									<select id="arms" name="arms">
+									<select id="corpstype" name="corpstype">
+									</select>
+								</li>
+							</ul>
+						</li>
+						<li class="one-line">
+							<ul>
+								<li><span class="label">参战时间：</span>
+									<select id="fighttime" name="fighttime">
+									</select>
+								</li>
+								<li><span class="label">伤亡人数：</span>
+									<select id="warnum" name="warnum">
+									</select>
+								</li>
+							</ul>
+						</li>
+						<li class="one-line">
+							<ul>
+								<li><span class="label">战法类别：</span>
+									<select id="fighttype" name="fighttime">
+									</select>
+								</li>
+								<li><span class="label">战斗种类：</span>
+									<select id="combattype" name="combattype">
+									</select>
+								</li>
+							</ul>
+						</li>
+						<li class="one-line">
+							<ul>
+								<li><span class="label">作战特点：</span>
+									<select id="fighttrait" name="fighttrait">
 									</select>
 								</li>
 							</ul>
@@ -170,16 +204,6 @@
 								</li>
 								<li><span class="label">失败方：</span>
 									<input type="text" id="loser" name="loser"/>
-								</li>
-							</ul>
-						</li>
-						<li class="one-line">
-							<ul>
-								<li><span class="label">参战时间：</span>
-									<input id="wartime" name="wartime" type="text" onClick="WdatePicker()" readonly="readonly">
-								</li>
-								<li><span class="label">伤亡人数：</span>
-									<input type="text" id="warnum" name="warnum"/>
 								</li>
 							</ul>
 						</li>

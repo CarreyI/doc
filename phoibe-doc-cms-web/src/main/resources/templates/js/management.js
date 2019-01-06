@@ -73,9 +73,20 @@ function usersearchLoadAjax(){
     });
     return dataOption;
 }
-
+function dataDictSelectHtml() {
+    var dictObj = dataDictLoadAjax();
+    var dictSelectObj={};
+    for (var obj in dictObj) {
+        var selectHtml="";
+        $.each(dictObj[obj],function (i,val) {
+            selectHtml += "<option class='tag-li' value='"+val["id"]+"'>"+val["dictName"]+"</option>";
+        })
+        dictSelectObj[obj] = selectHtml;
+    }
+    return dictSelectObj;
+}
 function dataDictLoadAjax(){
-    var data = GAL_URL+"phoibe/dict/list/0/10/0?dictType=1";
+    var data = GAL_URL+"phoibe/dict/list/0/1000/1?dictType=1";
     var dataDict={};
     $.ajax({
         type: 'GET',
