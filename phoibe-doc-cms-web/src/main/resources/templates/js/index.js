@@ -1,34 +1,4 @@
 function appendDitHtml(){
-    var dataDict = parent.dataDictLoadAjax();
-
-    // {
-    // "SOLDIERS":[{"dictKey":"PB","dictName":"炮兵"},[{"dictKey":"TXB","dictName":"通讯兵"}],[{"dictKey":"ZJB","dictName":"装甲兵"}],[{"dictKey":"BB","dictName":"步兵"}]],
-    // "COMBAT":[{"dictKey":"BZ","dictName":"兵种战例"},[{"dictKey":"XF","dictName":"西方战例"}],[{"dictKey":"EJ","dictName":"俄军战例"}],[{"dictKey":"SJ","dictName":"苏军战例"}]]}
-    // <option value="4 ">兵种战例</option>
-    var wartype = "";
-    var armtype = "";
-    $.each(dataDict.COMBAT,function (i,val) {
-        wartype +="<li class='tag-li' dictKey="+val["id"]+">"+val["dictName"]+"</li>";
-    })
-    $.each(dataDict.SOLDIERS,function (i,val) {
-        armtype +="<li class='tag-li' dictKey="+val["id"]+">"+val["dictName"]+"</li>";
-    })
-    $(".wartype").html(wartype);
-    $(".armtype").html(armtype);
-    $(".wartype .tag-li").click(function() {
-        if ($(this).hasClass('tag-li-in')) {
-            $(this).removeClass('tag-li-in');
-        } else {
-            $(this).addClass('tag-li-in');
-        }
-    });
-    $(".armtype .tag-li").click(function() {
-        if ($(this).hasClass('tag-li-in')) {
-            $(this).removeClass('tag-li-in');
-        } else {
-            $(this).addClass('tag-li-in');
-        }
-    });
     var dataDict = parent.dataDictSelectHtml();
     for (var obj in dataDict){
         var fieldObj = parent.selectfield(obj);
@@ -36,7 +6,7 @@ function appendDitHtml(){
         if(""!=fieldfn){
             $("#"+fieldfn).html(dataDict[obj]);
         }
-    }/**/
+    }
 }
 function appendTagHtml() {
     var dataList = parent.tagLoadAjax(10000);

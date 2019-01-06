@@ -326,7 +326,7 @@ public class DocumentController {
 			
 			PhoibeDocument phoibeDocument = new PhoibeDocument();
 			phoibeDocument.setName((String) rb.get("name"));
-			phoibeDocument.setWarstate((String) rb.get("warcountry"));
+			phoibeDocument.setWarstate((String) rb.get("warstate"));
 			
 			String combat_type =(String)rb.get("combat_type");
 			combat_type = combat_type.replaceAll(" ", "");
