@@ -93,7 +93,7 @@ function cunkListLoad(obj){
     return listhtml;
 }
 function getDocFieldList(dield,querywhere){
-    var data = "phoibe/document/list/user/0/5?&auditStatus=2&&isstock=2&"+dield+"="+querywhere;
+    var data = "phoibe/document/list/user/0/3?&auditStatus=2&&isstock=2&"+dield+"="+querywhere;
     var listObjt={};
     $.ajax({
         type: 'GET',
