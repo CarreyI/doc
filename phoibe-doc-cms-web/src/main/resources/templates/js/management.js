@@ -114,6 +114,51 @@ function dataDictLoadAjax(){
     return dataDict;
 }
 
+function selectfield(field){
+    var fieldname="";//在映射类中的字段名，查询用
+    var fieldtitle="";
+    switch (field) {
+        case "WARSTATE" :
+            fieldtitle= "参战国家";
+            fieldname= "warstate";
+            break;
+        case "WARNUM" :
+            fieldtitle= "作战规模";
+            fieldname= "warnum";
+            break;
+        case "WARADDR" :
+            fieldtitle= "作战地域";
+            fieldname= "waraddr";
+            break;
+        case "WARSTYPE" :
+            fieldtitle= "战例类型";
+            fieldname= "warstype";
+            break;
+        case "CORPSTYPE" :
+            fieldtitle= "兵种类型";
+            fieldname= "corpstype";
+            break;
+        case "FIGHTTIME" :
+            fieldtitle= "作战年代";
+            fieldname= "fighttime";
+            break;
+        case "FIGHTTYPE" :
+            fieldtitle= "战法类别";
+            fieldname= "fighttype";
+            break;
+        case "COMBATTYPE" :
+            fieldtitle= "战斗种类";
+            fieldname= "combattype";
+            break;
+        case "FIGHTTRAIT" :
+            fieldtitle= "作战特点";
+            fieldname= "fighttrait";
+            break;
+            break;
+    }
+
+    return {fn:fieldname,ft:fieldtitle};
+}
 function tagLoadAjax(num){
     var data = GAL_URL+"phoibe/tag/list/0/"+num+"?1=1";
     var dataList;

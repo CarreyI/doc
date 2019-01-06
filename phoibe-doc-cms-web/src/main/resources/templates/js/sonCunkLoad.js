@@ -25,7 +25,7 @@ function sonCunkLoad(obj){
         var USER_CONFIG = val.USER_CONFIG
         var QUERYWHERE = val.QUERYWHERE
 
-        var fieldObje = selectfield(USER_CONFIG);//将数据字典中的字段名转为映射类中的属性名
+        var fieldObje = parent.selectfield(USER_CONFIG);//将数据字典中的字段名转为映射类中的属性名
 
         //取出方块的字段名（对应映射类中属性名）和默认查询参数查询
         var dataObj=getDocFieldList(fieldObje.fn,QUERYWHERE);
@@ -91,51 +91,6 @@ function cunkListLoad(obj){
         listhtml+=row;
     });
     return listhtml;
-}
-function selectfield(field){
-    var fieldname="";//在映射类中的字段名，查询用
-    var fieldtitle="";
-    switch (field) {
-        case "WARSTATE" :
-             fieldtitle= "参战国家";
-            fieldname= "warstate";
-            break;
-        case "WARNUM" :
-             fieldtitle= "作战规模";
-            fieldname= "warnum";
-            break;
-        case "WARADDR" :
-             fieldtitle= "作战地域";
-            fieldname= "waraddr";
-            break;
-        case "WARSTYPE" :
-             fieldtitle= "战例类型";
-            fieldname= "warstype";
-            break;
-        case "CORPSTYPE" :
-             fieldtitle= "兵种类型";
-            fieldname= "corpstype";
-            break;
-        case "FIGHTTIME" :
-             fieldtitle= "作战年代";
-            fieldname= "fighttime";
-            break;
-        case "FIGHTTYPE" :
-             fieldtitle= "战法类别";
-            fieldname= "fighttype";
-            break;
-        case "COMBATTYPE" :
-             fieldtitle= "战斗种类";
-            fieldname= "combattype";
-            break;
-        case "FIGHTTRAIT" :
-             fieldtitle= "作战特点";
-            fieldname= "fighttrait";
-            break;
-            break;
-    }
-
-    return {fn:fieldname,ft:fieldtitle};
 }
 function getDocFieldList(dield,querywhere){
     var data = "phoibe/document/list/user/0/5?&auditStatus=2&&isstock=2&"+dield+"="+querywhere;
