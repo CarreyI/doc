@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.phoibe.doc.cms.dao.PhoibeUserPostilMapper">
+  <resultMap id="BaseResultMap" type="me.phoibe.doc.cms.domain.po.PhoibeUserPostil">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="DOC_ID" jdbcType="DECIMAL" property="docId" />
+    <result column="DOC_NAME" jdbcType="VARCHAR" property="docName" />
+    <result column="DOC_PATH" jdbcType="VARCHAR" property="docPath"/>
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="FILE_SIZE" jdbcType="DECIMAL" property="fileSize"/>
+  </resultMap>
+
+  <!--<select id="selectUserConfig" resultType="me.phoibe.doc.cms.domain.po.PhoibeUserConfig">-->
+    <!--select * from PHOIBE_USER_CONFIG where USER_ID = #{userId} and WARS_TACTICS = #{warsOrTactics}-->
+  <!--</select>-->
+
+  <!--<select id="selectUserConfigRecords" parameterType="java.lang.Integer" resultType="java.lang.Integer">-->
+    <!--select count(*) from PHOIBE_USER_CONFIG where USER_ID = #{userId}-->
+  <!--</select>-->
+
+  <insert id="insertUserPostil" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUserPostil">
+    insert into PHOIBE_USER_POSTIL (USER_ID, DOC_ID,DOC_NAME,DOC_PATH,CREATE_TIME,FILE_SIZE)
+    values (#{userId,jdbcType=DECIMAL}, #{docId,jdbcType=DECIMAL},
+      #{docName,jdbcType=VARCHAR},#{docPath,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{fileSize,jdbcType=DECIMAL})
+  </insert>
+
+  <!--<delete id="deleteUserConfigByUserId" parameterType="java.lang.Integer">-->
+    <!--delete from PHOIBE_USER_CONFIG where USER_ID = #{userId}-->
+  <!--</delete>-->
+
+  <!--<update id="updateByPrimaryKey" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUser">-->
+    <!--update PHOIBE_USER-->
+    <!--set USER_NAME = #{userName,jdbcType=VARCHAR},-->
+      <!--TYPE = #{type,jdbcType=DECIMAL},-->
+      <!--STATUS = #{status,jdbcType=DECIMAL},-->
+      <!--CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},-->
+      <!--UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},-->
+      <!--PASSWORD = #{password,jdbcType=VARCHAR},-->
+      <!--REALNAME = #{realname,jdbcType=VARCHAR},-->
+      <!--NICKNAME = #{nickname,jdbcType=VARCHAR}-->
+    <!--where ID = #{id,jdbcType=DECIMAL}-->
+  <!--</update>-->
+
+
+</mapper>

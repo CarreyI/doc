@@ -18,8 +18,8 @@
   </select>
 
   <insert id="insertUserConfig" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUserConfig">
-    insert into PHOIBE_USER_CONFIG (ID, USER_ID, WARS_TACTICS,USER_CONFIG,USER_CONFIG_NAMES)
-    values (#{id,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{warsOrTactics,jdbcType=DECIMAL},
+    insert into PHOIBE_USER_CONFIG (USER_ID, WARS_TACTICS,USER_CONFIG,USER_CONFIG_NAMES)
+    values ( #{userId,jdbcType=DECIMAL}, #{warsOrTactics,jdbcType=DECIMAL},
       #{config,jdbcType=VARCHAR},#{config,jdbcType=VARCHAR})
   </insert>
 
