@@ -14,7 +14,7 @@ function appendCunkHtml(){
 
     var sonCunkHtml = sonCunkLoad(userCunkObje);
     $("#zhanli-ul").html(sonCunkHtml.zl);
-    $("#zhanfa-ul").html(sonCunkHtml.zf);
+    //$("#zhanfa-ul").html(sonCunkHtml.zf);
 
 }
 function sonCunkLoad(obj){
@@ -39,7 +39,7 @@ function sonCunkLoad(obj){
             "   </div>" +
             "   <div class='wid-title-bk'>" +
             "   </div>" +
-                "<select class='wid-select' name='"+USER_CONFIG+"'>" +
+                "<a class='wid-more' href='#'>更多>></a><select class='wid-select' name='"+USER_CONFIG+"'>" +
             dataDictHtml[USER_CONFIG]+
             "</select>"+
             "  <div class='wid-line'></div> <div class='dynamiclist'>" +

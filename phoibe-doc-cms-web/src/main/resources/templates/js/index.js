@@ -49,7 +49,7 @@ function appendUserSearchHtml(){
 
 function bindRecommDoc() {
     $("#zgzhanfa").children().remove();
-    var url = GAL_URL + 'phoibe/document/list/0/16?f=handpick&isstock=2';
+    var url = GAL_URL + 'phoibe/document/list/0/6?f=handpick&isstock=2';
     //alert(url);
     $.ajax({
         type: 'GET',

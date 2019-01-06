@@ -765,7 +765,7 @@ ul.list3 li {
 .idx_box_list {
 	overflow: hidden;
 	height: 100%;
-	padding-right:10px;
+	/*padding-right:10px;*/
 	padding-bottom:10px;
 	margin-top:30px;
 }
@@ -2618,6 +2618,12 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	margin-left:120px;border-radius:5px 5px 20px 5px;
 	float:left;
 	width:39%;
+}
+.wid-more{
+	float: right;
+	color:#dfe2e4;
+	line-height: 32px;
+	padding-right:10px;
 }
 .wid-cicle{
 	float:left;margin-left:-80px;margin-top:-26px;width:135px;height:146px;background:url('../images/icon-type.png')
