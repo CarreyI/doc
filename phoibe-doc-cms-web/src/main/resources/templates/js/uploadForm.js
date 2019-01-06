@@ -153,7 +153,7 @@ function getDocObjecLoad(Id){
         success: function (data) {
             docObj = data.data;
             $("#name").val(docObj.name);
-            $("#warcountry").val(docObj.warstate);
+            $("#warstate").val(docObj.warstate);
             $("#wartime").val(docObj.wartime);
             $("#combat_type").val(docObj.combatType);
             $("#arms").val(docObj.arms);

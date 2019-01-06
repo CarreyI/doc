@@ -178,6 +178,17 @@ function tagLoadAjax(num){
    $(function(){
 
        userAuthController();
+
+       //加载查询框
+       var dataDict = dataDictSelectHtml();
+       for (var obj in dataDict){
+           var fieldObj = selectfield(obj);
+           var fieldfn = fieldObj.fn;
+           if(""!=fieldfn){
+               $("#"+fieldfn).html(dataDict[obj]);
+           }
+       }
+
        //左侧页面导航切换
        $('.main .navLeft li').on('click',function(){
            $(this).addClass('active').siblings('.navList').removeClass('active')
