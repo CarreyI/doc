@@ -137,7 +137,14 @@
 					</li>
 					<form action="phoibe/document/save" method="post" id="ajaxform">
 						<input type="hidden" id="docId">
-
+                        <li class="one-line">
+                            <ul>
+                                <li><span class="label">文档类型：</span>
+                                    <div class="formradio"><label><input type="radio" style="width: 10px" name="doctype" value="1" >战例</label></div>
+                                    <div class="formradio"><label><input type="radio" style="width: 10px" name="doctype" value="2" >战法</label></div>
+                                </li>
+                            </ul>
+                        </li>
 						<li class="one-line"><span class="label">标题：</span>
 							<input type="text" id="name" name="name" style="width: 695px;margin-left: 3px;"/>
 						</li>
@@ -167,7 +174,7 @@
 						</li>
 						<li class="one-line">
 							<ul>
-								<li><span class="label">参战时间：</span>
+								<li><span class="label">参战年代：</span>
 									<select id="fighttime" name="fighttime">
 									</select>
 								</li>

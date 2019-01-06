@@ -570,6 +570,11 @@ textarea{
 	float: left;
 	width: 255px;
 }
+.formradio{
+	width: 60px;
+	float: left;
+	color: #fff
+}
 .u-con-list .one-line{
 	width: 100%;
 	line-height: 24px;

@@ -219,9 +219,6 @@ function appendDitHtml(){
             $(".u-con-list .armtype .tag-li:eq("+index+")").addClass('tag-li-in');
         }
     });
-    $(".search-cond  .tag-li").click(function() {
-        loadData(1, 0);
-    })
 }
 function appendTagHtml() {
     var dataList = parent.tagLoadAjax(10000);
@@ -336,11 +333,6 @@ function appendUserSearchHtml(){
              currPage = 0;
              totalRows = 0;
              loadData(currPage,totalRows);
-             $(".search-cond .tag-li").removeClass("tag-li-in");
-             $(".u-con-list .tag-li-in").each(function () {
-                 var dictKey = $(this).attr("dictKey");
-                 $(".search-cond .tag-li[dictKey='"+dictKey+"']").addClass('tag-li-in');
-             })
              $("#condwhere").fadeOut();
          });
      });
