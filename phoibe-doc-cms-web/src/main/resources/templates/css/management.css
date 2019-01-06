@@ -419,7 +419,7 @@ body, html {
 }
 
 .main .container {
-	height: 100%;
+	height: 970px;
 	/*overflow: scroll;*/
 }
 
@@ -2589,10 +2589,11 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 
 .wid-border{
-	border:1px solid #336b9e;height:400px;margin-top:80px;
-	margin-left:120px;width:500px;border-radius:5px;
+	border:1px solid #336b9e;
+	height:319px;margin-top:50px;
+	margin-left:120px;border-radius:5px;
 	float:left;
-	width:38%;
+	width:39%;
 }
 .wid-cicle{
 	float:left;margin-left:-80px;margin-top:-26px;width:135px;height:146px;background:url('../images/icon-type.png')
