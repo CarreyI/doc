@@ -439,6 +439,7 @@ body, html {
 }
 #index-m .search{
 	margin-bottom:10px;
+	border:none !important;
 }
 
 #search-key{
@@ -637,7 +638,7 @@ textarea{
 }
 .rightAb {
 	position: absolute;
-	top: 192px;
+	top: 108px;
 	right: 20px;
 	width: 319px;
 }
@@ -766,6 +767,7 @@ ul.list3 li {
 	height: 100%;
 	padding-right:10px;
 	padding-bottom:10px;
+	margin-top:30px;
 }
 #upload {
 	width: 138px;
@@ -1663,6 +1665,7 @@ ul.search-con li
 	float:left;
 	margin-bottom:10px;
 	margin-left: 10px;
+	color:#e7e7e7;
 }
 
 ul.search-con li .btnSearch{
@@ -2399,6 +2402,8 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 #head-block{
 	margin-bottom: 11px;
+	border-top: 1px solid #2c3d4c;
+	padding-top: 10px;
 }
 #resou-block{
 	height:210px;
@@ -2419,7 +2424,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 
 .main-son{
 	/*border: 1px solid #234f73;*/
-	height: 750px;
+	height: 740px;
 }
 
 #head-block .widget-title ul li{
@@ -2533,7 +2538,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	padding: 0px 8px 10px 8px;
 	overflow: hidden;
 	word-wrap: break-word;
-	height: 56px;
+	/*height: 56px;*/
 	border-bottom: 1px dashed #394e60;
 	width:90%;
 }
@@ -2610,7 +2615,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 .wid-border{
 	border:1px solid #336b9e;
 	height:319px;margin-top:50px;
-	margin-left:120px;border-radius:5px;
+	margin-left:120px;border-radius:5px 5px 20px 5px;
 	float:left;
 	width:39%;
 }
@@ -2635,4 +2640,15 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	color: #ff7800;
 	margin-left: 50px;
 	margin-top: 8px;
+}
+
+.rm-tab:checked ~ .widget-title .rm-tab, .rm-tab:checked ~{
+	background: url("../images/tabChecked.png");
+	border-bottom: 1px solid #ffffff;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+.idx_box_list .widget-box{
+	height:510px;
 }
