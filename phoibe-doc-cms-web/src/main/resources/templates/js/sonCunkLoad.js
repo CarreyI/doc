@@ -14,7 +14,7 @@ function appendCunkHtml(){
 
     var sonCunkHtml = sonCunkLoad(userCunkObje);
     $("#zhanli-ul").html(sonCunkHtml.zl);
-    //$("#zhanfa-ul").html(sonCunkHtml.zf);
+    $("#zhanfa-ul").html(sonCunkHtml.zf);
 
 }
 function sonCunkLoad(obj){

@@ -638,8 +638,8 @@ textarea{
 }
 .rightAb {
 	position: absolute;
-	top: 108px;
-	right: 20px;
+	top: -14px;
+	right: 2px;
 	width: 319px;
 }
 
@@ -2508,8 +2508,6 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 #docmgr-content .row ul li.owner_btn:hover{color:#00a2d4;}
 #docmgr-content .row ul li.format_btn:hover{color:#00a2d4;}
 .noInfo{color: #999}
-
-.docmgr
 #rm-tab:checked ~ .widget-title .rm-tab, #dym-tab:checked ~ .widget-title .dym-tab{
 	background: url("../images/tabChecked.png");
 	color: #ffffff;
@@ -2639,7 +2637,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	font-size: 24px;
 	color: #ffc000;
 	margin-top: 50px;
-	margin-left: 22px;
+	margin-left: 16px;
 }
 .wid-num{
 	font-size: 18px;
