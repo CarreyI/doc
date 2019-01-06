@@ -2443,7 +2443,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
     margin-top: 50px;
     width: 98%;
     border:1px solid #5e90ca;/*#fffdfe;;*/}
-.wid-select{float:right;margin-right:30px;}
+.wid-select{float:right;margin-right:30px;color:#e7e7e7;}
 #zhanli:checked ~ .widget-title .zhanli, #zhanfa:checked ~ .widget-title .zhanfa{
 	background: url("../images/tabChecked.png");
 	/*border-bottom: 1px solid #ffffff;*/
@@ -2519,7 +2519,8 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 .dynamiclist {
 	width: 96%;
 	margin-left: 8px;
-	clear:both;
+	float:right;
+	margin-top:-20px;
 }
 .dynamiclist .aside-title{
 	font-size: 14px;
@@ -2534,6 +2535,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	word-wrap: break-word;
 	height: 56px;
 	border-bottom: 1px dashed #e0e0e0;
+	width:90%;
 }
 .dynamiclist .right-item a{color:#226c97;}
 
