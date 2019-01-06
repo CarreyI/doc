@@ -432,7 +432,7 @@ body, html {
 
 }
 #index-m .content{
-	border-top:1px solid #2c3d4c;
+	/*border-top:1px solid #2c3d4c;*/
 }
 #index-m .search{
 	margin-bottom:10px;
@@ -442,8 +442,12 @@ body, html {
 	background: #133049;
 }
 #index-m .bg_whiteSD {
-	/*border: 1px solid #3890ae;*/
+	border: 1px solid #3890ae;
 }
+#index-m .list4{
+	padding-top:20px;
+}
+
 .main .container .search {
 	text-align: center;
 	padding: 15px 20px;
@@ -753,12 +757,12 @@ ul.list3 li {
 	line-height: 24px;
 	padding-left: 6px;
 }
-
 .idx_box_list {
 	overflow: hidden;
 	height: 100%;
+	padding-right:10px;
+	padding-bottom:10px;
 }
-
 #upload {
 	width: 138px;
 	height: 40px;
@@ -766,7 +770,7 @@ ul.list3 li {
 	cursor: pointer;
 	background: url("../images/fileupload.png") no-repeat;
 	float: right;
-	margin: 10px;
+	margin-top: 10px;
 }
 #borwse {
 	width: 138px;
@@ -800,8 +804,8 @@ ul.list3 li {
 .idx_box_list .title {
 	/*margin-left: 10px;
     padding-left:12px;*/
-	background:#eeeeee;
 	padding-left:8px;
+	color:#e7e7e7;
 }
 
 .star {
@@ -2405,11 +2409,10 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 .main-son{
 	border: 1px solid #234f73;
 	height: 780px;
-	width: 1250px;
-	margin-left: 20px;
 }
-#head-block .inline-ul{}
-#head-block .widget-title ul li{margin-left: 10px;background: url("../images/tabSelect.png");}
+
+#head-block .widget-title ul li{
+	background: url("../images/tabSelect.png");}
 #head-block .widget-title label{
 	cursor: pointer;
 	width: 136px;
@@ -2417,8 +2420,13 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	padding: 10px 1%;
 	font-weight: initial;
 	line-height: 40px;
-
 }
+.wid-title-bk select{
+	margin-top:-96px;
+	margin-left:160px;
+	border:1px solid #5e9dd9;
+}
+
 
 #zhanli:checked ~ .widget-title .zhanli, #zhanfa:checked ~ .widget-title .zhanfa{
 	background: url("../images/tabChecked.png");
@@ -2488,11 +2496,13 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 
 #rm-tab:checked ~ .widget-box .list-rm-div, #dym-tab:checked ~ .widget-box .list-dym-div{
 	display: block;
+	border:1px solid #3890ae;
+	margin-right:-20px;
 }
 .dynamiclist {
-	width: 295px;
-	height: 955px;
+	width: 96%;
 	margin-left: 8px;
+	clear:both;
 }
 .dynamiclist .aside-title{
 	font-size: 14px;
@@ -2570,15 +2580,25 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
     background: #61B6EB;
 }
 
+.mydoc-item{
+	height: 50px;
+	display: block;
+	line-height: 100px;
+	padding-top: 6px;
+	padding-left:12px;
+}
 
 .wid-border{
-	border:1px solid #336b9e;height:400px;margin-top:50px;margin-left:120px;width:500px;border-radius:5px;
+	border:1px solid #336b9e;height:400px;margin-top:80px;
+	margin-left:120px;width:500px;border-radius:5px;
+	float:left;
+	width:38%;
 }
 .wid-cicle{
-	float:left;margin-left:-80px;margin-top:-60px;width:135px;height:146px;background:url('../images/icon-type.png')
+	float:left;margin-left:-80px;margin-top:-26px;width:135px;height:146px;background:url('../images/icon-type.png')
 }
 .wid-title-bk{
-	width: 162px;
+	width: 161px;
 	height: 32px;
 	background: url('../images/icon-type-line.png');
 	margin-top: -8px;
