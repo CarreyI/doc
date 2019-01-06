@@ -59,6 +59,7 @@ function loadData(type,pageindex) {
         data = data + "&formatArray=" + doctypevalue.toLowerCase();
     }
     data = url + data + "&auditStatus=2&&isstock=2";
+    alert(data);
     $.ajax({
              type: 'GET',
              url: GAL_URL + data,
@@ -66,6 +67,7 @@ function loadData(type,pageindex) {
              dataType: 'json',
              success: function (result) {
                  var total_rows = result.data.totalCount;
+                 alert(total_rows);
                  totalRows = total_rows;
                  var step = 0;
                  var row = "";

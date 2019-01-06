@@ -37,11 +37,9 @@ function sonCunkLoad(obj){
             "            <div class='wid-title'>"+field+"</div>" +
             "            <div class='wid-num'>"+widnum+"</div>" +
             "   </div>" +
-            "   <div class='wid-title-bk'>" +
-            "   </div>" +
-                "<a class='wid-more' href='#'>更多>></a><select class='wid-select' name='"+USER_CONFIG+"'>" +
+                "<div class='wid-title-block'><a class='wid-more' href='#'>更多>></a><select class='wid-select' name='"+USER_CONFIG+"'>" +
             dataDictHtml[USER_CONFIG]+
-            "</select>"+
+            "</select></div>"+
             "  <div class='wid-line'></div> <div class='dynamiclist'>" +
                 doclist+
             "   </div>"+
