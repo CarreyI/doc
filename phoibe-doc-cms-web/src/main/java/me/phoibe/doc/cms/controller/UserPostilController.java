@@ -54,6 +54,7 @@ public class UserPostilController {
             file.transferTo(dest);
         } catch (IOException e) {
             e.printStackTrace();
+
             return JsonUtils.toJson(new Result<>(Code.FAILED, "文件是空的"));
         }
         boolean result = phoibeUserPostilService.insertUserPostil(phoibeUserPostil);
