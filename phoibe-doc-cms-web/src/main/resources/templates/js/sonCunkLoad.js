@@ -37,11 +37,9 @@ function sonCunkLoad(obj){
             "            <div class='wid-title'>"+field+"</div>" +
             "            <div class='wid-num'>"+widnum+"</div>" +
             "   </div>" +
-            "   <div class='wid-title-bk'>" +
-            "   </div>" +
-                "<a class='wid-more' href='#'>更多>></a><select class='wid-select' name='"+USER_CONFIG+"'>" +
+                "<div class='wid-title-block'><a class='wid-more' href='#'>更多>></a><select class='wid-select' name='"+USER_CONFIG+"'>" +
             dataDictHtml[USER_CONFIG]+
-            "</select>"+
+            "</select></div>"+
             "  <div class='wid-line'></div> <div class='dynamiclist'>" +
                 doclist+
             "   </div>"+
@@ -84,8 +82,8 @@ function cunkListLoad(obj){
         }
         var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
         var row="<li class='right-item wid-item'><a href='"+hrefUrl+"'target='_blank'>"+
-            "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,24)+
-            "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+stockTime+"</span></h5></div>"+
+            "<div class='right-item-content clearfix'><i class='doc'></i><span title='"+docname+"'>"+cutString(docname,24)+
+            "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+stockTime+"</span></span></div>"+
             "<div class='right-item-desc'>"+cutString(description,68)+"</div>"+
             "</a></li>";
         listhtml+=row;
@@ -94,6 +92,7 @@ function cunkListLoad(obj){
 }
 function getDocFieldList(dield,querywhere){
     var data = "phoibe/document/list/user/0/3?&auditStatus=2&&isstock=2&"+dield+"="+querywhere;
+    //alert(data);
     var listObjt={};
     $.ajax({
         type: 'GET',

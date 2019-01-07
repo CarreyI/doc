@@ -8,7 +8,7 @@ function loadData(pageindex) {
     var username_value = $("#username").val();
     var title_value = $("#title").val();
 
-    var data = GAL_URL+"phoibe/comment/list/"+pageindex+"/20?1=1";
+    var data = GAL_URL+"phoibe/comment/list/"+pageindex+"/16?1=1";
 
     if (username_value != "" && username_value != null) {
         data = data + "&username=" + username_value.toLowerCase();
@@ -42,7 +42,7 @@ function loadData(pageindex) {
                     "<td>"+username+"</td>"
                     +"<td>"+realname+"</td>"
                     +"<td>"+nickname+"</td>"
-                    +"<td><a href='"+hrefUrl+"'target='_blank'>"+title+"</a></td>"
+                    +"<td class='d-title'><a href='"+hrefUrl+"'target='_blank'>"+title+"</a></td>"
                     +"<td>"+cutString(comment_content,100)+"</td>"
                     +"<td>"+create_time+"</td>"
                     +"<td><a  class='list-del doc-del' cid='"+id+"'>删除</a></td></tr>";
@@ -65,7 +65,7 @@ function loadData(pageindex) {
             elem: 'notice_pages'
             , count: totalRows
             , curr: currPage//当前页,
-            ,limit:20
+            ,limit:16
             , first: '首页'
             , last: '尾页'
             , prev: '<em>←</em>'
