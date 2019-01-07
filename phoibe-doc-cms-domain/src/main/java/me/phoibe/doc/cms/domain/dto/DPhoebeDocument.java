@@ -31,9 +31,6 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     private Date createTimeEnd;
 
-    private Long warnumBegin;
-
-    private Long warnumEnd;
 
     private Long dirId;
 
@@ -162,21 +159,6 @@ public class DPhoebeDocument extends PhoibeDocument {
         this.createTimeEnd = createTimeEnd;
     }
 
-    public Long getWarnumBegin() {
-        return warnumBegin;
-    }
-
-    public void setWarnumBegin(Long warnumBegin) {
-        this.warnumBegin = warnumBegin;
-    }
-
-    public Long getWarnumEnd() {
-        return warnumEnd;
-    }
-
-    public void setWarnumEnd(Long warnumEnd) {
-        this.warnumEnd = warnumEnd;
-    }
 
     public Long getDirId() {
         return dirId;

@@ -30,6 +30,41 @@ function loadData(type,pageindex) {
     if (loser != "") {
         data = data + "&loser=" + loser;
     }
+
+    var warstype = $("#warstype").val();
+    if (null!=warstype&&warstype!= "") {
+        alert(1)
+        data = data + "&warsType=" + warstype;
+    }
+
+    var corpstype = $("#corpstype").val();
+    if (null!=corpstype&&corpstype!= "") {
+        data = data + "&corpsType=" + corpstype;
+    }
+
+    var fighttime = $("#fighttime").val();
+    if (null!=fighttime&&fighttime!= "") {
+        data = data + "&fightTime=" + fighttime;
+    }
+
+    var fighttype = $("#fighttype").val();
+    if (null!=fighttype&&fighttype!= "") {
+        data = data + "&fightType=" + fighttype;
+    }
+
+    var fighttrait = $("#fighttrait").val();
+    if (null!=fighttrait&&fighttrait!= "") {
+        data = data + "&fightTrait=" + fighttrait;
+    }
+    var combattype = $("#combattype").val();
+    if (null!=combattype&&combattype!= "") {
+        data = data + "&combatTypeString=" + combattype;
+    }
+
+    var doctype=$('input:radio[name="doctype"]:checked').val();
+    if (null!=doctype&&doctype != "") {
+        data = data + "&docType=" + doctype;
+    }
     $("#condwhere").find("select option:checked").each(function (i,val) {
         var input_id = $(this).parent().attr("id");
         var filedft = $(this).val();
