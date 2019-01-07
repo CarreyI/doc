@@ -88,6 +88,7 @@ function nearreadListLoad() {
                 var format = val["format"];
                 var createtime = val["createTime"];
                 var tid=val["id"];
+                //alert(tid);
                 var userRealName=val["userRealName"];
                 var icon = "";
                 if (format == "pdf") {
@@ -99,7 +100,7 @@ function nearreadListLoad() {
                 else{
                     icon = "<i class='exls'></i>";//
                 }
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 30) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del nearread-del' tid='\"+tid+\"'>清除</a></b><span class='fr'>" + createtime.substring(0,16) + "</span></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 30) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del nearread-del' tid='"+tid+"'>清除</a></b><span class='fr'>" + createtime.substring(0,16) + "</span></li>";
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
                     $("#nearread").append(trow)
@@ -121,6 +122,7 @@ function nearreadListLoad() {
             }
             $(".nearread-del").click(function () {
                 var tid = $(this).attr("tid");
+                //alert(tid);
                 nearreadAjax(tid);
             });
         }
@@ -157,7 +159,7 @@ function randomListLoad() {
                 else{
                     icon = "<i class='exls'></i>";//
                 }
-                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 30) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del random-del' tid='\"+tid+\"'>取消</a></b><span class='fr'>" + createtime.substring(0,16) + "</span></li>";
+                row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 30) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del random-del' tid='"+tid+"'>取消</a></b><span class='fr'>" + createtime.substring(0,16) + "</span></li>";
 
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
@@ -250,6 +252,7 @@ function attentionListLoad() {
 //清除记录
 function nearreadAjax(tid){
     var url = GAL_URL + "phoibe/document/cancelbrowse/" + tid;
+    //alert(url);
     $.ajax({
         type: 'GET',
         url: url,
@@ -266,6 +269,7 @@ function nearreadAjax(tid){
 function favoriteAjax(tid){
     if (confirm("确认取消关注当前文章吗？")) {
         var url = GAL_URL + "phoibe/document/cancelCollection/" + tid;
+        //alert(url);
         $.ajax({
             type: 'GET',
             url: url,

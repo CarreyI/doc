@@ -858,8 +858,9 @@ ul.list3 li {
 .doc {
 	background: url("../images/doc.png") no-repeat;
 	display: inline-block;
-	width: 16px;
-	height: 16px;
+	width: 18px;
+	height: 18px;
+    /*float:left;*/
 	vertical-align: middle;
 }
 
@@ -1786,7 +1787,7 @@ ul.search-con li .btnSearch{
 	width: auto;
 	height: 26px;
 	line-height: 26px;
-	border: 1px solid #cccccc;
+	border: 1px solid #6ca5e7;
 	padding: 0px 8px;
 	border-radius: 6px;
 	cursor: pointer;
@@ -2595,10 +2596,11 @@ select::-ms-expand { display: none; }
 }
 .dynamiclist .right-item .right-item-content span {
 	margin-right: 8px;
-	font-size: 12px;
+	font-size: 16px;
 	color: #999;
 	letter-spacing: 0;
 	line-height: 20px;
+	margin-left:4px;
 }
 .line_two_li{
 	font-size:16px;
@@ -2654,7 +2656,7 @@ select::-ms-expand { display: none; }
 	padding-left:12px;
 }
 .wid-title-block{
-	margin-top:10px;
+	margin-top:14px;
 }
 .wid-border{
 	/*border:1px solid #336b9e;*/
