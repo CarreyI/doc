@@ -1607,6 +1607,7 @@ ol.list1 {
 	width: 30%;
 	float: left;
 	font-size:16px;
+    color:#e7e7e7;
 }
 
 .tbl-row .ctrl {
@@ -1623,9 +1624,10 @@ ol.list1 {
 
 .tbl-row .ctrl .inputBox {
 	width: 80%;
-	border: 1px solid #cccccc;
+	border: 1px solid #5e9dd9;
 	line-height: 28px;
 	height: 28px;
+    background:#133049;
 }
 
 .closed {
