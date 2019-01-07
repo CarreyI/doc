@@ -11,7 +11,7 @@ function loadData(pageindex) {
     var groupKey_value = $("#search_groupKey").val();
     var groupName_value = $("#search_groupName").val();
 
-    var data = GAL_URL+"phoibe/dict/list/" + pageindex +"/20/"+pageindex+"?dictType=1";
+    var data = GAL_URL+"phoibe/dict/list/" + pageindex +"/17/"+pageindex+"?dictType=1";
 
     if (dictKey_value != "" && dictKey_value != null) {
         data = data + "&dictKey=" + dictKey_value.toLowerCase();
@@ -65,7 +65,7 @@ function loadData(pageindex) {
             elem: 'notice_pages'
             , count: totalRows
             , curr: currPage//当前页,
-            ,limit:20
+            ,limit:17
             , first: '首页'
             , last: '尾页'
             , prev: '<em>←</em>'

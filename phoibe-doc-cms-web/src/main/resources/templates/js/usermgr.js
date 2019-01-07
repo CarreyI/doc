@@ -10,7 +10,7 @@ function loadData(pageindex) {
     var realname_value = $("#tag_realname").val();
     var type_value = $("#tag_type").val();
 
-    var data = GAL_URL+"/phoibe/user/list/"+pageindex+"/20?1=1";
+    var data = GAL_URL+"/phoibe/user/list/"+pageindex+"/16?1=1";
 
     if (username_value != "undefined" && username_value != null && username_value != "") {
         data = data + "&userName=" + username_value.toLowerCase();
@@ -99,7 +99,7 @@ function loadData(pageindex) {
             elem: 'notice_pages'
             , count: totalRows
             , curr: currPage//当前页,
-            ,limit:20
+            ,limit:16
             , first: '首页'
             , last: '尾页'
             , prev: '<em>←</em>'

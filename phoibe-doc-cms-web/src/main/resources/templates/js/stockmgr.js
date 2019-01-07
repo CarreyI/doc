@@ -161,7 +161,7 @@ function docDelAjax(rowid){
         $(function () {
 
             loadData(currPage);
-            $("#btndelstock").hide();
+            //$("#btndelstock").hide();
 
             $("#btnaddstock").click(function () {
                 var sel = $("#tblist-body tr td input[type='radio']:checked");
