@@ -36,10 +36,6 @@ function checkSubmit(){
         alert("文章标题不允许超过50个字！");
         return false;
     }
-    if(isNaN($("#warnum").val())){
-        alert("请确认伤亡人数填写的是数字!")
-        return false;
-    }
     return true;
 }
 function formSubmit(filemd5,filename,fileext,filesize){
@@ -89,7 +85,7 @@ function formSubmit(filemd5,filename,fileext,filesize){
                 //alert("提交成功");
             }else {
                 alert("提交失败");
-                $("#thelist").html("");
+                emptyformw();
                 window.frames["frm-main"].window.editDocFun(docId);
             }
         }
@@ -138,13 +134,18 @@ function getDocObjecLoad(Id){
             docObj = data.data;
             $("#name").val(docObj.name);
             $("#warstate").val(docObj.warstate);
-            $("#wartime").val(docObj.wartime);
-            $("#combat_type").val(docObj.combatType);
-            $("#arms").val(docObj.arms);
             $("#waraddr").val(docObj.waraddr);
+            $("#warnum").val(docObj.warnum);
+            $("#warstype").val(docObj.warsType);
+            $("#corpstype").val(docObj.corpsType);
+            $("#fighttime").val(docObj.fightTime);
+            $("#fighttype").val(docObj.fightType);
+            $("#fighttrait").val(docObj.fightTrait);
+            $("#combattype").val(docObj.combatTypeString);
+            $(":radio[name='doctype'][value='"+docObj.docType+"']").attr("checked","checked");
+
             $("#winner").val(docObj.winner);
             $("#loser").val(docObj.loser);
-            $("#warnum").val(docObj.warnum);
             $("#description").val(docObj.description);
             var select_tag = docObj.tag;
             $(".tag-li").each(function () {

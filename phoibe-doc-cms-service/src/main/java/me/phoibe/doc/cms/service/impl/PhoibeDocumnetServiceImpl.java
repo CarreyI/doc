@@ -89,14 +89,19 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(model.getName()+"#");
-        stringBuilder.append(phoibeDictService.fetchById(model.getArms().longValue()).getDictName()+"#");
-        stringBuilder.append(phoibeDictService.fetchById(model.getCombatType().longValue()).getDictName()+"#");
         stringBuilder.append(model.getUserRealName()+"#");
         stringBuilder.append(model.getWaraddr()+"#");
         stringBuilder.append(model.getWinner()+"#");
         stringBuilder.append(model.getLoser()+"#");
         stringBuilder.append(model.getWarstate()+"#");
-        stringBuilder.append(model.getWartime()+"#");
+
+        stringBuilder.append(phoibeDocument.getWarsType()+"#");
+        stringBuilder.append(phoibeDocument.getCorpsType()+"#");
+        stringBuilder.append(phoibeDocument.getFightTime()+"#");
+        stringBuilder.append(phoibeDocument.getFightType()+"#");
+        stringBuilder.append(phoibeDocument.getCombatTypeString()+"#");
+        stringBuilder.append(phoibeDocument.getFightTrait()+"#");
+
         if (("doc").equals(model.getFormat())||("docx").equals(model.getFormat())||("txt").equals(model.getFormat())){
             String attachText =FileUtil.readFileText(fileAbosultePath);
             stringBuilder.append(attachText);

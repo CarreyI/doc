@@ -80,7 +80,7 @@ public class PhoibeDocument {
 
     private String combatTypeString;
 
-    private int docType;
+    private Short docType;
 
     public Long getId() {
         return id;
@@ -386,11 +386,11 @@ public class PhoibeDocument {
         this.combatTypeString = combatTypeString;
     }
 
-    public int getDocType() {
+    public Short getDocType() {
         return docType;
     }
 
-    public void setDocType(int docType) {
+    public void setDocType(Short docType) {
         this.docType = docType;
     }
 }

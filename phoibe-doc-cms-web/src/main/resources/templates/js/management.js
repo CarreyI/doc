@@ -79,7 +79,7 @@ function dataDictSelectHtml() {
     for (var obj in dictObj) {
         var selectHtml="";
         $.each(dictObj[obj],function (i,val) {
-            selectHtml += "<option class='tag-li' value='"+val["id"]+"'>"+val["dictName"]+"</option>";
+            selectHtml += "<option value='"+val["dictName"]+"'>"+val["dictName"]+"</option>";
         })
         dictSelectObj[obj] = selectHtml;
     }
@@ -118,7 +118,7 @@ function appendDitHtml(){
     for (var obj in dataDict){
         var fieldObj = selectfield(obj);
         var fieldfn = fieldObj.fn;
-        var optionhtml="<option class='tag-li' value=''></option>";
+        var optionhtml="<option  value=''></option>";
         if(""!=fieldfn){
             $("#"+fieldfn).html(optionhtml+dataDict[obj]);
         }

@@ -14,8 +14,6 @@ import me.phoibe.doc.cms.service.PhoibeDocumentService;
 import me.phoibe.doc.cms.service.PhoibeSearchService;
 import me.phoibe.doc.cms.service.PhoibeUserService;
 import me.phoibe.doc.cms.utils.JsonUtils;
-import me.phoibe.doc.cms.utils.PlatDateTimeUtil;
-
 import me.phoibe.doc.cms.utils.Word2PdfUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,18 +25,19 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javax.annotation.Resource;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author pc
@@ -325,23 +324,7 @@ public class DocumentController {
 			
 			
 			PhoibeDocument phoibeDocument = new PhoibeDocument();
-			phoibeDocument.setName((String) rb.get("name"));
-			phoibeDocument.setWarstate((String) rb.get("warstate"));
-			
-			String combat_type =(String)rb.get("combat_type");
-			combat_type = combat_type.replaceAll(" ", "");
-			phoibeDocument.setCombatType(Short.parseShort(combat_type));
-			
-			String srms =(String)rb.get("arms");
-			srms = srms.replaceAll(" ", "");
-			phoibeDocument.setArms(Short.parseShort(srms));
-			
-			phoibeDocument.setWaraddr((String) rb.get("waraddr"));
-			phoibeDocument.setWartime(PlatDateTimeUtil.formatStr((String) rb.get("wartime"),"YYYY-MM-DD"));
-			phoibeDocument.setWinner((String) rb.get("winner"));
-			phoibeDocument.setLoser((String) rb.get("loser"));
-			phoibeDocument.setWarnum((String) rb.get("warnum"));
-			phoibeDocument.setDescription((String) rb.get("description"));
+
 			phoibeDocument.setAuditStatus((short) (1));
 			phoibeDocument.setAuditUserId(1l);
 			phoibeDocument.setIsstock((short) 1);
@@ -350,7 +333,32 @@ public class DocumentController {
 			phoibeDocument.setFilePath(filemd5+"/"+filename);
 			phoibeDocument.setFormat(fileext);
 			phoibeDocument.setProgress((short) (20));
-			
+
+			phoibeDocument.setName((String) rb.get("name"));
+			phoibeDocument.setWinner((String) rb.get("winner"));
+			phoibeDocument.setLoser((String) rb.get("loser"));
+			phoibeDocument.setDescription((String) rb.get("description"));
+
+//			{"doctype":"2","name":"多层炮塔的坦克你见过吗","warstate":"巴西","waraddr":"空中作战","warstype":"路空联合战例","corpstype":"炮兵作战",
+//					"fighttime":"战役战法","warnum":"10~50万","combattype":"破击战","fighttrait":"精确制导","winner":"中国","loser":"日本",
+//					"description":"摘要摘要摘要摘要摘要","docId":"","tagId":"讲解,学习,","filemd5":"01eeff5b28252a39a234db6905b3a3dd",
+//					"filename":"多层炮塔的坦克你见过吗.doc","fileext":"doc","filesize":3450368,
+//					"div_file_id":"form_WU_FILE_0","userId":1,"userName":"superadmin","realname":"超级管理员","nickname":"超级管理员"}
+
+			phoibeDocument.setWarstate((String) rb.get("warstate"));
+			phoibeDocument.setWaraddr((String) rb.get("waraddr"));
+			phoibeDocument.setWarnum((String) rb.get("warnum"));
+
+			//新增字段
+			phoibeDocument.setWarsType((String) rb.get("warstype"));
+			phoibeDocument.setCorpsType((String) rb.get("corpstype"));
+			phoibeDocument.setFightTime((String) rb.get("fighttime"));
+			phoibeDocument.setFightType((String) rb.get("fighttype"));
+			phoibeDocument.setCombatTypeString((String) rb.get("combattype"));
+			phoibeDocument.setFightTrait((String) rb.get("fighttrait"));
+			phoibeDocument.setDocType(Short.parseShort(rb.get("doctype").toString()));
+
+
 			phoibeDocument.setScore(new BigDecimal(0));
 			phoibeDocument.setTag((String) rb.get("tagId"));
 			phoibeDocument.setUpdateTime(new Date());
