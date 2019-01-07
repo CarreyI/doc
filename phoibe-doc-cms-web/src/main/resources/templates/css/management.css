@@ -909,7 +909,7 @@ ul.list3 li {
 	margin-top:10px;
 	/*height: 100%;
 	margin-bottom: 10px;*/
-	border-bottom:1px solid #e0e0e0;/*1px solid #5e90ca;*/
+	border-bottom:1px dashed #33526e;/*1px solid #5e90ca;*/
 	overflow: hidden;
 }
 
@@ -1072,7 +1072,7 @@ ul.list3 li {
 	height: 40px;
 }
 .desc {
-	color:#000;
+	color:#9c9c9c;
 	line-height:30px;
 	font-size:14px;
 }
@@ -1375,11 +1375,12 @@ color:#e9e9e9;
 	cursor: pointer;
 }
 #docmgr-content {
-	background:#fff;
+	/*background:#fff;*/
 	padding-left:4px;
+	border:1px solid #406587;
 }
 #docmgr-content .row .title {
-	color:#226c97 !important;
+	color:#ffffff !important;
 }
 #docmgr-content .row:hover{
 	cursor:pointer;
@@ -1387,7 +1388,7 @@ color:#e9e9e9;
 	padding:0px;*/
 }
 #docmgr-content .row ul li {
-	color:#000;
+	color:#9c9c9c;
 	padding-bottom:0px;
 }
 
@@ -1807,8 +1808,9 @@ ul.search-con li .btnSearch{
 	margin-top: 30px;
 }
 .btn-back{
-	color: #ca0c16 !important;
-	border: 1px solid #ca0c16 !important;
+	color: #ffffff;
+	border: 1px solid #1490a3 !important;
+	background:#1490a3;
 	float: right;
 	margin: 10px;
 }
@@ -2332,7 +2334,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	width:200px;
 	border: 1px solid #406587;
 	min-height: 370px;
-	max-height:676px;
+	max-height:580px;
 }
 .file_divright{
 	margin-left: 210px;
@@ -2376,7 +2378,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 .file-scroll{
 	overflow: auto;
-	height: 560px;
+	height: 540px;
 }
 
 .file_list{
@@ -2493,7 +2495,7 @@ select::-ms-expand { display: none; }
 	font-weight: bold;
 }
 
-.wid-item{height:60px !important;}
+.wid-item{/*height:60px !important;*/}
 #zhanli:checked ~ .widget-box .zhanli-ul, #zhanfa:checked ~ .widget-box .zhanfa-ul{
 	display: block;
 }
@@ -2563,7 +2565,7 @@ select::-ms-expand { display: none; }
 	float:right;
 	margin-top:-20px;
 }
-.zhanli-ul .dynamiclist{
+.zhanli-ul .dynamiclist,.zhanfa-ul .dynamiclist{
 	margin-top:-30px;
 }
 
@@ -2704,3 +2706,20 @@ select::-ms-expand { display: none; }
 .idx_box_list .widget-box{
 	height:510px;
 }
+
+.i-doc-block{
+	height: 20px;
+	display: block;
+	width: 10px;
+	background: #006ec2;
+	float: left;
+	margin-top: 5px;
+	margin-right: 8px;
+}
+.div-top-line{
+	border-top: 1px solid #1e2c38;
+	margin-top: 20px;
+	height: 20px;
+}
+
+#percenter .main .r-content{height:970px;}
