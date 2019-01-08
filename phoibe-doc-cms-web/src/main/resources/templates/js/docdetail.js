@@ -158,7 +158,7 @@ function correlationArticle() {
                 var createTime=val["createTime"];
                 var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
                 var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
-                "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,24)+
+                "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,18)+
                 "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime.substring("5","10")+"</span></h5></div>"+
                 "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
                 "</a></li>";
@@ -351,15 +351,41 @@ function downloadAjax(){
     //     }
     // });
 }
+function loadPizhuData(){
+    $("#detial-pizhu").children().remove();
+    var url = GAL_URL+"phoibe/userPostil/list/"+1+"/10";
+    //alert(url);
+    $.ajax({
+        type: 'GET',
+        url: url,
+        async: false,
+        dataType: 'json',
+        success: function (result) {
+            totalRows = result.data.totalCount;
+            var count = totalRows;
+            $.each(result.data.dataList, function (i, val) {
+
+                var id = val["id"];
+                //alert(id);
+                var createTime = val["createTime"];
+                var title = "批注"+count;
+                var path = val["docPath"];
+                var username=val["userName"];
+                var row="";
+                row = "<li class='right-item'><a href='docdetail.html?tid="+id+"' target='_blank'><div class='right-item-content clearfix'><h5>"+title+"<span class='time'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span title='"+username+"'>"+cutString(username,12)+"</span>&nbsp;&nbsp;"+createTime.substring("0","10")+"</span></h5></div> </a></li>"
+                count--;
+                $("#detial-pizhu").append(row);
+                //parent.iframeLoad();
+            })
+        }
+    });
+}
 $(function () {
     initstar();
         getInfo();
         loadData(0);
-    // newwestDoc();
-    // userMenu();
-    // hotArticle();
     correlationArticle();
-
+    loadPizhuData();
     isAttention();
 
     $("#back").click(function () {
@@ -374,7 +400,33 @@ $(function () {
     $("#download").click(function () {
         downloadAjax(tid);
     });
-        $("#submit").click(function () {
+    $("#uploadnote").click(function() {
+
+        $("#docId").val(tid);
+        var itemlength = $(window.parent.document).find("#thelist").find(".item").length;
+        if (itemlength>0){
+            alert("有未上传完成的任务，请先上传");
+            $(window.parent.document).find(".uplaodTaskBox").click();
+        }else{
+            parent.emptyformw();
+            $(".bodyMask").fadeIn();
+            //$(window.parent.document).find(".bodyMask").fadeIn();
+            parent.appendDitHtml();
+            //parent.getTag();
+        }
+    });
+
+    $("#submit").click(function () {
+        /*var form = $("#ajaxform");
+        form.submit();*/
+    });
+
+    $(window.parent.document).find("#clear-btn").click(function () {
+        parent.emptyformw();
+        window.location.reload();
+    });
+
+        $("#submit1").click(function () {
             if($("#comment-content").val()==""){
                 alert("请输入评论内容");
                 return

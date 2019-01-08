@@ -4,7 +4,7 @@
  */
 function uploadCompleteUpdate(dId,filemd5,filename){
     $.ajax({
-        url:  GAL_URL+"phoibe/document/completeSave/"+dId,
+        url:  GAL_URL+"phoibe/userPostil/completeSave/"+dId,
         type: "post",
         dataType: "json",
         contentType:"application/json;charset=UTF-8",
@@ -25,7 +25,7 @@ function uploadCompleteUpdate(dId,filemd5,filename){
 function checkSubmit(){
     var form = $("#ajaxform");
 
-    if($("#formthelist").find(".item").length==0){
+    /*if($("#formthelist").find(".item").length==0){
         alert("请上传附件！");
         return false;
     }
@@ -35,12 +35,12 @@ function checkSubmit(){
     }else if ($("#name").val().length>50) {
         alert("文章标题不允许超过50个字！");
         return false;
-    }
+    }*/
     return true;
 }
 function formSubmit(filemd5,filename,fileext,filesize){
     var form = $("#ajaxform");
-//alert("form");
+
     var formdata ={};
     for (var i = 0; i < form.serializeArray().length; i++) {
         var key = form.serializeArray()[i].name;

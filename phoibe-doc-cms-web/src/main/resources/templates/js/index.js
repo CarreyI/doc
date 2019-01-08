@@ -64,7 +64,7 @@ function bindRecommDoc() {
                 var description=val["description"];
                 var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
                 var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
-                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,24)+
+                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,20)+
                     "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime.substring("5","10")+"</span></h5></div>"+
                     "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
                     "</a></li>";
@@ -91,7 +91,7 @@ function bindDym() {
                 }
                 var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
                 var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
-                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,24)+
+                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,20)+
                     "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime.substring("5","10")+"</span></h5></div>"+
                     "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
                     "</a></li>";
@@ -185,6 +185,8 @@ $(function () {
             parent.appendDitHtml();
             parent.getTag();
         }
+
+        parent.index_uploaddoc();
     });
     $(window.parent.document).find("#clear-btn").click(function () {
         parent.emptyformw();

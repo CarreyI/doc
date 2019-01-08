@@ -4,13 +4,22 @@ import java.util.Date;
 
 public class PhoibeUserPostil {
     private int id;
-    private int userId;
+    private long userId;
     private int docId;
     private String docName;
     private String docPath;
     private Date createTime;
     private int fileSize;
     private String userName;
+    private Short progress;
+
+    public Short getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Short progress) {
+        this.progress = progress;
+    }
 
     public int getId() {
         return id;
@@ -20,11 +29,11 @@ public class PhoibeUserPostil {
         this.id = id;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

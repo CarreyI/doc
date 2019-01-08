@@ -576,6 +576,7 @@ textarea{
 	line-height: 28px;
 	border: 1px solid #5e9dd9;
 	background: #133049;
+	color:#e7e7e7;
 	margin: 0;
 	padding: 0;
 	float: left;
@@ -1620,7 +1621,12 @@ ol.list1 {
 	background:#ffffff;
 	border:1px solid #cccccc;
 	width:160px;
+	color:#e7e7e7;
 }
+.userpostil{
+	height: 270px;
+}
+.postil-fixed-box{top: 48px;height: 270px;overflow-y: auto;}
 
 .tbl-row .ctrl .inputBox {
 	width: 80%;
@@ -1687,7 +1693,7 @@ ul.search-con li .btnSearch{
 	width: 100%;
 	/*background:#ffffff;*/
 	height:330px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 #doc-content p {
@@ -2269,14 +2275,14 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	color: #999;
 }
 .comment-list-box ul.comment-list li.comment-line-box div.right-box div.info-box .comment {
-	color: #4d4d4d;
+	color: #e7e7e7;
 	font-size: 16px;
 	margin-left: 0;
 }
 .comment-list-box ul.comment-list li.comment-line-box div.right-box div.info-box span {
 	margin-left: 16px;
-	font-size: 12px;
-	color: #6b6b6b;
+	font-size: 14px;
+	color: #e7e7e7
 }
 .comment-list-box ul.comment-list li.comment-line-box div.right-box div.info-box .date, .comment-list-box ul.comment-list li.comment-line-box div.right-box div.info-box .floor-num {
 	font-size: 12px;
@@ -2305,7 +2311,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	padding: 8px 8px 10px 8px;
 	overflow: hidden;
 	word-wrap: break-word;
-	height: 56px;
+	/*height: 56px;*/
 	border-bottom: 1px dashed #394e60;
 }
 

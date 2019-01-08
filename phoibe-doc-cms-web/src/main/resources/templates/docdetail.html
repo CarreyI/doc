@@ -8,6 +8,12 @@
     <script src="js/management.js"></script>
     <script src="js/docdetail.js"></script>
     <script src="js/layui.js"></script>
+
+    <link href="js/webuploader-0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+    <!-- 引入文件上传插件 -->
+    <script type="text/javascript" src="js/webuploader-0.1.5/webuploader.min.js"></script>
+    <script src="js/noteuploadForm.js"></script>
+
     <link rel="stylesheet" href="css/management.css"/>
     <link rel="stylesheet" href="css/layui.css">
 </head>
@@ -18,9 +24,7 @@
 
             <div class="bg_whiteSD box_border top inputblock">
                 <div class="info_div">
-                    
                     <div class="content_divcontent">
-
                         <div class="content_div">
                             <span><a class="btn-back btn" id="back" target="_blank" status=0>返回</a></span>
                         <div class="blog-content-box">
@@ -28,8 +32,6 @@
                                 <div class="article-header">
                                     <div class="article-title-box">
                                         <h1 class="title-article" id="doctitle"></h1>
-
-
                                     </div>
                                     <div class="article-info-box">
                                         <div class="article-bar-top" style="height: auto;">
@@ -52,14 +54,12 @@
                             </div>
                             <div id="article_content" class="article_content">
                                 <div id="doc-content">
-
                                 </div>
-
                                 <span>
                                     <a id="format"></a>
                                     <a class="btn-preview btn" id="preview" target="_blank">查看</a>
                                     <a class="btn-download btn" id="download">下载</a>
-                                    <a class="btn-uploadpostil btn" id="download">上传批注</a>
+                                    <a class="btn-uploadpostil btn" id="uploadnote">上传批注</a>
                                 </span>
                             </div>
                             <script>
@@ -81,7 +81,6 @@
                                             btnReadmore.parent().remove();
                                         }
                                     }
-
                                 })
                             </script>
                         </div>
@@ -105,7 +104,7 @@
                                     </ul>
                                     </span>
                                 <span>
-                                    <a class="btn-submit btn" id="submit">提交</a>
+                                    <a class="btn-submit btn" id="submit1">提交</a>
                                 </span>
                             </div>
                             <textarea rows="5" placeholder="输入您的评论,最多可输入100字" maxlength="100"id="comment-content"
@@ -114,52 +113,58 @@
                         </div>
                 </div>
                     <div class="recommend-right">
+                        <div class="userpostil">
                         <h3 class="aside-title">文档批注</h3>
-                        <ul class="postil-fixed-box" style="top: 48px;height: 270px;overflow-y: scroll;">
-                            <li class="right-item"><a href="docdetail.html?tid=310" title="批注1" target="_blank">
-                                <div class="right-item-content clearfix"><h5>批注1<span class="time">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户1&nbsp;&nbsp;2018-10-25</span></h5></div>
-                            </a></li>
-                            <li class="right-item"><a href="docdetail.html?tid=310" title="批注1" target="_blank">
-                                <div class="right-item-content clearfix"><h5>批注2<span class="time">
-                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户1&nbsp;&nbsp;2018-10-25</span></h5></div>
-                            </a></li>
-                            <li class="right-item"><a href="docdetail.html?tid=310" title="批注1" target="_blank">
-                                <div class="right-item-content clearfix"><h5>批注3<span class="time">
-                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户1&nbsp;&nbsp;2018-10-25</span></h5></div>
-                            </a></li>
-                            <li class="right-item"><a href="docdetail.html?tid=310" title="批注1" target="_blank">
-                                <div class="right-item-content clearfix"><h5>批注4<span class="time">
-                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户1&nbsp;&nbsp;2018-10-25</span></h5></div>
-                            </a></li>
-                            <li class="right-item"><a href="docdetail.html?tid=310" title="批注1" target="_blank">
-                                <div class="right-item-content clearfix"><h5>批注1<span class="time">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 用户1&nbsp;&nbsp;2018-10-25</span></h5></div>
-                            </a></li>
-                            <li class="right-item"><a href="docdetail.html?tid=310" title="批注1" target="_blank">
-                                <div class="right-item-content clearfix"><h5>批注5<span class="time">
-                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户1&nbsp;&nbsp;2018-10-25</span></h5></div>
-                            </a></li>
-                            <li class="right-item"><a href="docdetail.html?tid=310" title="批注1" target="_blank">
-                                <div class="right-item-content clearfix"><h5>批注6<span class="time">
-                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户1&nbsp;&nbsp;2018-10-25</span></h5></div>
-                            </a></li>
-                            <li class="right-item"><a href="docdetail.html?tid=310" title="批注1" target="_blank">
-                                <div class="right-item-content clearfix"><h5>批注6<span class="time">
-                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户1&nbsp;&nbsp;2018-10-25</span></h5></div>
-                            </a></li>
-                            <li class="right-item"><a href="docdetail.html?tid=310" title="批注1" target="_blank">
-                                <div class="right-item-content clearfix"><h5>批注6<span class="time">
-                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户1&nbsp;&nbsp;2018-10-25</span></h5></div>
-                            </a></li>
-                        </ul>
-                        <h3 class="aside-title">相关文章</h3>
-                        <ul class="recommend-fixed-box" style="top: 48px;">
+                        <ul id="detial-pizhu" class="postil-fixed-box">
 
                         </ul>
+                        </div>
+                        <div class="relartile">
+                        <h3 class="aside-title">相关文章</h3>
+                        <ul class="recommend-fixed-box" style="top: 48px;">
+                        </ul>
+                        </div>
                     </div>
             </div>
         </div>
     </div>
+
+        <div id="file-upload-note" class="bodyMask">
+            <div class="mask">
+                <span class="fullScreen"></span>
+                <div class="popup">
+                    <div class="title">
+                        <div class="model-title fl">上传批注</div>
+                        <i class="filelist_closed closed fr"></i>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="line"></div>
+                    　<br/>
+
+                        <div class="tbl-row">
+                            <div class="lable">*文件:</div>
+                            <span id="picker" class="label">选择文件</span>
+                            <div id="uploader" class="wu-example">
+                                <div class="wu-example">
+                                    <div id="formthelist" class="uploader-list"></div>
+                                    <div id="filebtn">
+                                        <span class="stopBtn" style="cursor: pointer;">暂停</span>
+                                        <span class="continueBtn" style="cursor: pointer;">继续</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <form action="phoibe/userPostil/save" method="post" id="ajaxform">
+                    <input type="hidden" id="docId">
+                    </form>
+                        <div class="tbl-row">
+                            <div class="ctrl">
+                                <div id="submit" class="submit ctlBtn filelist_submit"></div>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+        </div>
 </body>
 </html>

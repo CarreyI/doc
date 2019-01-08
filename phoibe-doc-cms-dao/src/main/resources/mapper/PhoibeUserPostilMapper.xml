@@ -22,15 +22,31 @@
   <!--</select>-->
 
   <insert id="insertUserPostil" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUserPostil">
-    insert into PHOIBE_USER_POSTIL (USER_ID, DOC_ID,DOC_NAME,DOC_PATH,CREATE_TIME,FILE_SIZE)
-    values (#{userId,jdbcType=DECIMAL}, #{docId,jdbcType=DECIMAL},
+    insert into PHOIBE_USER_POSTIL (USER_ID,USER_NAME,DOC_ID,DOC_NAME,DOC_PATH,CREATE_TIME,FILE_SIZE)
+    values (#{userId,jdbcType=DECIMAL},#{userName,jdbcType=VARCHAR}, #{docId,jdbcType=DECIMAL},
       #{docName,jdbcType=VARCHAR},#{docPath,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{fileSize,jdbcType=DECIMAL})
   </insert>
+
+  <select id="selectCountByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
+    select count(id) from PHOIBE_USER_POSTIL
+  </select>
 
   <select id="selectUserPostil" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select * from PHOIBE_USER_POSTIL where USER_ID = #{userId}
   </select>
 
+  <select id="fetchUserPostilList" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">
+    select * from PHOIBE_USER_POSTIL  ORDER BY CREATE_TIME DESC
+    <!--select * from (SELECT a.*,rownum rno FROM
+     PHOIBE_USER_POSTIL a
+    <if test="param.userId != null">
+      and a.USER_ID =#{param.userId,jdbcType=jdbcType=DECIMAL}
+    </if>
+    ORDER BY CREATE_TIME DESC
+    )
+    m
+   WHERE m.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})-->
+  </select>
 
   <!--<delete id="deleteUserConfigByUserId" parameterType="java.lang.Integer">-->
     <!--delete from PHOIBE_USER_CONFIG where USER_ID = #{userId}-->
