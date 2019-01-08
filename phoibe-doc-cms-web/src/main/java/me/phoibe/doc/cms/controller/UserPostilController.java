@@ -9,6 +9,7 @@ import me.phoibe.doc.cms.security.JwtUtil;
 import me.phoibe.doc.cms.service.PhoibeUserPostilService;
 import me.phoibe.doc.cms.service.PhoibeUserService;
 import me.phoibe.doc.cms.utils.JsonUtils;
+import me.phoibe.doc.cms.utils.Word2PdfUtil;
 import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -186,5 +187,26 @@ public class UserPostilController {
         LOGGER.info(JsonUtils.toJson(resultMap));
         return JsonUtils.toJson(resultMap);
     }
+
+    @RequestMapping(value = "/previewDoc/{id}",method = RequestMethod.GET)
+    public void previewDoc(@PathVariable Long id,HttpServletResponse response,HttpServletRequest request) throws IOException {
+        PhoibeUserPostil dPhoibeDocument = phoibeUserPostilService.GetUserPostilById(id);
+        String filepath = dPhoibeDocument.getDocPath();
+        String finalDirPath="";
+        if(status.equals("1")) {
+            finalDirPath = window;
+        }else {
+            finalDirPath = linux;
+        }
+        String pdffilepath = filepath.substring(0,filepath.lastIndexOf(".")) + ".pdf";
+        String path = finalDirPath + pdffilepath;
+        File file = new File(path);
+        if (!file.exists()){
+            Word2PdfUtil.doc2pdf((finalDirPath+filepath),path);
+        }
+        LogUtil.writeLog("查看了Id为{"+id+"}的文档文件", LogUtil.OPER_TYPE_LOOK,"文档管理", DocumentController.class,request);
+        response.sendRedirect("/docword/"+new String(path.replace(finalDirPath,"").getBytes("utf-8"), "ISO8859-1"));
+    }
+
 
 }

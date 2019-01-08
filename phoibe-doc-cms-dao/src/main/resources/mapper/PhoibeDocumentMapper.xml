@@ -778,12 +778,12 @@
       <if test="param.createTimeEnd != null">
         and CREATE_TIME &lt;= #{param.createTimeEnd,jdbcType=TIMESTAMP}
       </if>
-      <if test="param.warnumBegin != null">
+      <!--<if test="param.warnumBegin != null">
         and WARNUM &gt;= #{param.warnumBegin,jdbcType=DECIMAL}
       </if>
       <if test="param.warnumEnd != null">
         and WARNUM &lt;= #{param.warnumEnd,jdbcType=DECIMAL}
-      </if>
+      </if>-->
       <if test="param.dirId != null">
         and d.ID in (select DOCUMENT_ID from PHOIBE_DOC_DIR where DIRECTORY_ID = #{param.dirId,jdbcType=DECIMAL})
       </if>

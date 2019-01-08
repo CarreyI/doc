@@ -71,7 +71,8 @@ function docdymListLoad() {
 }
 //最近浏览
 function nearreadListLoad() {
-    var data = GAL_URL+'phoibe/document/list/browse/0/18?queryFlag=browse&isstock=2'
+    var data = GAL_URL+'phoibe/document/list/browse/0/18?queryFlag=browse&isstock=2';
+    alert(data);
     $.ajax({
         type: 'GET',
         url: data,

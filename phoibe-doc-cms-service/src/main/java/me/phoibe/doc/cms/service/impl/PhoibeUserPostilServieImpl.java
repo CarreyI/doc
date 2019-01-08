@@ -32,6 +32,11 @@ public class PhoibeUserPostilServieImpl implements PhoibeUserPostilService {
     }
 
     @Override
+    public PhoibeUserPostil GetUserPostilById(Long Id){
+        return phoibeUserPostilMapper.GetUserPostilById(Id);
+    }
+
+    @Override
     public PageList<PhoibeUserPostil> fetchUserPostilList(PageParam<PhoibeUserPostil> param) {
         List<PhoibeUserPostil> dlist = new ArrayList<>();
         List<PhoibeUserPostil> list = phoibeUserPostilMapper.fetchUserPostilList(param);

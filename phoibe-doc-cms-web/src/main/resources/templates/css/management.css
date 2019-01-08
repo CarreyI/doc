@@ -2259,7 +2259,9 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	border-bottom: 1px dashed #394e60;
 	height: 45px;
 	margin-bottom: 12px;
-
+}
+.comment-list-box h3{
+	color:#e7e7e7;
 }
 .comment-list-box ul.comment-list li.comment-line-box {
 	position: relative;

@@ -35,6 +35,11 @@
     select * from PHOIBE_USER_POSTIL where USER_ID = #{userId}
   </select>
 
+  <select id="GetUserPostilById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select * from PHOIBE_USER_POSTIL where Id = #{id}
+  </select>
+
+
   <select id="fetchUserPostilList" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">
     select * from PHOIBE_USER_POSTIL  ORDER BY CREATE_TIME DESC
     <!--select * from (SELECT a.*,rownum rno FROM

@@ -10,5 +10,6 @@ import java.util.List;
 public interface PhoibeUserPostilService {
     boolean insertUserPostil(PhoibeUserPostil phoibeUserPostil);
     List<PhoibeUserPostil> selectUserPostil(int userId);
+    PhoibeUserPostil GetUserPostilById(Long Id);
     PageList<PhoibeUserPostil> fetchUserPostilList(PageParam<PhoibeUserPostil> pageParam);
 }

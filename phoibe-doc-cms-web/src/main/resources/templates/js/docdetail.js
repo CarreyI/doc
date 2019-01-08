@@ -372,7 +372,9 @@ function loadPizhuData(){
                 var path = val["docPath"];
                 var username=val["userName"];
                 var row="";
-                row = "<li class='right-item'><a href='docdetail.html?tid="+id+"' target='_blank'><div class='right-item-content clearfix'><h5>"+title+"<span class='time'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span title='"+username+"'>"+cutString(username,12)+"</span>&nbsp;&nbsp;"+createTime.substring("0","10")+"</span></h5></div> </a></li>"
+                var hrefurl = "phoibe/userPostil/previewDoc/"+id;
+                hrefurl = GAL_URL+hrefurl;
+                row = "<li class='right-item'><a href='"+hrefurl+"' target='_blank'><div class='right-item-content clearfix'><h5>"+title+"<span class='time'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span title='"+username+"'>"+cutString(username,12)+"</span>&nbsp;&nbsp;"+createTime.substring("0","10")+"</span></h5></div> </a></li>"
                 count--;
                 $("#detial-pizhu").append(row);
                 //parent.iframeLoad();

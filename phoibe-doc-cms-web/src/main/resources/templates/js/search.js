@@ -2,6 +2,7 @@ var totalRows = 0;
 var currPage = 1;
 var pageSize =7;
 function loadData(type,pageindex) {
+
     $("#docmgr-content").children().remove()
 
     var url = 'phoibe/document/list/user/' + pageindex + '/'+pageSize+'?1=1';
@@ -14,10 +15,10 @@ function loadData(type,pageindex) {
     if (docname!=""&&docname!=null){
         data = data + "&docname=" + docname+ "&name=" + docname;
     }
-    /*var ownerId = $("#userId").val();
+    var ownerId = $("#userId").val();
     if (ownerId != "") {
         data = data + "&userId=" + ownerId;
-    }*/
+    }
     var owner = $("#owner").val();
     if (owner != "") {
         data = data + "&nickname=" + owner;
@@ -33,7 +34,7 @@ function loadData(type,pageindex) {
 
     var warstype = $("#warstype").val();
     if (null!=warstype&&warstype!= "") {
-        alert(1)
+        //alert(1)
         data = data + "&warsType=" + warstype;
     }
 
@@ -79,12 +80,8 @@ function loadData(type,pageindex) {
     })
     var queryFlag = $("#queryFlag").val();
 
-    if (queryFlag != "undefined"&&queryFlag!=""&&queryFlag!=null) {
-        if (queryFlag == "subscribe"){
-            data = data + "&queryFlag=" + queryFlag;
-        }else{
-            url = 'phoibe/document/list/'+queryFlag+"/" + pageindex + '/10?1=1';
-        }
+    if (queryFlag != "undefined" && queryFlag!="" && queryFlag!=null) {
+        url = 'phoibe/document/list/'+queryFlag+"/" + pageindex + '/7?1=1'+"&queryFlag=" + queryFlag;
     }
     var doctypevalue = "";
     $("#serachType .acheck").each(function () {
@@ -93,8 +90,8 @@ function loadData(type,pageindex) {
     if (doctypevalue != "" && doctypevalue != null) {
         data = data + "&formatArray=" + doctypevalue.toLowerCase();
     }
-    data = url + data + "&auditStatus=2&&isstock=2";
-    //alert(data);
+    data = url + data + "&isstock=2";//&auditStatus=2&
+
     $.ajax({
              type: 'GET',
              url: GAL_URL + data,
@@ -102,7 +99,6 @@ function loadData(type,pageindex) {
              dataType: 'json',
              success: function (result) {
                  var total_rows = result.data.totalCount;
-                 //alert(total_rows);
                  totalRows = total_rows;
                  var step = 0;
                  var row = "";
@@ -250,7 +246,21 @@ function appendUserSearchHtml(){
     });
     $("#userSearchList").html(rowhtml);
 }
+function InitUserId() {
+
+    var userStr = getCookie("userObject");
+    var userId = 1;
+    if (null != userStr && "" != userStr) {
+        userObject = JSON.parse(userStr);
+        userId = userObject.id;
+        $("#userId").val(userId);
+    }
+}
+
      $(function () {
+         //InitUserId();
+         $("#queryFlag").val(getUrlString("queryFlag"));
+
          appendTagHtml();
          appendHotSearchHtml();
          appendUserSearchHtml();
