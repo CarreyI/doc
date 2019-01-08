@@ -19,4 +19,6 @@ public interface PhoibeUserPostilMapper {
     Long  selectCountByPage(PageParam<PhoibeUserPostil> pageParam);
 
     PhoibeUserPostil GetUserPostilById(Long Id);
+
+    boolean removeById(int id);
 }

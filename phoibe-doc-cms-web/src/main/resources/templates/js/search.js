@@ -78,12 +78,14 @@ function loadData(type,pageindex) {
 
     if (queryFlag != "undefined" && queryFlag!="" && queryFlag!=null) {
 
-        if(queryFlag='mydoc') {
+        if(queryFlag=='mydoc') {
             var ownerId = $("#userId").val();
             url = 'phoibe/document/list/' + pageindex + '/' + pageSize + '?1=1'+ "&userId=" + ownerId;
         }
-        else
-        url = 'phoibe/document/list/'+queryFlag+"/" + pageindex + '/"+pageSize+"?1=1'+"&queryFlag=" + queryFlag;
+        else{
+        url = 'phoibe/document/list/'+queryFlag+"/" + pageindex + '/'+pageSize+'?1=1'+"&queryFlag=" + queryFlag;
+            //alert(url);
+        }
     }
     var doctypevalue = "";
     $("#serachType .acheck").each(function () {
@@ -92,8 +94,9 @@ function loadData(type,pageindex) {
     if (doctypevalue != "" && doctypevalue != null) {
         data = data + "&formatArray=" + doctypevalue.toLowerCase();
     }
+
     data = url + data + "&isstock=2";//&auditStatus=2&
-    alert(data);
+   //alert(data);
     $.ajax({
              type: 'GET',
              url: GAL_URL + data,

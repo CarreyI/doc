@@ -208,5 +208,20 @@ public class UserPostilController {
         response.sendRedirect("/docword/"+new String(path.replace(finalDirPath,"").getBytes("utf-8"), "ISO8859-1"));
     }
 
+    @DeleteMapping("delete")
+    public String remove(@RequestParam String idstr, HttpServletRequest request) {
+        try {
+            String [] ids = idstr.split(",");
+            for(String id : ids){
+                phoibeUserPostilService.removeById(Integer.parseInt(id));
+            }
+
+        } catch (Exception e) {
+            JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
+        }
+        LogUtil.writeLog("删除了id为{"+idstr+"}的文档", LogUtil.OPER_TYPE_LOOK,"批注", DocumentController.class,request);
+        return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+    }
+
 
 }

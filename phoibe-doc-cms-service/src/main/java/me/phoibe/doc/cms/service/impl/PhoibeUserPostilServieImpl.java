@@ -49,4 +49,8 @@ public class PhoibeUserPostilServieImpl implements PhoibeUserPostilService {
         return PageList.createPage(param,phoibeUserPostilMapper.selectCountByPage(param),dlist);
         //return phoibeUserPostilMapper.fetchUserPostilList(param);
     }
+    @Override
+    public boolean removeById(int id){
+        return phoibeUserPostilMapper.removeById(id);
+    }
 }

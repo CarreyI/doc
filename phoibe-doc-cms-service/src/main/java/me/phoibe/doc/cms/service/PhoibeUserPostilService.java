@@ -12,4 +12,5 @@ public interface PhoibeUserPostilService {
     List<PhoibeUserPostil> selectUserPostil(int userId);
     PhoibeUserPostil GetUserPostilById(Long Id);
     PageList<PhoibeUserPostil> fetchUserPostilList(PageParam<PhoibeUserPostil> pageParam);
+    boolean removeById(int id);
 }

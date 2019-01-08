@@ -44,7 +44,7 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     private String realname;
 
-    private String nickname;
+    //private String nickname;
 
     private String[] tagArray;
 
@@ -248,13 +248,13 @@ public class DPhoebeDocument extends PhoibeDocument {
         this.realname = realname;
     }
 
-    public String getNickname() {
+    /*public String getNickname() {
         return nickname;
     }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-    }
+    }*/
 
 
 }

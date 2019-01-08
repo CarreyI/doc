@@ -39,6 +39,10 @@
     select * from PHOIBE_USER_POSTIL where Id = #{id}
   </select>
 
+  <delete id="removeById" parameterType="java.lang.Integer">
+    delete from PHOIBE_USER_POSTIL d
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
 
   <select id="fetchUserPostilList" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">
     select * from PHOIBE_USER_POSTIL  ORDER BY CREATE_TIME DESC

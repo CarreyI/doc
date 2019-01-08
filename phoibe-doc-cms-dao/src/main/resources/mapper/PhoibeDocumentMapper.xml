@@ -50,6 +50,7 @@
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="me.phoibe.doc.cms.domain.po.PhoibeDocument">
       <result column="CONTENT" jdbcType="BLOB" property="content" />
+    <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
   </resultMap>
     <resultMap extends="ResultMapWithBLOBs" id="ResultMapUser" type="me.phoibe.doc.cms.domain.dto.DPhoebeDocument">
         <result column="REALNAME" jdbcType="VARCHAR" property="realname" />
@@ -796,7 +797,7 @@
   <select id="selectJoinByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">
     select * from (
     select
-    d.*,rownum rno
+    d.*,u.NICKNAME,rownum rno
     from PHOIBE_DOCUMENT d
     <if test="param.queryFlag != null and param.queryFlag == 'browse'">
       join (select d.ID
@@ -811,6 +812,8 @@
       <include refid="selectJoinByPage_Condition_Sql"/>
       order by c.CREATE_TIME desc
     </if>
+
+      join PHOIBE_USER u on u.id=d.USER_ID
     ) t WHERE t.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
   </select>
 

@@ -82,6 +82,11 @@ public class PhoibeDocument {
 
     private Short docType;
 
+    private String nickname;
+
+   public void setNickname(String nickname){this.nickname=nickname;}
+    public String getNickname(){return nickname;}
+
     public Long getId() {
         return id;
     }

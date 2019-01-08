@@ -330,7 +330,7 @@ function loadData(pageindex) {
     if (dirId!=""){
         data = data +"&dirId="+dirId;
     }
-    alert(data);
+    //alert(data);
     $.ajax({
             type: 'GET',
             url: data,
