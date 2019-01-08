@@ -38,9 +38,9 @@ function loadData(pageindex) {
 
                 var row="<tr><td><input type='checkbox' data-value='" + id + "' name='chksel'/>" +
                     "<td>"+modulename+"</td>"
-                    +"<td>"+logOption[opertype]+"</td>"
-                    +"<td>"+message+"</td>"
-                    +"<td>"+username+"</td>"
+                    +"<td >"+logOption[opertype]+"</td>"
+                    +"<td class='d-title'>"+message+"</td>"
+                    +"<td class='d-title'>"+username+"</td>"
                     +"<td>"+ipAddr+"</td>"
                     +"<td>"+datatime+"</td>"
                     +"<td><a class='list-del doc-del' lid='"+id+"'>删除</a></td></tr>";

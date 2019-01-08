@@ -15,10 +15,7 @@ function loadData(type,pageindex) {
     if (docname!=""&&docname!=null){
         data = data + "&docname=" + docname+ "&name=" + docname;
     }
-    var ownerId = $("#userId").val();
-    if (ownerId != "") {
-        data = data + "&userId=" + ownerId;
-    }
+
     var owner = $("#owner").val();
     if (owner != "") {
         data = data + "&nickname=" + owner;
@@ -34,7 +31,6 @@ function loadData(type,pageindex) {
 
     var warstype = $("#warstype").val();
     if (null!=warstype&&warstype!= "") {
-        //alert(1)
         data = data + "&warsType=" + warstype;
     }
 
@@ -81,7 +77,13 @@ function loadData(type,pageindex) {
     var queryFlag = $("#queryFlag").val();
 
     if (queryFlag != "undefined" && queryFlag!="" && queryFlag!=null) {
-        url = 'phoibe/document/list/'+queryFlag+"/" + pageindex + '/7?1=1'+"&queryFlag=" + queryFlag;
+
+        if(queryFlag='mydoc') {
+            var ownerId = $("#userId").val();
+            url = 'phoibe/document/list/' + pageindex + '/' + pageSize + '?1=1'+ "&userId=" + ownerId;
+        }
+        else
+        url = 'phoibe/document/list/'+queryFlag+"/" + pageindex + '/"+pageSize+"?1=1'+"&queryFlag=" + queryFlag;
     }
     var doctypevalue = "";
     $("#serachType .acheck").each(function () {
@@ -91,7 +93,7 @@ function loadData(type,pageindex) {
         data = data + "&formatArray=" + doctypevalue.toLowerCase();
     }
     data = url + data + "&isstock=2";//&auditStatus=2&
-
+    alert(data);
     $.ajax({
              type: 'GET',
              url: GAL_URL + data,
@@ -258,7 +260,7 @@ function InitUserId() {
 }
 
      $(function () {
-         //InitUserId();
+         InitUserId();
          $("#queryFlag").val(getUrlString("queryFlag"));
 
          appendTagHtml();

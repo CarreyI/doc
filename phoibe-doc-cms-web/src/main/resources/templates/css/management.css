@@ -15,7 +15,7 @@ input, textarea, keygen, select, button, isindex {
 	outline: none;
 	word-break: break-all;
 	font-size: 14px;
-	color: #666;
+	color: #e7e7e7;
 }
 
 ul, ol, li {
@@ -2474,7 +2474,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
     width: 98%;
     border:1px solid #5e90ca;/*#fffdfe;;*/}
 .wid-select{float:right;margin-right:30px;color:#e7e7e7;
-
+padding-left:8px;
 	background-size: 12px;}
 select option{
 	background:#122432;
@@ -2735,3 +2735,4 @@ select::-ms-expand { display: none; }
 }
 
 #percenter .main .r-content,#tagmgr .main .r-content{height:970px;}
+.doc-detail,.doc-del,.user-edit{cursor:pointer;}

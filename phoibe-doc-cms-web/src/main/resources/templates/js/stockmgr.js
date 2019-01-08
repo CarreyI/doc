@@ -1,7 +1,7 @@
 
 var totalRows = 0;
 var currPage = 0;
-var pageSize =18;
+var pageSize =14;
 var docstatus="1&f=audit";
 
         function loadData(pageindex) {
