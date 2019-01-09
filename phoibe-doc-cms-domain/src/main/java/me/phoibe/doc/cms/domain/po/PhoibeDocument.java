@@ -18,7 +18,7 @@ public class PhoibeDocument {
 
     private BigDecimal fileSize;
 
-    private Short combatType;
+    private String combattype;
 
     private Short arms;
 
@@ -68,15 +68,15 @@ public class PhoibeDocument {
 
     private byte[] content;
 
-    private String warsType;
+    private String warstype;
 
-    private String corpsType;
+    private String corpstype;
 
     private String fightTime;
 
-    private String fightType;
+    private String fighttype;
 
-    private String fightTrait;
+    private String fighttrait;
 
     private String combatTypeString;
 
@@ -143,12 +143,12 @@ public class PhoibeDocument {
         this.fileSize = fileSize;
     }
 
-    public Short getCombatType() {
-        return combatType;
+    public String getCombattpe() {
+        return combattype;
     }
 
-    public void setCombatType(Short combatType) {
-        this.combatType = combatType;
+    public void setCombattype(String combattype) {
+        this.combattype = combattype;
     }
 
     public Short getArms() {
@@ -343,20 +343,20 @@ public class PhoibeDocument {
         this.content = content;
     }
 
-    public String getWarsType() {
-        return warsType;
+    public String getWarstype() {
+        return warstype;
     }
 
-    public void setWarsType(String warsType) {
-        this.warsType = warsType;
+    public void setWarstype(String warstype) {
+        this.warstype = warstype;
     }
 
-    public String getCorpsType() {
-        return corpsType;
+    public String getCorpstype() {
+        return corpstype;
     }
 
-    public void setCorpsType(String corpsType) {
-        this.corpsType = corpsType;
+    public void setCorpstype(String corpstype) {
+        this.corpstype = corpstype;
     }
 
     public String getFightTime() {
@@ -367,20 +367,20 @@ public class PhoibeDocument {
         this.fightTime = fightTime;
     }
 
-    public String getFightType() {
-        return fightType;
+    public String getFighttype() {
+        return fighttype;
     }
 
-    public void setFightType(String fightType) {
-        this.fightType = fightType;
+    public void setFighttype(String fighttype) {
+        this.fighttype = fighttype;
     }
 
-    public String getFightTrait() {
-        return fightTrait;
+    public String getFighttrait() {
+        return fighttrait;
     }
 
-    public void setFightTrait(String fightTrait) {
-        this.fightTrait = fightTrait;
+    public void setFighttrait(String fighttrait) {
+        this.fighttrait = fighttrait;
     }
 
     public String getCombatTypeString() {

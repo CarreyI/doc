@@ -34,17 +34,17 @@
     <result column="WARNUM" jdbcType="VARCHAR" property="warnum" />
     <result column="WARSTATE" jdbcType="VARCHAR" property="warstate" />
     <!-- 新增字段 战例类型-->
-    <result column="WARSTYPE" jdbcType="VARCHAR" property="warsType"/>
+    <result column="WARSTYPE" jdbcType="VARCHAR" property="warstype"/>
     <!--新增字段 兵种类型-->
-    <result column="CORPSTYPE" jdbcType="VARCHAR" property="corpsType"/>
+    <result column="CORPSTYPE" jdbcType="VARCHAR" property="corpstype"/>
     <!--新增字段 作战年代-->
     <result column="FIGHTTIME" jdbcType="VARCHAR" property="fightTime"/>
     <!--新增字段 作战类别 -->
-    <result column="FIGHTTYPE" jdbcType="VARCHAR" property="fightType"/>
+    <result column="FIGHTTYPE" jdbcType="VARCHAR" property="fighttype"/>
     <!--战斗种类-->
     <result column="COMBATTYPE" jdbcType="VARCHAR" property="combatTypeString"/>
     <!--作战特点-->
-    <result column="FIGHTTRAIT" jdbcType="VARCHAR" property="fightTrait"/>
+    <result column="FIGHTTRAIT" jdbcType="VARCHAR" property="fighttrait"/>
     <!--文档类型-->
     <result column="DOCTYPE" jdbcType="DECIMAL" property="docType"/>
   </resultMap>
@@ -80,7 +80,7 @@
   <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.PhoibeDocument" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
     insert into PHOIBE_DOCUMENT (ID, NAME, FORMAT, 
       USER_ID, SCORE, FILE_PATH, 
-      FILE_SIZE, COMBAT_TYPE, ARMS, 
+      FILE_SIZE, ARMS,
       STATUS, AUDIT_STATUS, AUDIT_USER_ID, 
       PROGRESS, TAG, DESCRIPTION, 
       CREATE_TIME, UPDATE_TIME, PAGECOUNT, 
@@ -91,7 +91,7 @@
       WARSTATE, CONTENT,WARSTYPE,CORPSTYPE,FIGHTTIME,FIGHTTYPE,COMBATTYPE,FIGHTTRAIT,DOCTYPE)
     values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{format,jdbcType=VARCHAR}, 
       #{userId,jdbcType=DECIMAL}, #{score,jdbcType=DECIMAL}, #{filePath,jdbcType=VARCHAR}, 
-      #{fileSize,jdbcType=DECIMAL}, #{combatType,jdbcType=DECIMAL}, #{arms,jdbcType=DECIMAL},
+      #{fileSize,jdbcType=DECIMAL}, #{arms,jdbcType=DECIMAL},
       #{status,jdbcType=DECIMAL}, #{auditStatus,jdbcType=DECIMAL}, #{auditUserId,jdbcType=DECIMAL}, 
       #{progress,jdbcType=DECIMAL}, #{tag,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{pagecount,jdbcType=DECIMAL}, 
@@ -99,9 +99,9 @@
       #{isstock,jdbcType=DECIMAL}, #{stockTime,jdbcType=TIMESTAMP}, #{stocker,jdbcType=VARCHAR}, 
       #{userRealName,jdbcType=VARCHAR}, #{waraddr,jdbcType=VARCHAR}, #{wartime,jdbcType=TIMESTAMP}, 
       #{winner,jdbcType=VARCHAR}, #{loser,jdbcType=VARCHAR}, #{warnum,jdbcType=VARCHAR}, 
-      #{warstate,jdbcType=VARCHAR}, #{content,jdbcType=BLOB},#{warsType,jdbcType=VARCHAR},
-      #{corpsType,jdbcType=VARCHAR},#{fightTime,jdbcType=VARCHAR},#{fightType,jdbcType=VARCHAR},
-      #{combatTypeString,jdbcType=VARCHAR},#{fightTrait,jdbcType=VARCHAR},#{docType,jdbcType=DECIMAL})
+      #{warstate,jdbcType=VARCHAR}, #{content,jdbcType=BLOB},#{warstype,jdbcType=VARCHAR},
+      #{corpstype,jdbcType=VARCHAR},#{fightTime,jdbcType=VARCHAR},#{fighttype,jdbcType=VARCHAR},
+      #{combatTypeString,jdbcType=VARCHAR},#{fighttrait,jdbcType=VARCHAR},#{docType,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeDocument">
     insert into PHOIBE_DOCUMENT
@@ -127,9 +127,9 @@
       <if test="fileSize != null">
         FILE_SIZE,
       </if>
-      <if test="combatType != null">
+      <!--<if test="combatType != null">
         COMBAT_TYPE,
-      </if>
+      </if>-->
       <if test="arms != null">
         ARMS,
       </if>
@@ -202,7 +202,7 @@
       <if test="content != null">
         CONTENT,
       </if>
-      <if test="warsType != null">
+      <if test="warstype != null">
         WARSTYPE,
       </if>
       <if test="corpsTypeString != null">
@@ -211,13 +211,13 @@
       <if test="fightTime != null">
         FIGHTTIME,
       </if>
-      <if test="fightType != null">
+      <if test="fighttype != null">
         FIGHTTYPE,
       </if>
       <if test="combatTypeString != null">
         COMBATTYPE,
       </if>
-      <if test="fightTrait != null">
+      <if test="fighttrait != null">
         FIGHTTRAIT,
       </if>
       <if test="docType != null">
@@ -246,9 +246,9 @@
       <if test="fileSize != null">
         #{fileSize,jdbcType=DECIMAL},
       </if>
-      <if test="combatType != null">
+      <!--<if test="combatType != null">
         #{combatType,jdbcType=DECIMAL},
-      </if>
+      </if>-->
       <if test="arms != null">
         #{arms,jdbcType=DECIMAL},
       </if>
@@ -321,23 +321,23 @@
       <if test="content != null">
         #{content,jdbcType=BLOB},
       </if>
-      <if test="warsType !=null ">
-        #{warsType,jdbcType=VARCHAR},
+      <if test="warstype !=null ">
+        #{warstype,jdbcType=VARCHAR},
       </if>
-      <if test="corpsType !=null ">
-        #{corpsType,jdbcType=VARCHAR},
+      <if test="corpstype !=null ">
+        #{corpstype,jdbcType=VARCHAR},
       </if>
       <if test="fightTime !=null ">
         #{fightTime,jdbcType=VARCHAR},
       </if>
-      <if test="fightType !=null ">
-        #{fightType,jdbcType=VARCHAR},
+      <if test="fighttype !=null ">
+        #{fighttype,jdbcType=VARCHAR},
       </if>
       <if test="combatTypeString !=null ">
         #{combatTypeString,jdbcType=VARCHAR},
       </if>
-      <if test="fightTrait !=null ">
-       #{fightTrait,jdbcType=VARCHAR},
+      <if test="fighttrait !=null ">
+       #{fighttrait,jdbcType=VARCHAR},
       </if>
       <if test="docType !=null ">
         #{docType,jdbcType=DECIMAL}
@@ -365,9 +365,9 @@
       <if test="fileSize != null">
         FILE_SIZE = #{fileSize,jdbcType=DECIMAL},
       </if>
-      <if test="combatType != null">
+      <!--<if test="combatType != null">
         COMBAT_TYPE = #{combatType,jdbcType=DECIMAL},
-      </if>
+      </if>-->
       <if test="arms != null">
         ARMS = #{arms,jdbcType=DECIMAL},
       </if>
@@ -440,23 +440,23 @@
       <if test="content != null">
         CONTENT = #{content,jdbcType=BLOB},
       </if>
-      <if test="warsType !=null ">
-        WARSTYPE = #{warsType,jdbcType=VARCHAR},
+      <if test="warstype !=null ">
+        WARSTYPE = #{warstype,jdbcType=VARCHAR},
       </if>
-      <if test="corpsType !=null ">
-        CORPSTYPE = #{corpsType,jdbcType=VARCHAR},
+      <if test="corpstype !=null ">
+        CORPSTYPE = #{corpstype,jdbcType=VARCHAR},
       </if>
       <if test="fightTime !=null ">
         FIGHTTIME = #{fightTime,jdbcType=VARCHAR},
       </if>
-      <if test="fightType !=null ">
-        FIGHTTYPE = #{fightType,jdbcType=VARCHAR},
+      <if test="fighttype !=null ">
+        FIGHTTYPE = #{fighttype,jdbcType=VARCHAR},
       </if>
       <if test="combatTypeString !=null ">
         COMBATTYPE = #{combatTypeString,jdbcType=VARCHAR},
       </if>
-      <if test="fightTrait !=null ">
-        FIGHTTRAIT = #{fightTrait,jdbcType=VARCHAR},
+      <if test="fighttrait !=null ">
+        FIGHTTRAIT = #{fighttrait,jdbcType=VARCHAR},
       </if>
       <if test="docType !=null ">
         DOCTYPE = #{docType,jdbcType=DECIMAL}
@@ -497,12 +497,12 @@
       WARNUM = #{warnum,jdbcType=VARCHAR},
       WARSTATE = #{warstate,jdbcType=VARCHAR},
       CONTENT = #{content,jdbcType=BLOB},
-      WARSTYPE = #{warsType,jdbcType=VARCHAR},
-      CORPSTYPE = #{corpsType,jdbcType=VARCHAR},
+      WARSTYPE = #{warstype,jdbcType=VARCHAR},
+      CORPSTYPE = #{corpstype,jdbcType=VARCHAR},
       FIGHTTIME = #{fightTime,jdbcType=VARCHAR},
-      FIGHTTYPE = #{fightType,jdbcType=VARCHAR},
+      FIGHTTYPE = #{fighttype,jdbcType=VARCHAR},
       COMBATTYPE = #{combatTypeString,jdbcType=VARCHAR},
-      FIGHTTRAIT = #{fightTrait,jdbcType=VARCHAR},
+      FIGHTTRAIT = #{fighttrait,jdbcType=VARCHAR},
       DOCTYPE = #{docType,jdbcType=DECIMAL}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
@@ -538,12 +538,12 @@
       LOSER = #{loser,jdbcType=VARCHAR},
       WARNUM = #{warnum,jdbcType=VARCHAR},
       WARSTATE = #{warstate,jdbcType=VARCHAR},
-      WARSTYPE = #{warsType,jdbcType=VARCHAR},
-      CORPSTYPE = #{corpsType,jdbcType=VARCHAR},
+      WARSTYPE = #{warstype,jdbcType=VARCHAR},
+      CORPSTYPE = #{corpstype,jdbcType=VARCHAR},
       FIGHTTIME = #{fightTime,jdbcType=VARCHAR},
-      FIGHTTYPE = #{fightType,jdbcType=VARCHAR},
+      FIGHTTYPE = #{fighttype,jdbcType=VARCHAR},
       COMBATTYPE = #{combatTypeString,jdbcType=VARCHAR},
-      FIGHTTRAIT = #{fightTrait,jdbcType=VARCHAR},
+      FIGHTTRAIT = #{fighttrait,jdbcType=VARCHAR},
       DOCTYPE = #{docType,jdbcType=DECIMAL}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
@@ -614,23 +614,27 @@
       <if test="param.content != null">
         and CONTENT = #{param.content,jdbcType=BLOB}
       </if>
-      <if test="param.warsType !=null ">
-        and WARSTYPE = #{param.warsType,jdbcType=VARCHAR}
+      <if test="param.warstype !=null ">
+        and WARSTYPE = #{param.warstype,jdbcType=VARCHAR}
       </if>
-      <if test="param.corpsType !=null ">
-        and CORPSTYPE = #{param.corpsType,jdbcType=VARCHAR}
+      <if test="param.corpstype !=null ">
+        <!--and CORPSTYPE = #{param.corpstype,jdbcType=VARCHAR}-->
+        and CORPSTYPE LIKE '%'||#{param.corpstype,jdbcType=VARCHAR}||'%'
       </if>
       <if test="param.fightTime !=null ">
-        and FIGHTTIME = #{param.fightTime,jdbcType=VARCHAR}
+       <!-- and FIGHTTIME = #{param.fightTime,jdbcType=VARCHAR}-->
+        and FIGHTTIME LIKE '%'||#{param.fightTime,jdbcType=VARCHAR}||'%'
       </if>
-      <if test="param.fightType !=null ">
-        and FIGHTTYPE = #{param.fightType,jdbcType=VARCHAR}
+      <if test="param.fighttype !=null ">
+        and FIGHTTYPE = #{param.fighttype,jdbcType=VARCHAR}
       </if>
       <if test="param.combatTypeString !=null ">
-        and COMBATTYPE = #{param.combatTypeString,jdbcType=VARCHAR}
+       <!-- and COMBATTYPE = #{param.combatTypeString,jdbcType=VARCHAR}-->
+        and COMBATTYPE LIKE '%'||#{param.combatTypeString,jdbcType=VARCHAR}||'%'
       </if>
-      <if test="param.fightTrait !=null ">
-        and FIGHTTRAIT = #{param.fightTrait,jdbcType=VARCHAR}
+      <if test="param.fighttrait !=null ">
+       <!-- and FIGHTTRAIT = #{param.fighttrait,jdbcType=VARCHAR}-->
+        and FIGHTTRAIT LIKE '%'||#{param.fighttrait,jdbcType=VARCHAR}||'%'
       </if>
       <if test="param.docType !=null ">
         and DOCTYPE = #{param.docType,jdbcType=DECIMAL}
@@ -848,7 +852,23 @@
     <if test="param.nickname != null">
       and u.NICKNAME LIKE '%'||#{param.nickname,jdbcType=VARCHAR}||'%'
     </if>
+    <if test="param.waraddr!=null">
+      and d.WARADDR  LIKE '%'||#{param.waraddr,jdbcType=VARCHAR}||'%'
+    </if>
+    <!--<if test="param.combatTypeString!=null">
+      and d.COMBATTYPE  LIKE '%'||#{param.combatTypeString,jdbcType=VARCHAR}||'%'
+    </if>
 
+    <if test="param.corpstype!=null">
+      and d.CORPSTYPE  LIKE '%'||#{param.corpstype,jdbcType=VARCHAR}||'%'
+    </if>
+    <if test="param.fighttrait!=null">
+      and d.FIGHTTRAIT  LIKE '%'||#{param.fighttrait,jdbcType=VARCHAR}||'%'
+    </if>
+    <if test="param.combatTypeString!=null">
+      and d.COMBATTYPE  LIKE '%'||#{param.combatTypeString,jdbcType=VARCHAR}||'%'
+    </if>
+-->
     <if test="param.contentArray!= null">
       and d.ID in (select DOCUMENT_ID from PHOIBE_ATTACH_CONTENT where
       <foreach collection="param.contentArray" index="index" item="item" open="" separator=" OR " close=""  >

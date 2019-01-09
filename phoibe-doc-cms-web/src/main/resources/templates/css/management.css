@@ -727,7 +727,7 @@ textarea{
 }
 .line {
 	clear:both;
-	border:1px solid #5e90ca;/*#fffdfe;;*/
+	border-bottom:1px solid #5e90ca;/*#fffdfe;;*/
 }
 
 .main .container .content .dataword div.font16 {
@@ -812,7 +812,12 @@ ul.list3 li {
 	   background: url("../images/pizhu.png") no-repeat;
 	float:right
    }
-
+.popup .line{;
+	/*border-bottom: 1px dotted #5e90ca;*/
+}
+.formradio label input{
+	margin-top:6px;
+}
 .idx_box_list .title {
 	line-height: 38px;
 	height: 38px;
@@ -1305,11 +1310,14 @@ color:#e9e9e9;
 	padding-left: 6px;
     color:#e7e7e7;
 }
+.list-del{
+	cursor:pointer;
+}
 
 .aduit {
 	background-image: url("../images/audit.png");
 	width: 130px;
-	height: 36px;
+	height: 35px;
 	display: inline-block;
 	cursor: pointer;
 }

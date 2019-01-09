@@ -59,12 +59,16 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
     @Override
     @Transactional
     public Integer save_v2(PhoibeDocument phoibeDocument) {
-        int i = phoibeDocumentMapper.insert(phoibeDocument);
-        PhoibeAttachContent phoibeAttachContent = new PhoibeAttachContent();
-        phoibeAttachContent.setDocumentId(phoibeDocument.getId());
-        phoibeAttachContent.setAttachContent("");
-        phoibeAttachContentMapper.insertSelective(phoibeAttachContent);
-        return i;
+        try {
+            int i = phoibeDocumentMapper.insert(phoibeDocument);
+            PhoibeAttachContent phoibeAttachContent = new PhoibeAttachContent();
+            phoibeAttachContent.setDocumentId(phoibeDocument.getId());
+            phoibeAttachContent.setAttachContent("");
+            phoibeAttachContentMapper.insertSelective(phoibeAttachContent);
+            return i;
+        }catch(Exception ex){
+            throw(ex);
+        }
     }
 
 
@@ -95,12 +99,12 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
         stringBuilder.append(model.getLoser()+"#");
         stringBuilder.append(model.getWarstate()+"#");
 
-        stringBuilder.append(phoibeDocument.getWarsType()+"#");
-        stringBuilder.append(phoibeDocument.getCorpsType()+"#");
+        stringBuilder.append(phoibeDocument.getWarstype()+"#");
+        stringBuilder.append(phoibeDocument.getCorpstype()+"#");
         stringBuilder.append(phoibeDocument.getFightTime()+"#");
-        stringBuilder.append(phoibeDocument.getFightType()+"#");
+        stringBuilder.append(phoibeDocument.getFighttype()+"#");
         stringBuilder.append(phoibeDocument.getCombatTypeString()+"#");
-        stringBuilder.append(phoibeDocument.getFightTrait()+"#");
+        stringBuilder.append(phoibeDocument.getFighttrait()+"#");
 
         if (("doc").equals(model.getFormat())||("docx").equals(model.getFormat())||("txt").equals(model.getFormat())){
             String attachText =FileUtil.readFileText(fileAbosultePath);

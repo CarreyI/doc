@@ -156,9 +156,9 @@ function selectfield(field){
             fieldtitle= "战法类别";
             fieldname= "fighttype";
             break;
-        case "COMBATTYPE" :
+        case "COMBATTYPESTRING" :
             fieldtitle= "战斗种类";
-            fieldname= "combattype";
+            fieldname= "combatTypeString";
             break;
         case "FIGHTTRAIT" :
             fieldtitle= "作战特点";

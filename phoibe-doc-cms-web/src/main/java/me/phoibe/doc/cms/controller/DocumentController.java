@@ -350,12 +350,12 @@ public class DocumentController {
 			phoibeDocument.setWarnum((String) rb.get("warnum"));
 
 			//新增字段
-			phoibeDocument.setWarsType((String) rb.get("warstype"));
-			phoibeDocument.setCorpsType((String) rb.get("corpstype"));
+			phoibeDocument.setWarstype((String) rb.get("warstype"));
+			phoibeDocument.setCorpstype((String) rb.get("corpstype"));
 			phoibeDocument.setFightTime((String) rb.get("fighttime"));
-			phoibeDocument.setFightType((String) rb.get("fighttype"));
-			phoibeDocument.setCombatTypeString((String) rb.get("combattype"));
-			phoibeDocument.setFightTrait((String) rb.get("fighttrait"));
+			phoibeDocument.setFighttype((String) rb.get("fighttype"));
+			phoibeDocument.setCombatTypeString((String) rb.get("combatTypeString"));
+			phoibeDocument.setFighttrait((String) rb.get("fighttrait"));
 			phoibeDocument.setDocType(Short.parseShort(rb.get("doctype").toString()));
 
 

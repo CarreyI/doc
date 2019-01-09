@@ -114,6 +114,7 @@ var pageSize=14;
 
 function docAddAjax(rowid){
     var data = 'phoibe/document/update/checkpass/' + rowid;
+    alert(data);
     $.ajax({
         type: 'GET',
         url: data,

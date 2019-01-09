@@ -7,7 +7,7 @@ function appendCunkHtml(){
         {USER_CONFIG:"WARADDR",WARS_TACTICS:1,QUERYWHERE:"平原作战"},
         {USER_CONFIG:"WARSTYPE",WARS_TACTICS:1,QUERYWHERE:"海陆联合战例"},
         {USER_CONFIG:"FIGHTTYPE",WARS_TACTICS:2,QUERYWHERE:"战术战法"},
-        {USER_CONFIG:"COMBATTYPE",WARS_TACTICS:2,QUERYWHERE:"袭击战"},
+        {USER_CONFIG:"COMBATTYPESTRING",WARS_TACTICS:2,QUERYWHERE:"袭击战"},
         {USER_CONFIG:"CORPSTYPE",WARS_TACTICS:2,QUERYWHERE:"空军作战"},
         {USER_CONFIG:"FIGHTTRAIT",WARS_TACTICS:2,QUERYWHERE:"以少胜多"}
         ];
@@ -24,14 +24,19 @@ function sonCunkLoad(obj){
         var WARS_TACTICS = val.WARS_TACTICS
         var USER_CONFIG = val.USER_CONFIG
         var QUERYWHERE = val.QUERYWHERE
-
+ //alert(QUERYWHERE);
         var fieldObje = parent.selectfield(USER_CONFIG);//将数据字典中的字段名转为映射类中的属性名
 
         //取出方块的字段名（对应映射类中属性名）和默认查询参数查询
         var dataObj=getDocFieldList(fieldObje.fn,QUERYWHERE);
         var field=fieldObje.ft;
+       //alert(field);
         var doclist=cunkListLoad(dataObj.datalist);
-        var widnum = dataObj.datacount;
+        var widnum =0;
+        if(dataObj.datacount>0){
+            widnum=dataObj.datacount;
+            //alert(widnum);
+        }
         var row="<div class='wid-border' >" +
             "   <div class='wid-cicle'>" +
             "            <div class='wid-title'>"+field+"</div>" +
