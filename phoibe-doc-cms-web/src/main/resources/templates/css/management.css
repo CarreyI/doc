@@ -2116,7 +2116,7 @@ ul.search-con li .btnSearch{
 	float: left;
 }
 .btn {
-	padding: 0 2px;
+	padding: 0 4px;
 	display: inline-block;
 	font-size: 16px;
 	border-radius: 4px;
@@ -2135,27 +2135,34 @@ ul.search-con li .btnSearch{
 
 }
 .btn-attention{
-	color: #ca0c16 !important;
-	border: 1px solid #ca0c16 !important;
+	/*color: #ca0c16 !important;*/
+	background:#1490a3;
+	color:#e7e7e7;
+	/*border: 1px solid #ca0c16 !important;*/
 }
 .btn-download{
-	color: #ca0c16 !important;
-	border: 1px solid #ca0c16 !important;
+	color: #e7e7e7 !important;
+	/*border: 1px solid #ca0c16 !important;*/
+	background:#226c97;
 	margin-left: 20px;
 }
 .btn-uploadpostil{
-	color: #ca0c16 !important;
-	border: 1px solid #ca0c16 !important;
+	color: #e7e7e7 !important;
+	/*border: 1px solid #ca0c16 !important;*/
 	margin-left: 20px;
+	background:#226c97;
 }
 .btn-preview{
-	color: #ca0c16 !important;
-	border: 1px solid #ca0c16 !important;
+	color: #e7e7e7;
+	background:#226c97;
+	/*border: 1px solid #ca0c16 !important;*/
 	margin-left: 20px;
 }
 .btn-favorite{
-	color: #ca0c16 !important;
-	border: 1px solid #ca0c16 !important;
+	/*color: #ca0c16 !important;
+	border: 1px solid #ca0c16 !important;*/
+	background:#1490a3;
+	color:#e7e7e7;
 	margin-left: 20px;
 }
 .btn-submit{
@@ -2760,3 +2767,9 @@ select::-ms-expand { display: none; }
 
 #percenter .main .r-content,#tagmgr .main .r-content{height:970px;}
 .doc-detail,.doc-del,.user-edit{cursor:pointer;}
+.file_selectlist li a{color:#e7e7e7;}
+
+.dir-content{
+	height:400px;
+	overflow-y:auto;
+}
