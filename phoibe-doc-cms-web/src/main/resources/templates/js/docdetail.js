@@ -353,7 +353,7 @@ function downloadAjax(){
 }
 function loadPizhuData(){
     $("#detial-pizhu").children().remove();
-    var url = GAL_URL+"phoibe/userPostil/list/"+1+"/10";
+    var url = GAL_URL+"phoibe/userPostil/list/"+0+"/10?docId="+tid;
     //alert(url);
     $.ajax({
         type: 'GET',

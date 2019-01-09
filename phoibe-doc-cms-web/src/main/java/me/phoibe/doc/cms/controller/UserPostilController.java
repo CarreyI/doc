@@ -4,7 +4,6 @@ import me.phoibe.doc.cms.config.LogUtil;
 import me.phoibe.doc.cms.domain.dto.UserInfo;
 import me.phoibe.doc.cms.domain.po.PageList;
 import me.phoibe.doc.cms.domain.po.PageParam;
-import me.phoibe.doc.cms.domain.po.PhoibeSearch;
 import me.phoibe.doc.cms.domain.po.PhoibeUserPostil;
 import me.phoibe.doc.cms.entity.Code;
 import me.phoibe.doc.cms.entity.Result;
@@ -132,11 +131,11 @@ public class UserPostilController {
         pageParam.setParam(param == null ? new PhoibeUserPostil() : param);
 
         //if(!StringUtils.isEmpty(param.getContentStr())){
-            Long userId = getUserId(request);
+           /* Long userId = getUserId(request);
             PhoibeSearch phoibeSearch = new PhoibeSearch();
             if(param.getUserId()>0)
             phoibeSearch.setUserId(userId);
-
+*/
         PageList<PhoibeUserPostil> list = phoibeUserPostilService.fetchUserPostilList(pageParam);
         LogUtil.writeLog("浏览了批注", LogUtil.OPER_TYPE_LOOK,"批注", DocumentController.class,request);
         return JsonUtils.toJson(new Result<PageList<PhoibeUserPostil>>(Code.SUCCESS, list));

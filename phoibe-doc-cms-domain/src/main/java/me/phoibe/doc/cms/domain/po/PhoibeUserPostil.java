@@ -5,7 +5,7 @@ import java.util.Date;
 public class PhoibeUserPostil {
     private int id;
     private long userId;
-    private int docId;
+    private long docId;
     private String docName;
     private String docPath;
     private Date createTime;
@@ -37,7 +37,7 @@ public class PhoibeUserPostil {
         this.userId = userId;
     }
 
-    public int getDocId() {
+    public long getDocId() {
         return docId;
     }
 
