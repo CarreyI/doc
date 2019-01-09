@@ -9,7 +9,7 @@
     <result column="SCORE" jdbcType="DECIMAL" property="score" />
     <result column="FILE_PATH" jdbcType="VARCHAR" property="filePath" />
     <result column="FILE_SIZE" jdbcType="DECIMAL" property="fileSize" />
-    <result column="COMBAT_TYPE" jdbcType="DECIMAL" property="combatType" />
+   <!-- <result column="COMBAT_TYPE" jdbcType="DECIMAL" property="combatType" />-->
     <result column="ARMS" jdbcType="DECIMAL" property="arms" />
     <result column="STATUS" jdbcType="DECIMAL" property="status" />
     <result column="AUDIT_STATUS" jdbcType="DECIMAL" property="auditStatus" />
@@ -472,7 +472,7 @@
       SCORE = #{score,jdbcType=DECIMAL},
       FILE_PATH = #{filePath,jdbcType=VARCHAR},
       FILE_SIZE = #{fileSize,jdbcType=DECIMAL},
-      COMBAT_TYPE = #{combatType,jdbcType=DECIMAL},
+      <!--COMBAT_TYPE = #{combatType,jdbcType=DECIMAL},-->
       ARMS = #{arms,jdbcType=DECIMAL},
       STATUS = #{status,jdbcType=DECIMAL},
       AUDIT_STATUS = #{auditStatus,jdbcType=DECIMAL},
@@ -514,7 +514,7 @@
       SCORE = #{score,jdbcType=DECIMAL},
       FILE_PATH = #{filePath,jdbcType=VARCHAR},
       FILE_SIZE = #{fileSize,jdbcType=DECIMAL},
-      COMBAT_TYPE = #{combatType,jdbcType=DECIMAL},
+     <!-- COMBAT_TYPE = #{combatType,jdbcType=DECIMAL},-->
       ARMS = #{arms,jdbcType=DECIMAL},
       STATUS = #{status,jdbcType=DECIMAL},
       AUDIT_STATUS = #{auditStatus,jdbcType=DECIMAL},
@@ -700,7 +700,8 @@
     <include refid="Base_Column_List"/>
     from PHOIBE_DOCUMENT d
       <where>
-            COMBAT_TYPE = #{param.combatType,jdbcType=DECIMAL}
+         1=1
+           <!-- COMBAT_TYPE = #{param.combatType,jdbcType=DECIMAL}-->
             OR ARMS = #{param.arms,jdbcType=DECIMAL}
         <if test="param.tagArray != null and param.tagArray != ''">
           <foreach collection="param.tagArray" index="index" item="item">
@@ -717,7 +718,8 @@
     COUNT(*)
     from PHOIBE_DOCUMENT d
       <where>
-        COMBAT_TYPE = #{param.combatType,jdbcType=DECIMAL}
+        1=1
+        <!--COMBAT_TYPE = #{param.combatType,jdbcType=DECIMAL}-->
         OR ARMS = #{param.arms,jdbcType=DECIMAL}
         <if test="param.tagArray != null and param.tagArray != ''">
           <foreach collection="param.tagArray" index="index" item="item">
@@ -850,7 +852,7 @@
   <select id="selectDocumentUser" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="me.phoibe.doc.cms.domain.dto.DPhoebeDocument">
     select * from (SELECT a.*,rownum rno FROM (
     select d.ID, NAME, FORMAT, USER_ID userId, SCORE,
-    FILE_PATH filePath, FILE_SIZE fileSize, COMBAT_TYPE combatType, ARMS, d.STATUS, AUDIT_STATUS auditStatus, AUDIT_USER_ID auditUserId,
+    FILE_PATH filePath, FILE_SIZE fileSize,ARMS, d.STATUS, AUDIT_STATUS auditStatus, AUDIT_USER_ID auditUserId,
     PROGRESS, TAG, DESCRIPTION, d.CREATE_TIME createTime, d.UPDATE_TIME updateTime,PAGECOUNT,AUDIT_TIME auditTime,ISSTOCK,STOCK_TIME stockTime,STOCKER,USER_NAME userName, TYPE,
     REALNAME,NICKNAME,USER_REAL_NAME userRealName
     from PHOIBE_DOCUMENT d JOIN PHOIBE_USER u ON d.USER_ID = u.ID
