@@ -604,7 +604,9 @@
       <if test="param.createTimeEnd != null">
         and CREATE_TIME &lt;= #{param.createTimeEnd,jdbcType=TIMESTAMP}
       </if>
-
+      <if test="param.waraddr!=null">
+        and WARADDR  LIKE '%'||#{param.waraddr,jdbcType=VARCHAR}||'%'
+      </if>
       <if test="param.warnum != null">
         and WARNUM = #{param.warnum,jdbcType=VARCHAR}
       </if>
@@ -861,9 +863,7 @@
     <if test="param.nickname != null">
       and u.NICKNAME LIKE '%'||#{param.nickname,jdbcType=VARCHAR}||'%'
     </if>
-    <if test="param.waraddr!=null">
-      and d.WARADDR  LIKE '%'||#{param.waraddr,jdbcType=VARCHAR}||'%'
-    </if>
+
     <!--<if test="param.combatTypeString!=null">
       and d.COMBATTYPE  LIKE '%'||#{param.combatTypeString,jdbcType=VARCHAR}||'%'
     </if>

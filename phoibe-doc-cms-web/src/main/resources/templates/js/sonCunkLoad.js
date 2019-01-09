@@ -28,24 +28,22 @@ function sonCunkLoad(obj){
         var fieldObje = parent.selectfield(USER_CONFIG);//将数据字典中的字段名转为映射类中的属性名
 
         //取出方块的字段名（对应映射类中属性名）和默认查询参数查询
-        var dataObj=getDocFieldList(fieldObje.fn,QUERYWHERE);
+        var dataObj=getDocFieldList(fieldObje.fn,QUERYWHERE,WARS_TACTICS);
         var field=fieldObje.ft;
-       //alert(field);
         var doclist=cunkListLoad(dataObj.datalist);
         var widnum =0;
         if(dataObj.datacount>0){
             widnum=dataObj.datacount;
-            //alert(widnum);
         }
         var row="<div class='wid-border' >" +
             "   <div class='wid-cicle'>" +
             "            <div class='wid-title'>"+field+"</div>" +
-            "            <div class='wid-num'>"+widnum+"</div>" +
+            "            <div class='wid-num' id='"+USER_CONFIG+"NUM'>"+widnum+"</div>" +
             "   </div>" +
-                "<div class='wid-title-block'><a class='wid-more' href='#'>更多>></a><select class='wid-select' name='"+USER_CONFIG+"'>" +
+                "<div class='wid-title-block'><a class='wid-more' href='#'>更多>></a><select id='"+USER_CONFIG+"' onchange='selectevent(\""+USER_CONFIG+"\",\""+fieldObje.fn+"\","+WARS_TACTICS+")' class='wid-select' name='"+USER_CONFIG+"'>" +
             dataDictHtml[USER_CONFIG]+
             "</select></div>"+
-            "  <div class='wid-line'></div> <div class='dynamiclist'>" +
+            "  <div class='wid-line'></div> <div class='dynamiclist' id='"+USER_CONFIG+"LST'>" +
                 doclist+
             "   </div>"+
             " </div>";
@@ -67,7 +65,6 @@ function sonCunkLoad(obj){
                 chunkHtmlObj.zf = row;
             }
         }
-        //alert(JSON.stringify(row))
     })
     return chunkHtmlObj;
 }
@@ -95,8 +92,8 @@ function cunkListLoad(obj){
     });
     return listhtml;
 }
-function getDocFieldList(dield,querywhere){
-    var data = "phoibe/document/list/user/0/3?&auditStatus=2&&isstock=2&"+dield+"="+querywhere;
+function getDocFieldList(dield,querywhere,doctype){
+    var data = "phoibe/document/list/user/0/3?&auditStatus=2&isstock=2&"+dield+"="+querywhere+"&docType="+doctype;
     //alert(data);
     var listObjt={};
     $.ajax({
@@ -111,7 +108,27 @@ function getDocFieldList(dield,querywhere){
     });
     return listObjt;
 }
+
+function selectevent(id,keyfield,doctype){
+    var lstId=id+"LST";
+    var options=$("#"+id+" option:selected");
+
+    var dataObj = getDocFieldList(keyfield,options.text(),doctype);
+
+    var widnum=0;
+    if(dataObj.datacount>0){
+        widnum = dataObj.datacount;
+    }
+    //alert(widnum);
+    $("#"+id+"NUM").html(widnum);
+    $("#"+lstId).html("");
+
+    var doclist=cunkListLoad(dataObj.datalist);
+
+    $("#"+lstId).html(doclist);
+}
+
 $(function () {
     dataDictHtml = parent.dataDictSelectHtml();
-    appendCunkHtml()
+    appendCunkHtml();
 })
