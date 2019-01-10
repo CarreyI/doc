@@ -175,6 +175,8 @@ function emptyformw(){
         }
     });
 }*/
+
+
 function getDocObjecLoad(Id){
     var docObj;
     $.ajax({
@@ -186,29 +188,30 @@ function getDocObjecLoad(Id){
         success: function (data) {
             docObj = data.data;
             $("#name").val(docObj.name);
-            $("#warstate").val(docObj.warstate);
-            $("#waraddr").val(docObj.waraddr);
+            var warstate = docObj.warstate;
+            initulctrl("warstateu",warstate);
+            var waraddr = docObj.waraddr;
+            initulctrl("waraddru",waraddr);
             $("#warnum").val(docObj.warnum);
-            $("#warstype").val(docObj.warsType);
-            $("#corpstype").val(docObj.corpsType);
+            var warstype = docObj.warstype;
+            initulctrl("warstypeu",warstype);
+           var corpstype = docObj.corpstype;
+            initulctrl("corpstypeu",corpstype);
             $("#fighttime").val(docObj.fightTime);
-            $("#fighttype").val(docObj.fightType);
-            $("#fighttrait").val(docObj.fightTrait);
-            $("#combattype").val(docObj.combatTypeString);
+            var fighttype=docObj.fighttype;
+            initulctrl("fighttypeu",fighttype);
+            var fighttrait = docObj.fighttrait;
+            initulctrl("fighttraitu",fighttrait);
+            var combattypestring = docObj.combattypestring;
+            initulctrl("combattypestringu",combattypestring);
+
             $(":radio[name='doctype'][value='"+docObj.docType+"']").attr("checked","checked");
 
             $("#winner").val(docObj.winner);
             $("#loser").val(docObj.loser);
             $("#description").val(docObj.description);
             var select_tag = docObj.tag;
-            $(".tag-li").each(function () {
-                var tag_html = $(this).html();
-                if (""!=select_tag&&null!=select_tag){
-                    if (select_tag.indexOf(tag_html) > -1) {
-                        $(this).addClass("tag-li-in");
-                    }
-                }
-            })
+            initulctrl("tag",select_tag);
             var filepath = docObj.filePath;
             var index = filepath .lastIndexOf("\/");
             filepath  = filepath .substring(index + 1, filepath.length);

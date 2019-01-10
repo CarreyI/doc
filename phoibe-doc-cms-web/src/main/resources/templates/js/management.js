@@ -6,6 +6,17 @@ $.ajaxSetup({
         }
     }
 });
+function initulctrl(tid,select_tag){
+    $("#"+tid+" .tag-li").removeClass("tag-li-in");
+    $("#"+tid+" .tag-li").each(function () {
+        var tag_html = $(this).html();
+        if (""!=select_tag&&null!=select_tag){
+            if (select_tag.indexOf(tag_html) > -1) {
+                $(this).addClass("tag-li-in");
+            }
+        }
+    })
+}
 function docDetailOpenController(docId){
     //appendDitHtml();
     //getTag();

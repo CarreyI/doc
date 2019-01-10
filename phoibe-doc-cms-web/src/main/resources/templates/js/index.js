@@ -156,13 +156,6 @@ $(function () {
     appendTagHtml();
     appendUserSearchHtml();
     appendHotSearchHtml();
-    /*$(window.parent.document).find(".tag-li").click(function() {
-        if ($(this).hasClass('tag-li-in')) {
-            $(this).removeClass('tag-li-in');
-        } else {
-            $(this).addClass('tag-li-in');
-        }
-    });*/
 
     $("#upload").click(function () {
 
