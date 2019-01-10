@@ -55,8 +55,29 @@ public class DPhoebeDocument extends PhoibeDocument {
     private String[] formatArray;
 
     private String[] warstateArray;
+    private String[] waraddrArray;
+    private String[] warstypeArray;
+
+    private String[] corpstypeArray;
+    private String[] fighttypeArray;
+    private String[] combattypestringArray;
+    private String[] fighttraitArray;
 
     private String[] contentArray;
+
+    public String[] GetCorpstypeArray(){return corpstypeArray;}
+    public void setCorpstypeArray(String[] corpstypeArray){
+        this.corpstypeArray = corpstypeArray;
+    }
+    public String[] GetFighttraitArray(){return fighttraitArray;}
+    public void setFighttraitArray(String[] fighttraitArray){
+        this.fighttraitArray = fighttraitArray;
+    }
+
+    public String[] GetCombattypestringArray(){return combattypestringArray;}
+    public void setCombattypestringArray(String[] combattypestringArray){this.combattypestringArray=combattypestringArray;}
+    public String[] GetFighttypeArray(){return fighttypeArray;}
+    public void SetFighttypeArray(String[] fighttypeArray){this.fighttypeArray=fighttypeArray;}
 
     public String[] getContentArray() {
         return contentArray;
@@ -91,6 +112,15 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     public void setFormatArray(String[] formatArray) {
         this.formatArray = formatArray;
+    }
+
+    public String[] getWaraddrArray() { return waraddrArray; }
+    public String[] getWarstypeArray() { return warstypeArray;}
+    public void SetWarstypeArray(String[] warstypeArray){
+        this.warstateArray = warstypeArray;
+    }
+    public void setWaraddrArray(String[] waraddrArray) {
+        this.waraddrArray = waraddrArray;
     }
 
     public String[] getArmsArray() {

@@ -202,7 +202,6 @@ public class DocumentController {
 		String orderBy = "c.CREATE_TIME";
 		String sort = "DESC";
 
-
 		Long userId = getUserId(request);
 		param.setQueryUserId(userId);
 		param.setQueryFlag("collection");

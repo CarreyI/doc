@@ -62,7 +62,7 @@ function loadData(type,pageindex) {
             data = data+"&waraddr="+waraddr;
     }
 
-    turl = getulvaluestr("warstypeu","warstypeArray");
+    /*turl = getulvaluestr("warstypeu","warstypeArray");
     if(turl!=""){
         data=data+turl;
     }
@@ -70,7 +70,7 @@ function loadData(type,pageindex) {
         var wastype = getUrlString("wastype");
         if(wastype!=null && wastype!="")
             data = data+"&wastype="+wastype;
-    }
+    }*/
 
     turl = getulvaluestr("fighttypeu","fighttypeArray");
     if(turl!=""){
@@ -173,7 +173,7 @@ function loadData(type,pageindex) {
 
     data = url + data + "&isstock=2";//&auditStatus=2&
     data = decodeURI(data);
-    alert(data);
+    //alert(data);
     $.ajax({
              type: 'GET',
              url: GAL_URL + data,

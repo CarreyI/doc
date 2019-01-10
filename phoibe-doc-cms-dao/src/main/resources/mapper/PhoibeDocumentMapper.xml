@@ -611,13 +611,13 @@
         and WARNUM = #{param.warnum,jdbcType=VARCHAR}
       </if>
       <if test="param.warstate != null">
-        and WARSTATE = #{param.warstate,jdbcType=VARCHAR}
+        and WARSTATE LIKE '$'||#{param.warstate,jdbcType=VARCHAR} ||'%'
       </if>
       <if test="param.content != null">
         and CONTENT = #{param.content,jdbcType=BLOB}
       </if>
       <if test="param.warstype !=null ">
-        and WARSTYPE = #{param.warstype,jdbcType=VARCHAR}
+        and WARSTYPE LIKE '%' ||#{param.warstype,jdbcType=VARCHAR}||'%'
       </if>
       <if test="param.corpstype !=null ">
         <!--and CORPSTYPE = #{param.corpstype,jdbcType=VARCHAR}-->
@@ -628,7 +628,7 @@
         and FIGHTTIME LIKE '%'||#{param.fightTime,jdbcType=VARCHAR}||'%'
       </if>
       <if test="param.fighttype !=null ">
-        and FIGHTTYPE = #{param.fighttype,jdbcType=VARCHAR}
+        and FIGHTTYPE LIKE '%'||#{param.fighttype,jdbcType=VARCHAR}||'%'
       </if>
       <if test="param.combattypestring !=null ">
        <!-- and COMBATTYPE = #{param.combatTypeString,jdbcType=VARCHAR}-->
@@ -666,6 +666,54 @@
                  WARSTATE LIKE '%'||#{item}||'%'
               </foreach>
           )
+      </if>
+
+      <if test="param.waraddrArray != null and param.waraddrArray != ''">
+        and (
+        <foreach collection="param.waraddrArray" index="index" item="item" separator="OR">
+          WARADDR LIKE '%'||#{item}||'%'
+        </foreach>
+        )
+      </if>
+
+      <if test="param.warstypeArray != null and param.warstypeArray != ''">
+        and (
+        <foreach collection="param.warstypeArray" index="index" item="item" separator="OR">
+          WARSTYPE LIKE '%'||#{item}||'%'
+        </foreach>
+        )
+      </if>
+
+      <if test="param.corpstypeArray != null and param.corpstypeArray != ''">
+        and (
+        <foreach collection="param.corpstypeArray" index="index" item="item" separator="OR">
+          CORPSTYPE LIKE '%'||#{item}||'%'
+        </foreach>
+        )
+      </if>
+
+      <if test="param.fighttypeArray != null and param.fighttypeArray != ''">
+        and (
+        <foreach collection="param.fighttypeArray" index="index" item="item" separator="OR">
+          FIGHTTYPE LIKE '%'||#{item}||'%'
+        </foreach>
+        )
+      </if>
+
+      <if test="param.combattypestringArray != null and param.combattypestringArray != ''">
+        and (
+        <foreach collection="param.combattypestringArray" index="index" item="item" separator="OR">
+          COMBATTYPE LIKE '%'||#{item}||'%'
+        </foreach>
+        )
+      </if>
+
+      <if test="param.fighttraitArray != null and param.fighttraitArray != ''">
+        and (
+        <foreach collection="param.fighttraitArray" index="index" item="item" separator="OR">
+          FIGHTTRAIT LIKE '%'||#{item}||'%'
+        </foreach>
+        )
       </if>
 
     </where>

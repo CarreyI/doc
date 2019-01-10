@@ -118,7 +118,7 @@ function selectevent(id,keyfield,doctype){
 
     var lstId=id+"lst";
     var options=$("#"+id+" option:selected");
-
+alert(keyfield);
     var dataObj = getDocFieldList(keyfield,options.text(),doctype);
 
     var widnum=0;
