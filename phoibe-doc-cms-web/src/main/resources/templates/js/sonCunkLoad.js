@@ -40,7 +40,7 @@ function sonCunkLoad(obj){
             "            <div class='wid-title'>"+field+"</div>" +
             "            <div class='wid-num' id='"+USER_CONFIG+"NUM'>"+widnum+"</div>" +
             "   </div>" +
-                "<div class='wid-title-block'><a class='wid-more' href='#'>更多>></a><select id='"+USER_CONFIG+"' onchange='selectevent(\""+USER_CONFIG+"\",\""+fieldObje.fn+"\","+WARS_TACTICS+")' class='wid-select' name='"+USER_CONFIG+"'>" +
+                "<div class='wid-title-block'><a class='wid-more' href='javascript:searchmore(\""+USER_CONFIG+"\",\""+fieldObje.fn+"\",\""+WARS_TACTICS+"\");' >更多>></a><select id='"+USER_CONFIG+"' onchange='selectevent(\""+USER_CONFIG+"\",\""+fieldObje.fn+"\","+WARS_TACTICS+")' class='wid-select' name='"+USER_CONFIG+"'>" +
             dataDictHtml[USER_CONFIG]+
             "</select></div>"+
             "  <div class='wid-line'></div> <div class='dynamiclist' id='"+USER_CONFIG+"LST'>" +
@@ -108,8 +108,14 @@ function getDocFieldList(dield,querywhere,doctype){
     });
     return listObjt;
 }
-
+function searchmore(id,keyfield,doctype){
+    var options=$("#"+id+" option:selected");
+    var url = "searchadv.html?isstock=2&docType="+doctype+"&"+keyfield+"="+options.text();
+    //alert(url);
+    window.location.href=url;
+}
 function selectevent(id,keyfield,doctype){
+
     var lstId=id+"LST";
     var options=$("#"+id+" option:selected");
 

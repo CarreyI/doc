@@ -2371,7 +2371,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	width:200px;
 	border: 1px solid #406587;
 	min-height: 370px;
-	max-height:580px;
+	max-height:578px;
 }
 .file_divright{
 	margin-left: 210px;
@@ -2415,7 +2415,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 .file-scroll{
 	overflow: auto;
-	height: 540px;
+	height: 536px;
 }
 
 .file_list{

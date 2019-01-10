@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/layui.js"></script>
+    <link rel="stylesheet" href="css/management.css"/>
+    <link rel="stylesheet" href="css/layui.css">
+    <script src="js/management.js"></script>
+    <script src="js/myuploaddoc.js"></script>
+    <style>
+        .file_divleft{max-height: 878px;}
+        .file-scroll{height:830px}
+    </style>
+</head>
+<body>
+<div id="percenter">
+    <div class="main box_border ">
+        <div class="container box_border r-content">
+            <div class="box_border">
+                <!--<div class="line"></div>-->
+                <div class="list-content">
+                    <div class="box_border">
+                        <div class="btn-cmd-list">
+                            <a id="btnnewfolder">新建目录</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmove">移动</a>&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                id="btndel">删除</a> &nbsp;&nbsp;&nbsp;&nbsp;<div id="uploadfile"></div>
+                        </div>
+                        <br/>
+                        <div class="file_wrap">
+                            <div class="file_divleft">
+                                <div class="file_menu"><span>文件目录</span></div>
+                                <!--目录树-->
+                                <div class="file-scroll" >
+                                <ul class="file_list">
+                                </ul>
+                                </div>
+                            </div>
+                            <div class="file_divright">
+                                <table class="tblist" border="0">
+                                    <tr class='tblist-header'>
+                                        <th style="width: 30px;"><input class="checkAll" name="checkAll" type="checkbox"></th>
+                                        <th>战法文档</th>
+                                        <th>大小(kb)</th>
+                                        <th>文件类型</th>
+                                        <th>创建时间</th>
+                                        <th>审批时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    <tbody id="tblist-body"></tbody>
+                                </table>
+
+                                <div id="notice_pages"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--新建文件目录-->
+<div class="file_bodyMask">
+    <div class="mask">
+        <span class="fullScreen"></span>
+        <div class="popup">
+            <div class="title">
+            <div class="model-title fl">文件目录</div>
+            <i class="file_closed closed fr"></i>
+            </div>
+            <div class="clearfix"></div>
+            <div class="line"></div>
+            <br/>
+            <form action="phoibe/directory/save" method="post" id="file_ajaxform">
+
+                <div class="tbl-row">
+                    <div class="lable">*文件目录名称:</div>
+                    <div class="ctrl">
+                        <input type="text" id="dirName" name="dirName" class="inputBox"/>
+                    </div>
+                </div>
+                <input type="hidden" class="fileId" name="fileId">
+                <div class="tbl-row">
+                    <div class="ctrl">
+                        <div id="file_submit" class="file_submit"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> <!--移动文件目录-->
+<div class="filelist_bodyMask">
+    <div class="mask">
+        <span class="fullScreen"></span>
+        <div class="popup">
+            <div class="title">
+            <div class="model-title fl">文件目录</div>
+            <i class="filelist_closed closed fr"></i>
+            </div>
+            <div class="clearfix"></div>
+           <div class="line"></div>
+            　
+            <form action="" method="post" id="filelist_ajaxform">
+              <div class="dir-content">
+                <div class="tbl-row">
+                    <div class="lable">*文件目录名称:</div>
+                    <div class="ctrl">
+                        <ul class="file_selectlist">
+                        </ul>
+                    </div>
+                </div>
+                <input type="hidden" class="documentId" name="documentId" value="">
+              </div>
+                <div class="tbl-row">
+                    <div class="ctrl">
+                        <div id="filelist_submit" class="filelist_submit"></div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

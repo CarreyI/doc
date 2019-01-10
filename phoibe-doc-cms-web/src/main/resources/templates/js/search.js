@@ -29,39 +29,105 @@ function loadData(type,pageindex) {
         data = data + "&loser=" + loser;
     }
 
+    var warnum = $("warnum").val();
+    if (null!=warnum&&warnum!= "") {
+        data = data + "&warnum=" + warnum;
+    }
+    else{
+        if(getUrlString("warnum")!=null ){
+            data = data+"&warnum="+getUrlString("warnum");
+        }
+    }
+
     var warstype = $("#warstype").val();
     if (null!=warstype&&warstype!= "") {
-        data = data + "&warsType=" + warstype;
+        data = data + "&warstype=" + warstype;
+    }
+    else{
+        if(getUrlString("warstype")!=null ){
+            data = data+"&warstype="+getUrlString("warstype");
+        }
+    }
+    var waraddr = $("#waraddr").val();
+    if (null!=waraddr&&waraddr!= "") {
+        data = data + "&waraddr=" + waraddr;
+    }
+    else{
+        if(getUrlString("waraddr")!=null ){
+            data = data+"&waraddr="+getUrlString("waraddr");
+        }
+    }
+
+    var warstate = $("#warstate").val();
+    if (null!=warstate&&warstate!= "") {
+        data = data + "&warstate=" + warstate;
+    }
+    else{
+        if(getUrlString("warstate")!=null ){
+            data = data+"&warstate="+getUrlString("warstate");
+        }
     }
 
     var corpstype = $("#corpstype").val();
     if (null!=corpstype&&corpstype!= "") {
-        data = data + "&corpsType=" + corpstype;
+        data = data + "&corpstype=" + corpstype;
+    }
+    else{
+        if(getUrlString("corpstype")!=null ){
+            data = data+"&corpstype="+getUrlString("corpstype");
+        }
     }
 
     var fighttime = $("#fighttime").val();
     if (null!=fighttime&&fighttime!= "") {
         data = data + "&fightTime=" + fighttime;
     }
+    else{
+        if(getUrlString("fighttime")!=null ){
+            data = data+"&fightTime="+getUrlString("fighttime");
+        }
+    }
 
     var fighttype = $("#fighttype").val();
     if (null!=fighttype&&fighttype!= "") {
-        data = data + "&fightType=" + fighttype;
+        data = data + "&fighttype=" + fighttype;
+    }
+    else{
+        if(getUrlString("fighttype")!=null ){
+            data = data+"&fighttype="+getUrlString("fighttype");
+        }
     }
 
     var fighttrait = $("#fighttrait").val();
     if (null!=fighttrait&&fighttrait!= "") {
-        data = data + "&fightTrait=" + fighttrait;
+        data = data + "&fighttrait=" + fighttrait;
     }
+    else{
+        if(getUrlString("fighttrait")!=null ){
+            data = data+"&fighttrait="+getUrlString("fighttrait");
+        }
+    }
+
     var combattype = $("#combattype").val();
     if (null!=combattype&&combattype!= "") {
         data = data + "&combatTypeString=" + combattype;
+    }
+    else{
+        if(getUrlString("combatTypeString")!=null ){
+            data = data+"&combatTypeString="+getUrlString("combatTypeString");
+        }
     }
 
     var doctype=$('input:radio[name="doctype"]:checked').val();
     if (null!=doctype&&doctype != "") {
         data = data + "&docType=" + doctype;
     }
+    else{
+        if(getUrlString("docType")!=null ){
+            data = data+"&docType="+getUrlString("docType");
+        }
+    }
+
     $("#condwhere").find("select option:checked").each(function (i,val) {
         var input_id = $(this).parent().attr("id");
         var filedft = $(this).val();
@@ -84,7 +150,6 @@ function loadData(type,pageindex) {
         }
         else{
         url = 'phoibe/document/list/'+queryFlag+"/" + pageindex + '/'+pageSize+'?1=1'+"&queryFlag=" + queryFlag;
-            //alert(url);
         }
     }
     var doctypevalue = "";
@@ -96,7 +161,7 @@ function loadData(type,pageindex) {
     }
 
     data = url + data + "&isstock=2";//&auditStatus=2&
-   //alert(data);
+    //alert(data);
     $.ajax({
              type: 'GET',
              url: GAL_URL + data,
