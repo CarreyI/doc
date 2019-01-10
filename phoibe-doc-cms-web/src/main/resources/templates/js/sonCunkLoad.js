@@ -22,8 +22,9 @@ function sonCunkLoad(obj){
     var chunkHtmlObj={};
     $.each(obj, function (i, val) {;
         var WARS_TACTICS = val.WARS_TACTICS
-        var USER_CONFIG = val.USER_CONFIG
+        var USER_CONFIG = val.USER_CONFIG.toLowerCase();
         var QUERYWHERE = val.QUERYWHERE
+
  //alert(QUERYWHERE);
         var fieldObje = parent.selectfield(USER_CONFIG);//将数据字典中的字段名转为映射类中的属性名
 
@@ -40,10 +41,10 @@ function sonCunkLoad(obj){
             "            <div class='wid-title'>"+field+"</div>" +
             "            <div class='wid-num' id='"+USER_CONFIG+"NUM'>"+widnum+"</div>" +
             "   </div>" +
-                "<div class='wid-title-block'><a class='wid-more' href='javascript:searchmore(\""+USER_CONFIG+"\",\""+fieldObje.fn+"\",\""+WARS_TACTICS+"\");' >更多>></a><select id='"+USER_CONFIG+"' onchange='selectevent(\""+USER_CONFIG+"\",\""+fieldObje.fn+"\","+WARS_TACTICS+")' class='wid-select' name='"+USER_CONFIG+"'>" +
+                "<div class='wid-title-block'><a class='wid-more' href='javascript:searchmore(\""+USER_CONFIG+"\",\""+fieldObje.fn.toLowerCase()+"\",\""+WARS_TACTICS+"\");' >更多>></a><select id='"+USER_CONFIG+"' onchange='selectevent(\""+USER_CONFIG+"\",\""+fieldObje.fn+"\","+WARS_TACTICS+")' class='wid-select' name='"+USER_CONFIG+"'>" +
             dataDictHtml[USER_CONFIG]+
             "</select></div>"+
-            "  <div class='wid-line'></div> <div class='dynamiclist' id='"+USER_CONFIG+"LST'>" +
+            "  <div class='wid-line'></div> <div class='dynamiclist' id='"+USER_CONFIG+"lst'>" +
                 doclist+
             "   </div>"+
             " </div>";
@@ -111,12 +112,11 @@ function getDocFieldList(dield,querywhere,doctype){
 function searchmore(id,keyfield,doctype){
     var options=$("#"+id+" option:selected");
     var url = "searchadv.html?isstock=2&docType="+doctype+"&"+keyfield+"="+options.text();
-    //alert(url);
     window.location.href=url;
 }
 function selectevent(id,keyfield,doctype){
 
-    var lstId=id+"LST";
+    var lstId=id+"lst";
     var options=$("#"+id+" option:selected");
 
     var dataObj = getDocFieldList(keyfield,options.text(),doctype);

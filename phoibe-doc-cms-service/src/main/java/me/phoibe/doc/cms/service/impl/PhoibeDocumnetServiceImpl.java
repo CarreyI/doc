@@ -103,7 +103,7 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
         stringBuilder.append(phoibeDocument.getCorpstype()+"#");
         stringBuilder.append(phoibeDocument.getFightTime()+"#");
         stringBuilder.append(phoibeDocument.getFighttype()+"#");
-        stringBuilder.append(phoibeDocument.getCombatTypeString()+"#");
+        stringBuilder.append(phoibeDocument.getCombattypestring()+"#");
         stringBuilder.append(phoibeDocument.getFighttrait()+"#");
 
         if (("doc").equals(model.getFormat())||("docx").equals(model.getFormat())||("txt").equals(model.getFormat())){

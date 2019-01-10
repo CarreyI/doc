@@ -50,9 +50,11 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     private String[] armsArray;
 
-    private String[] combatArray;
+    private String[] combatstringArray;
 
     private String[] formatArray;
+
+    private String[] warstateArray;
 
     private String[] contentArray;
 
@@ -80,6 +82,9 @@ public class DPhoebeDocument extends PhoibeDocument {
         this.wartimeEnd = wartimeEnd;
     }
 
+    public String[] getWarstateArray(){return warstateArray;}
+    public void setWarstateArray(String[] warstateArray){ this.warstateArray= warstateArray;}
+
     public String[] getFormatArray() {
         return formatArray;
     }
@@ -96,12 +101,12 @@ public class DPhoebeDocument extends PhoibeDocument {
         this.armsArray = armsArray;
     }
 
-    public String[] getCombatArray() {
-        return combatArray;
+    public String[] getCombatstringArray() {
+        return combatstringArray;
     }
 
-    public void setCombatArray(String[] combatArray) {
-        this.combatArray = combatArray;
+    public void setCombatstringArray(String[] combatstringArray) {
+        this.combatstringArray = combatstringArray;
     }
 
     public String[] getTagArray() {

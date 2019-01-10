@@ -7,8 +7,8 @@ $.ajaxSetup({
     }
 });
 function docDetailOpenController(docId){
-    appendDitHtml();
-    getTag();
+    //appendDitHtml();
+    //getTag();
     var docObj = getDocObjecLoad(docId);
     $("#filebtn .preview").remove();
     $("#filebtn .download").remove();
@@ -32,6 +32,22 @@ function docDetailRecoverController(){
     $("#picker").show();
     $(window.parent.document).find("#submit").show();
 }
+function getulvaluestr(tid,params){
+    var warstateArray = "";
+    var isValid=false;
+    $("#"+tid+" .tag-li-in").each(function () {
+        var tag_html = $(this).html();
+        warstateArray = warstateArray +tag_html+",";
+        isValid=true;
+    });
+    if(warstateArray.length>1){
+        warstateArray=warstateArray.substring(0,warstateArray.length-1);
+    }
+    if(!isValid){return "";}
+    var data ="&"+params+"="+warstateArray;
+    return data;
+}
+
 function hotsearchLoadAjax(){
     var data = GAL_URL+"phoibe/document/hotsearch";
     var resultData=[];
@@ -79,9 +95,20 @@ function dataDictSelectHtml() {
     for (var obj in dictObj) {
         var selectHtml="";
         $.each(dictObj[obj],function (i,val) {
-            selectHtml += "<option value='"+val["dictName"]+"'>"+val["dictName"]+"</option>";
-        })
-        dictSelectObj[obj] = selectHtml;
+            if (checktype(obj)) {
+            selectHtml += "<option value='" + val["dictName"] + "'>" + val["dictName"] + "</option>";
+            dictSelectObj[obj] = selectHtml;
+            }
+
+        });
+        selectHtml="";
+        $.each(dictObj[obj],function (i,val) { {
+            if (checktype(obj.toLowerCase())) {
+                var cid=obj+val['id'];
+                selectHtml += "<li id='"+cid+"' onclick=\"onselectedtag(\'"+cid+"\')\" class='tag-li' tagid='" + val["id"] + "'>" + val["dictName"] + "</li>";
+                dictSelectObj[obj.toLowerCase() + "u"] = selectHtml;
+            }
+        }});
     }
     return dictSelectObj;
 }
@@ -118,16 +145,42 @@ function appendDitHtml(){
     for (var obj in dataDict){
         var fieldObj = selectfield(obj);
         var fieldfn = fieldObj.fn;
-        var optionhtml="<option  value=''></option>";
+
+        var optionhtml="";//<option  value=''></option>";
         if(""!=fieldfn){
-            $("#"+fieldfn).html(optionhtml+dataDict[obj]);
+            if(checktype(fieldfn)){
+                if(fieldfn.toLowerCase()=="warnum" || fieldfn.toLowerCase()=="fighttime")
+                {$("#"+fieldfn).append(optionhtml+dataDict[obj]);}
+                else{
+                    $("#"+fieldfn).html(optionhtml+dataDict[obj]);
+                }
+                if(fieldfn.toLowerCase()=="warnum"){
+                    $("."+fieldfn).append(optionhtml+dataDict[obj]);
+                }
+            }
+        }
+        else {
+            $("#" + obj).html(dataDict[obj]);
         }
     }
 }
+function checktype(field) {
+
+    if ($("select[id=" + field.toLowerCase() + "]") != null || $("select[id=" + field.toUpperCase() + "]") != null) {
+        //alert(field);
+       return true;
+    }
+    if ($("ul[id='" + field.toLowerCase() + "u']") != null || $("ul[id='" + field.toUpperCase() + "u']") != null){
+        alert(field);
+        return false;
+    }
+    return false;
+}
+
 function selectfield(field){
     var fieldname="";//在映射类中的字段名，查询用
     var fieldtitle="";
-    switch (field) {
+    switch (field.toUpperCase()) {
         case "WARSTATE" :
             fieldtitle= "参战国家";
             fieldname= "warstate";
@@ -158,12 +211,11 @@ function selectfield(field){
             break;
         case "COMBATTYPESTRING" :
             fieldtitle= "战斗种类";
-            fieldname= "combatTypeString";
+            fieldname= "combattypestring";
             break;
         case "FIGHTTRAIT" :
             fieldtitle= "作战特点";
             fieldname= "fighttrait";
-            break;
             break;
     }
 
@@ -414,10 +466,43 @@ function getUrlParam(paramStr,paramneme) {
     return result[2];
 }
 
-$(function(){
+function onselectedtag(tid){
+   // alert(tid);
+        if ($("#"+tid).hasClass('tag-li-in')) {
+            $("#"+tid).removeClass('tag-li-in');
+        } else {
+            //alert($(this).attr("class"));
+            $("#"+tid).addClass('tag-li-in');
+        }
+}
 
+
+function appendTagHtml() {
+    var dataList = tagLoadAjax(10000);
+    var rowhtml = "";
+    $.each(dataList, function (i, val) {
+        var id = val["id"];
+        var name = val["name"];//"标签名称";
+        var cid="tag"+id;
+        rowhtml +="<li id="+cid+" onclick=\"onselectedtag('"+cid+"')\" class='tag-li' dictkey='"+id+"'>"+name+"</li>";
+    });
+    $("#tag").html(rowhtml);
+
+}
+function initseltag(){
+    $(".tag-li").click(function() {
+        if ($(this).hasClass('tag-li-in')) {
+            $(this).removeClass('tag-li-in');
+        } else {
+            $(this).addClass('tag-li-in');
+        }
+    });
+}
+
+$(function(){
     userAuthController();
     appendDitHtml();
+    //appendTagHtml();
     //左侧页面导航切换
     $('.main .navLeft li').on('click',function(){
         $(this).addClass('active').siblings('.navList').removeClass('active')
@@ -437,6 +522,5 @@ $(function(){
         }
         $(this).toggleClass('check')
 
-    })
-
+    });
 })

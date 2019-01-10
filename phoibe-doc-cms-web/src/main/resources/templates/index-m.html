@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="css/management.css" />
 <script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/data.js"></script>
-	<script src="js/index.js"></script>
+
 	<script src="js/sonCunkLoad.js"></script>
 	<script language="javascript" type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
 </head>
@@ -47,7 +47,6 @@
 										<li class="zhanfa">
 											<label for="zhanfa">战法</label>
 										</li>
-										</li >
 
 									</ul>
 								</div>
@@ -162,62 +161,6 @@
 						 </li>
 						 <li class="one-line">
 							 <ul>
-								 <li><span class="label">参战国家：</span>
-									 <select id="warstate" name="warstate">
-									 </select>
-								 </li>
-								 <li><span class="label">作战地域：</span>
-									 <select id="waraddr" name="waraddr">
-									 </select>
-								 </li>
-							 </ul>
-						 </li>
-						 <li class="one-line">
-							 <ul>
-								 <li><span class="label">战例类型：</span>
-									 <select id="warstype" name="warstype">
-									 </select>
-								 </li>
-								 <li><span class="label">参战兵种：</span>
-									 <select id="corpstype" name="corpstype">
-									 </select>
-								 </li>
-							 </ul>
-						 </li>
-						 <li class="one-line">
-							 <ul>
-								 <li><span class="label">参战年代：</span>
-									 <select id="fighttime" name="fighttime">
-									 </select>
-								 </li>
-								 <li><span class="label">伤亡人数：</span>
-									 <select id="warnum" name="warnum">
-									 </select>
-								 </li>
-							 </ul>
-						 </li>
-						 <li class="one-line">
-							 <ul>
-								 <li><span class="label">战法类别：</span>
-									 <select id="fighttype" name="fighttime">
-									 </select>
-								 </li>
-								 <li><span class="label">战斗种类：</span>
-									 <select id="combatTypeString" name="combatTypeString">
-									 </select>
-								 </li>
-							 </ul>
-						 </li>
-						 <li class="one-line">
-							 <ul>
-								 <li><span class="label">作战特点：</span>
-									 <select id="fighttrait" name="fighttrait">
-									 </select>
-								 </li>
-							 </ul>
-						 </li>
-						 <li class="one-line">
-							 <ul>
 								 <li><span class="label">胜利方：</span>
 									 <input type="text" id="winner" name="winner"/>
 								 </li>
@@ -226,8 +169,66 @@
 								 </li>
 							 </ul>
 						 </li>
+						 <li class="one-line">
+							 <ul>
+								 <li><span class="label">参战年代：</span>
+									 <select id="fighttime" name="fighttime">
+										 <option value=""></option>
+									 </select>
+								 </li>
+								 <li><span class="label">伤亡人数：</span>
+									 <select id="warnum" class="warnum" name="warnum">
+										 <option value=""></option>
+									 </select>
+								 </li>
+							 </ul>
+						 </li>
+
+						 <li class="one-line">
+									<span class="label">参战国家：</span>
+									<!--<select id="warstate" name="warstate">
+									 </select>-->
+									 <ul class='tag-ul tagtype' id="warstateu"></ul>
+						 </li>
+						 <li class="one-line">
+							 <span class="label">作战地域：</span>
+							 <!--<select id="waraddr" name="waraddr">
+                             </select>-->
+							 <ul class='tag-ul tagtype' id="waraddru"></ul></li>
+						 <li  class="one-line"><span class="label">战例类型：</span>
+							 <!--<select id="warstype" name="warstype">
+							 </select>-->
+							 <ul class='tag-ul tagtype' id="warstypeu"></ul></li>
+						 </li>
+						 <li class="one-line">
+							 <span class="label">参战兵种：</span>
+									<!-- <select id="corpstype" name="corpstype">
+									 </select>-->
+									 <ul class='tag-ul tagtype' id="corpstypeu"></ul>
+						 </li>
+
+						 <li  class="one-line"><span class="label">战法类别：</span>
+							 <ul id="fighttypeu" class="tag-ul tagtype">
+							 </ul>
+						 </li>
+						 <li class="one-line">
+						<span class="label">战斗种类：</span>
+									 <!--<select id="combatTypeString" name="combatTypeString">
+									 </select>-->
+									 <ul id="combattypestringu" class="tag-ul tagtype">
+									 </ul>
+
+						 </li>
+						 <li class="one-line">
+									<span class="label">作战特点：</span>
+									 <!--<select id="fighttrait" name="fighttrait">
+									 </select>-->
+							 <ul id="fighttraitu" class="tag-ul tagtype">
+							 </ul>
+						 </li>
+
 						 <li class="one-line"><span class="label">标签：</span>
-							 <ul class='tag-ul tagtype'></ul>
+							 <ul id="tag" class='tag-ul tagtype'></ul>
 						 </li>
 						 <li class="one-line"><input type="hidden" id="userId"/></li>
 					 </ul>
@@ -244,6 +245,17 @@
 </div>
 
 	<script src="js/management.js"></script>
-
+	<script src="js/index.js"></script>
+<script>
+$(function(){
+    /*$("#tag .tag-li").click(function() {
+        if ($(this).hasClass('tag-li-in')) {
+            $(this).removeClass('tag-li-in');
+        } else {
+            $(this).addClass('tag-li-in');
+        }
+    });*/
+});
+</script>
 </body>
 </html>

@@ -354,7 +354,7 @@ public class DocumentController {
 			phoibeDocument.setCorpstype((String) rb.get("corpstype"));
 			phoibeDocument.setFightTime((String) rb.get("fighttime"));
 			phoibeDocument.setFighttype((String) rb.get("fighttype"));
-			phoibeDocument.setCombatTypeString((String) rb.get("combatTypeString"));
+			phoibeDocument.setCombattypestring((String) rb.get("combattypestring"));
 			phoibeDocument.setFighttrait((String) rb.get("fighttrait"));
 			phoibeDocument.setDocType(Short.parseShort(rb.get("doctype").toString()));
 

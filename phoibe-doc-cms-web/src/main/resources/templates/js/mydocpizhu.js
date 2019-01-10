@@ -44,7 +44,7 @@ function loadData(pageindex) {
             url: data,
             dataType: 'json',
             async: false,
-            success: function (result) {//<div class='font22 title'>中国战法</div>
+            success: function (result) {
                 var total_rows = result.data.totalCount;
                 totalRows = total_rows;
                 if (total_rows < 1) currPage = 1;

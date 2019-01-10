@@ -42,7 +42,7 @@
     <!--新增字段 作战类别 -->
     <result column="FIGHTTYPE" jdbcType="VARCHAR" property="fighttype"/>
     <!--战斗种类-->
-    <result column="COMBATTYPE" jdbcType="VARCHAR" property="combatTypeString"/>
+    <result column="COMBATTYPE" jdbcType="VARCHAR" property="combattypestring"/>
     <!--作战特点-->
     <result column="FIGHTTRAIT" jdbcType="VARCHAR" property="fighttrait"/>
     <!--文档类型-->
@@ -101,7 +101,7 @@
       #{winner,jdbcType=VARCHAR}, #{loser,jdbcType=VARCHAR}, #{warnum,jdbcType=VARCHAR}, 
       #{warstate,jdbcType=VARCHAR}, #{content,jdbcType=BLOB},#{warstype,jdbcType=VARCHAR},
       #{corpstype,jdbcType=VARCHAR},#{fightTime,jdbcType=VARCHAR},#{fighttype,jdbcType=VARCHAR},
-      #{combatTypeString,jdbcType=VARCHAR},#{fighttrait,jdbcType=VARCHAR},#{docType,jdbcType=DECIMAL})
+      #{combattypestring,jdbcType=VARCHAR},#{fighttrait,jdbcType=VARCHAR},#{docType,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="me.phoibe.doc.cms.domain.po.PhoibeDocument">
     insert into PHOIBE_DOCUMENT
@@ -214,7 +214,7 @@
       <if test="fighttype != null">
         FIGHTTYPE,
       </if>
-      <if test="combatTypeString != null">
+      <if test="combattypestring != null">
         COMBATTYPE,
       </if>
       <if test="fighttrait != null">
@@ -333,8 +333,8 @@
       <if test="fighttype !=null ">
         #{fighttype,jdbcType=VARCHAR},
       </if>
-      <if test="combatTypeString !=null ">
-        #{combatTypeString,jdbcType=VARCHAR},
+      <if test="combattypestring !=null ">
+        #{combattypestring,jdbcType=VARCHAR},
       </if>
       <if test="fighttrait !=null ">
        #{fighttrait,jdbcType=VARCHAR},
@@ -452,8 +452,8 @@
       <if test="fighttype !=null ">
         FIGHTTYPE = #{fighttype,jdbcType=VARCHAR},
       </if>
-      <if test="combatTypeString !=null ">
-        COMBATTYPE = #{combatTypeString,jdbcType=VARCHAR},
+      <if test="combattypestring !=null ">
+        COMBATTYPE = #{combattypestring,jdbcType=VARCHAR},
       </if>
       <if test="fighttrait !=null ">
         FIGHTTRAIT = #{fighttrait,jdbcType=VARCHAR},
@@ -501,7 +501,7 @@
       CORPSTYPE = #{corpstype,jdbcType=VARCHAR},
       FIGHTTIME = #{fightTime,jdbcType=VARCHAR},
       FIGHTTYPE = #{fighttype,jdbcType=VARCHAR},
-      COMBATTYPE = #{combatTypeString,jdbcType=VARCHAR},
+      COMBATTYPE = #{combattypestring,jdbcType=VARCHAR},
       FIGHTTRAIT = #{fighttrait,jdbcType=VARCHAR},
       DOCTYPE = #{docType,jdbcType=DECIMAL}
     where ID = #{id,jdbcType=DECIMAL}
@@ -542,7 +542,7 @@
       CORPSTYPE = #{corpstype,jdbcType=VARCHAR},
       FIGHTTIME = #{fightTime,jdbcType=VARCHAR},
       FIGHTTYPE = #{fighttype,jdbcType=VARCHAR},
-      COMBATTYPE = #{combatTypeString,jdbcType=VARCHAR},
+      COMBATTYPE = #{combattypestring,jdbcType=VARCHAR},
       FIGHTTRAIT = #{fighttrait,jdbcType=VARCHAR},
       DOCTYPE = #{docType,jdbcType=DECIMAL}
     where ID = #{id,jdbcType=DECIMAL}
@@ -630,9 +630,9 @@
       <if test="param.fighttype !=null ">
         and FIGHTTYPE = #{param.fighttype,jdbcType=VARCHAR}
       </if>
-      <if test="param.combatTypeString !=null ">
+      <if test="param.combattypestring !=null ">
        <!-- and COMBATTYPE = #{param.combatTypeString,jdbcType=VARCHAR}-->
-        and COMBATTYPE LIKE '%'||#{param.combatTypeString,jdbcType=VARCHAR}||'%'
+        and COMBATTYPE LIKE '%'||#{param.combattypestring,jdbcType=VARCHAR}||'%'
       </if>
       <if test="param.fighttrait !=null ">
        <!-- and FIGHTTRAIT = #{param.fighttrait,jdbcType=VARCHAR}-->
@@ -659,6 +659,15 @@
           #{item}
         </foreach>
       </if>
+
+      <if test="param.warstateArray != null and param.warstateArray != ''">
+        and (
+              <foreach collection="param.warstateArray" index="index" item="item" separator="OR">
+                 WARSTATE LIKE '%'||#{item}||'%'
+              </foreach>
+          )
+      </if>
+
     </where>
   </sql>
   <select id="selectByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">
@@ -856,7 +865,7 @@
     select d.ID, NAME, FORMAT, USER_ID userId, SCORE,
     FILE_PATH filePath, FILE_SIZE fileSize,ARMS, d.STATUS, AUDIT_STATUS auditStatus, AUDIT_USER_ID auditUserId,
     PROGRESS, TAG, DESCRIPTION, d.CREATE_TIME createTime, d.UPDATE_TIME updateTime,PAGECOUNT,AUDIT_TIME auditTime,ISSTOCK,STOCK_TIME stockTime,STOCKER,USER_NAME userName, TYPE,
-    REALNAME,NICKNAME,USER_REAL_NAME userRealName
+    REALNAME,NICKNAME,USER_REAL_NAME userRealName,WARSTATE warstate,WARADDR warsaddr
     from PHOIBE_DOCUMENT d JOIN PHOIBE_USER u ON d.USER_ID = u.ID
     <include refid="selectByPage_Condition_Sql"/>
 

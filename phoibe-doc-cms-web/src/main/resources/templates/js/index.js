@@ -1,22 +1,5 @@
 
-function appendTagHtml() {
-    var dataList = parent.tagLoadAjax(10000);
-    var rowhtml = "";
-    $.each(dataList, function (i, val) {
-        var id = val["id"];
-        var name = val["name"];//"标签名称";
-        rowhtml +="<li class='tag-li' dictkey='"+id+"'>"+name+"</li>";
-    });
-    $(".tagtype").html(rowhtml);
 
-    $(".tagtype .tag-li").click(function() {
-        if ($(this).hasClass('tag-li-in')) {
-            $(this).removeClass('tag-li-in');
-        } else {
-            $(this).addClass('tag-li-in');
-        }
-    });
-}
 function appendHotSearchHtml(){
     var resultData = parent.hotsearchLoadAjax();
     var rowhtml = "<li class=''>热门：";
@@ -169,11 +152,23 @@ $(function () {
     getDocNum();
     bindRecommDoc();
     bindDym();
-    appendDitHtml();
+    //appendDitHtml();
     appendTagHtml();
     appendUserSearchHtml();
     appendHotSearchHtml();
+    /*$(window.parent.document).find(".tag-li").click(function() {
+        if ($(this).hasClass('tag-li-in')) {
+            $(this).removeClass('tag-li-in');
+        } else {
+            $(this).addClass('tag-li-in');
+        }
+    });*/
+
     $("#upload").click(function () {
+
+        //alert($(window.parent.document)(".tag-li").lenth);
+
+        //$(this).parent().attr("class")
         parent.docDetailRecoverController();
         var itemlength = $(window.parent.document).find("#thelist").find(".item").length;
         if (itemlength>0){
@@ -182,11 +177,11 @@ $(function () {
         }else{
             parent.emptyformw();
             $(window.parent.document).find(".bodyMask").fadeIn();
-            parent.appendDitHtml();
-            parent.getTag();
+            //parent.appendDitHtml();
+            //parent.getTag();
         }
 
-        parent.index_uploaddoc();
+        //parent.index_uploaddoc();
     });
     $(window.parent.document).find("#clear-btn").click(function () {
         parent.emptyformw();
@@ -202,7 +197,9 @@ $(function () {
    
     $(".btnSearch").click(function () {
         var url = 'searchadv.html?';
-        var data="";
+        var data="1=1";
+        if($("input[name='doctype']:checked").val()!=null)
+            data=data+"&doctype="+$("input[name='doctype']:checked").val();
 
         var searchKey = $("#search-key").val();
         if (searchKey!=""&&searchKey!=null){
@@ -236,7 +233,75 @@ $(function () {
                 data = data + "&"+input_id+"=" + filedft;
             }
         })
+
+        var tagArray = "";
+        $("#tag .tag-li-in").each(function () {
+            var tag_html = $(this).attr("dictkey");
+            tagArray = tagArray +tag_html+",";
+        });
+        data =data+"&"+"tagArray="+tagArray;
+
+        var warstateArray = "";
+        $("#warstateu .tag-li-in").each(function () {
+            var tag_html = $(this).attr("tagid");
+            warstateArray = warstateArray +tag_html+",";
+        });
+        data =data+"&"+"warstateArray="+warstateArray;
+
+        var waraddrArray = "";
+        $("#waraddru .tag-li-in").each(function () {
+            var tag_html = $(this).attr("tagid");
+            waraddrArray = waraddrArray +tag_html+",";
+        });
+        data =data+"&"+"waraddrArray="+waraddrArray;
+
+
+        var warstypeArray = "";
+        $("#warstypeu .tag-li-in").each(function () {
+            var tag_html = $(this).attr("tagid");
+            warstypeArray = warstypeArray +tag_html+",";
+        });
+        data =data+"&"+"warstypeArray="+warstypeArray;
+
+        var waraddrArray = "";
+        $("#waraddru .tag-li-in").each(function () {
+            var tag_html = $(this).attr("tagid");
+            waraddrArray = waraddrArray +tag_html+",";
+        });
+        data =data+"&"+"waraddrArray="+waraddrArray;
+
+
+        var corpstypeArray = "";
+        $("#corpstypeu .tag-li-in").each(function () {
+            var tag_html = $(this).attr("tagid");
+            corpstypeArray = corpstypeArray +tag_html+",";
+        });
+        data =data+"&"+"corpstypeArray="+corpstypeArray;
+
+        var fighttypeArray = "";
+        $("#fighttypeu .tag-li-in").each(function () {
+            var tag_html = $(this).attr("tagid");
+            fighttypeArray = fighttypeArray +tag_html+",";
+        });
+        data =data+"&"+"fighttypeArray="+fighttypeArray;
+
+        var combattypestringArray = "";
+        $("#combattypestringu .tag-li-in").each(function () {
+            var tag_html = $(this).attr("tagid");
+            combattypestringArray = combattypestringArray +tag_html+",";
+        });
+        data =data+"&"+"combattypestringArray="+combattypestringArray;
+
+        var fighttraitArray = "";
+        $("#fighttraitu .tag-li-in").each(function () {
+            var tag_html = $(this).attr("tagid");
+            fighttraitArray = fighttraitArray +tag_html+",";
+        });
+        data =data+"&"+"fighttraitArray="+fighttraitArray;
+
         data = GAL_URL + url+ data;
-        window.location.href = encodeURI(data);
+        //alert(data);
+       window.location.href = encodeURI(data);
     });
+
 });

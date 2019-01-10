@@ -1,6 +1,7 @@
 var totalRows = 0;
 var currPage = 1;
 var pageSize =7;
+
 function loadData(type,pageindex) {
 
     $("#docmgr-content").children().remove()
@@ -29,56 +30,92 @@ function loadData(type,pageindex) {
         data = data + "&loser=" + loser;
     }
 
-    var warnum = $("warnum").val();
-    if (null!=warnum&&warnum!= "") {
-        data = data + "&warnum=" + warnum;
+    var turl = getulvaluestr("warstateu","warstateArray");
+    if (null!=turl&&turl!= "") {
+        data = data + turl;
     }
     else{
-        if(getUrlString("warnum")!=null ){
-            data = data+"&warnum="+getUrlString("warnum");
-        }
+        var warstate = getUrlString("warstate");
+
+        if(warstate!=null && warstate!="")
+            data = data+"&warstate="+warstate;
     }
 
-    var warstype = $("#warstype").val();
-    if (null!=warstype&&warstype!= "") {
-        data = data + "&warstype=" + warstype;
+    turl = getulvaluestr("warstypeu","warstypeArray");
+    if(turl!=""){
+        data=data+turl;
     }
-    else{
-        if(getUrlString("warstype")!=null ){
-            data = data+"&warstype="+getUrlString("warstype");
-        }
-    }
-    var waraddr = $("#waraddr").val();
-    if (null!=waraddr&&waraddr!= "") {
-        data = data + "&waraddr=" + waraddr;
-    }
-    else{
-        if(getUrlString("waraddr")!=null ){
-            data = data+"&waraddr="+getUrlString("waraddr");
-        }
+    else {
+        var warstype = getUrlString("warstype");
+        if(warstype!=null && warstype!="")
+            data = data+"&warstype="+warstype;
     }
 
-    var warstate = $("#warstate").val();
-    if (null!=warstate&&warstate!= "") {
-        data = data + "&warstate=" + warstate;
+
+    turl = getulvaluestr("waraddru","waraddrArray");
+    if(turl!=""){
+        data=data+turl;
     }
-    else{
-        if(getUrlString("warstate")!=null ){
-            data = data+"&warstate="+getUrlString("warstate");
-        }
+    else {
+        var waraddr = getUrlString("waraddr");
+        if(waraddr!=null && waraddr!="")
+            data = data+"&waraddr="+waraddr;
     }
 
-    var corpstype = $("#corpstype").val();
-    if (null!=corpstype&&corpstype!= "") {
-        data = data + "&corpstype=" + corpstype;
+    turl = getulvaluestr("warstypeu","warstypeArray");
+    if(turl!=""){
+        data=data+turl;
     }
-    else{
-        if(getUrlString("corpstype")!=null ){
-            data = data+"&corpstype="+getUrlString("corpstype");
-        }
+    else {
+        var wastype = getUrlString("wastype");
+        if(wastype!=null && wastype!="")
+            data = data+"&wastype="+wastype;
     }
 
-    var fighttime = $("#fighttime").val();
+    turl = getulvaluestr("fighttypeu","fighttypeArray");
+    if(turl!=""){
+        data=data+turl;
+    }
+    else {
+        var fighttype = getUrlString("fighttype");
+        if(fighttype!=null && fighttype!="")
+            data = data+"&fighttype="+fighttype;
+    }
+
+
+    turl = getulvaluestr("combattypestringu","combattypestringArray");
+    if(turl!=""){
+        data=data+turl;
+    }
+    else {
+        var combattypestring = getUrlString("combattypestring");
+        if(combattypestring!=null && combattypestring!="")
+            data = data+"&combattypestring="+combattypestring;
+    }
+
+    turl = getulvaluestr("corpstypeu","corpstypeArray");
+    if(turl!=""){
+        data=data+turl;
+    }
+    else {
+        var corpstype = getUrlString("combattypestring");
+        if(corpstype!=null && corpstype!="")
+            data = data+"&corpstype="+corpstype;
+    }
+
+    turl = getulvaluestr("fighttraitu","corpstypeArray");
+    if(turl!=""){
+        data=data+turl;
+    }
+    else {
+        var fighttrait = getUrlString("fighttrait");
+        if(fighttrait!=null && fighttrait!="")
+            data = data+"&fighttrait="+fighttrait;
+    }
+
+
+
+    var fighttime = $("#fighttimeu").val();
     if (null!=fighttime&&fighttime!= "") {
         data = data + "&fightTime=" + fighttime;
     }
@@ -88,35 +125,7 @@ function loadData(type,pageindex) {
         }
     }
 
-    var fighttype = $("#fighttype").val();
-    if (null!=fighttype&&fighttype!= "") {
-        data = data + "&fighttype=" + fighttype;
-    }
-    else{
-        if(getUrlString("fighttype")!=null ){
-            data = data+"&fighttype="+getUrlString("fighttype");
-        }
-    }
 
-    var fighttrait = $("#fighttrait").val();
-    if (null!=fighttrait&&fighttrait!= "") {
-        data = data + "&fighttrait=" + fighttrait;
-    }
-    else{
-        if(getUrlString("fighttrait")!=null ){
-            data = data+"&fighttrait="+getUrlString("fighttrait");
-        }
-    }
-
-    var combattype = $("#combattype").val();
-    if (null!=combattype&&combattype!= "") {
-        data = data + "&combatTypeString=" + combattype;
-    }
-    else{
-        if(getUrlString("combatTypeString")!=null ){
-            data = data+"&combatTypeString="+getUrlString("combatTypeString");
-        }
-    }
 
     var doctype=$('input:radio[name="doctype"]:checked').val();
     if (null!=doctype&&doctype != "") {
@@ -136,10 +145,12 @@ function loadData(type,pageindex) {
         }
     })
     var tagtypevalue = "";
-    $(".tagtype .tag-li-in").each(function () {
+    $("#tag .tag-li-in").each(function () {
         tagtypevalue = $(this).attr("dictKey");
         data = data + "&tagArray=" + tagtypevalue;
     })
+
+
     var queryFlag = $("#queryFlag").val();
 
     if (queryFlag != "undefined" && queryFlag!="" && queryFlag!=null) {
@@ -161,7 +172,8 @@ function loadData(type,pageindex) {
     }
 
     data = url + data + "&isstock=2";//&auditStatus=2&
-    //alert(data);
+    data = decodeURI(data);
+    alert(data);
     $.ajax({
              type: 'GET',
              url: GAL_URL + data,
@@ -272,15 +284,16 @@ function appendTagHtml() {
         var name = val["name"];//"标签名称";
         rowhtml +="<li class='tag-li' dictkey='"+id+"'>"+name+"</li>";
     });
-    $(".tagtype").html(rowhtml);
+    $("#tag").html(rowhtml);
 
-    $(".tagtype .tag-li").click(function() {
+    /*$(".tagtype .tag-li").click(function() {
+        alert("t");
         if ($(this).hasClass('tag-li-in')) {
             $(this).removeClass('tag-li-in');
         } else {
             $(this).addClass('tag-li-in');
         }
-    });
+    });*/
 }
 
 function appendHotSearchHtml(){
@@ -327,6 +340,21 @@ function InitUserId() {
     }
 }
 
+
+function initdata(tid,data){
+    var warstate = getUrlString(data);
+    //alert(tid);
+
+    if(null!=warstate && warstate!=""){
+        var tagtypekey = warstate.split(",");
+        for(var i=0;i<tagtypekey.length-1;i++)
+        {
+            //alert("#"+tid+" .tag-li[tagid='"+tagtypekey[i]+"']");
+            $("#"+tid+" .tag-li[tagid='"+tagtypekey[i]+"']").addClass('tag-li-in');
+        }
+    }
+}
+
      $(function () {
          InitUserId();
          $("#queryFlag").val(getUrlString("queryFlag"));
@@ -334,7 +362,7 @@ function InitUserId() {
          appendTagHtml();
          appendHotSearchHtml();
          appendUserSearchHtml();
-         parent.appendDitHtml();
+         //parent.appendDitHtml();
          $("#back").click(function () {
              history.back();
          });
@@ -349,18 +377,39 @@ function InitUserId() {
          $("#condwhere").find("select").each(function (i,val) {
              var input_id = $(this).attr("id");
              var input_val = getUrlString(input_id);
+             //alert(input_val);
              if(null!=input_val&&input_val!=""){
-                 $(this).val(input_val);
+                 input_val=decodeURI(input_val);
+                 //$("#"+input_id).find("option[value='"+input_val+"']").attr("selected",true);
+                $("#"+input_id).val(input_val);
              }
          })
+
+         var doctype= getUrlString("doctype");
+         if(doctype!=null && doctype!=""){
+             $("input[type=radio][name='doctype'][value='"+doctype+"']").attr("checked",'checked');
+         }
+
          var tagtype = getUrlString("tagArray");
          if(null!=tagtype&&tagtype!=""){
-             $(".tagtype .tag-li[dictKey='"+tagtype+"']").addClass('tag-li-in');
+              var tagtypekey = tagtype.split(",");
+              for(var i=0;i<tagtypekey.length;i++)
+             {
+                 $("#tag .tag-li[dictKey='" + tagtypekey[i] + "']").addClass('tag-li-in');
+             }
          }
+
+         initdata("warstateu","warstateArray");
+         initdata("waraddru","waraddrArray");
+         initdata("warstypeu","warstypeArray");
+         initdata("corpstypeu","corpstypeArray");
+         initdata("fighttypeu","fighttypeArray");
+         initdata("combattypestringu","combattypestringArray");
+         initdata("fighttraitu","fighttraitArray");
 
          var tagtype = getUrlString("tagname");
          if(null!=tagtype&&tagtype!=""){
-             $("#tagtype").val(tagtype);
+             $("#tag").val(tagtype);
          }
          var format = getUrlString("format");
 

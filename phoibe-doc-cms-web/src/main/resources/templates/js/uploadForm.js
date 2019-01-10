@@ -50,11 +50,63 @@ function formSubmit(filemd5,filename,fileext,filesize){
      var docId = $("#docId").val();
     formdata.docId = docId;
     var select_tag = "";
-    $(".tag-li-in").each(function () {
+    $("#tag .tag-li-in").each(function () {
         var tag_html = $(this).html();
         select_tag = select_tag +tag_html+",";
-    })
+    });
     formdata.tagId = select_tag;
+
+    var warstate = "";
+    $("#warstateu .tag-li-in").each(function () {
+        var tag_html = $(this).html();
+        warstate = warstate +tag_html+",";
+    });
+   formdata.warstate =warstate;
+
+    var waraddr = "";
+    $("#waraddru .tag-li-in").each(function () {
+        var tag_html = $(this).html();
+        waraddr = waraddr +tag_html+",";
+    });
+    formdata.waraddr =waraddr;
+
+    var warstype = "";
+    $("#warstypeu .tag-li-in").each(function () {
+        var tag_html = $(this).html();
+        warstype = warstype +tag_html+",";
+    });
+    formdata.warstype =warstype;
+
+    var corpstype = "";
+    $("#corpstypeu .tag-li-in").each(function () {
+        var tag_html = $(this).html();
+        corpstype = corpstype +tag_html+",";
+    });
+    formdata.corpstype =corpstype;
+
+    var fighttype = "";
+    $("#fighttypeu .tag-li-in").each(function () {
+        var tag_html = $(this).html();
+        corpstype = corpstype +tag_html+",";
+    });
+    formdata.corpstype =corpstype;
+
+    var combattypestring = "";
+    $("#combattypestringu .tag-li-in").each(function () {
+        var tag_html = $(this).html();
+        combattypestring = combattypestring +tag_html+",";
+    });
+    formdata.combattypestring =combattypestring;
+
+
+    var fighttrait = "";
+    $("#fighttraitu .tag-li-in").each(function () {
+        var tag_html = $(this).html();
+        fighttrait = fighttrait +tag_html+",";
+    });
+    formdata.fighttrait =fighttrait;
+
+
     $("#formthelist").find(".item").each(function(){
         formdata.filemd5 = filemd5;
         formdata.filename = filename;
@@ -103,7 +155,7 @@ function emptyformw(){
     $(".bodyMask").hide();
 }
 
-function getTag() {
+/*function getTag() {
     var dataList = parent.tagLoadAjax(10000);
     var rowhtml = "";
     $.each(dataList, function (i, val) {
@@ -122,7 +174,7 @@ function getTag() {
             $(this).addClass('tag-li-in');
         }
     });
-}
+}*/
 function getDocObjecLoad(Id){
     var docObj;
     $.ajax({
@@ -170,7 +222,7 @@ function getDocObjecLoad(Id){
 }
 $(function() {
 
-        parent.appendDitHtml();
+        //parent.appendDitHtml();
     $(".closed").click(function () {
         $(".bodyMask").hide();
         $(".uploadTaskListBox").hide();

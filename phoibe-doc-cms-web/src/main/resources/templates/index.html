@@ -153,62 +153,77 @@
 						<li class="one-line"><span class="label">标题：</span>
 							<input type="text" id="name" name="name" style="width: 695px;margin-left: 3px;"/>
 						</li>
-						<li class="one-line">
-							<ul>
-								<li><span class="label">参战国家：</span>
-									<select id="warstate" name="warstate">
-									</select>
-								</li>
-								<li><span class="label">作战地域：</span>
-									<select id="waraddr" name="waraddr">
-									</select>
-								</li>
-							</ul>
-						</li>
-						<li class="one-line">
-							<ul>
-								<li><span class="label">战例类型：</span>
-									<select id="warstype" name="warstype">
-									</select>
-								</li>
-								<li><span class="label">参战兵种：</span>
-									<select id="corpstype" name="corpstype">
-									</select>
-								</li>
-							</ul>
-						</li>
-						<li class="one-line">
-							<ul>
-								<li><span class="label">参战年代：</span>
-									<select id="fighttime" name="fighttime">
-									</select>
-								</li>
-								<li><span class="label">伤亡人数：</span>
-									<select id="warnum" name="warnum">
-									</select>
-								</li>
-							</ul>
-						</li>
-						<li class="one-line">
-							<ul>
-								<li><span class="label">战法类别：</span>
-									<select id="fighttype" name="fighttype">
-									</select>
-								</li>
-								<li><span class="label">战斗种类：</span>
-									<select id="combatTypeString" name="combatTypeString">
-									</select>
-								</li>
-							</ul>
-						</li>
-						<li class="one-line">
-							<ul>
-								<li><span class="label">作战特点：</span>
-									<select id="fighttrait" name="fighttrait">
-									</select>
-								</li>
-							</ul>
-						</li>
+						<!--<li class="one-line">
+                    <ul>
+                        <li><span class="label">参战国家：</span>
+                            <select id="warstate" name="warstate">
+                            </select>
+                        </li>
+                        <li><span class="label">作战地域：</span>
+                      <select id="waraddr" name="waraddr">
+                            </select>
+                        </li>
+                    </ul>
+                </li>
+                <!--
+                <li class="one-line">
+                    <ul>
+                        <li><span class="label">战例类型：</span>
+                            <select id="warstype" name="warstype">
+                            </select>
+                        </li>
+                        <li><span class="label">参战兵种：</span>
+                            <select id="corpstype" name="corpstype">
+                            </select>
+                        </li>
+                    </ul>
+                </li>
+                <li class="one-line">
+                    <ul>
+                        <li><span class="label">参战年代：</span>
+                            <select id="fighttime" name="fighttime">
+                            </select>
+                        </li>
+                        <li><span class="label">伤亡人数：</span>
+                            <select id="warnum" name="warnum">
+                            </select>
+                        </li>
+                    </ul>
+                </li>
+                <li class="one-line">
+                    <ul>
+                        <li><span class="label">战法类别：</span>
+                            <select id="fighttype" name="fighttype">
+                            </select>
+                        </li>
+                        <li><span class="label">战斗种类：</span>
+                            <select id="combattypestring" name="combattypestring">
+                            </select>
+                        </li>
+                    </ul>
+                </li>
+                <li class="one-line">
+                    <ul>
+                        <li><span class="label">作战特点：</span>
+                            <select id="fighttrait" name="fighttrait">
+                            </select>
+                        </li>
+                    </ul>
+                </li>
+                <li class="one-line">
+                    <ul>
+                        <li><span class="label">胜利方：</span>
+                            <input type="text" id="winner" name="winner"/>
+                        </li>
+                        <li><span class="label">失败方：</span>
+                            <input type="text" id="loser" name="loser"/>
+                        </li>
+                    </ul>
+                </li>
+                <li class="one-line"><span class="label">标签：</span>
+                    <ul id="tag"></ul>
+                </li>-->
+
 						<li class="one-line">
 							<ul>
 								<li><span class="label">胜利方：</span>
@@ -219,9 +234,68 @@
 								</li>
 							</ul>
 						</li>
-						<li class="one-line"><span class="label">标签：</span>
-							<ul class='tag-ul'></ul>
+						<li class="one-line">
+							<ul>
+								<li><span class="label">参战年代：</span>
+									<select id="fighttime" name="fighttime">
+										<option value=""></option>
+									</select>
+								</li>
+								<li><span class="label">伤亡人数：</span>
+									<select id="warnum" name="warnum">
+										<option value=""></option>
+									</select>
+								</li>
+							</ul>
 						</li>
+
+						<li class="one-line">
+							<span class="label">参战国家：</span>
+							<!--<select id="warstate" name="warstate">
+                             </select>-->
+							<ul class='tag-ul tagtype' id="warstateu"></ul>
+						</li>
+						<li class="one-line">
+							<span class="label">作战地域：</span>
+							<!--<select id="waraddr" name="waraddr">
+                            </select>-->
+							<ul class='tag-ul tagtype' id="waraddru"></ul></li>
+						<li  class="one-line"><span class="label">战例类型：</span>
+							<!--<select id="warstype" name="warstype">
+                            </select>-->
+							<ul class='tag-ul tagtype' id="warstypeu"></ul></li>
+						</li>
+						<li class="one-line">
+							<span class="label">参战兵种：</span>
+							<!-- <select id="corpstype" name="corpstype">
+                             </select>-->
+							<ul class='tag-ul tagtype' id="corpstypeu"></ul>
+						</li>
+
+						<li  class="one-line"><span class="label">战法类别：</span>
+							<ul id="fighttypeu" class="tag-ul tagtype">
+							</ul>
+						</li>
+						<li class="one-line">
+							<span class="label">战斗种类：</span>
+							<!--<select id="combatTypeString" name="combatTypeString">
+                            </select>-->
+							<ul id="combattypestringu" class="tag-ul tagtype">
+							</ul>
+
+						</li>
+						<li class="one-line">
+							<span class="label">作战特点：</span>
+							<!--<select id="fighttrait" name="fighttrait">
+                            </select>-->
+							<ul id="fighttraitu" class="tag-ul tagtype">
+							</ul>
+						</li>
+
+						<li class="one-line"><span class="label">标签：</span>
+							<ul id="tag" class='tag-ul tagtype'></ul>
+						</li>
+						<li class="one-line"><input type="hidden" id="userId"/></li>
 
 						<li class="one-line"><span class="label">摘要：</span>
 							<textarea rows="10" cols="50" style="width: 695px;margin-left: -90px;"
@@ -271,7 +345,7 @@
 </div>
 <script>
     $(function () {
-
+        appendTagHtml();
         $("#btnper").click(function () {
             document.getElementById("frm-main").src = 'percenter.html';
         });
@@ -346,5 +420,7 @@
         iframeLoad()
     }
 </script>
+
+
 </body>
 </html>

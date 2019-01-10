@@ -78,7 +78,7 @@ public class PhoibeDocument {
 
     private String fighttrait;
 
-    private String combatTypeString;
+    private String combattypestring;
 
     private Short docType;
 
@@ -383,12 +383,12 @@ public class PhoibeDocument {
         this.fighttrait = fighttrait;
     }
 
-    public String getCombatTypeString() {
-        return combatTypeString;
+    public String getCombattypestring() {
+        return combattypestring;
     }
 
-    public void setCombatTypeString(String combatTypeString) {
-        this.combatTypeString = combatTypeString;
+    public void setCombattypestring(String combattypestring) {
+        this.combattypestring = combattypestring;
     }
 
     public Short getDocType() {

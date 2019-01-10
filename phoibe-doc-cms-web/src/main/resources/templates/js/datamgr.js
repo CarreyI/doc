@@ -175,7 +175,8 @@ $(function () {
         parent.iframeLoad();
     });
     $("#btnadd").click(function () {
-        $(".bodyMask").fadeIn();
+        //alert("addd");
+        $(".son_bodyMask").fadeIn();
     });
     $(".closed").click(function () {
         $(".bodyMask").hide();
