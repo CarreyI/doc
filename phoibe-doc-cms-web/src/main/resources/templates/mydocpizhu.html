@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/layui.js"></script>
+    <link rel="stylesheet" href="css/management.css"/>
+    <link rel="stylesheet" href="css/layui.css">
+    <script src="js/management.js"></script>
+    <script src="js/mydocpizhu.js"></script>
+    <style>
+        .file_divleft{max-height: 878px;}
+        .file-scroll{height:830px}
+    </style>
+</head>
+<body>
+<div id="percenter">
+    <div class="main box_border ">
+        <div class="container box_border r-content">
+            <div class="box_border">
+                <!--<div class="line"></div>-->
+                <div class="list-content">
+                    <div class="box_border">
+
+                        <br/>
+                        <div class="file_wrap">
+                            <div class="btn-cmd-list">
+                                <a id="btndel">删除</a> </div>
+<br/>
+                                <table class="tblist" border="0">
+                                    <tr class='tblist-header'>
+                                        <th style="width: 30px;"><input class="checkAll" name="checkAll" type="checkbox"></th>
+                                        <th>战法文档</th>
+                                        <th>大小(kb)</th>
+                                        <th>创建时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    <tbody id="tblist-body"></tbody>
+                                </table>
+
+                                <div id="notice_pages"></div>
+                            </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

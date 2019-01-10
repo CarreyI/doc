@@ -1,6 +1,5 @@
 package me.phoibe.doc.cms.dao;
 
-import me.phoibe.doc.cms.domain.po.PageList;
 import me.phoibe.doc.cms.domain.po.PageParam;
 import me.phoibe.doc.cms.domain.po.PhoibeUserPostil;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,6 +18,9 @@ public interface PhoibeUserPostilMapper {
     Long  selectCountByPage(PageParam<PhoibeUserPostil> pageParam);
 
     PhoibeUserPostil GetUserPostilById(Long Id);
+
+    List<PhoibeUserPostil> fetchMyUserPostilList(PageParam<PhoibeUserPostil> pageParam);
+
 
     boolean removeById(int id);
 }

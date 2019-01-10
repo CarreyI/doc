@@ -112,13 +112,13 @@ function loadDataMenu(){
         contentType: "application/json;charset=UTF-8",
         success: function (data) {
             if (data.code="success") {
-                var datalist ="<li>&nbsp;-&nbsp;<a href=\"#\" class=\"menu-a\" dirId=''>全部字段</a></li>";
+                var datalist ="<li>&nbsp;+&nbsp;<a href=\"#\" class=\"menu-a\" dirId=''>全部字段</a></li>";
                 var roleObj = data.data.dataList;
                 for (var i in roleObj){
                     var groupKey = roleObj[i].groupKey;
                     var groupName = roleObj[i].groupName;
 
-                    datalist=datalist + "<li>&nbsp;-&nbsp;<a href=\"#\" class=\"menu-a\" groupKey='"+groupKey+"'>"+groupName+"</a>" +
+                    datalist=datalist + "<li>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;<a href=\"#\" class=\"menu-a\" groupKey='"+groupKey+"'>"+groupName+"</a>" +
                         "&nbsp;&nbsp;&nbsp;<a href=\"#\" class=\"menu-add menu-btn\" groupKey='"+groupKey+"'>新增属性</a></li>";
 
                 }$(".data_list").html(datalist);

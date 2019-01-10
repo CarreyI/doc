@@ -2417,7 +2417,10 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 	overflow: auto;
 	height: 536px;
 }
-
+#percenter #pizhu{
+	display: inline-block;
+	float:left;
+}
 .file_list{
 	margin-top:8px;
 	margin-top:8px;

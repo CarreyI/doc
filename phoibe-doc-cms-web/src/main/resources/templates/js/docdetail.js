@@ -405,6 +405,10 @@ $(function () {
     $("#uploadnote").click(function() {
 
         $("#docId").val(tid);
+        var docName = $("#doctitle").html();
+        $("#docName").val(docName);
+       //alert(docName);
+       //return ;
         var itemlength = $(window.parent.document).find("#thelist").find(".item").length;
         if (itemlength>0){
             alert("有未上传完成的任务，请先上传");
@@ -441,7 +445,6 @@ $(function () {
                 userId = userObject.id;
             }
             var formdata = {
-
                 commentContent: $("#comment-content").val(),
                 score: parseInt($("#comentscore").val()),
                 documentId: parseInt(tid),

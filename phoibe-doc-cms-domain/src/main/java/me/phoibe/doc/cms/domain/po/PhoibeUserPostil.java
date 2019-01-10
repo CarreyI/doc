@@ -12,6 +12,7 @@ public class PhoibeUserPostil {
     private int fileSize;
     private String userName;
     private Short progress;
+    private String docTitle;
 
     public Short getProgress() {
         return progress;
@@ -56,6 +57,7 @@ public class PhoibeUserPostil {
     public String getDocPath() {
         return docPath;
     }
+    public String getDocTitle(){return docTitle;};
 
     public void setDocPath(String docPath) {
         this.docPath = docPath;
@@ -84,4 +86,5 @@ public class PhoibeUserPostil {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+    public void setDocTitle(String docTitle){this.docTitle = docTitle;}
 }

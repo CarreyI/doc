@@ -122,6 +122,25 @@ public class UserPostilController {
         return JsonUtils.toJson(resultMap);
     }
 
+    @GetMapping("mypizhulist/{index}/{limit}")
+    public String mypizhulist(@PathVariable Integer index, @PathVariable Integer limit, @ModelAttribute PhoibeUserPostil param, HttpServletRequest request) {
+
+        PageParam<PhoibeUserPostil> pageParam = new PageParam<>();
+        pageParam.setStart(index);
+        pageParam.setLimit(limit);
+        pageParam.setParam(param == null ? new PhoibeUserPostil() : param);
+
+        //if(!StringUtils.isEmpty(param.getContentStr())){
+           /* Long userId = getUserId(request);
+            PhoibeSearch phoibeSearch = new PhoibeSearch();
+            if(param.getUserId()>0)
+            phoibeSearch.setUserId(userId);
+*/
+        PageList<PhoibeUserPostil> list = phoibeUserPostilService.fetchMyUserPostilList(pageParam);
+        LogUtil.writeLog("浏览了我的批注列表", LogUtil.OPER_TYPE_LOOK,"批注", DocumentController.class,request);
+        return JsonUtils.toJson(new Result<PageList<PhoibeUserPostil>>(Code.SUCCESS, list));
+    }
+
     @GetMapping("list/{index}/{limit}")
     public String listUserPostil(@PathVariable Integer index, @PathVariable Integer limit, @ModelAttribute PhoibeUserPostil param, HttpServletRequest request) {
 
@@ -162,7 +181,7 @@ public class UserPostilController {
             dm.setDocId(Integer.parseInt(docid));
             dm.setProgress((short) (20));
 
-            dm.setDocName(filename);
+            dm.setDocName((String) rb.get("docName"));
             dm.setFileSize(fileSize);
             dm.setCreateTime(new Date());
             dm.setUserId(userInfo.getId());
@@ -217,7 +236,7 @@ public class UserPostilController {
         } catch (Exception e) {
             JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
         }
-        LogUtil.writeLog("删除了id为{"+idstr+"}的文档", LogUtil.OPER_TYPE_LOOK,"批注", DocumentController.class,request);
+        LogUtil.writeLog("删除了id为{"+idstr+"}的批注", LogUtil.OPER_TYPE_LOOK,"批注", DocumentController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
 

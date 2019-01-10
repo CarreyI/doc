@@ -36,12 +36,9 @@ function editDocFun(docId){
 function loadData(pageindex) {
 
     $("#tblist-body").children().remove();
-    var data = GAL_URL+'phoibe/document/list/' + pageindex + '/'+pageSize+'?1=1';
+    var data = GAL_URL+'/phoibe/userPostil/mypizhulist/' + pageindex + '/'+pageSize+'?1=1';
     data = data +"&userId="+userId;
-    if (dirId!=""){
-        data = data +"&dirId="+dirId;
-    }
-    //alert(data);
+
     $.ajax({
             type: 'GET',
             url: data,
@@ -50,82 +47,37 @@ function loadData(pageindex) {
             success: function (result) {//<div class='font22 title'>中国战法</div>
                 var total_rows = result.data.totalCount;
                 totalRows = total_rows;
-
                 if (total_rows < 1) currPage = 1;
                 var step = 0;
                 var row = "";
                 $.each(result.data.dataList, function (i, val) {
-                    var title = val["name"];
+
+                    var title = val["docName"];
                     var id = val["id"];
-                    var format = val['format'];
-                    var pagecount = val["pagecount"];
-                    var filesize = val["fileSize"];
-                    var status = val["status"];
+                    var docid=val["docId"];
                     var createtime = val["createTime"];
-                    var auditstatus = val["auditStatus"];
-                    var tagId = val["tag"];
-                    if (val["tag"] == 'undefined' || val["tag"] == null) {
-                        tagId = '';
-                    }
-                    var auditdate = val["auditTime"];
-                    if (val["auditTime"] == 'undefined' || val["auditTime"] == null) {
-                        auditdate = '';
-                    }
+                    var filesize = val["fileSize"];
 
-                    var auditor = "admin";
-                    var tid = val["id"];
-                    var docstatus = "";
-                    var auditstatustyle = "f-blue";
-                    if (status == 101) {
-                        docstatus = "上传中";
-                    }
+                    var docdetailHtml="<a href='phoibe/userPostil/previewDoc/"+id+"' target='_blank' class='list-del doc-detail' tid='"+id+"'>查看批注</a>&nbsp;&nbsp;";
+                    var url="href='docdetail.html?tid=" + docid + "'";
 
-                    else if (status == 100) {
-                        docstatus = "上传完成";
-                    }
-                    if (auditstatus == 1) {
-                        auditstatustyle = "f-red";
-                        auditstatus = "待审核";
-                    }
-                    else if (auditstatus == 2) {
-                        auditstatus = "审核通过";
-                    }
-                    else if (auditstatus == 3) {
-                        auditstatus = "审核不通过";
-                        auditstatustyle = "f-red";
-                    }
-                    var docdetailHtml="<a class='list-del doc-detail' tid='"+id+"'>详细</a>&nbsp;&nbsp;";
-                    var url="href='docdetail.html?tid=" + tid + "'";
-                    if (status==101){
-                        auditstatus="上传中断";
-                        auditstatustyle = "f-red";
-                        var url=" style='color:#666;cursor: pointer;' onClick=editDocFun("+tid+")";
-                        docdetailHtml="";
-                    }
-                   
                     var row = "<tr><td><input type='checkbox' data-value='" + id + "' name='chksel'/></td>" +
-                        "<td class='d-title'><a "+url+" title='"+title+"'>" + cutString(title,32) + "</a></td>" +
+                        "<td class='d-title'><a "+url+" title='"+title+"'>" + cutString(title,34) + "</a></td>" +
                         "<td>" + filesize + "</td>" +
-                        "<td>" + format + "</td>" +
                         "<td>" + createtime + "</td>" +
-                        "<td>" + auditdate + "</td>" +
-                        "<td class='"+auditstatustyle+"'>"+auditstatus+"</td>" +
-                        "<td>"+docdetailHtml+"<a class='list-del doc-move' tid='"+id+"'>移动</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
-                    $("#tblist-body").append(row);//<td>" + tagId + "</td>
+                        "<td>"+docdetailHtml+"&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
+                    $("#tblist-body").append(row);
                     parent.iframeLoad();
                 });
+
                 $(".doc-del").click(function () {
                     var tid = $(this).attr("tid");
+                    //alert(tid);
                     docDelAjax(tid);
-
-                });
-                $(".doc-move").click(function () {
-                    var tid = $(this).attr("tid");
-                        $(".documentId").val(tid);
-                        $(".filelist_bodyMask").fadeIn();
                 });
                 $(".doc-detail").click(function () {
                     var tid = $(this).attr("tid");
+                    //alert(tid);
                     parent.docDetailOpenController(tid);
                 });
             }
@@ -154,27 +106,6 @@ function loadData(pageindex) {
         });
        
     }
-
-function docDelAjax(tid){
-    if (confirm("确认删除选中文章吗？")) {
-        $.ajax({
-            url: GAL_URL + "phoibe/document/delete",
-            type: "post",
-            data: {"_method": "delete", "idstr": tid},
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                if (data.code == "SUCCESS") {
-                    loadData(0);
-                    alert("删除成功");
-                } else {
-                    alert("删除失败");
-                }
-            }
-        });
-    }
-}
-
     function loadFileMenu(){
         var userStr = getCookie("userObject");
         var userId =1;
@@ -270,6 +201,26 @@ function checkfileNameAjax(filename,userId){
     });
     return pd;
 }
+function docDelAjax(tid){
+    if (confirm("确认删除选中的批注吗？")) {
+        $.ajax({
+            url: GAL_URL + "phoibe/userPostil/delete",
+            type: "post",
+            data: {"_method": "delete", "idstr": tid},
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data.code == "SUCCESS") {
+                    loadData(0);
+                    alert("删除成功");
+                } else {
+                    alert("删除失败");
+                }
+            }
+        });
+    }
+}
+
     $(function () {
        // docdymListLoad();
         //nearreadListLoad();

@@ -32,7 +32,7 @@
     <if test="param.userId != null and param.userId>0">
       and USER_ID =#{param.userId,jdbcType=DECIMAL}
     </if>
-    <if test="param.docId!=null">
+    <if test="param.docId!=null and param.docId>0">
       and DOC_ID =#{param.docId,jdbcType=DECIMAL}
     </if>
   </select>
@@ -64,6 +64,23 @@
     ) m
    WHERE m.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
   </select>
+
+
+  <select id="fetchMyUserPostilList" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">
+    select * from (SELECT a.*,rownum rno FROM
+    PHOIBE_USER_POSTIL a
+    where 1=1
+    <if test="param.userId != null and param.userId>0">
+      and a.USER_ID =#{param.userId,jdbcType=DECIMAL}
+    </if>
+    ORDER BY CREATE_TIME DESC
+    ) m
+    inner join PHOIBE_DOCUMENT v
+    on m.DOC_ID = v.ID
+
+    WHERE m.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
+  </select>
+
 
   <!--<delete id="deleteUserConfigByUserId" parameterType="java.lang.Integer">-->
     <!--delete from PHOIBE_USER_CONFIG where USER_ID = #{userId}-->
