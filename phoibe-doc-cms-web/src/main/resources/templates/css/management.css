@@ -2486,7 +2486,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 #head-block .widget-title label{
 	cursor: pointer;
 	width: 136px;
-	font-size: 18px;
+	font-size: 24px;
 	padding: 10px 1%;
 	font-weight: initial;
 	line-height: 40px;
@@ -2583,6 +2583,7 @@ select::-ms-expand { display: none; }
 	letter-spacing: 0;
 	line-height: 20px;
 }
+.right-item-content .time{float:right;}
 .main .navLeft li span.dicLabel{background-image: url("../images/dicLabel.png");}
 .main .navLeft li span.logLabel{background-image: url("../images/logLabel.png");}
 #docmgr-content .row ul li.owner_btn:hover{color:#00a2d4;}
@@ -2609,6 +2610,7 @@ select::-ms-expand { display: none; }
 	margin-top:-30px;
 }
 
+
 .dynamiclist .aside-title{
 	font-size: 14px;
 	color: #3d3d3d;
@@ -2627,7 +2629,7 @@ select::-ms-expand { display: none; }
 .dynamiclist .right-item a{color:#226c97;}
 
 .dynamiclist .right-item .right-item-desc {
-	font-size: 12px;
+	font-size: 14px;
 	color: #999;
 }
 .dynamiclist .right-item .right-item-content {

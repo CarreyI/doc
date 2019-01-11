@@ -2,7 +2,7 @@
 var dataDictHtml;
 function appendCunkHtml(){
     var userCunkObje= [
-        {USER_CONFIG:"WARSTATE",WARS_TACTICS:1,QUERYWHERE:"美国"},
+        /*{USER_CONFIG:"WARSTATE",WARS_TACTICS:1,QUERYWHERE:"美国"},
         {USER_CONFIG:"WARNUM",WARS_TACTICS:1,QUERYWHERE:"1~5万"},
         {USER_CONFIG:"WARADDR",WARS_TACTICS:1,QUERYWHERE:"平原作战"},
         {USER_CONFIG:"WARSTYPE",WARS_TACTICS:1,QUERYWHERE:"海陆联合战例"},
@@ -10,7 +10,16 @@ function appendCunkHtml(){
         {USER_CONFIG:"COMBATTYPESTRING",WARS_TACTICS:2,QUERYWHERE:"袭击战"},
         {USER_CONFIG:"CORPSTYPE",WARS_TACTICS:2,QUERYWHERE:"空军作战"},
         {USER_CONFIG:"FIGHTTRAIT",WARS_TACTICS:2,QUERYWHERE:"以少胜多"}
-        ];
+        ];*/
+        {USER_CONFIG:"WARSTATE",WARS_TACTICS:1,QUERYWHERE:"全部"},
+        {USER_CONFIG:"WARNUM",WARS_TACTICS:1,QUERYWHERE:"全部"},
+        {USER_CONFIG:"WARADDR",WARS_TACTICS:1,QUERYWHERE:"全部"},
+        {USER_CONFIG:"WARSTYPE",WARS_TACTICS:1,QUERYWHERE:"全部"},
+        {USER_CONFIG:"FIGHTTYPE",WARS_TACTICS:2,QUERYWHERE:"全部"},
+        {USER_CONFIG:"COMBATTYPESTRING",WARS_TACTICS:2,QUERYWHERE:"全部"},
+        {USER_CONFIG:"CORPSTYPE",WARS_TACTICS:2,QUERYWHERE:"全部"},
+        {USER_CONFIG:"FIGHTTRAIT",WARS_TACTICS:2,QUERYWHERE:"全部"}
+    ];
 
     var sonCunkHtml = sonCunkLoad(userCunkObje);
     $("#zhanli-ul").html(sonCunkHtml.zl);
@@ -41,7 +50,7 @@ function sonCunkLoad(obj){
             "            <div class='wid-title'>"+field+"</div>" +
             "            <div class='wid-num' id='"+USER_CONFIG+"NUM'>"+widnum+"</div>" +
             "   </div>" +
-                "<div class='wid-title-block'><a class='wid-more' href='javascript:searchmore(\""+USER_CONFIG+"\",\""+fieldObje.fn.toLowerCase()+"\",\""+WARS_TACTICS+"\");' >更多>></a><select id='"+USER_CONFIG+"' onchange='selectevent(\""+USER_CONFIG+"\",\""+fieldObje.fn+"\","+WARS_TACTICS+")' class='wid-select' name='"+USER_CONFIG+"'>" +
+                "<div class='wid-title-block'><a class='wid-more' href='javascript:searchmore(\""+USER_CONFIG+"\",\""+fieldObje.fn.toLowerCase()+"\",\""+WARS_TACTICS+"\");' >更多>></a><select id='"+USER_CONFIG+"' onchange='selectevent(\""+USER_CONFIG+"\",\""+fieldObje.fn+"\","+WARS_TACTICS+")' class='wid-select' name='"+USER_CONFIG+"'><option value='0'>全部</option>" +
             dataDictHtml[USER_CONFIG]+
             "</select></div>"+
             "  <div class='wid-line'></div> <div class='dynamiclist' id='"+USER_CONFIG+"lst'>" +
@@ -76,9 +85,11 @@ function cunkListLoad(obj){
         var format = val["format"];
         var docname = val["name"];
         var stockTime = val["stockTime"];
-        if (null!=stockTime){
+        /*if (null!=stockTime){
             stockTime = stockTime.substring("5","10");
-        }
+        }*/
+        stockTime = getFormatDate(stockTime);
+        // /stockTime = tstock.getFullYear()+"-"+tstock.getMonth()+"-"+tstock.getDay();//.Format("yyyy-MM-dd hh:mm:ss")
         var description=val["description"];
         if (null!=description){
             description = cutString(description,76);
@@ -112,13 +123,14 @@ function getDocFieldList(dield,querywhere,doctype){
 function searchmore(id,keyfield,doctype){
     var options=$("#"+id+" option:selected");
     var url = "searchadv.html?isstock=2&docType="+doctype+"&"+keyfield+"="+options.text();
+    //alert(url);
     window.location.href=url;
 }
 function selectevent(id,keyfield,doctype){
 
     var lstId=id+"lst";
     var options=$("#"+id+" option:selected");
-alert(keyfield);
+    //alert(keyfield);
     var dataObj = getDocFieldList(keyfield,options.text(),doctype);
 
     var widnum=0;

@@ -156,10 +156,11 @@ function correlationArticle() {
                 var tid = val["id"];
                 var description=val["description"];
                 var createTime=val["createTime"];
+                createTime = getFormatDate(createTime);
                 var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
                 var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
                 "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,18)+
-                "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime.substring("5","10")+"</span></h5></div>"+
+                "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime+"</span></h5></div>"+
                 "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
                 "</a></li>";
                 $(".recommend-fixed-box").append(row);

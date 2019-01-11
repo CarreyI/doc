@@ -34,7 +34,7 @@ function loadData(pageindex) {
                 var username = val["arg2"];//"用户名-昵称-真实姓名";
                 var modulename = val["arg3"];//"功能模块";
                 var datatime = val["timestmp"];//"记录时间";
-                datatime = (new Date(datatime)).Format("yyyy-MM-dd hh:mm:ss.S")
+                datatime = (new Date(datatime)).Format("yyyy-MM-dd hh:mm:ss")
 
                 var row="<tr><td><input type='checkbox' data-value='" + id + "' name='chksel'/>" +
                     "<td>"+modulename+"</td>"

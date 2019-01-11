@@ -604,40 +604,97 @@
       <if test="param.createTimeEnd != null">
         and CREATE_TIME &lt;= #{param.createTimeEnd,jdbcType=TIMESTAMP}
       </if>
-      <if test="param.waraddr!=null">
-        and WARADDR  LIKE '%'||#{param.waraddr,jdbcType=VARCHAR}||'%'
-      </if>
-      <if test="param.warnum != null">
-        and WARNUM = #{param.warnum,jdbcType=VARCHAR}
-      </if>
-      <if test="param.warstate != null">
-        and WARSTATE LIKE '$'||#{param.warstate,jdbcType=VARCHAR} ||'%'
-      </if>
+
+      <choose>
+        <when test="param.waraddr!='全部' and param.waraddr!=null">
+          and WARADDR LIKE '%'||#{param.waraddr,jdbcType=VARCHAR} ||'%'
+        </when>
+        <when test="param.waraddr=='全部'">
+          and WARADDR is not null
+        </when>
+      </choose>
+
+
+      <choose>
+        <when test="param.warnum!='全部' and param.warnum!=null ">
+          and WARNUM LIKE '%'||#{param.warnum,jdbcType=VARCHAR} ||'%'
+        </when>
+        <when test="param.warnum=='全部'">
+          and WARNUM is not null
+        </when>
+      </choose>
+
+      <choose>
+        <when test="param.warstate!='全部' and param.warstate!=null ">
+          and WARSTATE LIKE '%'||#{param.warstate,jdbcType=VARCHAR} ||'%'
+        </when>
+        <when test="param.warstate=='全部'">
+        and WARSTATE is not null
+      </when>
+      </choose>
+
       <if test="param.content != null">
         and CONTENT = #{param.content,jdbcType=BLOB}
       </if>
-      <if test="param.warstype !=null ">
-        and WARSTYPE LIKE '%' ||#{param.warstype,jdbcType=VARCHAR}||'%'
-      </if>
-      <if test="param.corpstype !=null ">
-        <!--and CORPSTYPE = #{param.corpstype,jdbcType=VARCHAR}-->
-        and CORPSTYPE LIKE '%'||#{param.corpstype,jdbcType=VARCHAR}||'%'
-      </if>
-      <if test="param.fightTime !=null ">
-       <!-- and FIGHTTIME = #{param.fightTime,jdbcType=VARCHAR}-->
-        and FIGHTTIME LIKE '%'||#{param.fightTime,jdbcType=VARCHAR}||'%'
-      </if>
-      <if test="param.fighttype !=null ">
-        and FIGHTTYPE LIKE '%'||#{param.fighttype,jdbcType=VARCHAR}||'%'
-      </if>
-      <if test="param.combattypestring !=null ">
-       <!-- and COMBATTYPE = #{param.combatTypeString,jdbcType=VARCHAR}-->
-        and COMBATTYPE LIKE '%'||#{param.combattypestring,jdbcType=VARCHAR}||'%'
-      </if>
-      <if test="param.fighttrait !=null ">
-       <!-- and FIGHTTRAIT = #{param.fighttrait,jdbcType=VARCHAR}-->
-        and FIGHTTRAIT LIKE '%'||#{param.fighttrait,jdbcType=VARCHAR}||'%'
-      </if>
+
+      <choose>
+        <when test="param.warstype!='全部' and param.warstype!=null">
+          and WARSTYPE LIKE '%'||#{param.warstype,jdbcType=VARCHAR} ||'%'
+        </when>
+        <when test="param.warstype=='全部'">
+          and WARSTYPE is not null
+        </when>
+
+      </choose>
+
+      <choose>
+        <when test="param.corpstype!='全部' and param.corpstype!=null">
+          and CORPSTYPE LIKE '%'||#{param.corpstype,jdbcType=VARCHAR} ||'%'
+        </when>
+        <when test="param.corpstype=='全部'">
+          and CORPSTYPE is not null
+        </when>
+      </choose>
+
+      <choose>
+        <when test="param.fightTime!='全部' and param.fightTime!=null">
+          and FIGHTTIME LIKE '%'||#{param.fightTime,jdbcType=VARCHAR} ||'%'
+        </when>
+        <when test="param.fightTime=='全部'">
+          and FIGHTTIME is not null
+        </when>
+
+      </choose>
+
+      <choose>
+        <when test="param.fighttype!='全部' and param.fighttype!=null">
+          and FIGHTTYPE LIKE '%'||#{param.fighttype,jdbcType=VARCHAR} ||'%'
+        </when>
+        <when test="param.fighttype=='全部'">
+          and FIGHTTYPE is not null
+        </when>
+
+      </choose>
+
+      <choose>
+        <when test="param.combattypestring!='全部' and param.combattypestring!=null">
+          and COMBATTYPE LIKE '%'||#{param.combattypestring,jdbcType=VARCHAR} ||'%'
+        </when>
+        <when test="param.combattypestring=='全部'">
+          and COMBATTYPE is not null
+        </when>
+      </choose>
+
+      <choose>
+        <when test="param.fighttrait!='全部' and param.fighttrait!=null">
+          and FIGHTTRAIT LIKE '%'||#{param.fighttrait,jdbcType=VARCHAR} ||'%'
+        </when>
+        <when test="param.fighttrait=='全部'">
+          and FIGHTTRAIT is not null
+        </when>
+      </choose>
+
+
       <if test="param.docType !=null ">
         and DOCTYPE = #{param.docType,jdbcType=DECIMAL}
       </if>
@@ -660,6 +717,7 @@
         </foreach>
       </if>
 
+      <!--
       <if test="param.warstateArray != null and param.warstateArray != ''">
         and (
               <foreach collection="param.warstateArray" index="index" item="item" separator="OR">
@@ -714,7 +772,7 @@
           FIGHTTRAIT LIKE '%'||#{item}||'%'
         </foreach>
         )
-      </if>
+      </if>-->
 
     </where>
   </sql>

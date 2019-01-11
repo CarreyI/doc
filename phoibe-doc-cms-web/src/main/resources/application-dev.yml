@@ -15,7 +15,8 @@ spring:
     database: 1
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@101.201.220.162:1522:wemem
+    #url: jdbc:oracle:thin:@101.201.220.162:1522:wemem
+    url: jdbc:oracle:thin:@localhost:1521:wemem
     username: docsysadmin
     password: Yhc5880908
     hikari:

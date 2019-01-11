@@ -98,7 +98,7 @@ function loadData(type,pageindex) {
         data=data+turl;
     }
     else {
-        var corpstype = getUrlString("combattypestring");
+        var corpstype = getUrlString("corpstype");
         if(corpstype!=null && corpstype!="")
             data = data+"&corpstype="+corpstype;
     }

@@ -87,9 +87,9 @@ function formSubmit(filemd5,filename,fileext,filesize){
     var fighttype = "";
     $("#fighttypeu .tag-li-in").each(function () {
         var tag_html = $(this).html();
-        corpstype = corpstype +tag_html+",";
+        fighttype = fighttype +tag_html+",";
     });
-    formdata.corpstype =corpstype;
+    formdata.fighttype =fighttype;
 
     var combattypestring = "";
     $("#combattypestringu .tag-li-in").each(function () {

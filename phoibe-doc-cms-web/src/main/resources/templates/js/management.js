@@ -17,6 +17,24 @@ function initulctrl(tid,select_tag){
         }
     })
 }
+
+function getFormatDate(dtTime) {
+    var date = new Date(dtTime);
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+        //+ " " + date.getHours() + seperator2 + date.getMinutes()
+        //+ seperator2 + date.getSeconds();
+    return currentdate;
+}
 function docDetailOpenController(docId){
     //appendDitHtml();
     //getTag();
@@ -160,11 +178,13 @@ function appendDitHtml(){
         var optionhtml="";//<option  value=''></option>";
         if(""!=fieldfn){
             if(checktype(fieldfn)){
-                if(fieldfn.toLowerCase()=="warnum" || fieldfn.toLowerCase()=="fighttime")
-                {$("#"+fieldfn).append(optionhtml+dataDict[obj]);}
+                /*if(fieldfn.toLowerCase()=="warnum" || fieldfn.toLowerCase()=="fighttime")
+                {*/
+                    $("#"+fieldfn).append(optionhtml+dataDict[obj]);
+                /*}
                 else{
-                    $("#"+fieldfn).html(optionhtml+dataDict[obj]);
-                }
+                    $("#"+fieldfn).appendChild(optionhtml+dataDict[obj]);
+                }*/
                 if(fieldfn.toLowerCase()=="warnum"){
                     $("."+fieldfn).append(optionhtml+dataDict[obj]);
                 }
