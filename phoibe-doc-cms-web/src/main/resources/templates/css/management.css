@@ -302,7 +302,7 @@ body, html {
 
 .main .header .headerUsers span.iconcomm {
 	padding-left: 22px;
-	background-image: url("../images/iconcomm.png");
+	background-image: url("../images/i-comm.png");
 }
 
 
@@ -388,9 +388,12 @@ body, html {
 .main .navLeft li span.iconJoin {
 	background-image: url("../images/iconJoin.png");
 }
+#title,#docname{
+	width:260px;
+}
 
 .main .navLeft li span.iconcomm {
-	background-image: url("../images/iconcomm.png");
+	background-image: url("../images/i-comm.png");
 }
 
 
@@ -811,7 +814,7 @@ ul.list3 li {
 	   height: 40px;
 	   cursor: pointer;
 	   background: url("../images/pizhu.png") no-repeat;
-	float:right
+	   float:right
    }
 .popup .line{;
 	/*border-bottom: 1px dotted #5e90ca;*/
@@ -1749,10 +1752,21 @@ ul.search-con li .btnSearch{
 	/*margin-left: 16px;*/
 	height: 40px;
 }
+#mycomm{
+	background: url("../images/i-comm.png") 20px 8px no-repeat #2D93CA;
+	line-height: 24px;
+	height: 24px;
+	border-radius: 3px;
+	margin-left: 20px;
+	float: left;
+	padding-left: 46px;
+	color: #e7e7e7;
+	width: 76px;
+}
+
 
 .btn-cmd-list a {
 	padding: 6px 10px 6px 10px;
-	border: 1px solid #cccccc;
 	cursor: pointer;
 }
 
@@ -2313,7 +2327,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 .comment-list-box ul.comment-list li.comment-line-box div.right-box div.info-box span {
 	margin-left: 16px;
-	font-size: 14px;
+	font-size: 16px;
 	color: #e7e7e7
 }
 .comment-list-box ul.comment-list li.comment-line-box div.right-box div.info-box .date, .comment-list-box ul.comment-list li.comment-line-box div.right-box div.info-box .floor-num {
@@ -2426,7 +2440,8 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 #percenter #pizhu{
 	display: inline-block;
-	float:left;
+	float:none;
+	width:110px;
 }
 .file_list{
 	margin-top:8px;
@@ -2532,8 +2547,9 @@ option:hover{
 select {	appearance: none;border:1px solid #5e9dd9;
 	-moz-appearance: none;
 	-webkit-appearance: none;
+	width:210px;
 	/* 右侧添加小箭头的背景图 */
-	background: url('../images/i-dropdown.png') 230px center no-repeat;}
+	background: url('../images/i-dropdown.png') 180px center no-repeat;}
 select::-ms-expand { display: none; }
 #zhanli:checked ~ .widget-title .zhanli, #zhanfa:checked ~ .widget-title .zhanfa{
 	background: url("../images/tabChecked.png");
@@ -2761,6 +2777,9 @@ select::-ms-expand { display: none; }
 .idx_box_list .widget-box{
 	height:518px;
 }
+.cmd-btn-list li{
+	float:left;
+}
 
 .i-doc-block{
 	height: 20px;
@@ -2789,4 +2808,9 @@ select::-ms-expand { display: none; }
 }
 .tip{
 	color:red;
+}
+
+.search-con span.label{
+	line-height:32px;
+	height:32px;
 }

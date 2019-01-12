@@ -25,6 +25,7 @@
                                    style="display:none;"/>
                             <input type="radio" name="widget-tab" value="3" id="random" style="display:none;"/>
                             <input type="radio" name="widget-tab" value="4" id="attention" style="display:none;"/>
+                            <!--<input type="radio" name="widget-tab" value="4" id="mycomm" style="display:none;"/>-->
                             <div class="widget-title inline-ul">
                                 <ul>
                                     <li class="hot">
@@ -37,7 +38,9 @@
                                     <li class="attention">
                                         <label for="attention">我的订阅</label>
                                     </li>
-
+                                    <!--<li class="mycomm">
+                                        <label for="mycomm">我的评论</label>
+                                    </li>-->
                                 </ul>
                             </div>
                             <div class="widget-box">
@@ -52,6 +55,9 @@
                                 <ul class="attention-list">
                                     <li id="attention_li"></li>
                                 </ul>
+                                <ul class="mycomm-list">
+                                    <li id="mycomm_li"></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -60,8 +66,10 @@
                 <div class="list-content">
                     <div class="box_border">
                         <div class="btn-cmd-list">
-                            <a id="btnnewfolder">新建目录</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmove">移动</a>&nbsp;&nbsp;&nbsp;&nbsp;<a
-                                id="btndel">删除</a> &nbsp;&nbsp;&nbsp;&nbsp;<div id="uploadfile"></div>&nbsp;&nbsp;&nbsp;&nbsp;<div id="pizhu" onclick="window.location.href='mydocpizhu.html'"></div>
+                            <ul class="cmd-btn-list"><li><a id="btnnewfolder">新建目录</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="btnmove">移动</a>&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                    id="btndel">删除</a> </li><li>&nbsp;&nbsp;&nbsp;&nbsp;<a id="pizhu" href="mydocpizhu.html"></a>&nbsp;&nbsp;<a id="mycomm" href="mycommgr.html" target="">我的评论</a>&nbsp;&nbsp;<div id="uploadfile"></div></li>
+                            </ul>
+                           </div>
                         </div>
                         <br/>
                         <div class="file_wrap">
