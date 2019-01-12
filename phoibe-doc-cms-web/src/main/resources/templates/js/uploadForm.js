@@ -30,12 +30,22 @@ function checkSubmit(){
         return false;
     }
     if(""==$("#name").val()){
-        alert("请输入标题!");
+        alert("请输入标题！");
         return false;
     }else if ($("#name").val().length>50) {
         alert("文章标题不允许超过50个字！");
         return false;
     }
+
+    if(""==$("#description").val()){
+        alert("文档摘要不能不空，请输入内容！");
+        return false;
+    }
+    else if($("#description").val()>500){
+        alert("文档摘要不允许超过500个字！");
+        return false;
+    }
+
     return true;
 }
 function formSubmit(filemd5,filename,fileext,filesize){

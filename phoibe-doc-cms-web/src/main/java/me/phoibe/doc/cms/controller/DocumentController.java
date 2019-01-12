@@ -82,6 +82,11 @@ public class DocumentController {
 
 		if(!StringUtils.isEmpty(f)) {
 			switch (f) {
+				case "hothit": {
+					orderBy = "HitCount";
+					param.setQueryFlag("hothit");
+					break;
+				}
 				case "handpick": {
 					orderBy = "SCORE";
 					param.setQueryFlag("handpick");
@@ -365,6 +370,7 @@ public class DocumentController {
 			phoibeDocument.setUserRealName(userInfo.getRealname());
 			phoibeDocument.setStatus((short) (101));//上传中
 			phoibeDocument.setCreateTime(new Date());
+			phoibeDocument.setHitcount((long)0);
 			short pc = (short) (1 + Math.random() * (10 - 1 + 1));
 			phoibeDocument.setPagecount(pc);
 			String docId = (String) rb.get("docId");

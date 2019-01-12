@@ -85,18 +85,18 @@ function cunkListLoad(obj){
         var format = val["format"];
         var docname = val["name"];
         var stockTime = val["stockTime"];
-        /*if (null!=stockTime){
-            stockTime = stockTime.substring("5","10");
-        }*/
+        var icon = val["format"];
+        //alert(icon);
+        icon = getdocicon(format);
         stockTime = getFormatDate(stockTime);
-        // /stockTime = tstock.getFullYear()+"-"+tstock.getMonth()+"-"+tstock.getDay();//.Format("yyyy-MM-dd hh:mm:ss")
         var description=val["description"];
         if (null!=description){
             description = cutString(description,76);
         }
+
         var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
         var row="<li class='right-item wid-item'><a href='"+hrefUrl+"'target='_blank'>"+
-            "<div class='right-item-content clearfix'><i class='doc'></i><span title='"+docname+"'>"+cutString(docname,24)+
+            "<div class='right-item-content clearfix'>"+icon+"<span class='doc-title' title='"+docname+"'>"+cutString(docname,24)+
             "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+stockTime+"</span></span></div>"+
             "<div class='right-item-desc'>"+cutString(description,68)+"</div>"+
             "</a></li>";

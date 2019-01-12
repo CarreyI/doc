@@ -385,8 +385,8 @@ function loadPizhuData(){
 }
 $(function () {
     initstar();
-        getInfo();
-        loadData(0);
+    getInfo();
+    loadData(0);
     correlationArticle();
     loadPizhuData();
     isAttention();

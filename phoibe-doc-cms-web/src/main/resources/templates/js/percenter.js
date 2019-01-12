@@ -36,15 +36,7 @@ function docdymListLoad() {
                     docstatus = "上传完成";
                 }
                 var icon = "";
-                if (format == "pdf") {
-                    icon = "<i class='pdf'></i>";
-                }
-                else if (format == "doc" || format == "docx") {
-                    icon = "<i class='doc'></i>";
-                }
-                else{
-                    icon = "<i class='exls'></i>";//
-                }
+                icon = getdocicon(format);
                 row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title,20) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;'>" + docstatus + "</b></li>";
 
                 if (step == total_rows) {
@@ -89,15 +81,7 @@ function nearreadListLoad() {
                 //alert(tid);
                 var userRealName=val["userRealName"];
                 var icon = "";
-                if (format == "pdf") {
-                    icon = "<i class='pdf'></i>";
-                }
-                else if (format == "doc" || format == "docx") {
-                    icon = "<i class='doc'></i>";
-                }
-                else{
-                    icon = "<i class='exls'></i>";//
-                }
+                icon = getdocicon(format);
                 row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 30) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del nearread-del' tid='"+tid+"'>清除</a></b><span class='fr'>" + createtime.substring(0,16) + "</span></li>";
                 if (step == total_rows) {
                     var trow = "<div class='col3'><ol class='list1'>" + row + "</ol></div>";
@@ -148,15 +132,7 @@ function randomListLoad() {
                 var tid=val["id"];
                 var userRealName=val["userRealName"];
                 var icon = "";
-                if (format == "pdf") {
-                    icon = "<i class='pdf'></i>";
-                }
-                else if (format == "doc" || format == "docx") {
-                    icon = "<i class='doc'></i>";
-                }
-                else{
-                    icon = "<i class='exls'></i>";//
-                }
+                icon = getdocicon(format);
                 row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title, 30) + "</a>&nbsp;&nbsp;&nbsp;<b class='f-blue fr' style='margin-right:8px;' ><a class='list-del random-del' tid='"+tid+"'>取消</a></b><span class='fr'>" + createtime.substring(0,16) + "</span></li>";
 
                 if (step == total_rows) {
@@ -208,15 +184,7 @@ function attentionListLoad() {
                 var nickname=val["nickname"];
                 var userId=val["userId"];
                 var icon = "";
-                if (format == "pdf") {
-                    icon = "<i class='pdf'></i>";
-                }
-                else if (format == "doc" || format == "docx") {
-                    icon = "<i class='doc'></i>";
-                }
-                else{
-                    icon = "<i class='exls'></i>";//
-                }
+                icon = getdocicon(format);
 
                 row = row + "<li>" + icon + "<a title='" + title + "' href='docdetail.html?tid=" + tid + "'>" + cutString(title,28) + "</a>&nbsp;&nbsp;&nbsp;<b class='fr' style='margin-right:8px;' title='"+nickname+"'>"+nickname+"&nbsp;&nbsp;<a class='list-del attention-del' userId='"+userId+"'>取消</a></b></li>";
                 // alert(row);

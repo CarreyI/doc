@@ -695,7 +695,7 @@
       </choose>
 
 
-      <if test="param.docType !=null ">
+      <if test="param.docType !=null and param.docType>0">
         and DOCTYPE = #{param.docType,jdbcType=DECIMAL}
       </if>
       <if test="param.dirId != null">
@@ -717,7 +717,7 @@
         </foreach>
       </if>
 
-      <!--
+
       <if test="param.warstateArray != null and param.warstateArray != ''">
         and (
               <foreach collection="param.warstateArray" index="index" item="item" separator="OR">
@@ -772,7 +772,7 @@
           FIGHTTRAIT LIKE '%'||#{item}||'%'
         </foreach>
         )
-      </if>-->
+      </if>
 
     </where>
   </sql>

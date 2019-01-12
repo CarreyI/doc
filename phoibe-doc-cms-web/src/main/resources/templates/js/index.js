@@ -32,7 +32,7 @@ function appendUserSearchHtml(){
 
 function bindRecommDoc() {
     $("#zgzhanfa").children().remove();
-    var url = GAL_URL + 'phoibe/document/list/0/6?f=handpick&isstock=2';
+    var url = GAL_URL + 'phoibe/document/list/0/7?f=hothit&isstock=2';
     //alert(url);
     $.ajax({
         type: 'GET',
@@ -43,16 +43,16 @@ function bindRecommDoc() {
                 var format = val["format"];
                 var docname = val["name"];
                 var createTime = val["stockTime"];
+                createTime = getFormatDate(createTime);
                 var tid = val["id"];
                 var description=val["description"];
                 var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
                 var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
-                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,20)+
-                    "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime.substring("5","10")+"</span></h5></div>"+
-                    "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
+                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,18)+
+                    "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime+"</span></h5></div>"+
+                    "<div class='right-item-desc'>"+cutString(description,38)+"</div>"+
                     "</a></li>";
                 $("#lst-rm").append(row);
-
             });
         }
     });
@@ -67,6 +67,7 @@ function bindDym() {
             $.each(result.data.dataList, function (i, val) {
                 var docname = val["name"];
                 var createTime = val["stockTime"];
+                createTime = getFormatDate(createTime);
                 var tid = val["id"];
                 var description=val["description"];
                 if (""==description||null==description){
@@ -74,12 +75,11 @@ function bindDym() {
                 }
                 var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
                 var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
-                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,20)+
-                    "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime.substring("5","10")+"</span></h5></div>"+
+                    "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,18)+
+                    "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime+"</span></h5></div>"+
                     "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
                     "</a></li>";
                 $("#lst-dym").append(row);
-                //alert(row);
             });
         }
     });

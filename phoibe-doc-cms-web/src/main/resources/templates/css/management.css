@@ -480,9 +480,10 @@ body, html {
 }
 .line_two_li li,.line_two_li ul{
 	float: left;
-	line-height: 19px;
+	line-height: 28px;
 	margin-top: 2px;
-	margin-left:4px;margin-right:4px;
+	margin-left:4px;
+	margin-right:4px;
 	color: #c7c7c7;
 }
 .line-li{
@@ -884,8 +885,8 @@ ul.list3 li {
 .pdf {
 	background: url("../images/pdf.png") no-repeat;
 	display: inline-block;
-	width: 16px;
-	height: 16px;
+	width: 18px;
+	height: 18px;
 	vertical-align: middle;
 }
 
@@ -935,11 +936,17 @@ ul.list3 li {
 	color: #999999;
 }
 
+.i-mypizhu{
+	background-image: url("../images/i-mypizhu.png");
+}
 .i-docmgr {
 	background-image: url("../images/iconDocmgr.png");
 	margin-bottom: 16px;
 }
-
+.i-mydocupload{
+	background-image: url("../images/i-myuploaddoc.png");
+	/*margin-bottom: 16px;*/
+}
 .main .container .top {
 	min-width: 900px;
 	/*padding-top: 32px;
@@ -2638,7 +2645,7 @@ select::-ms-expand { display: none; }
 .dynamiclist .right-item .right-item-content span {
 	margin-right: 8px;
 	font-size: 16px;
-	color: #999;
+	/*color: #999;*/
 	letter-spacing: 0;
 	line-height: 20px;
 	margin-left:4px;
@@ -2752,7 +2759,7 @@ select::-ms-expand { display: none; }
 }
 
 .idx_box_list .widget-box{
-	height:510px;
+	height:518px;
 }
 
 .i-doc-block{
@@ -2769,7 +2776,9 @@ select::-ms-expand { display: none; }
 	margin-top: 20px;
 	height: 20px;
 }
-
+.right-item-content .doc-title{
+	color:#e7e7e7;
+}
 #percenter .main .r-content,#tagmgr .main .r-content{height:970px;}
 .doc-detail,.doc-del,.user-edit{cursor:pointer;}
 .file_selectlist li a{color:#e7e7e7;}
@@ -2777,4 +2786,7 @@ select::-ms-expand { display: none; }
 .dir-content{
 	height:400px;
 	overflow-y:auto;
+}
+.tip{
+	color:red;
 }

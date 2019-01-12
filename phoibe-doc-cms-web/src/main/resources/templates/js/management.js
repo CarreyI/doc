@@ -91,6 +91,20 @@ function hotsearchLoadAjax(){
     });
     return resultData;
 }
+function getdocicon(format){
+    var icon = "";
+    //alert(getdocicon)
+    if (format == "pdf") {
+        icon = "<i class='pdf'></i>";
+    }
+    else if (format == "doc" || format == "docx") {
+        icon = "<i class='doc'></i>";
+    }
+    else{
+        icon = "<i class='exls'></i>";//
+    }
+    return icon;
+}
 function usersearchLoadAjax(){
     var data = GAL_URL+"phoibe/document/usersearch";
     var resultData=[];
@@ -533,6 +547,9 @@ function initseltag(){
 $(function(){
     userAuthController();
     appendDitHtml();
+    $("#back").click(function () {
+        history.back();
+    });
     //appendTagHtml();
     //左侧页面导航切换
     $('.main .navLeft li').on('click',function(){

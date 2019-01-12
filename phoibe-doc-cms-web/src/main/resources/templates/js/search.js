@@ -363,9 +363,7 @@ function initdata(tid,data){
          appendHotSearchHtml();
          appendUserSearchHtml();
          //parent.appendDitHtml();
-         $("#back").click(function () {
-             history.back();
-         });
+
          //当首页跳转到查询页时，遍历取首页查询参数
          $("#condwhere").find("input").each(function () {
              var input_id = $(this).attr("id");

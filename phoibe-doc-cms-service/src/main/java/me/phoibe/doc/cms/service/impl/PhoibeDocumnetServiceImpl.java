@@ -180,6 +180,7 @@ public class PhoibeDocumnetServiceImpl implements PhoibeDocumentService {
             return null;
         }
         DPhoebeDocument dmodel = phoibeDocumentMapper.selectByPrimaryKey(id);
+        phoibeDocumentMapper.updateHitcountById(id);
         if(null == dmodel){
             return null;
         }
