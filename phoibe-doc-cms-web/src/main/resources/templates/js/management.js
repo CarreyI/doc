@@ -547,6 +547,7 @@ function initseltag(){
 $(function(){
     userAuthController();
     appendDitHtml();
+
     $("#back").click(function () {
         history.back();
     });

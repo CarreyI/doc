@@ -47,10 +47,12 @@ public class LoginContorller {
         cookie.setMaxAge(0);
         String token = JwtUtil.getCookieValueByName(request,JwtUtil.HEADER_STRING);
         Long userId = Long.parseLong(JwtUtil.extractInfo(token).get(JwtUtil.USER_NAME).toString());
+        UserInfo userInfo = phoibeUserService.fetchUserInfoByUserId(userId);
+
         cacheManager.getCache("userCache").evict(userId);
         response.addCookie(cookie);
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"");
-        LogUtil.writeLog(userId+"退出了系统", LogUtil.OPER_TYPE_LOGOFF,"系统退出",LoginContorller.class,request);
+        LogUtil.writeLog(userInfo.getUserName()+"退出了系统", LogUtil.OPER_TYPE_LOGOFF,"系统退出",LoginContorller.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
 

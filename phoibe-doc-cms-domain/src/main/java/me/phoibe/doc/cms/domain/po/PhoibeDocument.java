@@ -25,6 +25,7 @@ public class PhoibeDocument {
     private Short status;
 
     private Short auditStatus;
+    private String auditor;
 
     private Long auditUserId;
 
@@ -83,7 +84,20 @@ public class PhoibeDocument {
     private Short docType;
 
     private String nickname;
+    private String auditDesc;
 
+    public void setAuditor(String auditor){
+        this.auditor = auditor;
+    }
+    public String GetAuditor(){
+        return auditor;
+    }
+    public void setAuditDesc(String auditDes){
+        this.auditDesc = auditDes;
+    }
+    public String getAuditDesc(){
+        return auditDesc;
+    }
    public void setNickname(String nickname){this.nickname=nickname;}
     public String getNickname(){return nickname;}
 

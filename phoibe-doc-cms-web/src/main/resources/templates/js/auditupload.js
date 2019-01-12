@@ -43,29 +43,37 @@ var pageSize=14;
                     var auditstatus = val["auditStatus"];
                     var owner = val["nickname"];
                     var auditdate = val["auditTime"];
+                    var auditor = val["auditor"];
+                    var auditdesc = val["auditDesc"];
+                    if(auditdesc==null){
+                        auditdesc="";
+                    }
+                    if(auditor==null){
+                        auditor="";
+                    }
 
                     if(val["auditTime"]=='undefined' || val['auditTime']==null){
                         auditdate = '';
                     }
                     var auditstatustyle = "f-blue";
-                    var opertionHtml="<a class='list-del doc-add' tid='"+id+"'>审核</a>&nbsp;&nbsp;<a class='list-del doc-del' tid='"+id+"'>驳回</a>";
+                    var opertionHtml="<a class='list-del doc-add' title='"+title+"' tid='"+id+"'>审核</a>&nbsp;&nbsp;";//<a class='list-del doc-del' tid='"+id+"'>驳回</a>
 
                     if (auditstatus == 1) {
                         auditstatustyle = "f-red";
                         auditstatus="待审核";
                     }
                     else if(auditstatus==2){
-                        auditstatus="审核通过";
-                        opertionHtml="<a class='list-del doc-del' tid='"+id+"'>驳回</a>";
+                        auditstatus="通过";
+                        //opertionHtml="<a class='list-del doc-del' tid='"+id+"'>驳回</a>";
                     }
                     else if(auditstatus==3){
-                        auditstatus = "审核不通过";
+                        auditstatus = "驳回";
                         auditstatustyle = "f-red";
                     }
-                    var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id
-                        + "'/></td><td class='d-title' title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>"
+                    var row = "<tr><td><input type='radio' name='chksel' data-value='" + id
+                        + "'/></td><td class='row-id'>" + id + "</td><td class='d-title' title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>"
                         + filesize + "</td><td>" + owner + "</td><td>" + auditdate
-                        + "</td><td class='"+auditstatustyle + "'>" + auditstatus + "</td><td><a class='list-del doc-detail' tid='"+id+"'>详细</a>&nbsp;&nbsp;"+opertionHtml+"</td></tr>";
+                        + "</td><td>"+auditor+"</td><td class='"+auditstatustyle + "'>" + auditstatus + "</td><td class='d-title' title='"+auditdesc+"'>"+cutString(auditdesc,30)+"</td><td><a class='list-del doc-detail' title='"+title+"' tid='"+id+"'>详细</a>&nbsp;&nbsp;"+opertionHtml+"</td></tr>";
 
                     //alert(row);
                     $("#tblist-body").append(row);
@@ -73,7 +81,8 @@ var pageSize=14;
                 });
                 $(".doc-add").click(function () {
                     var tid = $(this).attr("tid");
-                    docAddAjax(tid);
+                    var title = $(this).attr("title");
+                    docAddAjax(tid,title);
 
                 });
                 $(".doc-del").click(function () {
@@ -112,22 +121,10 @@ var pageSize=14;
         });
     }
 
-function docAddAjax(rowid){
-    var data = 'phoibe/document/update/checkpass/' + rowid;
-   // alert(data);
-    $.ajax({
-        type: 'GET',
-        url: data,
-        dataType: 'json',
-        async: false,
-        success: function (result) {
-            if (result.code == "SUCCESS");
-            {
-                alert("文档审批通过");
-                loadData(currPage);
-            }
-        }
-    });
+function docAddAjax(rowid,doctile){
+    $("#docid").val(rowid);
+    $("#doc-name").html(doctile);
+    $(".bodyMask").fadeIn();
 }
 function docDelAjax(rowid){
 
@@ -149,11 +146,43 @@ function docDelAjax(rowid){
 }
 
     $(function () {
+        $(".closed").click(function(){
+            $(".bodyMask").fadeOut();
+        });
         loadData(0);
+
+        $("#submit").click(function(){
+            var form = $("#ajaxform");
+            var formdata ={};
+            for (var i = 0; i < form.serializeArray().length; i++) {
+                var key = form.serializeArray()[i].name;
+                var value = form.serializeArray()[i].value;
+                formdata[key] = value;
+            }
+            formdata.docid=$("#docid").val();
+            $.ajax({
+                url: GAL_URL + $("#ajaxform").attr("action"),
+                type: form.attr("method"),
+                data: JSON.stringify(formdata),
+                dataType: "json",
+                async:false,
+                contentType:"application/json;charset=UTF-8",
+                success: function (data)
+                {
+                    if (data.code == "SUCCESS"){
+                        alert("提交成功");
+                        $('#ajaxform').reset()
+                    }else {
+                        alert("提交失败");
+                    }
+                }
+            });
+        });
+
         $("#btnaudit").click(function () {
             var sel = $("#tblist-body tr td input[type='radio']:checked");
             if(sel==null){
-                alert("请选中要审核的文章");
+                alert("请选中要审核的文档");
                 return
             }
             var rowid = $(sel).attr("data-value");
@@ -191,5 +220,4 @@ function docDelAjax(rowid){
             loadData(0);
              parent.iframeLoad();
         });
-
     });

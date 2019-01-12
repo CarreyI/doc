@@ -9,11 +9,14 @@
     <result column="SCORE" jdbcType="DECIMAL" property="score" />
     <result column="FILE_PATH" jdbcType="VARCHAR" property="filePath" />
     <result column="FILE_SIZE" jdbcType="DECIMAL" property="fileSize" />
-   <!-- <result column="COMBAT_TYPE" jdbcType="DECIMAL" property="combatType" />-->
+
+    <!-- <result column="COMBAT_TYPE" jdbcType="DECIMAL" property="combatType" />-->
     <result column="ARMS" jdbcType="DECIMAL" property="arms" />
     <result column="STATUS" jdbcType="DECIMAL" property="status" />
     <result column="AUDIT_STATUS" jdbcType="DECIMAL" property="auditStatus" />
     <result column="AUDIT_USER_ID" jdbcType="DECIMAL" property="auditUserId" />
+    <result column="AUDITOR" jdbcType="VARCHAR" property="auditor" />
+    <result column="AUDITDESC" jdbcType="VARCHAR" property="auditDesc" />
     <result column="PROGRESS" jdbcType="DECIMAL" property="progress" />
     <result column="TAG" jdbcType="VARCHAR" property="tag" />
     <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
@@ -60,7 +63,7 @@
     ID, NAME, FORMAT, USER_ID, SCORE, FILE_PATH, FILE_SIZE, COMBAT_TYPE , ARMS, STATUS,
     AUDIT_STATUS, AUDIT_USER_ID, PROGRESS, TAG, DESCRIPTION, CREATE_TIME, UPDATE_TIME, 
     PAGECOUNT, HITCOUNT, RECORDER, AUDIT_TIME, ISSTOCK, STOCK_TIME, STOCKER, USER_REAL_NAME, 
-    WARADDR, WARTIME, WINNER, LOSER, WARNUM, WARSTATE,WARSTYPE,CORPSTYPE,FIGHTTIME,FIGHTTYPE,COMBATTYPE,FIGHTTRAIT,DOCTYPE
+    WARADDR, WARTIME, WINNER, LOSER, WARNUM, WARSTATE,WARSTYPE,CORPSTYPE,FIGHTTIME,FIGHTTYPE,COMBATTYPE,FIGHTTRAIT,DOCTYPE,AUDITOR,AUDITDESC
   </sql>
   <sql id="Blob_Column_List">
     CONTENT
@@ -377,6 +380,12 @@
       <if test="auditStatus != null">
         AUDIT_STATUS = #{auditStatus,jdbcType=DECIMAL},
       </if>
+      <if test="auditor!=null">
+        AUDITOR = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDesc!=null">
+        AUDITDESC = #{auditDesc,jdbcType=VARCHAR},
+      </if>
       <if test="auditUserId != null">
         AUDIT_USER_ID = #{auditUserId,jdbcType=DECIMAL},
       </if>
@@ -571,8 +580,11 @@
       <if test="param.status != null and param.status != ''">
         and d.STATUS = #{param.status,jdbcType=DECIMAL}
       </if>
-      <if test="param.auditStatus != null and param.auditStatus != ''">
+      <if test="param.auditStatus != null and param.auditStatus != '' and param.auditStatus==1">
         and AUDIT_STATUS = #{param.auditStatus,jdbcType=DECIMAL}
+      </if>
+      <if test="param.auditStatus != null and param.auditStatus != '' and param.auditStatus>1">
+        and (AUDIT_STATUS = 2 or AUDIT_STATUS =3)
       </if>
       <if test="param.isstock != null and param.isstock != ''">
         and ISSTOCK = #{param.isstock,jdbcType=DECIMAL}
@@ -971,7 +983,7 @@
     select d.ID, NAME, FORMAT, USER_ID userId, SCORE,
     FILE_PATH filePath, FILE_SIZE fileSize,ARMS, d.STATUS, AUDIT_STATUS auditStatus, AUDIT_USER_ID auditUserId,
     PROGRESS, TAG, DESCRIPTION, d.CREATE_TIME createTime, d.UPDATE_TIME updateTime,PAGECOUNT,AUDIT_TIME auditTime,ISSTOCK,STOCK_TIME stockTime,STOCKER,USER_NAME userName, TYPE,
-    REALNAME,NICKNAME,USER_REAL_NAME userRealName,WARSTATE warstate,WARADDR warsaddr
+    REALNAME,NICKNAME,USER_REAL_NAME userRealName,WARSTATE warstate,WARADDR warsaddr,AUDITOR auditor,AUDITDESC auditDesc
     from PHOIBE_DOCUMENT d JOIN PHOIBE_USER u ON d.USER_ID = u.ID
     <include refid="selectByPage_Condition_Sql"/>
 

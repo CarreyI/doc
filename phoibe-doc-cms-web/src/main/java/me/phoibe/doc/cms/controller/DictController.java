@@ -26,10 +26,10 @@ public class DictController {
         PageParam<PhoibeDict> pageParam = new PageParam<>();
         String orderBy="id";
         String sort="DESC";
-        if (flag==1){
+        /*if (flag==1){
             orderBy = "order_by";
             sort = "ASC";
-        }
+        }*/
         pageParam.setStart(index);
         pageParam.setLimit(limit);
         pageParam.setOrderBy(orderBy);

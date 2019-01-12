@@ -1478,6 +1478,7 @@ color:#e9e9e9;
 
 #tblist-body .d-title{
 	text-align: left;
+	cursor:pointer;
 }
 #tblist-body tr td a {
 	color:#e7e7e7;
@@ -1553,6 +1554,8 @@ ol.list1 {
 	/* height: 100%; */
 	float: left;
 	margin-right: 20px;
+	color:#e7e7e7;
+	font-size:16px;
 }
 #doenlist{
 	display: none;
@@ -1640,19 +1643,25 @@ ol.list1 {
 	width: 70%;
 }
 
-.tbl-row .ctrl select {
-	margin-left: 0px;
-	background:#ffffff;
-	border:1px solid #cccccc;
-	width:160px;
+#doc-name{
+	font-size:16px;
 	color:#e7e7e7;
+}
+.ctrl .formradio{font-size:16px;}
+#docview{
+	font-size:16px;
+	padding-left:8px;
+	padding-right:4px;
+	color:#999999;
+	cursor:pointer;
 }
 .userpostil{
 	height: 260px;
 
 	overflow: hidden;
 }
-.postil-fixed-box{top: 48px;height: 220px;overflow-y: auto;}
+.postil-fixed-box{clear:both;
+	height: 220px;overflow-y: auto;}
 
 .tbl-row .ctrl .inputBox {
 	width: 80%;
@@ -1687,7 +1696,7 @@ ol.list1 {
 }
 
 .row-id {
-	display: none;
+	/*display: none;*/
 }
 
 #tblist-body tr {
@@ -1709,6 +1718,7 @@ ul.search-con li
 	margin-bottom:10px;
 	margin-left: 10px;
 	color:#e7e7e7;
+	font-size:16px;
 }
 
 ul.search-con li .btnSearch{
@@ -2150,10 +2160,10 @@ ul.search-con li .btnSearch{
 .btn:hover{
 	/*background-color: #1BD4CE;
 	*/
-	background-color: #226c97;
-	color: #ffffff !important;
+	/*background-color: #226c97;
 	border: 1px solid #cccccc !important;
-
+	 */
+	color: #ffffff !important;
 }
 .btn-attention{
 	/*color: #ca0c16 !important;*/
@@ -2187,9 +2197,11 @@ ul.search-con li .btnSearch{
 	margin-left: 20px;
 }
 .btn-submit{
-	color: #ca0c16 !important;
-	border: 1px solid #ca0c16 !important;
+	color: #e7e7e7 !important;
+	/*border: 1px solid #ca0c16 !important;*/
+    background:#ff9900;
 	margin: 5px 20px 0px ;
+
 	float: right;
 }
 
@@ -2344,18 +2356,22 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 .recommend-fixed-box {
 	padding: 6px;
+	clear:both;
 }
+.relartile .row-title{
+	border-top: 1px solid #394e60;
+}
+.row-title
+{border-bottom: 1px solid #394e60;height:42px;}
 .recommend-right .aside-title{
 	font-size: 16px;
 	color: #e7e7e7;
-	border-bottom: 1px solid #394e60;
 	padding: 0 12px;
 	height: 38px;
 	line-height: 38px;
+	float:left;
 }
-.relartile  .aside-title{
-	border-top: 1px solid #394e60;
-}
+
 .recommend-right .right-item {
 	padding: 8px 8px 10px 8px;
 	overflow: hidden;

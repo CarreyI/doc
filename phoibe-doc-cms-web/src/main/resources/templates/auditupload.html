@@ -37,7 +37,6 @@
                             </div>
                             <div class="widget-box">
                                 <ul class="check-list done-list search-con">
-
                                     <li>战法文档:<input type="text" id="docname"/></li>&nbsp;&nbsp;<li>
                                     上传人:<input type="text"id="owner"/>&nbsp;&nbsp;
                                     审核时间:
@@ -54,19 +53,21 @@
                 <div id="checklist" class="list-content">
                     <div class="box_border">
                         <div class="btn-cmd-list">
-                            <div class="aduit" id="btnaudit"></div>&nbsp;&nbsp;&nbsp;&nbsp;<div class="reback"
-                                                                                                id="btnreback"></div>
+                            <div class="aduit" id="btnaudit"></div><!--&nbsp;&nbsp;&nbsp;&nbsp;<div class="reback"
+                                                                                                id="btnreback"></div>-->
                         </div>
                         <br/>
                         <table class="tblist" border="0">
                             <tr class='tblist-header'>
-                                <th class='row-id'></th>
-                                <th style="width:50px"></th>
+                                <th></th>
+                                <th>ID</th>
                                 <th>战法文档</th>
                                 <th>大小</th>
                                 <th>上传人</th>
                                 <th>审批时间</th>
+                                <th>审批人</th>
                                 <th>文档状态</th>
+                                <th>审批意见</th>
                                 <th>操作</th>
                             </tr>
                             <tbody id="tblist-body"></tbody>
@@ -80,6 +81,52 @@
 
         </div>
 
+    </div>
+</div>
+
+
+<div class="bodyMask">
+    <div class="mask">
+        <span class="fullScreen"></span>
+        <div class="popup">
+            <div class="title">
+                <div class="model-title fl">文档审核</div>
+                <i class="closed fr"></i>
+            </div>
+            <div class="line"></div>
+            <br/>
+            <div class="clearfix"></div>　
+            <form action="phoibe/document/auditdoc" method="POST" id="ajaxform">
+
+                <div class="tbl-row">
+                    <div class="lable"><span class="tip">*</span>文档:</div>
+                    <div class="ctrl">
+                        <span id="doc-name"></span><span id="docview">查看</span>
+                    </div>
+                </div>
+                <div class="tbl-row">
+                    <div class="lable"><span class="tip">*</span>审核:</div>
+                    <div class="ctrl">
+                        <div class="formradio"><label><input type="radio" style="width: 10px" name="auditstatus" value="2" checked >通过</label></div>
+                        <div class="formradio"><label><input type="radio" style="width: 10px" name="auditstatus" value="3" >驳回</label></div>
+                    </div>
+                </div>
+                <div class="tbl-row">
+                    <div class="lable">内容:</div>
+                    <div class="ctrl">
+                        <textarea style="width:98%" rows="10" cols="50" id="auditdesc" name="auditdesc"></textarea>
+                    </div>
+                </div>
+
+                <div class="tbl-row">
+                    <div class="lable"></div>
+                    <div class="ctrl">
+                        <input type="hidden" id="docid"/>
+                        <div id="submit" class="submit"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

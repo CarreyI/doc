@@ -27,6 +27,7 @@ function loadData(pageindex) {
     if (groupKey != "" && groupKey != null) {
         data = data + "&groupKey=" + groupKey.toLowerCase();
     }
+
     $.ajax({
         type: 'GET',
         url: data,

@@ -7,12 +7,12 @@
     <result column="DICT_NAME" jdbcType="VARCHAR" property="dictName" />
     <result column="GROUP_KEY" jdbcType="VARCHAR" property="groupKey" />
     <result column="GROUP_NAME" jdbcType="VARCHAR" property="groupName" />
-    <result column="ORDER_BY" jdbcType="DECIMAL" property="orderBy" />
+    <result column="ORDER_NO" jdbcType="DECIMAL" property="orderBy" />
     <result column="DICT_TYPE" jdbcType="DECIMAL" property="dictType" />
     <result column="DICT_STATUS" jdbcType="DECIMAL" property="dictStatus" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, DICT_KEY, DICT_NAME, GROUP_KEY,GROUP_NAME,ORDER_BY,DICT_TYPE,DICT_STATUS
+    ID, DICT_KEY, DICT_NAME, GROUP_KEY,GROUP_NAME,ORDER_NO,DICT_TYPE,DICT_STATUS
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -30,7 +30,7 @@
   </delete>
   <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.PhoibeDict">
     insert into PHOIBE_DICT (ID, DICT_KEY, DICT_NAME, 
-      GROUP_KEY, ORDER_BY)
+      GROUP_KEY, ORDER_NO)
     values (#{id,jdbcType=DECIMAL}, #{dictKey,jdbcType=VARCHAR}, #{dictName,jdbcType=VARCHAR}, 
       #{groupKey,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR},#{order,jdbcType=DECIMAL},
       #{dictType,jdbcType=DECIMAL},#{dictStatus,jdbcType=DECIMAL})
@@ -54,7 +54,7 @@
         GROUP_NAME,
       </if>
       <if test="orderBy != null">
-        ORDER_BY,
+        ORDER_NO,
       </if>
       <if test="dictType != null">
         DICT_TYPE,
@@ -106,7 +106,7 @@
         GROUP_NAME = #{groupName,jdbcType=VARCHAR},
       </if>
       <if test="orderBy != null">
-        ORDER_BY = #{orderBy,jdbcType=DECIMAL},
+        ORDER_NO = #{orderBy,jdbcType=DECIMAL},
       </if>
       <if test="dictType != null">
         DICT_TYPE = #{dictType,jdbcType=DECIMAL},
@@ -123,22 +123,22 @@
       DICT_NAME = #{dictName,jdbcType=VARCHAR},
       GROUP_KEY = #{groupKey,jdbcType=VARCHAR},
       GROUP_NAME = #{groupName,jdbcType=VARCHAR},
-      ORDER_BY = #{order,jdbcType=DECIMAL},
+      ORDER_NO = #{order,jdbcType=DECIMAL},
       DICT_TYPE = #{dictType,jdbcType=DECIMAL},
       DICT_STATUS = #{dictStatus,jdbcType=DECIMAL}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
   <sql id="selectByPage_Condition_Sql" >
     <where>
-      1=1
+      DICT_STATUS=0
       <if test="param.dictName != null and param.dictName != ''">
         and DICT_NAME LIKE '%'||#{param.dictName,jdbcType=VARCHAR}||'%'
       </if>
       <if test="param.dictKey != null and param.dictKey != ''">
-        and lower(DICT_KEY) LIKE '%'||#{param.dictKey,jdbcType=VARCHAR}||'%'
+        and lower(DICT_KEY)= #{param.dictKey,jdbcType=VARCHAR}
       </if>
       <if test="param.groupKey != null and param.groupKey != ''">
-        and lower(GROUP_KEY) LIKE '%'||#{param.groupKey,jdbcType=VARCHAR}||'%'
+        and lower(GROUP_KEY) = #{param.groupKey,jdbcType=VARCHAR}
       </if>
       <if test="param.groupName != null and param.groupName != ''">
         and GROUP_NAME LIKE '%'||#{param.groupName,jdbcType=VARCHAR}||'%'
@@ -152,12 +152,14 @@
     </where>
   </sql>
   <select id="selectByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="BaseResultMap">
-    select * from (SELECT a.*,rownum rno FROM (
-    select
-    <include refid="Base_Column_List" />
-    from PHOIBE_DICT
+    select t.* from (
+    select m.*,rownum rno from
+    (SELECT a.* FROM
+    PHOIBE_DICT a
     <include refid="selectByPage_Condition_Sql"/>
-    ORDER BY ${orderBy} ${sort} ) a
+
+    ORDER BY ORDER_NO asc
+     ) m
     ) t WHERE t.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
   </select>
   <select id="selectCountByPage" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultType="long">
@@ -166,4 +168,4 @@
     from PHOIBE_DICT
     <include refid="selectByPage_Condition_Sql"/>
   </select>
-</mapper>
+</mapper><!--,${orderBy} ${sort}-->

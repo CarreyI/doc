@@ -42,8 +42,8 @@ function loadData(pageindex) {
                     "<td>"+username+"</td>"
                     +"<td>"+realname+"</td>"
                     +"<td>"+nickname+"</td>"
-                    +"<td class='d-title'><a href='"+hrefUrl+"'target='_blank'>"+title+"</a></td>"
-                    +"<td>"+cutString(comment_content,100)+"</td>"
+                    +"<td class='d-title'><a href='"+hrefUrl+"'target='_blank' title='"+title+"'>"+cutString(title,40)+"</a></td>"
+                    +"<td class='d-title' title='"+comment_content+"'>"+cutString(comment_content,100)+"</td>"
                     +"<td>"+create_time+"</td>"
                     +"<td><a  class='list-del doc-del' cid='"+id+"'>删除</a></td></tr>";
                 $("#tblist-body").append(row);

@@ -298,7 +298,7 @@ function loadData(pageindex) {
     if (dirId!=""){
         data = data +"&dirId="+dirId;
     }
-    //alert(data);
+
     $.ajax({
             type: 'GET',
             url: data,
@@ -320,7 +320,12 @@ function loadData(pageindex) {
                     var status = val["status"];
                     var createtime = val["createTime"];
                     var auditstatus = val["auditStatus"];
+                    var auditdesc = val["auditDesc"];
+                    //alert(auditdesc);
                     var tagId = val["tag"];
+                    if(auditdesc ==null ){
+                        auditdesc="";
+                    }
                     if (val["tag"] == 'undefined' || val["tag"] == null) {
                         tagId = '';
                     }
@@ -366,7 +371,7 @@ function loadData(pageindex) {
                         "<td>" + format + "</td>" +
                         "<td>" + createtime + "</td>" +
                         "<td>" + auditdate + "</td>" +
-                        "<td class='"+auditstatustyle+"'>"+auditstatus+"</td>" +
+                        "<td class='"+auditstatustyle+"'>"+auditstatus+"</td><td class='d-title' title='"+auditdesc+"'>"+cutString(auditdesc,30)+"</td>" +
                         "<td>"+docdetailHtml+"<a class='list-del doc-move' tid='"+id+"'>移动</a>&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
                     $("#tblist-body").append(row);//<td>" + tagId + "</td>
                     parent.iframeLoad();

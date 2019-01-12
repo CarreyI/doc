@@ -55,11 +55,16 @@ var docstatus="1&f=audit";
                         var isstock = val["isstock"];
                         var owner = val["nickname"];
                         var auditTime = val["auditTime"];
+                        var auditor = val["auditor"];
                         var stockTime = val["stockTime"];
+                        var stocker = val["stocker"];
                         var auditstatustyle = "f-blue";
 						if(val["stockTime"]=='undefined' || val['stockTime']==null){
 						   stockTime = '';
 						}
+						if(val["stocker"]==null){
+						    stocker = "";
+                        }
 
                         var docstockstyle="";
 						var docstockstatus="";
@@ -75,10 +80,10 @@ var docstatus="1&f=audit";
                             docstockstyle = "f-red";
                             docstockBtnHtml = "<a class='list-del doc-add' tid='"+id+"'>入库</a>&nbsp;&nbsp;";
                         }
-                        var row = "<tr><td class='row-id'>" + id + "</td><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td class='d-title' title='"
+                        var row = "<tr><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td class='row-id'>" + id + "</td><td class='d-title' title='"
                             + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>"
-                            +owner+"</td><td>" + auditTime  + "</td><td>"
-                            + stockTime+ "</td><td  class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td>" +
+                            +owner+"</td><td>" + auditTime  + "</td><td>"+auditor+"</td><td>"
+                            + stockTime+ "</td><td>"+stocker+"</td><td  class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td>" +
                             "<td><a class='list-del doc-detail' tid='"+id+"'>详细</a>&nbsp;&nbsp;"+docstockBtnHtml+docdelBtnHtml+"</td></tr>";
                         $("#tblist-body").append(row);
                         parent.iframeLoad();
@@ -141,7 +146,7 @@ function docAddAjax(rowid){
 }
 function docDelAjax(rowid){
 
-    if (confirm("确认删除选中文章吗？")) {
+    if (confirm("确认删除入库文档吗？请注意删除后将无法恢复！")) {
         var data = GAL_URL + 'phoibe/document/update/outstorage/' + rowid;
         $.ajax({
             type: 'GET',
