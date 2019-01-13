@@ -411,6 +411,11 @@ function initdata(tid,data){
              $("#tag").val(tagtype);
          }
          var format = getUrlString("format");
+         var searchkey = getUrlString("search-key");
+         if(searchkey!=null){
+             searchkey = decodeURI(searchkey);
+             $("#search-key").val(searchkey);
+         }
 
          if (format != "" && format != null) {
              $("#serachType").find("a").each(function () {
