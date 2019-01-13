@@ -5,10 +5,11 @@
 <meta charset="UTF-8">
 <title>文档管理</title>
 <link rel="stylesheet" href="css/management.css" />
+	<link rel="stylesheet" href="css/liMarquee.css" />
 <script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/data.js"></script>
-
 	<script src="js/sonCunkLoad.js"></script>
+	<script src="js/jquery.liMarquee.js"></script>
 	<script language="javascript" type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
@@ -106,19 +107,11 @@
 
 										</li>
 									</ul>
+									<div class="dowebok ynamiclist">
+											<ul id="lst-dym" class="list-dym-div dynamiclist" >
 
-									<ul class="list-dym-div">
-										<li>
-											<marquee align="left" behavior="scroll" direction="up" height="510px"
-													 width="100%"
-													 loop="-1" scrollamount="10" scrolldelay="300"
-													 onMouseOut="this.start()"
-													 onMouseOver="this.stop()">
-												<div id="lst-dym" class="dynamiclist">
-												</div>
-											</marquee>
-										</li>
-									</ul>
+											</ul>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -248,5 +241,12 @@
 	<script src="js/management.js"></script>
 
 	<script src="js/index.js"></script>
+<script>
+    $(function(){
+        $('.dowebok').liMarquee({
+            direction: 'up'
+        });
+    });
+</script>
 </body>
 </html>

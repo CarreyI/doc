@@ -32,6 +32,10 @@ function loadData(pageindex) {
     var tid=getUrlString("tid");
 
     var isAllDoc = getpizhuauth();
+    var docname = $("#docname").val();
+    if(docname!=null && docname!=''){
+        data = data+"&docName="+docname;
+    }
 
     if(tid!=null){
         data = data+"&docId="+tid;
@@ -138,5 +142,8 @@ function docDelAjax(tid){
 }
 
     $(function () {
+        $("#btnSearch").click(function(){
+            loadData(0);
+        });
         loadData(0);
     });

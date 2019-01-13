@@ -60,6 +60,9 @@
     <if test="param.docId!=null">
       and a.DOC_ID =#{param.docId,jdbcType=DECIMAL}
     </if>
+    <if test="param.docName != null and param.docName!=''">
+      and a.DOC_NAME LIKE '%' ||#{param.docName,jdbcType=VARCHAR}||'%'
+    </if>
     ORDER BY CREATE_TIME DESC
     ) m
    WHERE m.rno BETWEEN (#{start}*#{limit}+1) AND (#{start}*#{limit}+#{limit})
@@ -72,6 +75,9 @@
     where 1=1
     <if test="param.userId != null and param.userId>0">
       and a.USER_ID =#{param.userId,jdbcType=DECIMAL}
+    </if>
+    <if test="param.docName != null and param.docName!=''">
+      and a.DOC_NAME LIKE '%' ||#{param.docName,jdbcType=VARCHAR}||'%'
     </if>
     ORDER BY CREATE_TIME DESC
     ) m
