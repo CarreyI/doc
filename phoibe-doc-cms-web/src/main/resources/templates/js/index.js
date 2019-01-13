@@ -50,7 +50,7 @@ function bindRecommDoc() {
                 var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
                     "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,18)+
                     "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime+"</span></h5></div>"+
-                    "<div class='right-item-desc'>"+cutString(description,38)+"</div>"+
+                    "<div class='right-item-desc'>"+cutString(description,36)+"</div>"+
                     "</a></li>";
                 $("#lst-rm").append(row);
             });

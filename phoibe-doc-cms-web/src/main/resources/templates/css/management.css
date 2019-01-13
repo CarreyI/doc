@@ -2661,7 +2661,7 @@ select::-ms-expand { display: none; }
 	padding: 0px 8px 10px 8px;
 	overflow: hidden;
 	word-wrap: break-word;
-	/*height: 56px;*/
+	height: 64px;
 	border-bottom: 1px dashed #394e60;
 	width:90%;
 }

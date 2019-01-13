@@ -150,16 +150,24 @@ function selectevent(id,keyfield,doctype){
 $(function () {
 
     var mwidth = $(".main-son").width();
-    if(mwidth<1300){
+    //alert(mwidth);
+    if(mwidth<1210){
+        cutStrCount=56;
+    }
+    else if(mwidth<1300){
         cutStrCount=60;
     }
+    else {
+        cutStrCount=72;
+    }
+
 
     $(".main-son").bind('resize',function(){
         mwidth = $(".main-son").width();
-        if(mwidth<1260){
-            cutStrCount = 54;
+        if(mwidth<1210){
+            cutStrCount = 56;
         }
-        else if(mwidth<1470){
+        else if(mwidth<1300){
             cutStrCount=60;
         }
         else{
