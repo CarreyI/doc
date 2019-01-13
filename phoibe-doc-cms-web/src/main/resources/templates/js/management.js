@@ -218,8 +218,9 @@ function dataDictSelectHtml() {
             if (checktype(obj)) {
             selectHtml += "<option value='" + val["dictName"] + "'>" + val["dictName"] + "</option>";
             dictSelectObj[obj] = selectHtml;
+            //alert(obj+"-"+selectHtml);
+            //alert(obj+"-"+selectHtml);
             }
-
         });
         selectHtml="";
         $.each(dictObj[obj],function (i,val) { {
@@ -269,13 +270,11 @@ function appendDitHtml(){
         var optionhtml="";//<option  value=''></option>";
         if(""!=fieldfn){
             if(checktype(fieldfn)){
-                if(fieldfn.toLowerCase()=="warnum"){
-                    $("."+fieldfn).append(optionhtml+dataDict[obj]);
-                }
+                $("."+fieldfn).append(optionhtml+dataDict[obj]);
             }
         }
         else {
-            $("#" + obj).html(dataDict[obj]);
+            $("#" + obj).append(dataDict[obj]);
         }
     }
 }

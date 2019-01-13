@@ -3,15 +3,7 @@ var dataDictHtml;
 var cutStrCount = 72;
 function appendCunkHtml(){
     var userCunkObje= [
-        /*{USER_CONFIG:"WARSTATE",WARS_TACTICS:1,QUERYWHERE:"美国"},
-        {USER_CONFIG:"WARNUM",WARS_TACTICS:1,QUERYWHERE:"1~5万"},
-        {USER_CONFIG:"WARADDR",WARS_TACTICS:1,QUERYWHERE:"平原作战"},
-        {USER_CONFIG:"WARSTYPE",WARS_TACTICS:1,QUERYWHERE:"海陆联合战例"},
-        {USER_CONFIG:"FIGHTTYPE",WARS_TACTICS:2,QUERYWHERE:"战术战法"},
-        {USER_CONFIG:"COMBATTYPESTRING",WARS_TACTICS:2,QUERYWHERE:"袭击战"},
-        {USER_CONFIG:"CORPSTYPE",WARS_TACTICS:2,QUERYWHERE:"空军作战"},
-        {USER_CONFIG:"FIGHTTRAIT",WARS_TACTICS:2,QUERYWHERE:"以少胜多"}
-        ];*/
+
         {USER_CONFIG:"WARSTATE",WARS_TACTICS:1,QUERYWHERE:"全部"},
         {USER_CONFIG:"WARNUM",WARS_TACTICS:1,QUERYWHERE:"全部"},
         {USER_CONFIG:"WARADDR",WARS_TACTICS:1,QUERYWHERE:"全部"},
@@ -46,13 +38,15 @@ function sonCunkLoad(obj){
         if(dataObj.datacount>0){
             widnum=dataObj.datacount;
         }
+        //alert(USER_CONFIG);
+        //alert(dataDictHtml[USER_CONFIG.toUpperCase()]);
         var row="<div class='wid-border' >" +
             "   <div class='wid-cicle'>" +
             "            <div class='wid-title'>"+field+"</div>" +
             "            <div class='wid-num' id='"+USER_CONFIG+"NUM'>"+widnum+"</div>" +
             "   </div>" +
                 "<div class='wid-title-block'><a class='wid-more' href='javascript:searchmore(\""+USER_CONFIG+"\",\""+fieldObje.fn.toLowerCase()+"\",\""+WARS_TACTICS+"\");' >更多>></a><select id='"+USER_CONFIG+"' onchange='selectevent(\""+USER_CONFIG+"\",\""+fieldObje.fn+"\","+WARS_TACTICS+")' class='wid-select' name='"+USER_CONFIG+"'><option value='0'>全部</option>" +
-            dataDictHtml[USER_CONFIG]+
+            dataDictHtml[USER_CONFIG.toUpperCase()]+
             "</select></div>"+
             "  <div class='wid-line'></div> <div class='dynamiclist' id='"+USER_CONFIG+"lst'>" +
                 doclist+
@@ -107,7 +101,7 @@ function cunkListLoad(obj){
 }
 function getDocFieldList(dield,querywhere,doctype){
     var data = "phoibe/document/list/user/0/3?&auditStatus=2&isstock=2&"+dield+"="+querywhere+"&docType="+doctype;
-    //alert(data);
+   // alert(data);
     var listObjt={};
     $.ajax({
         type: 'GET',
@@ -124,7 +118,7 @@ function getDocFieldList(dield,querywhere,doctype){
 function searchmore(id,keyfield,doctype){
     var options=$("#"+id+" option:selected");
     var url = "searchadv.html?isstock=2&docType="+doctype+"&"+keyfield+"="+options.text();
-    //alert(url);
+
     window.location.href=url;
 }
 function selectevent(id,keyfield,doctype){

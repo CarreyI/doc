@@ -115,7 +115,7 @@ function loadData(type,pageindex) {
 
 
 
-    var fighttime = $("#fighttimeu").val();
+    var fighttime = $("#fighttime").val();
     if (null!=fighttime&&fighttime!= "") {
         data = data + "&fightTime=" + fighttime;
     }
