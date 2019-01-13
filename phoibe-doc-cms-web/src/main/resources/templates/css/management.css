@@ -1870,6 +1870,9 @@ ul.search-con li .btnSearch{
 	float: right;
 	margin: 10px;
 }
+#percenter .btn-back{
+	margin-right:20px;
+}
 .btn-default {
 	background: #00a2d4;
 	line-height: 24px;
@@ -2363,6 +2366,9 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
 }
 .row-title
 {border-bottom: 1px solid #394e60;height:42px;}
+.row-title .wid-more{
+	line-height:38px;
+}
 .recommend-right .aside-title{
 	font-size: 16px;
 	color: #e7e7e7;

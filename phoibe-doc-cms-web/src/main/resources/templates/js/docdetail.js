@@ -383,6 +383,10 @@ function loadPizhuData(){
         }
     });
 }
+function pizhumore(){
+   window.location.href='docpizhu.html?tid='+tid;
+}
+
 $(function () {
     initstar();
     getInfo();
@@ -404,7 +408,6 @@ $(function () {
         downloadAjax(tid);
     });
     $("#uploadnote").click(function() {
-
         $("#docId").val(tid);
         var docName = $("#doctitle").html();
         $("#docName").val(docName);

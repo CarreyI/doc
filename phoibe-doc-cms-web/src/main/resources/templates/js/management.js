@@ -269,13 +269,6 @@ function appendDitHtml(){
         var optionhtml="";//<option  value=''></option>";
         if(""!=fieldfn){
             if(checktype(fieldfn)){
-                /*if(fieldfn.toLowerCase()=="warnum" || fieldfn.toLowerCase()=="fighttime")
-                {*/
-                    $("#"+fieldfn).append(optionhtml+dataDict[obj]);
-                /*}
-                else{
-                    $("#"+fieldfn).appendChild(optionhtml+dataDict[obj]);
-                }*/
                 if(fieldfn.toLowerCase()=="warnum"){
                     $("."+fieldfn).append(optionhtml+dataDict[obj]);
                 }
@@ -541,9 +534,7 @@ function cutString(str, len) {
     }
     //length属性读出来的汉字长度为1
     if (str.length * 2 <= len) {
-
         return str;
-
     }
 
     var strlen = 0;
