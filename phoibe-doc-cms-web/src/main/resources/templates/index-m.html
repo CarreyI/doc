@@ -6,7 +6,8 @@
 <title>文档管理</title>
 <link rel="stylesheet" href="css/management.css" />
 	<link rel="stylesheet" href="css/liMarquee.css" />
-<script src="js/jquery-2.1.0.min.js"></script>
+   <script src="js/jquery-2.1.0.min.js"></script>
+	<!--<script src="js/jquery-1.8.3.min.js"></script>-->
 	<script src="js/data.js"></script>
 	<script src="js/sonCunkLoad.js"></script>
 	<script src="js/jquery.liMarquee.js"></script>
@@ -87,31 +88,36 @@
 								</div>
 							</div>
 							<div class="idx_box_list  widget-tab">
-								<input type="radio" name="list-tab" value="1" id="rm-tab" checked="checked" style="display:none;"/>
-								<input type="radio" name="list-tab" value="2" id="dym-tab" style="display:none;"/>
+
+								<input type="radio" name="list-tab" value="2" id="dym-tab"  checked="checked" style="display:none;"/>
+								<input type="radio" name="list-tab" value="1" id="rm-tab" style="display:none;"/>
 								<div class="widget-title inline-ul">
 									<ul>
-										<li class="rm-tab">
-											<label for="rm-tab">热门专区</label>
-										</li>
 										<li class="dym-tab">
 											<label for="dym-tab">最新动态</label>
 										</li>
+										<li class="rm-tab">
+											<label for="rm-tab">热门专区</label>
+										</li>
+
 									</ul>
 								</div>
 								<div class="widget-box">
 									<ul class="list-rm-div">
 										<li>
-												<div id="lst-rm" class="dynamiclist">
-												</div>
+											<div id="lst-rm" class="dynamiclist">
+											</div>
 
 										</li>
 									</ul>
-									<div class="dowebok ynamiclist">
-											<ul id="lst-dym" class="list-dym-div dynamiclist" >
 
-											</ul>
+									<div class="dowebok ynamiclist">
+										<ul id="lst-dym" class="list-dym-div dynamiclist" >
+
+										</ul>
 									</div>
+
+
 								</div>
 							</div>
 						</div>
