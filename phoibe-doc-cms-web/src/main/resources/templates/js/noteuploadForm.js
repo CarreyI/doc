@@ -170,7 +170,7 @@ function getDocObjecLoad(Id){
 }
 $(function() {
 
-        parent.appendDitHtml();
+    //parent.appendDitHtml();
     $(".closed").click(function () {
         $(".bodyMask").hide();
         $(".uploadTaskListBox").hide();

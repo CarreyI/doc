@@ -326,8 +326,8 @@ function checkfileNameAjax(filename,userId){
             }else{
                 parent.emptyformw();
                 $(window.parent.document).find(".bodyMask").fadeIn();
-                parent.appendDitHtml();
-                parent.getTag();
+                //parent.appendDitHtml();
+                //parent.getTag();
             }
         });
 

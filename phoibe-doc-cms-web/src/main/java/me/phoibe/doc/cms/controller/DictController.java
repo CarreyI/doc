@@ -63,7 +63,12 @@ public class DictController {
     @PostMapping("/add")
     public String add(@RequestBody PhoibeDict phoibeDict, HttpServletRequest request){
         phoibeDict.setDictKey(UUID.randomUUID().toString().substring(0,10));
-        phoibeDictService.addDict(phoibeDict);
+        if(phoibeDict.getId()!=null &&  phoibeDict.getId()>0){
+            phoibeDictService.modifyDict(phoibeDict);
+        }
+        else {
+            phoibeDictService.addDict(phoibeDict);
+        }
         LogUtil.writeLog("标示为{"+phoibeDict.getGroupKey()+"}字段新增了名为：{"+phoibeDict.getDictName()+"}的子项", LogUtil.OPER_TYPE_ADD,"数据字典", DictController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }

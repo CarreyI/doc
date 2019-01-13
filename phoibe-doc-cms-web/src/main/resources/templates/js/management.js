@@ -279,6 +279,7 @@ function dataDictLoadAjax(){
 }
 function appendDitHtml(){
     var dataDict = dataDictSelectHtml();
+    //alert("t");
     for (var obj in dataDict){
         var fieldObj = selectfield(obj);
         var fieldfn = fieldObj.fn;
@@ -630,7 +631,7 @@ function initseltag(){
 $(function(){
     userAuthController();
     appendDitHtml();
-
+    //alert("t");
     $("#back").click(function () {
         history.back();
     });

@@ -36,6 +36,7 @@ function getInfo() {
                     $("#favorite").attr("status",1)
                 }
                 var filePath = result.data.filePath;
+                var videoPath= filePath;
                 if (filePath!=null&&filePath!=""){
                     filePath = filePath.substring(filePath.lastIndexOf("/")+1,filePath.length);
                 }
@@ -64,8 +65,8 @@ function getInfo() {
                 var description = result.data.description;
 
                 if (isVedio(suffx)){
-                    //alert("t");
-                    $("#doc-content").append("<p style='padding-left:10px;'><video id='videoControl' src='docword/video/"+filePath+"' height='300' controls='controls'></video></p>");
+
+                    $("#doc-content").append("<p style='padding-left:10px;'><video id='videoControl' src='docword/"+videoPath+"' height='300' controls='controls'></video></p>");
                 }
 
                 if(description!="undefined" && description!="" && description!=null){
@@ -423,7 +424,7 @@ $(function () {
             parent.emptyformw();
             $(".bodyMask").fadeIn();
             //$(window.parent.document).find(".bodyMask").fadeIn();
-            parent.appendDitHtml();
+            //parent.appendDitHtml();
             //parent.getTag();
         }
     });

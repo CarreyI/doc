@@ -67,24 +67,19 @@
                 <form action="phoibe/dict/add" method="POST" id="son_ajaxform">
 
                     <div class="tbl-row">
-                        <div class="lable">*属性名称:</div>
+                        <div class="lable"><span class="tip">*</span>属性名称:</div>
                         <div class="ctrl">
                             <input type="text" id="dictName" name="dictName" class="inputBox"/>
                         </div>
                     </div>
-                    <!--<div class="tbl-row">-->
-                        <!--<div class="lable">*属性值:</div>-->
-                        <!--<div class="ctrl">-->
-                            <!--<input type="text" id="dictKey" name="dictKey" class="inputBox"/>-->
-                        <!--</div>-->
-                    <!--</div>-->
                     <div class="tbl-row">
                         <div class="lable">属性排序:</div>
                         <div class="ctrl">
                             <input type="text" id="orderBy" name="orderBy" class="inputBox" value="1"/>
                         </div>
                     </div>
-                    <input type="hidden" name="dictType" value=1>
+                    <input type="hidden" name="dictType" value="1">
+                    <input type="hidden" name="id" id="id">
                     <input type="hidden" id="parent_groupKey" name="groupKey">
                     <div class="tbl-row">
                         <div class="lable"></div>

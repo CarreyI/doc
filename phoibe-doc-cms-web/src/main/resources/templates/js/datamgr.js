@@ -47,13 +47,25 @@ function loadData(pageindex) {
                     + dictName + "</td>" +
                     // "<td>" + dictKey + "</td><td>" + groupKey + "</td>" +
                     "<td>"+orderBy+"</td>" +
-                    "<td><a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
+                    "<td><a class='list-del doc-edit' tid='"+id+"' tname='"+dictName+"' torder='"+orderBy+"' tgroupkey='"+groupKey+"'>修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a  class='list-del doc-del' tid='"+id+"'>删除</a></td></tr>";
                 $("#tblist-body").append(row);
             });
             $(".doc-del").click(function () {
                 var tid = $(this).attr("tid");
                 tagSonDelAjax(tid);
+            });
+            $(".doc-edit").click(function(){
+                var tid = $(this).attr("tid");
 
+                var dictName = $(this).attr("tname");
+                var orderBy = $(this).attr("torder");
+                var groupKey = $(this).attr("tgroupkey");
+                $("#id").val(tid);
+                $("#dictName").val(dictName);
+                $("#orderBy").val(orderBy);
+                $("#parent_groupKey").val(groupKey);
+                $(".model-title").html("修改属性");
+                $(".son_bodyMask").fadeIn();
             });
         }
     });
@@ -177,6 +189,7 @@ $(function () {
     });
     $("#btnadd").click(function () {
         //alert("addd");
+        $(".model-title").html("添加属性");
         $(".son_bodyMask").fadeIn();
     });
     $(".closed").click(function () {

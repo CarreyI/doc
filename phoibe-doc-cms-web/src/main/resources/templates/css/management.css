@@ -558,6 +558,8 @@ body, html {
 .u-con-list {
 	width:940px;
 	font-size:14px;
+	max-height:890px;
+	overflow:auto;
 }
 
 .u-con-list li.label {
@@ -1040,9 +1042,10 @@ ul.list3 li {
 	margin-top: 30px;
 	cursor: pointer
 }
+.continueBtn {color:#e7e7e7;}
 .stopBtn{color:#e7e7e7;line-height: 30px;}
 .relartile{padding-top:8px;}
-#docdetail .u-con-list{width:500px;}
+#docdetail .u-con-list{width:500px;overflow:hidden;}
 .filelist_submit {
 	background: url("../images/submit.png") no-repeat;
 	width: 88px;
@@ -1593,11 +1596,11 @@ ol.list1 {
 .mask .popup {
 	display: inline-block;
 	background-color: #0f1a24;
-	padding-bottom: 20px;
 	vertical-align: middle;
 	min-width: 600px;
-	margin-top: 150px;
+	margin-top: 110px;
     border:1px solid #4cd7ff;
+	padding-bottom:20px;
 }
 
 .role_bodyMask .popup{
