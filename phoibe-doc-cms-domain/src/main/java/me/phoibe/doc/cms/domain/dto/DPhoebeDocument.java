@@ -116,8 +116,8 @@ public class DPhoebeDocument extends PhoibeDocument {
 
     public String[] getWaraddrArray() { return waraddrArray; }
     public String[] getWarstypeArray() { return warstypeArray;}
-    public void SetWarstypeArray(String[] warstypeArray){
-        this.warstateArray = warstypeArray;
+    public void setWarstypeArray(String[] warstypeArray){
+        this.warstypeArray = warstypeArray;
     }
     public void setWaraddrArray(String[] waraddrArray) {
         this.waraddrArray = waraddrArray;

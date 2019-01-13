@@ -42,6 +42,7 @@ function loadData(type,pageindex) {
     }
 
     turl = getulvaluestr("warstypeu","warstypeArray");
+
     if(turl!=""){
         data=data+turl;
     }
@@ -170,7 +171,7 @@ function loadData(type,pageindex) {
     if (doctypevalue != "" && doctypevalue != null) {
         data = data + "&formatArray=" + doctypevalue.toLowerCase();
     }
-
+    //alert(data);
     data = url + data + "&isstock=2";//&auditStatus=2&
     data = decodeURI(data);
     //alert(data);
