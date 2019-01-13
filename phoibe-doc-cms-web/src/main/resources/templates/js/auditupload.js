@@ -171,7 +171,8 @@ function docDelAjax(rowid){
                 {
                     if (data.code == "SUCCESS"){
                         alert("提交成功");
-                        $('#ajaxform').reset()
+                        $('#ajaxform').reset();
+                        $("#bodyMask").fadeOut();
                     }else {
                         alert("提交失败");
                     }

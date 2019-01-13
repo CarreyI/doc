@@ -104,7 +104,7 @@ function loadData(type,pageindex) {
             data = data+"&corpstype="+corpstype;
     }
 
-    turl = getulvaluestr("fighttraitu","corpstypeArray");
+    turl = getulvaluestr("fighttraitu","fighttraitArray");
     if(turl!=""){
         data=data+turl;
     }
@@ -114,7 +114,7 @@ function loadData(type,pageindex) {
             data = data+"&fighttrait="+fighttrait;
     }
 
-
+//alert(data);
 
     var fighttime = $("#fighttime").val();
     if (null!=fighttime&&fighttime!= "") {
@@ -171,7 +171,6 @@ function loadData(type,pageindex) {
     if (doctypevalue != "" && doctypevalue != null) {
         data = data + "&formatArray=" + doctypevalue.toLowerCase();
     }
-    //alert(data);
     data = url + data + "&isstock=2";//&auditStatus=2&
     data = decodeURI(data);
     //alert(data);

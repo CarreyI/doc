@@ -892,7 +892,20 @@ ul.list3 li {
 	height: 18px;
 	vertical-align: middle;
 }
-
+.mp3{
+	background: url("../images/MP3.png") no-repeat;
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	vertical-align: middle;
+}
+.mp4{
+	background: url("../images/mp4.png") no-repeat;
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	vertical-align: middle;
+}
 .exls {
 	background: url("../images/flash.png") no-repeat;
 	display: inline-block;

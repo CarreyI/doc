@@ -6,6 +6,7 @@ var userid=0;
 var article_tag,article_armtype,article_wartype;
 function getInfo() {
     var url = GAL_URL+"phoibe/document/fetch/" + tid;
+    //alert(url);
     $.ajax({
         type: 'GET',
         url: url,
@@ -62,14 +63,15 @@ function getInfo() {
                 $("#score").html(scoreStr);
                 var description = result.data.description;
 
+                if (isVedio(suffx)){
+                    //alert("t");
+                    $("#doc-content").append("<p style='padding-left:10px;'><video id='videoControl' src='docword/video/"+filePath+"' height='300' controls='controls'></video></p>");
+                }
+
                 if(description!="undefined" && description!="" && description!=null){
-                    $("#doc-content").html("<p>"+description+"</p>");
+                    $("#doc-content").append("<p>"+description+"</p>");
                 }else {
                     $("#doc-content").html("<h4>当前没有摘要内容，请查看附件...</h4>");
-                }
-                if (suffx == "mp4"){
-                    filePath = "gendangzou3.mp4";
-                    $("#doc-content").append("<video id='videoControl' src='docword/video/"+filePath+"' height='220' controls='controls'></video>");
                 }
 
                 parent.iframeLoad();

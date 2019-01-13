@@ -168,6 +168,15 @@ function hotsearchLoadAjax(){
     });
     return resultData;
 }
+
+function isVedio(format){
+    //alert(format)
+    if(format=="mp4" || format=="avi" || format=="mpeg" || format=="wmv" || format=="mp3"){
+        return true;
+    }
+   return false;
+}
+
 function getdocicon(format){
     var icon = "";
     //alert(getdocicon)
@@ -176,6 +185,13 @@ function getdocicon(format){
     }
     else if (format == "doc" || format == "docx") {
         icon = "<i class='doc'></i>";
+    }
+    else if(format=="mp4" || format=='avi' || format=='mpeg' || format=='wmv'){
+        icon = "<i class='mp4'></i>";//
+    }
+    else if(format=="mp3")
+    {
+        icon = "<i class='mp3'></i>";//
     }
     else{
         icon = "<i class='exls'></i>";//
