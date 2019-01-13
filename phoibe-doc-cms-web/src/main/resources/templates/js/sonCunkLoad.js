@@ -1,5 +1,6 @@
 
 var dataDictHtml;
+var cutStrCount = 72;
 function appendCunkHtml(){
     var userCunkObje= [
         /*{USER_CONFIG:"WARSTATE",WARS_TACTICS:1,QUERYWHERE:"美国"},
@@ -90,15 +91,15 @@ function cunkListLoad(obj){
         icon = getdocicon(format);
         stockTime = getFormatDate(stockTime);
         var description=val["description"];
-        if (null!=description){
-            description = cutString(description,76);
+        if (null==description){
+            description =""
         }
 
         var hrefUrl= "docdetail.html?tid=" + tid + "' title='" + docname + "'";
         var row="<li class='right-item wid-item'><a href='"+hrefUrl+"'target='_blank'>"+
-            "<div class='right-item-content clearfix'>"+icon+"<span class='doc-title' title='"+docname+"'>"+cutString(docname,24)+
+            "<div class='right-item-content clearfix'>"+icon+"<span class='doc-title' title='"+docname+"'>"+cutString(docname,32)+
             "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+stockTime+"</span></span></div>"+
-            "<div class='right-item-desc'>"+cutString(description,68)+"</div>"+
+            "<div class='right-item-desc' title='"+description+"'>"+ cutString(description,cutStrCount)+"</div>"+
             "</a></li>";
         listhtml+=row;
     });
@@ -147,6 +148,28 @@ function selectevent(id,keyfield,doctype){
 }
 
 $(function () {
+
+    var mwidth = $(".main-son").width();
+    if(mwidth<1300){
+        cutStrCount=60;
+    }
+
+    $(".main-son").bind('resize',function(){
+        mwidth = $(".main-son").width();
+        if(mwidth<1260){
+            cutStrCount = 54;
+        }
+        else if(mwidth<1470){
+            cutStrCount=60;
+        }
+        else{
+            cutStrCount=72;
+        }
+       $(".main-son .right-item-desc").each(function(){
+           var desc = $(this).attr("title");
+           $(this).html(cutString(desc,cutStrCount));
+       })
+    });
     dataDictHtml = parent.dataDictSelectHtml();
     appendCunkHtml();
 })

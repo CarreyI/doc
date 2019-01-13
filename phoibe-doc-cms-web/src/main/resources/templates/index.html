@@ -382,11 +382,21 @@
         $a = $(window).height();
         $("nav_title").height($a);
         $("#nav_arrow_right").click(function () {
+            //alert($("#frm-main").width());
+            /*$("#frm-main").load(function(){
+                $(this).height(0); //用于每次刷新时控制IFRAME高度初始化
+                var width = $(this).width();
+                alert(width);
+				//var height = $(this).contents().height() + 10;
+                //$(this).height( height < 500 ? 500 : height );
+            });*/
+
             $("#nav_left").animate({ left: '0' });
             $("#main-content").css("padding-left", "260px");
             $("#nav_arrow_right").delay(5).animate({left:'-50'});
         });
         $("#nav_arrow").click(function () {
+
             $("#nav_left").animate({ left: '-250px' });
             $("#main-content").css("padding-left", "20px");
             $("#nav_arrow_right").delay(5).animate({left:'-2'});

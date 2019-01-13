@@ -2540,7 +2540,7 @@ div.blog-content-box .article-header-box .article-header div.article-info-box di
     margin-top: 60px;
     width: 98%;
     border:1px solid #5e90ca;/*#fffdfe;;*/}
-.wid-select{float:right;margin-right:30px;color:#e7e7e7;
+.wid-select{float:right;margin-right:60px;color:#e7e7e7;
 padding-left:8px;
 	background-size: 12px;}
 select option{
@@ -2622,7 +2622,7 @@ select::-ms-expand { display: none; }
 	letter-spacing: 0;
 	line-height: 20px;
 }
-.right-item-content .time{float:right;}
+.right-item-content .time{float:right;color:#999;}
 .main .navLeft li span.dicLabel{background-image: url("../images/dicLabel.png");}
 .main .navLeft li span.logLabel{background-image: url("../images/logLabel.png");}
 #docmgr-content .row ul li.owner_btn:hover{color:#00a2d4;}
