@@ -69,9 +69,8 @@ var pageSize=14;
                     else if(auditstatus==3){
                         auditstatus = "驳回";
                         auditstatustyle = "f-red";
-                    }
-                    var row = "<tr><td><input type='radio' name='chksel' data-value='" + id
-                        + "'/></td><td class='row-id'>" + id + "</td><td class='d-title' title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>"
+                    }//<input type='radio' name='chksel' data-value='" + id+ "'/>
+                    var row = "<tr><td><input type='checkbox' name='chksel' data-value='" + id + "'/></td><td class='row-id'>" + id + "</td><td class='d-title' title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>"
                         + filesize + "</td><td>" + owner + "</td><td>" + auditdate
                         + "</td><td>"+auditor+"</td><td class='"+auditstatustyle + "'>" + auditstatus + "</td><td class='d-title' title='"+auditdesc+"'>"+cutString(auditdesc,30)+"</td><td><a class='list-del doc-detail' title='"+title+"' tid='"+id+"'>详细</a>&nbsp;&nbsp;"+opertionHtml+"</td></tr>";
 

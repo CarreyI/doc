@@ -233,7 +233,7 @@ function nearreadAjax(tid){
 }
 //取消收藏
 function favoriteAjax(tid){
-    if (confirm("确认取消关注当前文章吗？")) {
+    if (confirm("确认取消关注当前文档吗？")) {
         var url = GAL_URL + "phoibe/document/cancelCollection/" + tid;
         //alert(url);
         $.ajax({
@@ -252,7 +252,7 @@ function favoriteAjax(tid){
 
 //取消订阅
 function attentionAjax(userid){
-    if (confirm("确认取消对当前文章作者的订阅吗？")) {
+    if (confirm("确认取消对当前文档作者的订阅吗？")) {
         var url = GAL_URL + "phoibe/document/cancelSubscribe/" + userid;
         $.ajax({
             type: 'GET',
@@ -268,7 +268,7 @@ function attentionAjax(userid){
     }
 }
 function docDelAjax(tid){
-    if (confirm("确认删除选中文章吗？")) {
+    if (confirm("确认删除选中文档吗？")) {
         $.ajax({
             url: GAL_URL + "phoibe/document/delete",
             type: "post",
@@ -511,17 +511,25 @@ function checkfileNameAjax(filename,userId){
     });
     return pd;
 }
+function initscroll(){
+    setscroll(".hot-list");
+    setscroll(".random-list");
+    setscroll(".attention-list");
+    setscroll("#wrapper");
+}
     $(function () {
-       // docdymListLoad();
+
         nearreadListLoad();
         randomListLoad();
         attentionListLoad();
+
+        initscroll();
         loadData(0);
         loadFileMenu();
         $("#btndel").click(function () {
             var sel = $("#tblist-body tr td input[type='checkbox']:checked");
             if(sel.length == 0){
-                alert("请选中要删除掉文章");
+                alert("请选中要删除掉文档");
                 return
             }
             var idstr = "";

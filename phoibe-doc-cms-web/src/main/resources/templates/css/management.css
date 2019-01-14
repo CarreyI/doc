@@ -1546,7 +1546,10 @@ ol.list1 {
 .widget-box .col3 {
 	margin-top: 0px;
 }
-
+#percenter .widget-box .col3{
+	margin-top:8px;
+}
+#delmsg .msg-content{color:red;}
 .bodyMask {
 	/* height: 100%; */
 	width: 100%;
@@ -2861,3 +2864,11 @@ select::-ms-expand { display: none; }
 /*
 .dowebok a { color: #333; text-decoration: none;}
 .dowebok a:hover { text-decoration: underline;}*/
+.btn-ok,.btn-cancel{
+	padding:4px;
+	width:30px;
+	color: #e7e7e7;
+	background:#226c97;
+	margin-right:16px;
+	font-size:16px;
+}

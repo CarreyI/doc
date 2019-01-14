@@ -618,6 +618,19 @@ function appendTagHtml() {
     $("#tag").html(rowhtml);
 
 }
+
+function setscroll(ctrl){
+    var tobj = ctrl;
+        $(tobj).niceScroll({
+            cursorcolor: "#7197eb",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "10px",
+            cursorborder: "0",
+            cursorborderradius: "2px",
+            autohidemode: false
+        });
+}
 function initseltag(){
     $(".tag-li").click(function() {
         if ($(this).hasClass('tag-li-in')) {

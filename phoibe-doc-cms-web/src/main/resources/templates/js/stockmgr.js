@@ -2,6 +2,8 @@
 var totalRows = 0;
 var currPage = 0;
 var pageSize =14;
+var tipDel;
+var docid;
 var docstatus="1&f=audit";
 
         function loadData(pageindex) {
@@ -79,8 +81,8 @@ var docstatus="1&f=audit";
                             docstockstatus= "未入库";
                             docstockstyle = "f-red";
                             docstockBtnHtml = "<a class='list-del doc-add' tid='"+id+"'>入库</a>&nbsp;&nbsp;";
-                        }
-                        var row = "<tr><td><input type='radio' name='chksel' data-value='" + id + "'/></td><td class='row-id'>" + id + "</td><td class='d-title' title='"
+                        }//<input type='radio' name='chksel' data-value='" + id + "'/>
+                        var row = "<tr><td><input type='checkbox' name='chksel' data-value='\" + id + \"'/></td><td class='row-id'>" + id + "</td><td class='d-title' title='"
                             + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>"
                             +owner+"</td><td>" + auditTime  + "</td><td>"+auditor+"</td><td>"
                             + stockTime+ "</td><td>"+stocker+"</td><td  class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td>" +
@@ -144,34 +146,31 @@ function docAddAjax(rowid){
         }
     });
 }
-function docDelAjax(rowid){
-
-    layer.open({
-        type: 1,
-        title:'系统提示：',
-        skin: 'layui-layer-demo',
-        closeBtn: false,
-        anim: 0,
-        shadeClose: false,
-        content: '<div style="padding:20px;">&nbsp;&nbsp;&nbsp;&nbsp;确认删除入库文档吗？请注意删除后将无法恢复！<br/><div class="cmd-btn-list"><div class="btn">确定</div><div class="">取消</div></div></div>'
-    });
-
-    /*if (confirm("确认删除入库文档吗？请注意删除后将无法恢复！")) {
-        var data = GAL_URL + 'phoibe/document/update/outstorage/' + rowid;
-        $.ajax({
-            type: 'GET',
-            url: data,
-            dataType: 'json',
-            async: false,
-            success: function (result) {
-                if (result.code == "SUCCESS") ;
-                {
-                    alert("删除入库文档");
-                    loadData(0);
-                }
+function cancelmsg()
+{
+    layer.close(tipDel);
+}
+function okmsg(){
+            //alert(docid);
+            layer.close(tipDel);
+    var data = GAL_URL + 'phoibe/document/update/outstorage/' + docid;
+    $.ajax({
+        type: 'GET',
+        url: data,
+        dataType: 'json',
+        async: false,
+        success: function (result) {
+            if (result.code == "SUCCESS") ;
+            {
+                alert("删除入库文档");
+                loadData(0);
             }
-        });
-    }*/
+        }
+    });
+}
+function docDelAjax(rowid){
+    docid = rowid;
+    tipDel = showmsg("delmsg","系统提示","确认删除入库文档吗？请注意删除后将无法恢复！");
 }
         $(function () {
 

@@ -396,6 +396,7 @@ function pizhumore(){
 }
 
 $(function () {
+    setscroll("#doc-content");
     initstar();
     getInfo();
     loadData(0);
