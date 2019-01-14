@@ -63,7 +63,7 @@ var pageSize=14;
                         auditstatus="待审核";
                     }
                     else if(auditstatus==2){
-                        auditstatus="通过";
+                        auditstatus="初审通过";
                         //opertionHtml="<a class='list-del doc-del' tid='"+id+"'>驳回</a>";
                     }
                     else if(auditstatus==3){
@@ -151,6 +151,13 @@ function docDelAjax(rowid){
         });
         loadData(0);
 
+        $("#docview").click(function(){
+            var tid=$("#docid").val();
+            var hrefUrl= "checkdetail.html?tid=" + tid;
+            window.open(hrefUrl);
+            //window.open.location.href=hrefUrl;
+        });
+
         $("#submit").click(function(){
             var form = $("#ajaxform");
             var formdata ={};
@@ -171,8 +178,9 @@ function docDelAjax(rowid){
                 {
                     if (data.code == "SUCCESS"){
                         alert("提交成功");
-                        $('#ajaxform').reset();
-                        $("#bodyMask").fadeOut();
+                        //$('#ajaxform').reset();
+                        $(".bodyMask").fadeOut();
+                        loadData(0);
                     }else {
                         alert("提交失败");
                     }

@@ -70,9 +70,7 @@ function getInfo() {
                 }
                 $("#score").html(scoreStr);
                 var description = result.data.description;
-
                 if (isVedio(suffx)){
-
                     $("#doc-content").append("<p style='padding-left:10px;'><video id='videoControl' src='docword/"+videoPath+"' height='300' controls='controls'></video></p>");
                 }
 

@@ -146,7 +146,17 @@ function docAddAjax(rowid){
 }
 function docDelAjax(rowid){
 
-    if (confirm("确认删除入库文档吗？请注意删除后将无法恢复！")) {
+    layer.open({
+        type: 1,
+        title:'系统提示：',
+        skin: 'layui-layer-demo',
+        closeBtn: false,
+        anim: 0,
+        shadeClose: false,
+        content: '<div style="padding:20px;">&nbsp;&nbsp;&nbsp;&nbsp;确认删除入库文档吗？请注意删除后将无法恢复！<br/><div class="cmd-btn-list"><div class="btn">确定</div><div class="">取消</div></div></div>'
+    });
+
+    /*if (confirm("确认删除入库文档吗？请注意删除后将无法恢复！")) {
         var data = GAL_URL + 'phoibe/document/update/outstorage/' + rowid;
         $.ajax({
             type: 'GET',
@@ -161,7 +171,7 @@ function docDelAjax(rowid){
                 }
             }
         });
-    }
+    }*/
 }
         $(function () {
 
