@@ -43,6 +43,13 @@ function getInfo() {
                 $("#format").html(filePath+"&nbsp;&nbsp;("+result.data.fileSize+"kb)");
                 $("#attention").attr("status",result.data.subscribe);
                 $("#date").html(result.data.createTime);
+
+                var warstype = result.data.warstype;
+                if(warstype==null){warstype==""}else{ warstype=warstype.substring(0,warstype.length-1); $("#warstype").html("战例类型:"+warstype);}
+
+                var corpstype = result.data.corpstype;
+                if(corpstype==null){corpstype=="";}else{corpstype=corpstype.substring(0,corpstype.length-1); $("#corpstype").html("参战兵种:"+corpstype);}
+
                 var url_owner = GAL_URL+"searchadv.html?&owner="+result.data.nickname;
                 $(".owner").attr("href",url_owner)
                 $(".owner").html(result.data.nickname);

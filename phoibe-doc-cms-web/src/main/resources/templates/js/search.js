@@ -203,11 +203,28 @@ function loadData(type,pageindex) {
                      var docstatus = "";
                      var auditstatustyle = "f-blue";
                      var desc = val["description"];
+                     var corpstype=val["corpstype"];
+                     var combattype=val["combattype"];
+                     var warstype=val["warstype"];
+                     if(corpstype==null){
+                         corpstype="";
+                     }
+                     else{
+                         corpstype=corpstype.substring(0,corpstype.length-1);
+                     }
+
+                     if(warstype==null){
+                         warstype="";
+
+                     }
+                     else{
+                         warstype=warstype.substring(0,warstype.length-1);
+                     }
+
                      var tag = "";
                      if (status == 1) {
                          docstatus = "上传中";
                      }
-
                      else if (status == 2) {
                          docstatus = "上传完成";
                      }
@@ -226,8 +243,9 @@ function loadData(type,pageindex) {
                      if (desc!=null&&desc!=""){
                          descStr = cutString(desc,200);
                      }
+                     //alert(corpstype);
                      var row = "<div class='row'><div class='doc-row'><div class='i-doc-block'></div><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><div class='desc' title='"+desc+"'>摘要："+descStr+"</div><ul><li>上传时间:"+createtime+
-                         "</li><li class='' format='"+format+"'>格式:"+format+"</li><li>评分:"+score+"</li><li>大小:"+filesize+"kb</li><li class='owner_btn a_btn' owner='"+owner+"'>文档拥有者:" + owner + "</li></ul></div></div>";
+                         "</li><li>参战兵种:"+corpstype+"</li><li>战例类型:"+warstype+"</li><li class='' format='"+format+"'>格式:"+format+"</li><li>评分:"+score+"</li><li>大小:"+filesize+"kb</li><li class='owner_btn a_btn' owner='"+owner+"'>文档拥有者:" + owner + "</li></ul></div></div>";
                      $("#docmgr-content").append(row);
                      parent.iframeLoad();
                  }
