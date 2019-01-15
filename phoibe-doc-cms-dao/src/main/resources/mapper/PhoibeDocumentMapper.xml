@@ -985,7 +985,7 @@
     select * from (SELECT a.*,rownum rno FROM (
     select d.ID, NAME, FORMAT, USER_ID userId, SCORE,
     FILE_PATH filePath, FILE_SIZE fileSize,ARMS, d.STATUS, AUDIT_STATUS auditStatus, AUDIT_USER_ID auditUserId,
-    PROGRESS, TAG, DESCRIPTION, d.CREATE_TIME createTime, d.UPDATE_TIME updateTime,PAGECOUNT,AUDIT_TIME auditTime,ISSTOCK,STOCK_TIME stockTime,STOCKER,USER_NAME userName, TYPE,
+    PROGRESS, TAG, DESCRIPTION, d.CREATE_TIME createTime, d.UPDATE_TIME updateTime,PAGECOUNT,AUDIT_TIME auditTime,ISSTOCK,STOCK_TIME stockTime,STOCKER,USER_NAME userName, USERTYPE,
     REALNAME,NICKNAME,USER_REAL_NAME userRealName,WARSTYPE warstype,WARSTATE warstate,WARADDR warsaddr,AUDITOR auditor,AUDITDESC auditDesc,CORPSTYPE corpstype,COMBATTYPE combattype,FIGHTTRAIT fightTrait
     from PHOIBE_DOCUMENT d JOIN PHOIBE_USER u ON d.USER_ID = u.ID
     <include refid="selectByPage_Condition_Sql"/>

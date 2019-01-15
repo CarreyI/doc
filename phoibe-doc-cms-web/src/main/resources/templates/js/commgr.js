@@ -11,12 +11,12 @@ function loadData(pageindex) {
     var data = GAL_URL+"phoibe/comment/list/"+pageindex+"/16?1=1";
 
     if (username_value != "" && username_value != null) {
-        data = data + "&username=" + username_value.toLowerCase();
+        data = data + "&userName=" + username_value.toLowerCase();
     }
     if (title_value != "" && title_value != null) {
         data = data + "&title=" + title_value.toLowerCase();
     }
-
+//alert(data);
     $.ajax({
         type: 'GET',
         url: data,

@@ -60,7 +60,7 @@ function docdymListLoad() {
 }
 //最近浏览
 function nearreadListLoad() {
-    var data = GAL_URL+'phoibe/document/list/browse/0/18?queryFlag=browse&isstock=2';
+    var data = GAL_URL+'phoibe/document/list/browse/0/9?queryFlag=browse&isstock=2';
    // alert(data);
     $.ajax({
         type: 'GET',
@@ -113,7 +113,7 @@ function nearreadListLoad() {
 
 //我的收藏
 function randomListLoad() {
-    var data = GAL_URL+'phoibe/document/list/collection/0/100000?queryFlag=collection&isstock=2'
+    var data = GAL_URL+'phoibe/document/list/collection/0/9?queryFlag=collection&isstock=2'
     $.ajax({
         type: 'GET',
         url: data,
@@ -165,7 +165,8 @@ function randomListLoad() {
 }
 //我的订阅
 function attentionListLoad() {
-    var data = GAL_URL+'phoibe/document/list/user/0/100?queryFlag=subscribe&isstock=2&queryUserId='+userId
+    //phoibe/document/list/user/0/7?1=1&queryFlag=subscribe&isstock=2
+    var data = GAL_URL+'phoibe/document/list/user/0/9?queryFlag=subscribe&isstock=2&queryUserId='+userId
     $.ajax({
         type: 'GET',
         url: data,
@@ -321,6 +322,7 @@ function loadData(pageindex) {
                     var createtime = val["createTime"];
                     var auditstatus = val["auditStatus"];
                     var auditdesc = val["auditDesc"];
+                    var isstock = val['isstock'];
                     //alert(auditdesc);
                     var tagId = val["tag"];
                     if(auditdesc ==null ){
@@ -346,16 +348,27 @@ function loadData(pageindex) {
                         docstatus = "上传完成";
                     }
                     if (auditstatus == 1) {
-                        auditstatustyle = "f-red";
+                        /*auditstatustyle = "f-red";*/
                         auditstatus = "待审核";
                     }
                     else if (auditstatus == 2) {
-                        auditstatus = "审核通过";
+                        auditstatus = "初审通过";
                     }
                     else if (auditstatus == 3) {
-                        auditstatus = "审核不通过";
+                        auditstatus = "初审驳回";
                         auditstatustyle = "f-red";
                     }
+                    if(isstock==2){
+                        auditstatus+="-已入库";
+                    }
+                    else if(isstock==1){
+                        auditstatus+="-待入库";
+                    }
+                    else if(isstock==3){
+                        auditstatustyle = "f-red"
+                        auditstatus+="-拒入库";
+                    }
+
                     var docdetailHtml="<a class='list-del doc-detail' tid='"+id+"'>详细</a>&nbsp;&nbsp;";
                     var url="href='docdetail.html?tid=" + tid + "'";
                     if (status==101){
@@ -364,7 +377,7 @@ function loadData(pageindex) {
                         var url=" style='color:#666;cursor: pointer;' onClick=editDocFun("+tid+")";
                         docdetailHtml="";
                     }
-                   
+
                     var row = "<tr><td><input type='checkbox' data-value='" + id + "' name='chksel'/></td>" +
                         "<td class='d-title'><a "+url+" title='"+title+"'>" + cutString(title,32) + "</a></td>" +
                         "<td>" + filesize + "</td>" +

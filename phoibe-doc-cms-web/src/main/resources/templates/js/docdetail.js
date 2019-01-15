@@ -157,7 +157,7 @@ function correlationArticle() {
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (result) {//<div class='font22 title'>中国战法</div>
+        success: function (result) {
             var viewNum=984;
             $.each(result.data.dataList, function (i, val) {
                 var docname = val["name"];
@@ -169,7 +169,7 @@ function correlationArticle() {
                 var row="<li class='right-item'><a href='"+hrefUrl+"'target='_blank'>"+
                 "<div class='right-item-content clearfix'><h5 class='' title='"+docname+"'>"+cutString(docname,18)+
                 "<span class='time'>&nbsp;&nbsp;&nbsp;&nbsp;"+createTime+"</span></h5></div>"+
-                "<div class='right-item-desc'>"+cutString(description,76)+"</div>"+
+                "<div class='right-item-desc'>"+cutString(description,60)+"</div>"+
                 "</a></li>";
                 $(".recommend-fixed-box").append(row);
             });

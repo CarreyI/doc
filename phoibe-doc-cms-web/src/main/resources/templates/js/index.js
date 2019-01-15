@@ -160,8 +160,6 @@ $(function () {
 
     $("#upload").click(function () {
 
-        //alert($(window.parent.document)(".tag-li").lenth);
-
         //$(this).parent().attr("class")
         parent.docDetailRecoverController();
         var itemlength = $(window.parent.document).find("#thelist").find(".item").length;

@@ -150,7 +150,15 @@ function loadData(type,pageindex) {
             url = 'phoibe/document/list/' + pageindex + '/' + pageSize + '?1=1'+ "&userId=" + ownerId;
         }
         else{
-        url = 'phoibe/document/list/'+queryFlag+"/" + pageindex + '/'+pageSize+'?1=1'+"&queryFlag=" + queryFlag;
+            if(queryFlag=="subscribe"){
+                url = "phoibe/document/list/user/"+pageindex+"/"+pageSize+"/?queryFlag="+queryFlag+"&queryUserId="+ $("#userId").val();
+                //url = 'phoibe/document/list/user/' + pageindex + '/'+pageSize+'?1=1'+"&queryFlag=subscribe";// + queryFlag;
+            }
+            else
+            {
+                url = 'phoibe/document/list/'+queryFlag+"/" + pageindex + '/'+pageSize+'?1=1';
+            }//+"&queryFlag=" + queryFlag;
+        //alert(url);
         }
     }
     var doctypevalue = "";
@@ -192,22 +200,21 @@ function loadData(type,pageindex) {
                      var docstatus = "";
                      var auditstatustyle = "f-blue";
                      var desc = val["description"];
-                     var corpstype=val["corpstype"];
-                     var combattype=val["combattype"];
-                     var warstype=val["warstype"];
-                     if(corpstype==null){
-                         corpstype="";
-                     }
-                     else{
+                     var corpstype="";
+                     if(val["corpstype"]!=null){
+                         corpstype=val['corpstype'];
                          corpstype=corpstype.substring(0,corpstype.length-1);
                      }
-
-                     if(warstype==null){
-                         warstype="";
-
+                     var combattype=val["combattype"];
+                     var warstype="";
+                     if( val["warstype"]!=null ){
+                        warstype = val['warstype'];
+                        warstype=warstype.substring(0,warstype.length-1);
                      }
-                     else{
-                         warstype=warstype.substring(0,warstype.length-1);
+                     var fighttrait ="";
+                     if(val["fighttrait"]!=null){
+                         fighttrait=val["fighttrait"];
+                         fighttrait=fighttrait.substring(0,fighttrait.length-1);
                      }
 
                      var tag = "";
@@ -232,9 +239,14 @@ function loadData(type,pageindex) {
                      if (desc!=null&&desc!=""){
                          descStr = cutString(desc,200);
                      }
-                     //alert(corpstype);
+                     var li_fighttrait= "",li_warstype="",li_corpstype="";
+                     if(fighttrait!=""){ li_fighttrait= "<li format='"+format+"'>作战特点:"+fighttrait+"</li>"};
+                     if(warstype!=""){li_warstype="<li>参战兵种:"+warstype+"</li>";}
+                     if(corpstype!=""){li_corpstype="<li>战例类型:"+corpstype+"</li>";}
+
                      var row = "<div class='row'><div class='doc-row'><div class='i-doc-block'></div><a class='title' href='docdetail.html?tid="+id+"'>"+title+"</a><div class='desc' title='"+desc+"'>摘要："+descStr+"</div><ul><li>上传时间:"+createtime+
-                         "</li><li>参战兵种:"+corpstype+"</li><li>战例类型:"+warstype+"</li><li class='' format='"+format+"'>格式:"+format+"</li><li>评分:"+score+"</li><li>大小:"+filesize+"kb</li><li class='owner_btn a_btn' owner='"+owner+"'>文档拥有者:" + owner + "</li></ul></div></div>";
+                         //"</li><li>参战兵种:"+corpstype+"</li><li>战例类型:"+warstype+"</li><li class='' format='"+format+"'>格式:"+format+"</li><li>评分:"+score+"</li><li>大小:"+filesize+"kb</li><li class='owner_btn a_btn' owner='"+owner+"'>文档拥有者:" + owner + "</li></ul></div></div>";
+                         "</li><li>评分:"+score+"</li>"+li_warstype+li_corpstype+li_fighttrait+"</ul></div></div>";
                      $("#docmgr-content").append(row);
                      parent.iframeLoad();
                  }
@@ -431,6 +443,10 @@ function initdata(tid,data){
                  }
              })
          }
+         /*var tindex = getUrlString("pindex");
+         if(tindex==null){
+             tindex=0;
+         }*/
          loadData(0,0);
 
          $("#condif").click(function () {

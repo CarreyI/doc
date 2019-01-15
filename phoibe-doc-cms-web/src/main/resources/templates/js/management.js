@@ -625,6 +625,13 @@ $(function(){
     userAuthController();
     appendDitHtml();
 
+    $("input[type='text']").keypress(function(e){
+        var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+        if (eCode == 13){
+            $(".btnSearch").click();
+        }
+    });
+
     $("#back").click(function () {
         history.back();
     });

@@ -470,11 +470,16 @@ public class DocumentController {
 
 	@RequestMapping("/instorage")
 	public String instorage(@RequestParam String idstr,HttpServletRequest request){
+		String token = JwtUtil.getCookieValueByName(request,JwtUtil.HEADER_STRING);
+		Long userId = Long.parseLong(JwtUtil.extractInfo(token).get(JwtUtil.USER_NAME).toString());
+		UserInfo userInfo = phoibeUserService.fetchUserInfoByUserId(userId);
 		String [] ids = idstr.split(",");
 		for(String id : ids) {
 			PhoibeDocument phoibeDocument = new PhoibeDocument();
 			phoibeDocument.setId(Long.parseLong(id));
 			phoibeDocument.setIsstock(Short.valueOf("2"));
+			phoibeDocument.setStockTime(new Date());
+			phoibeDocument.setStocker(userInfo.getUserName());
 			phoibeDocumentService.modifyDocumentById(phoibeDocument);
 		}
 		LogUtil.writeLog("将Id为{"+idstr+"}的文档", LogUtil.OPER_TYPE_DEL,"文档管理",UserController.class,request);
