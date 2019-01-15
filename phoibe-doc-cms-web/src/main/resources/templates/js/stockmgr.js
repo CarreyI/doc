@@ -82,7 +82,7 @@ var docstatus="1&f=audit";
                             docstockstyle = "f-red";
                             docstockBtnHtml = "<a class='list-del doc-add' tid='"+id+"'>入库</a>&nbsp;&nbsp;";
                         }//<input type='radio' name='chksel' data-value='" + id + "'/>
-                        var row = "<tr><td><input type='checkbox' name='chksel' data-value='\" + id + \"'/></td><td class='row-id'>" + id + "</td><td class='d-title' title='"
+                        var row = "<tr><td><input type='checkbox' name='chksel' data-value='" + id + "'/></td><td class='row-id'>" + id + "</td><td class='d-title' title='"
                             + title + "'><a href='docdetail.html?tid=" + id + "'>" + title + "</a></td><td>" + filesize + "</td><td>"
                             +owner+"</td><td>" + auditTime  + "</td><td>"+auditor+"</td><td>"
                             + stockTime+ "</td><td>"+stocker+"</td><td  class='" + docstockstyle + "' docstockstatus="+isstock+">" + docstockstatus + "</td>" +
@@ -93,7 +93,6 @@ var docstatus="1&f=audit";
                     $(".doc-add").click(function () {
                         var tid = $(this).attr("tid");
                         docAddAjax(tid);
-
                     });
                     $(".doc-del").click(function () {
                         var tid = $(this).attr("tid");
@@ -131,10 +130,11 @@ var docstatus="1&f=audit";
         }
 
 function docAddAjax(rowid){
-    var data = 'phoibe/document/update/instorage/' + rowid;
+    var data = 'phoibe/document/instorage';// + rowid;
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: data,
+        data: {"idstr": rowid},
         dataType: 'json',
         async: false,
         success: function (result) {
@@ -151,18 +151,20 @@ function cancelmsg()
     layer.close(tipDel);
 }
 function okmsg(){
-            //alert(docid);
-            layer.close(tipDel);
-    var data = GAL_URL + 'phoibe/document/update/outstorage/' + docid;
+
+    layer.close(tipDel);
+    var url = GAL_URL + 'phoibe/document/outstorage';// + docid;
     $.ajax({
-        type: 'GET',
-        url: data,
+        type: 'post',
+        url:url,
+        data: {"idstr": docid},
         dataType: 'json',
         async: false,
         success: function (result) {
             if (result.code == "SUCCESS") ;
             {
                 alert("删除入库文档");
+                docid="";
                 loadData(0);
             }
         }
@@ -175,25 +177,40 @@ function docDelAjax(rowid){
         $(function () {
 
             loadData(currPage);
-            //$("#btndelstock").hide();
 
             $("#btnaddstock").click(function () {
-                var sel = $("#tblist-body tr td input[type='radio']:checked");
+                var sel = $("#tblist-body input[type=checkbox]:checked");
+
+                var Id = $(sel).attr("data-value");
                 if(sel==null){
-                    alert("请选中要入库的文章");
+                    alert("请选中要入库的文档");
                     return
                 }
-                var rowid = $(sel).attr("data-value");
-                docAddAjax(rowid);
+                var idstr = "";
+                $.each(sel,function (index,obj) {
+                    idstr += $(obj).attr("data-value")+",";
+                })
+                idstr = idstr.substring(0,idstr.length-1)
+                docAddAjax(idstr);
             });
             $("#btndelstock").click(function () {
-                var sel = $("#tblist-body tr td input[type='radio']:checked");
+                var sel = $("#tblist-body input[type=checkbox]:checked");
+                /*if(sel.length > 1){
+                    alert("只能选中一条");
+                    return;
+                }*/
+                var Id = $(sel).attr("data-value");
                 if(sel==null){
-                    alert("请选中要删除的文章");
+                    alert("请选中要删除的文档");
                     return
                 }
-                var rowid = $(sel).attr("data-value");
-                    docDelAjax(rowid)
+                var idstr = "";
+                $.each(sel,function (index,obj) {
+                    idstr += $(obj).attr("data-value")+",";
+                })
+                idstr = idstr.substring(0,idstr.length-1);
+                //alert(idstr);
+                    docDelAjax(idstr)
             });
 
             $("#btnSearch").click(function () {

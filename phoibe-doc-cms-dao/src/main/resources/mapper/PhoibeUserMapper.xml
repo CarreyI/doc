@@ -5,7 +5,7 @@
   <resultMap id="BaseResultMap" type="me.phoibe.doc.cms.domain.po.PhoibeUser">
     <id column="ID" jdbcType="DECIMAL" property="id" />
     <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
-    <result column="TYPE" jdbcType="DECIMAL" property="type" />
+    <result column="USERTYPE" jdbcType="DECIMAL" property="userType" />
     <result column="STATUS" jdbcType="DECIMAL" property="status" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
@@ -18,7 +18,7 @@
   <resultMap id="PageResultMap" type="me.phoibe.doc.cms.domain.dto.UserInfo">
     <id column="ID" jdbcType="DECIMAL" property="id" />
     <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
-    <result column="TYPE" jdbcType="DECIMAL" property="type" />
+    <result column="USERTYPE" jdbcType="DECIMAL" property="userType" />
     <result column="STATUS" jdbcType="DECIMAL" property="status" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="REALNAME" jdbcType="VARCHAR" property="realname" />
@@ -27,7 +27,7 @@
     <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, USER_NAME, TYPE, STATUS, CREATE_TIME, UPDATE_TIME, PASSWORD, REALNAME, NICKNAME
+    ID, USER_NAME, USERTYPE, STATUS, CREATE_TIME, UPDATE_TIME, PASSWORD, REALNAME, NICKNAME
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -59,8 +59,8 @@
       <if test="userName != null">
         and USER_NAME = #{userName,jdbcType=VARCHAR}
       </if>
-      <if test="type != null">
-        and TYPE = #{type,jdbcType=DECIMAL}
+      <if test="userType != null">
+        and USERTYPE = #{userType,jdbcType=DECIMAL}
       </if>
       <if test="status != null">
         and STATUS = #{status,jdbcType=DECIMAL}
@@ -97,8 +97,8 @@
       <if test="param.userName != null">
         and u.USER_NAME LIKE '%'||#{param.userName,jdbcType=VARCHAR}||'%'
       </if>
-      <if test="param.type != null">
-        and u.TYPE = #{param.type,jdbcType=DECIMAL}
+      <if test="param.userType != null">
+        and u.USERTYPE = #{param.userType,jdbcType=DECIMAL}
       </if>
       <if test="param.status != null">
         and u.STATUS = #{param.status,jdbcType=DECIMAL}
@@ -117,7 +117,7 @@
   </sql>
 
   <select id="selectByPageList" parameterType="me.phoibe.doc.cms.domain.po.PageParam" resultMap="PageResultMap">
-    select * from (SELECT a.*,rownum rno FROM (select
+    select  t.* from (SELECT a.*,rownum rno FROM (select
       u.*
     from PHOIBE_USER u
     <include refid="selectByPageList_Condition_Sql"/>
@@ -135,11 +135,11 @@
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUser">
-    insert into PHOIBE_USER (ID, USER_NAME, TYPE, 
+    insert into PHOIBE_USER (ID, USER_NAME, USERTYPE,
       STATUS, CREATE_TIME, UPDATE_TIME, 
       PASSWORD, REALNAME, NICKNAME
       )
-    values (#{id,jdbcType=DECIMAL}, #{userName,jdbcType=VARCHAR}, #{type,jdbcType=DECIMAL}, 
+    values (#{id,jdbcType=DECIMAL}, #{userName,jdbcType=VARCHAR}, #{userType,jdbcType=DECIMAL},
       #{status,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{password,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}
       )
@@ -156,8 +156,8 @@
       <if test="userName != null">
         USER_NAME,
       </if>
-      <if test="type != null">
-        TYPE,
+      <if test="userType != null">
+        USERTYPE,
       </if>
       <if test="status != null">
         STATUS,
@@ -185,8 +185,8 @@
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=DECIMAL},
+      <if test="userType != null">
+        #{userType,jdbcType=DECIMAL},
       </if>
       <if test="status != null">
         #{status,jdbcType=DECIMAL},
@@ -214,8 +214,8 @@
       <if test="userName != null">
         USER_NAME = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        TYPE = #{type,jdbcType=DECIMAL},
+      <if test="userType != null">
+        USERTYPE = #{userType,jdbcType=DECIMAL},
       </if>
       <if test="status != null">
         STATUS = #{status,jdbcType=DECIMAL},
@@ -241,7 +241,7 @@
   <update id="updateByPrimaryKey" parameterType="me.phoibe.doc.cms.domain.po.PhoibeUser">
     update PHOIBE_USER
     set USER_NAME = #{userName,jdbcType=VARCHAR},
-      TYPE = #{type,jdbcType=DECIMAL},
+      USERTYPE = #{userType,jdbcType=DECIMAL},
       STATUS = #{status,jdbcType=DECIMAL},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},

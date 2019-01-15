@@ -63,16 +63,6 @@ function loadData(type,pageindex) {
             data = data+"&waraddr="+waraddr;
     }
 
-    /*turl = getulvaluestr("warstypeu","warstypeArray");
-    if(turl!=""){
-        data=data+turl;
-    }
-    else {
-        var wastype = getUrlString("wastype");
-        if(wastype!=null && wastype!="")
-            data = data+"&wastype="+wastype;
-    }*/
-
     turl = getulvaluestr("fighttypeu","fighttypeArray");
     if(turl!=""){
         data=data+turl;
@@ -82,7 +72,6 @@ function loadData(type,pageindex) {
         if(fighttype!=null && fighttype!="")
             data = data+"&fighttype="+fighttype;
     }
-
 
     turl = getulvaluestr("combattypestringu","combattypestringArray");
     if(turl!=""){

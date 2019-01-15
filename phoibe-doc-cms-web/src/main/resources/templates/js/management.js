@@ -516,7 +516,6 @@ function setCookie(name, value) {
 //读取cookies
 function getCookie(name) {
     var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-
     if (arr = document.cookie.match(reg))
 
         return unescape(arr[2]);
@@ -541,10 +540,8 @@ function authExit() {
         success: function (result) {
         }
     });
-
 }
 function cutString(str, len) {
-
     if (null==str||""==str){
         return "";
     }
@@ -553,41 +550,26 @@ function cutString(str, len) {
         return str;
     }
 
-    var strlen = 0;
-
+    var strlen = 0
     var s = "";
-
     for (var i = 0; i < str.length; i++) {
-
         s = s + str.charAt(i);
-
         if (str.charCodeAt(i) > 128) {
-
             strlen = strlen + 2;
-
             if (strlen >= len) {
-
                 return s.substring(0, s.length - 1) + "...";
-
             }
-
         } else {
-
             strlen = strlen + 1;
-
             if (strlen >= len) {
-
                 return s.substring(0, s.length - 2) + "...";
-
             }
-
         }
     }
     return s;
 }
 function getUrlParam(paramStr,paramneme) {
     var reg = new RegExp("(^|&)" + paramneme + "=([^&]*)(&|$)", "i");
-
     var result = paramStr.match(reg);
     if (result == null || result.length < 1) {
         return "";
@@ -596,11 +578,9 @@ function getUrlParam(paramStr,paramneme) {
 }
 
 function onselectedtag(tid){
-   // alert(tid);
         if ($("#"+tid).hasClass('tag-li-in')) {
             $("#"+tid).removeClass('tag-li-in');
         } else {
-            //alert($(this).attr("class"));
             $("#"+tid).addClass('tag-li-in');
         }
 }
@@ -644,7 +624,7 @@ function initseltag(){
 $(function(){
     userAuthController();
     appendDitHtml();
-    //alert("t");
+
     $("#back").click(function () {
         history.back();
     });
@@ -654,9 +634,6 @@ $(function(){
         $(this).addClass('active').siblings('.navList').removeClass('active')
         var taggle = $(this).attr('data-toggle');
         $("#frm-main").attr("src",taggle);
-        //var dataToggle='page'+;
-        //$('.main .container .page').removeClass('show')
-        // $('.main .container').find('.'+dataToggle).addClass('show')
     });
     //多选框
     $('li.checkBox').on('click', function () {

@@ -157,6 +157,7 @@ $(function () {
     appendUserSearchHtml();
     appendHotSearchHtml();
 
+
     $("#upload").click(function () {
 
         //alert($(window.parent.document)(".tag-li").lenth);

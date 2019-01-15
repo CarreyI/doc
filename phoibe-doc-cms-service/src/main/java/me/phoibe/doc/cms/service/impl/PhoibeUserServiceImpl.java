@@ -63,7 +63,7 @@ public class PhoibeUserServiceImpl implements PhoibeUserService {
         return phoibeRoleMapper.selectByUserId(userId);
     }
 
-    @Cacheable(key = "#userId")
+    //@Cacheable(key = "#userId")
     @Override
     public UserInfo fetchUserInfoByUserId(Long userId) {
         if(null == userId){

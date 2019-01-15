@@ -322,19 +322,23 @@ public class DocumentController {
 
 			Short auditStatus = Short.parseShort((String) rb.get("auditstatus"));
 			PhoibeDocument phoibeDocument = new PhoibeDocument();
-			Long docId = Long.parseLong((String)rb.get("docid"));
-			phoibeDocument.setId(docId);
-			phoibeDocument.setAuditor(userInfo.getUserName());
-			phoibeDocument.setAuditStatus(auditStatus);
-			phoibeDocument.setAuditUserId(userInfo.getId());
-			phoibeDocument.setAuditTime(new Date());
-			phoibeDocument.setAuditDesc((String)rb.get("auditdesc"));
-			phoibeDocument.setIsstock((short) 1);
-			phoibeDocumentService.modifyDocumentById(phoibeDocument);
-			String logTip  = "文档审批通过";
-			if(auditStatus==3)
-				logTip= "文档被驳回";
-			LogUtil.writeLog("Id为{"+docId.toString()+"}的"+logTip, LogUtil.OPER_TYPE_CHECKPASS,"审核管理", DocumentController.class,request);
+			String docIdArray = (String)rb.get("docid");
+			String [] ids = docIdArray.split(",");
+			String logTip="";
+			for(String docId : ids) {
+				phoibeDocument.setId(Long.parseLong(docId));
+				phoibeDocument.setAuditor(userInfo.getUserName());
+				phoibeDocument.setAuditStatus(auditStatus);
+				phoibeDocument.setAuditUserId(userInfo.getId());
+				phoibeDocument.setAuditTime(new Date());
+				phoibeDocument.setAuditDesc((String) rb.get("auditdesc"));
+				phoibeDocument.setIsstock((short) 1);
+				phoibeDocumentService.modifyDocumentById(phoibeDocument);
+				logTip = "文档审批通过";
+				if (auditStatus == 3)
+					logTip = "文档被驳回";
+			}
+			LogUtil.writeLog("Id为{" + docIdArray.toString() + "}的" + logTip, LogUtil.OPER_TYPE_CHECKPASS, "审核管理", DocumentController.class, request);
 		}
 		catch(Exception e){
 			JsonUtils.toJson(new Result<>(Code.FAILED, e.getMessage()));
@@ -463,7 +467,33 @@ public class DocumentController {
 		}
 		return JsonUtils.toJson(resultMap);
 	}
-	
+
+	@RequestMapping("/instorage")
+	public String instorage(@RequestParam String idstr,HttpServletRequest request){
+		String [] ids = idstr.split(",");
+		for(String id : ids) {
+			PhoibeDocument phoibeDocument = new PhoibeDocument();
+			phoibeDocument.setId(Long.parseLong(id));
+			phoibeDocument.setIsstock(Short.valueOf("2"));
+			phoibeDocumentService.modifyDocumentById(phoibeDocument);
+		}
+		LogUtil.writeLog("将Id为{"+idstr+"}的文档", LogUtil.OPER_TYPE_DEL,"文档管理",UserController.class,request);
+		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+	}
+
+	@RequestMapping("/outstorage")
+	public String outstorage(@RequestParam String idstr,HttpServletRequest request){
+		String [] ids = idstr.split(",");
+		for(String id : ids) {
+			PhoibeDocument phoibeDocument = new PhoibeDocument();
+			phoibeDocument.setId(Long.parseLong(id));
+			phoibeDocument.setIsstock(Short.valueOf("3"));
+			phoibeDocumentService.modifyDocumentById(phoibeDocument);
+		}
+		LogUtil.writeLog("从库中移除了Id为{"+idstr+"}的文档添加入库", LogUtil.OPER_TYPE_DEL,"文档管理",UserController.class,request);
+		return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+	}
+
 	@RequestMapping("update/{f}/{id}")
 	public String modifyDocument(@PathVariable String f, @PathVariable Integer id,HttpServletRequest request) {
 		String token = JwtUtil.getCookieValueByName(request,JwtUtil.HEADER_STRING);

@@ -8,7 +8,6 @@
     <script src="js/jquery-2.1.0.min.js"></script>
     <script src="js/layui.js"></script>
     <script src="js/data.js"></script>
-    <script src="js/usermgr.js"></script>
 
 </head>
 <body>
@@ -50,7 +49,7 @@
                     <br/>
                     <table class="tblist" border="0">
                         <tr>
-                            <th></th>
+                            <th><input class="checkAll" name="checkAll" type="checkbox"></th>
                             <th>用户名</th>
                             <th>姓名</th>
                             <th>昵称</th>
@@ -101,15 +100,15 @@
                 <div class="tbl-row">
                     <div class="lable">部队级别:</div>
                     <div class="ctrl">
-                        <select id="type" name="type" id="usertype">
+                        <select  name="userType" id="userType">
                             <option value="1">军</option>
-                            <option value="2 ">师</option>
+                            <option value="2">师</option>
                             <option value="3">旅</option>
-                            <option value="4 ">团</option>
+                            <option value="4">团</option>
                             <option value="5">营</option>
-                            <option value="6 ">连</option>
+                            <option value="6">连</option>
                             <option value="7">排</option>
-                            <option value="8 ">班</option>
+                            <option value="8">班</option>
                             <option value="9">兵</option>
                             <option value="10">参谋</option>
                         </select>
@@ -140,5 +139,7 @@
         </div>
     </div>
 </div>
+<script src="js/usermgr.js"></script>
+
 </body>
 </html>

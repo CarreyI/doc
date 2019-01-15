@@ -29,7 +29,8 @@ public class UserController {
     public String getUser(@PathVariable Integer id,HttpServletRequest request) {
 
         UserInfo userInfo = phoibeUserService.fetchUserInfoByUserId(id.longValue());
-
+        //List<Phoibe phoibeUserService.fetchUserRoleByUserId(id.longValue());
+        //userinfo.setRoles();
         LogUtil.writeLog("浏览了Id为{"+id+"}的用户信息", LogUtil.OPER_TYPE_LOOK,"用户管理",UserController.class,request);
         return JsonUtils.toJson(new Result<UserInfo>(Code.SUCCESS, userInfo));
 
@@ -88,9 +89,18 @@ public class UserController {
         LogUtil.writeLog("更新了用户名为{"+dPhoibeUser.getUserName()+"}的用户信息", LogUtil.OPER_TYPE_EDIT,"用户管理",UserController.class,request);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
     }
-    @DeleteMapping("/remove/{id}")
+   /* @DeleteMapping("/remove/{id}")
     public String remove(@PathVariable Long id){
         phoibeUserService.deleteByPrimaryKey(id);
         return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
-    }
+    }*/
+   @DeleteMapping("/remove")
+   public String remove(@RequestParam String idstr,HttpServletRequest request){
+       String [] ids = idstr.split(",");
+       for(String id : ids) {
+           phoibeUserService.deleteByPrimaryKey(Long.parseLong(id));
+       }
+       LogUtil.writeLog("删除了Id为{"+idstr+"}的用户记录", LogUtil.OPER_TYPE_DEL,"用户管理",UserController.class,request);
+       return JsonUtils.toJson(new Result<>(Code.SUCCESS, ""));
+   }
 }

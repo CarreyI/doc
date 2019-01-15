@@ -7,7 +7,7 @@ public class PhoibeUser {
 
     private String userName;
 
-    private Short type;
+    private Short userType;
 
     private Short status;
 
@@ -37,12 +37,12 @@ public class PhoibeUser {
         this.userName = userName == null ? null : userName.trim();
     }
 
-    public Short getType() {
-        return type;
+    public Short getUserType() {
+        return userType;
     }
 
-    public void setType(Short type) {
-        this.type = type;
+    public void setUserType(Short type) {
+        this.userType = type;
     }
 
     public Short getStatus() {

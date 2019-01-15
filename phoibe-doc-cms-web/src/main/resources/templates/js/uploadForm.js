@@ -41,7 +41,7 @@ function checkSubmit(){
         alert("文档摘要不能不空，请输入内容！");
         return false;
     }
-    else if($("#description").val()>500){
+    else if($("#description").val().length>500){
         alert("文档摘要不允许超过500个字！");
         return false;
     }
@@ -148,7 +148,7 @@ function formSubmit(filemd5,filename,fileext,filesize){
                 //alert("提交成功");
             }else {
                 alert("提交失败");
-                emptyformw();
+                //emptyformw();
                 window.frames["frm-main"].window.editDocFun(docId);
             }
         }
@@ -156,6 +156,7 @@ function formSubmit(filemd5,filename,fileext,filesize){
 }
 function emptyformw(){
 
+    $("#msgtip").hide();
     $("#ajaxform")[0].reset();
     $("#docId").val("");
     $("#formthelist").html("");
@@ -164,29 +165,6 @@ function emptyformw(){
     $("#picker").show();
     $(".bodyMask").hide();
 }
-
-/*function getTag() {
-    var dataList = parent.tagLoadAjax(10000);
-    var rowhtml = "";
-    $.each(dataList, function (i, val) {
-        var id = val["id"];
-        ;
-        var name = val["name"];//"标签名称";
-        rowhtml = rowhtml + "<li class='tag-li' tagID='" + id + "'>" + name + "</li>";
-    });
-    $(".tag-ul").html(rowhtml);
-
-    $(".tag-li").click(function() {
-
-        if ($(this).hasClass('tag-li-in')) {
-            $(this).removeClass('tag-li-in');
-        } else {
-            $(this).addClass('tag-li-in');
-        }
-    });
-}*/
-
-
 function getDocObjecLoad(Id){
     var docObj;
     $.ajax({
@@ -234,11 +212,13 @@ function getDocObjecLoad(Id){
     return docObj;
 }
 $(function() {
-
-        //parent.appendDitHtml();
     $(".closed").click(function () {
         $(".bodyMask").hide();
         $(".uploadTaskListBox").hide();
+    });
+
+    $("#btnmsg").click(function(){
+        $(".uploadTaskListBox").fadeIn();
     });
     $(".uplaodTaskBox").click(function () {
         $(".uploadTaskListBox").fadeIn();
@@ -376,6 +356,7 @@ $(function() {
         $($stopBtn).hide();
         $($continueBtn).hide();
         $("#picker").hide();
+        $("#msgtip").show();
     });
 
     // 当某个文件的分块在发送前触发，主要用来询问是否要添加附带参数，大文件在开起分片上传的前提下此事件可能会触发多次。

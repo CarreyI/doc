@@ -70,7 +70,7 @@ var pageSize=14;
                         auditstatus = "驳回";
                         auditstatustyle = "f-red";
                     }//<input type='radio' name='chksel' data-value='" + id+ "'/>
-                    var row = "<tr><td><input type='checkbox' name='chksel' data-value='" + id + "'/></td><td class='row-id'>" + id + "</td><td class='d-title' title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>"
+                    var row = "<tr><td><input type='checkbox' name='chksel' data-title='"+title+"' data-value='" + id + "'/></td><td class='row-id'>" + id + "</td><td class='d-title' title='" + title + "'><a href='docdetail.html?tid="+id+"'>" + title + "</a></td><td>"
                         + filesize + "</td><td>" + owner + "</td><td>" + auditdate
                         + "</td><td>"+auditor+"</td><td class='"+auditstatustyle + "'>" + auditstatus + "</td><td class='d-title' title='"+auditdesc+"'>"+cutString(auditdesc,30)+"</td><td><a class='list-del doc-detail' title='"+title+"' tid='"+id+"'>详细</a>&nbsp;&nbsp;"+opertionHtml+"</td></tr>";
 
@@ -100,7 +100,6 @@ var pageSize=14;
         layui.use(['laypage', 'layer'], function () {
             var laypage = layui.laypage
             , layer = layui.layer;
-//alert(currPage);
             laypage.render({
                 elem: 'notice_pages'
               , count: totalRows
@@ -128,7 +127,6 @@ function docAddAjax(rowid,doctile){
 function docDelAjax(rowid){
 
     var data = GAL_URL+'/phoibe/document/update/checkrefuse/' + rowid;
-    //alert(data);
     $.ajax({
         type: 'GET',
         url: data,
@@ -154,10 +152,10 @@ function docDelAjax(rowid){
             var tid=$("#docid").val();
             var hrefUrl= "checkdetail.html?tid=" + tid;
             window.open(hrefUrl);
-            //window.open.location.href=hrefUrl;
         });
 
         $("#submit").click(function(){
+
             var form = $("#ajaxform");
             var formdata ={};
             for (var i = 0; i < form.serializeArray().length; i++) {
@@ -177,7 +175,6 @@ function docDelAjax(rowid){
                 {
                     if (data.code == "SUCCESS"){
                         alert("提交成功");
-                        //$('#ajaxform').reset();
                         $(".bodyMask").fadeOut();
                         loadData(0);
                     }else {
@@ -188,20 +185,35 @@ function docDelAjax(rowid){
         });
 
         $("#btnaudit").click(function () {
-            var sel = $("#tblist-body tr td input[type='radio']:checked");
+
+            var sel = $("#tblist-body tr td input[type='checkbox']:checked");
             if(sel==null){
                 alert("请选中要审核的文档");
                 return
             }
-            var rowid = $(sel).attr("data-value");
-          docAddAjax(rowid);
+            var idstr = "";
+            var doctitle="";
+            $.each(sel,function (index,obj) {
+                idstr += $(obj).attr("data-value")+",";
+                if(sel.length==1){doctitle= $(this).attr("data-title");}
+            })
+            idstr = idstr.substring(0,idstr.length-1);
+            if(sel.length>1){
+                $("#row-viewdoc").hide();
+            }
+            else{
+                $("#docid").val(idstr);
+                $("#doc-name").html(doctitle);
+            }
+
+            docAddAjax(idstr);
         });
 
         $("#btnreback").click(function () {
             var sel = $("#tblist-body tr td input[type='radio']:checked");
 
             if(sel==null){
-                alert("请选中要驳回的文章");
+                alert("请选中要驳回的文档");
                 return
             }
             var rowid = $(sel).attr("data-value");

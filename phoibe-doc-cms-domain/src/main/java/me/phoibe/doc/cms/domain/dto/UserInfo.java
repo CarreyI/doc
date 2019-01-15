@@ -11,7 +11,7 @@ public class UserInfo {
 
     private String userName;
 
-    private Short type;
+    private Short userType;
 
     private Date createTime;
 
@@ -58,12 +58,12 @@ public class UserInfo {
         this.userName = userName;
     }
 
-    public Short getType() {
-        return type;
+    public Short getUserType() {
+        return userType;
     }
 
-    public void setType(Short type) {
-        this.type = type;
+    public void setUserType(Short userType) {
+        this.userType = userType;
     }
 
     public Date getCreateTime() {

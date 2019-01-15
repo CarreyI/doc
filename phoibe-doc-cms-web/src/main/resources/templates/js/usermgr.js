@@ -22,7 +22,7 @@ function loadData(pageindex) {
         data = data + "&realname=" + realname_value.toLowerCase();
     }
     if (type_value != null&&type_value != 0) {
-        data = data + "&type=" + type_value;
+        data = data + "&userType=" + type_value;
     }
     $.ajax({
         type: 'GET',
@@ -38,7 +38,7 @@ function loadData(pageindex) {
                 var username = val["userName"];//"用户名";
                 var realname = val["realname"];//"姓名";
                 var nickname = val["nickname"];//"昵称";
-                var type = val["type"];//"类型";
+                var type = val["userType"];//"类型";
                 var type_name="";
                 if (type == "1") {
                     type_name = "军";
@@ -70,10 +70,11 @@ function loadData(pageindex) {
                 else if (type == "10") {
                     type_name = "参谋";
                 }
-                var row = "<tr><td class='chksel'><input type='radio' name='chksel' data-value='" + id + "'/></td><td>"
+                var row = "<tr><td class='chksel'><input type='checkbox' name='chksel' data-value='" + id + "'/></td><td>"
                     + username + "</td><td>" + realname + "</td><td>"
                     + nickname + "</td><td>" + type_name + "</td>" +
                     "<td><a class='list-del user-edit' uid='"+id+"'>修改</a>&nbsp;&nbsp;<a  class='list-del doc-del' uid='"+id+"'>删除</a></td></tr>";
+                //alert(row);
                 $("#tblist-body").append(row);
             });
             $(".doc-del").click(function () {
@@ -116,12 +117,14 @@ function loadData(pageindex) {
 
 }
 
-function userDelAjax(Id){
+function userDelAjax(tid){
     if (confirm("确认删除选中用户吗？")) {
-        var action = "phoibe/user/remove/" + Id;
+        //var action = "phoibe/user/remove/" + Id;
+        var action = "phoibe/user/remove";// + Id;
         $.ajax({
             url: GAL_URL + action,
-            type: "DELETE",
+            type: "post",
+            data: {"_method": "delete", "idstr": tid},
             dataType: "json",
             async: false,
             success: function (data) {
@@ -148,7 +151,14 @@ $(function () {
         $("#submit").show();
     });
     $("#btnmodify").click(function () {
-        var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
+        //var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
+        var sel = $("#tblist-body input[type=checkbox]:checked");
+        if(sel.length > 1){
+            alert("只能选中一条");
+            return;
+        }
+        var Id = $(sel).attr("data-value");
+
         if (Id!=null){
             $("#ajaxform")[0].reset();
             $(".model-title").html("修改用户");
@@ -160,6 +170,8 @@ $(function () {
         }
     });
     $(".closed").click(function () {
+
+        $("#ajaxform")[0].reset();
         $(".bodyMask").hide();
     });
 
@@ -168,12 +180,18 @@ $(function () {
         parent.iframeLoad();
     });
     $("#btndel").click(function () {
-        var Id = $("#tblist-body input[type=radio]:checked").attr("data-value");
-        if (Id!=null){
-                userDelAjax(Id);
-        }else{
+
+        var sel = $("#tblist-body tr td input[type='checkbox']:checked");
+        if(sel.length == 0){
             alert("请选择要删除的数据");
+            return
         }
+        var idstr = "";
+        $.each(sel,function (index,obj) {
+            idstr += $(obj).attr("data-value")+",";
+        })
+        idstr = idstr.substring(0,idstr.length-1)
+        userDelAjax(idstr);
     });
 
     $('#submit').click(function () {
@@ -185,10 +203,21 @@ $(function () {
                 var value = form.serializeArray()[i].value;
                 formdata[key] = value;
             }
+
             var roleArray=[];
-            var Id=3;
-            roleArray.push(Id);
+
+            $("#ajaxform input[type=checkbox]:checked").each(function(){
+                var Id = $(this).attr("role_Id");
+                //alert(Id);
+                roleArray.push(Id);
+            });
+
+            if(formdata.roleId==null || formdata.roleId.length<1){
+                roleArray.push(Id);
+            }
             formdata.roleId = roleArray;
+            //roleArray.push(Id);
+            //formdata.roleId = roleArray;
             $.ajax({
                 url: GAL_URL + form.attr("action"),
                 type: form.attr("method"),
@@ -249,7 +278,11 @@ $(function () {
     })
 
 });
-
+function clearusertypesel(){
+    $("#userType option:selected").each(function (i, j) {
+            $(j).removeAttr("selected");
+        });
+}
 function checkForm(){
     var pd=true;
     if (""==$("#userName").val()||null==$("#userName").val()){
@@ -347,15 +380,17 @@ function getUser(Id){
                 $("#userName").val(userInfo.userName);
                 $("#realname").val(userInfo.realname);
                 $("#nickname").val(userInfo.nickname);
-                $("#usertype").val(userInfo.type);
-                var roles = userInfo.roles;
 
+                clearusertypesel();
+                $("#userType").find("option[value='"+userInfo.userType+"']").attr("selected",true);
+                var roles = userInfo.roles;
                 $(".userId").val(userInfo.id);
 
                 var roleObj = userInfo.roles;
                 $("#ajaxform input[type=checkbox]").prop("checked",false);
                 for (var i in roleObj){
                     var roleType = roleObj[i].roleType;
+                    //alert(roleType);
                     $("#ajaxform input[role_type="+roleType+"]").prop("checked",true);
                 }
                 $("#userName").attr("disabled","disabled");

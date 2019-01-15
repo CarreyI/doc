@@ -7,6 +7,7 @@
 	<script src="js/jquery-2.1.0.min.js"></script>
 	<script src="js/data.js"></script>
 	<script src="js/management.js"></script>
+	<script src="js/nicescroll.js"></script>
 	<link href="js/webuploader-0.1.5/webuploader.css" rel="stylesheet"
 													  type="text/css" />
 	<!-- 引入文件上传插件 -->
@@ -27,6 +28,7 @@
 			<div class="headerExit iconLeft fr" id="btnExit"></div>
 			<div class="headerPer iconLeft fr" id="btnper"></div>
 			<div class="headerIndex iconLeft fr" id="btnindex"></div>
+			<div class="headerMsg iconLeft fr" id="btnmsg"><div id="msgtip">1</div></div>
 			<div class="dateBox fr">
 				<span id="curdate"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="curtime"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="curweek"></span>
 			</div>
@@ -172,24 +174,17 @@
 
 						<li class="one-line">
 							<span class="label">参战国家：</span>
-							<!--<select id="warstate" name="warstate">
-                             </select>-->
+
 							<ul class='tag-ul tagtype' id="warstateu"></ul>
 						</li>
 						<li class="one-line">
 							<span class="label">作战地域：</span>
-							<!--<select id="waraddr" name="waraddr">
-                            </select>-->
 							<ul class='tag-ul tagtype' id="waraddru"></ul></li>
 						<li  class="one-line"><span class="label">战例类型：</span>
-							<!--<select id="warstype" name="warstype">
-                            </select>-->
 							<ul class='tag-ul tagtype' id="warstypeu"></ul></li>
 						</li>
 						<li class="one-line">
 							<span class="label">参战兵种：</span>
-							<!-- <select id="corpstype" name="corpstype">
-                             </select>-->
 							<ul class='tag-ul tagtype' id="corpstypeu"></ul>
 						</li>
 
@@ -199,16 +194,12 @@
 						</li>
 						<li class="one-line">
 							<span class="label">战斗种类：</span>
-							<!--<select id="combatTypeString" name="combatTypeString">
-                            </select>-->
 							<ul id="combattypestringu" class="tag-ul tagtype">
 							</ul>
 
 						</li>
 						<li class="one-line">
 							<span class="label">作战特点：</span>
-							<!--<select id="fighttrait" name="fighttrait">
-                            </select>-->
 							<ul id="fighttraitu" class="tag-ul tagtype">
 							</ul>
 						</li>
@@ -246,6 +237,7 @@
 			<div class="model-title fl">上传任务列表</div>
 			<i class="closed fr"></i>
 			</div>
+			<div class="line"></div>
 			<div class="clearfix"></div>
             <span class="clear-btn btn" id="clear-btn">清除</span>
 			<div class="tbl-row">
@@ -270,6 +262,16 @@
 </div>
 <script>
     $(function () {
+        /*$(".u-con-list").niceScroll({
+            cursorcolor: "#7197eb",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "10px",
+            cursorborder: "0",
+            cursorborderradius: "2px",
+            autohidemode: false
+        });
+		*/
         appendTagHtml();
         $("#btnper").click(function () {
             document.getElementById("frm-main").src = 'percenter.html';
@@ -315,15 +317,6 @@
         $a = $(window).height();
         $("nav_title").height($a);
         $("#nav_arrow_right").click(function () {
-            //alert($("#frm-main").width());
-            /*$("#frm-main").load(function(){
-                $(this).height(0); //用于每次刷新时控制IFRAME高度初始化
-                var width = $(this).width();
-                alert(width);
-				//var height = $(this).contents().height() + 10;
-                //$(this).height( height < 500 ? 500 : height );
-            });*/
-
             $("#nav_left").animate({ left: '0' });
             $("#main-content").css("padding-left", "260px");
             $("#nav_arrow_right").delay(5).animate({left:'-50'});
@@ -339,23 +332,16 @@
     function iframeLoad() {
         var iframe = document.getElementById("frm-main");
         var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-
-        //iframe.height = 0;
-
         if (iframeWin.document.body) {
             var fHeight = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
-            //iframe.height = fHeight;
-            //$("#nav_left").css("height", fHeight - 20);
             fHeight = fHeight+40;
             $(".mask").css("height",fHeight);
         }
     }
-
     window.onload = function () {
         iframeLoad()
     }
 </script>
-
 
 </body>
 </html>

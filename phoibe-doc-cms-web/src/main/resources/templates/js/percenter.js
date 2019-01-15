@@ -529,7 +529,7 @@ function initscroll(){
         $("#btndel").click(function () {
             var sel = $("#tblist-body tr td input[type='checkbox']:checked");
             if(sel.length == 0){
-                alert("请选中要删除掉文档");
+                alert("请选中要删除的文档");
                 return
             }
             var idstr = "";
